@@ -251,6 +251,10 @@
         // Function to hash passwords consistently using SHA-256
         async function hashPassword(password) {
             const encoder = new TextEncoder();
+            if (!crypto || !crypto.subtle || !TextEncoder) {
+                showError('Your browser does not support the required cryptography functions. Please use a modern browser.');
+                return null;
+            }
             const data = encoder.encode(password);
             const hashBuffer = await crypto.subtle.digest('SHA-256', data);
             const hashArray = Array.from(new Uint8Array(hashBuffer));

@@ -103,15 +103,13 @@ function doGet(e) {
       
       // Clean the query phone number once
       const queryPhone = phone ? phone.toString().replace(/[^0-9]/g, "").slice(-10) : "";
-      const queryEmail = email ? email.toString().toLowerCase() : "";
       
       for (let i = data.length - 1; i >= startRow; i--) {
         // More flexible matching for phone numbers
         const sheetPhone = data[i][phoneColIndex] ? data[i][phoneColIndex].toString().replace(/[^0-9]/g, "").slice(-10) : "";
-        const sheetEmail = data[i][emailColIndex] ? data[i][emailColIndex].toString().toLowerCase() : "";
         
-        // Match by phone (last 10 digits) and email
-        if (sheetEmail && sheetPhone && sheetPhone === queryPhone && sheetEmail === queryEmail) {
+        // Match by phone (last 10 digits)
+        if (sheetPhone && sheetPhone === queryPhone) {
           verified = true;
           break;
         }
@@ -138,8 +136,7 @@ function doGet(e) {
       response = ContentService.createTextOutput(JSON.stringify({
         verified: verified,
         timestamp: new Date().toString(),
-        phone: phone,
-        email: email
+        phone: phone
       })).setMimeType(ContentService.MimeType.JSON);
     }
     
@@ -401,7 +398,6 @@ function checkLogin(phone, password) {
         const userDataToCache = {
           name: data[i][2] || "",
           phone: data[i][5] || "",
-          eligible: data[i][14] === "Yes",
           password: storedPassword
         };
         cache.put(cachedUserKey, JSON.stringify(userDataToCache), 3600);
@@ -542,7 +538,7 @@ function doPost(e) {
       if (!phone || !password) {
         return createResponse({
           success: false,
-          message: "Phone and password are required"
+          message: "Phone number and password are required"
         });
       }
       
@@ -586,7 +582,7 @@ function doPost(e) {
   }
 }
 
-// Add these utility functions at the top
+// Utility functions
 function standardizePhone(phone) {
   return (phone || "").toString().replace(/[^0-9]/g, "").slice(-10);
 }
@@ -596,7 +592,6 @@ function createResponse(data, status = 200) {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Accept',
-    'Access-Control-Max-Age': '3600',
     'X-Status-Code': status
   };
   
@@ -621,7 +616,7 @@ function createError(code, message, details = null) {
   return error;
 }
 
-// Add these helper functions
+// Helper functions
 function secureCompare(a, b) {
   if (typeof a !== 'string' || typeof b !== 'string') return false;
   if (a.length !== b.length) return false;
@@ -647,8 +642,7 @@ function handleSuccessfulLogin(userData, phone, sheet = null, row = null) {
     success: true,
     user: {
       name: userData.name,
-      phone: phone,
-      eligible: userData.eligible === true
+      phone: phone
     }
   };
 }
