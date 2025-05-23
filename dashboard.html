@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StatusPay247 | Poster Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #f4f6f8;
+      color: #333;
+      padding: 20px;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      border-radius: 12px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0a3d62;
+    }
+
+    .dashboard-section {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .dashboard-section h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #1e272e;
+    }
+
+    .info-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .info-box {
+      flex: 1 1 45%;
+      background-color: #f1f2f6;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .ads-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .ad-card {
+      background-color: #dff9fb;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #c7ecee;
+    }
+
+    .ad-card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .earnings-stats {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .earnings-card {
+      flex: 1;
+      background-color: #f5f6fa;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid #dcdde1;
+    }
+
+    .earnings-card h3 {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #2f3640;
+    }
+
+    .earnings-card span {
+      font-size: 24px;
+      font-weight: 700;
+      color: #44bd32;
+    }
+
+    .support-card a {
+      color: #487eb0;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .info-row {
+        flex-direction: column;
+      }
+
+      .earnings-stats {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>StatusPay247 Poster Dashboard</h1>
+  </header>
+
+  <section class="dashboard-section" id="profile-section">
+    <h2>Your Profile</h2>
+    <div class="info-row">
+      <div class="info-box">
+        <strong>Name:</strong>
+        <span id="poster-name">Loading...</span>
+      </div>
+      <div class="info-box">
+        <strong>Poster ID:</strong>
+        <span id="poster-id">Loading...</span>
+      </div>
+      <div class="info-box">
+        <strong>Eligibility:</strong>
+        <span id="eligible">Loading...</span>
+      </div>
+      <div class="info-box">
+        <strong>WhatsApp Number:</strong>
+        <span id="whatsapp">Loading...</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="dashboard-section" id="ads-section">
+    <h2>Assigned Ads</h2>
+    <div class="ads-container" id="ads-list">
+      <!-- JS will populate this -->
+    </div>
+  </section>
+
+  <section class="dashboard-section" id="earnings-section">
+    <h2>Your Earnings</h2>
+    <div class="earnings-stats">
+      <div class="earnings-card">
+        <h3>Total Tasks</h3>
+        <span id="total-tasks">0</span>
+      </div>
+      <div class="earnings-card">
+        <h3>Total Earned</h3>
+        <span id="total-earned">₹0</span>
+      </div>
+      <div class="earnings-card">
+        <h3>Paid</h3>
+        <span id="paid">₹0</span>
+      </div>
+      <div class="earnings-card">
+        <h3>Balance</h3>
+        <span id="balance">₹0</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="dashboard-section support-card">
+    <h2>Support</h2>
+    <p>If you need any help, please <a href="https://wa.me/919744483058" target="_blank">WhatsApp us</a>.</p>
+  </section>
+
+  <script>
+    // Check authentication
+    document.addEventListener('DOMContentLoaded', function() {
+      checkAuth();
+      loadDashboardData();
+    });
+
+    function checkAuth() {
+      const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+      const loginTime = new Date(localStorage.getItem('loginTime'));
+      const now = new Date();
+      
+      // Session expires after 24 hours
+      if (!isLoggedIn || !loginTime || (now - loginTime > 24 * 60 * 60 * 1000)) {
+        localStorage.clear();
+        window.location.href = 'login.html';
+        return false;
+      }
+      
+      return true;
+    }
+
+    function loadDashboardData() {
+      const loadingText = "Loading...";
+      
+      // Set loading state
+      document.getElementById('poster-name').textContent = loadingText;
+      document.getElementById('poster-id').textContent = loadingText;
+      document.getElementById('eligible').textContent = loadingText;
+      document.getElementById('whatsapp').textContent = loadingText;
+      document.getElementById('total-tasks').textContent = "0";
+      document.getElementById('total-earned').textContent = "₹0";
+      document.getElementById('paid').textContent = "₹0";
+      document.getElementById('balance').textContent = "₹0";
+      
+      // Get user phone from localStorage
+      const userPhone = localStorage.getItem('userPhone');
+      if (!userPhone) {
+        alert('User information not found. Please login again.');
+        localStorage.clear();
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      // Use JSONP to fetch dashboard data
+      const scriptId = 'AKfycbwfiN714a3_7HnywNYAL1dzqpgp8ZL-gKsE1uUhRtM5gHa9c_SkSzQZjUlWuhqgS9PzOA';
+      const callbackName = 'dashboardCallback_' + new Date().getTime();
+      
+      // Create a global callback function
+      window[callbackName] = function(response) {
+        console.log('Dashboard response:', response);
+        
+        if (response && response.success && response.data) {
+          updateDashboard(response.data);
+        } else {
+          const errorMsg = response ? response.message : 'Failed to load dashboard data.';
+          alert(errorMsg);
+          // If user not found, redirect to login
+          if (errorMsg.includes('not found')) {
+            localStorage.clear();
+            window.location.href = 'login.html';
+          }
+        }
+        
+        // Clean up the script tag and global function
+        document.body.removeChild(document.getElementById('jsonp-script'));
+        delete window[callbackName];
+      };
+      
+      // Create script element for JSONP
+      const script = document.createElement('script');
+      script.id = 'jsonp-script';
+      script.src = `https://script.google.com/macros/s/${scriptId}/exec?action=getDashboard&phone=${encodeURIComponent(userPhone)}&callback=${callbackName}`;
+      document.body.appendChild(script);
+      
+      // Set a timeout in case the script fails to load
+      setTimeout(() => {
+        if (window[callbackName]) {
+          console.log('Dashboard data request timed out');
+          
+          // Clean up
+          if (document.getElementById('jsonp-script')) {
+            document.body.removeChild(document.getElementById('jsonp-script'));
+          }
+          delete window[callbackName];
+          
+          // Show error message
+          alert('Dashboard data request timed out. Please try again.');
+          
+          // Try to use cached data if available
+          const cachedUser = JSON.parse(localStorage.getItem('user') || '{}');
+          if (cachedUser && cachedUser.name) {
+            // Update at least the profile section with cached data
+            document.getElementById('poster-name').textContent = cachedUser.name || "N/A";
+            document.getElementById('eligible').textContent = cachedUser.eligible ? "Yes ✅" : "No ❌";
+            document.getElementById('whatsapp').textContent = cachedUser.phone || "N/A";
+          }
+        }
+      }, 15000); // 15 second timeout (increased from 8)
+    }
+
+    function updateDashboard(data) {
+      // Update profile section
+      document.getElementById('poster-name').textContent = data.name || "N/A";
+      document.getElementById('poster-id').textContent = data.posterId || "N/A";
+      document.getElementById('eligible').textContent = data.eligible ? "Yes ✅" : "No ❌";
+      document.getElementById('whatsapp').textContent = data.phone || "N/A";
+      
+      // Update earnings section
+      document.getElementById('total-tasks').textContent = data.tasksCompleted || "0";
+      document.getElementById('total-earned').textContent = `₹${data.totalEarned || "0"}`;
+      document.getElementById('paid').textContent = `₹${data.paid || "0"}`;
+      document.getElementById('balance').textContent = `₹${data.balance || "0"}`;
+      
+      // Update ads section
+      const adsContainer = document.getElementById('ads-list');
+      adsContainer.innerHTML = ''; // Clear existing content
+      
+      // If there's a last task, display it
+      if (data.lastTask && data.lastTask !== "No active tasks") {
+        const taskCard = document.createElement('div');
+        taskCard.className = 'ad-card';
+        taskCard.innerHTML = `
+          <strong>Current Task</strong>
+          <p>${data.lastTask}</p>
+        `;
+        adsContainer.appendChild(taskCard);
+      }
+      
+      if (data.ads && data.ads.length > 0) {
+        data.ads.forEach(ad => {
+          const card = document.createElement('div');
+          card.className = 'ad-card';
+          card.innerHTML = `
+            <strong>${ad.title}</strong>
+            <p>Status: ${ad.status}</p>
+            ${ad.image ? `<img src="${ad.image}" alt="Ad image">` : ''}
+          `;
+          adsContainer.appendChild(card);
+        });
+      } else if (adsContainer.children.length === 0) {
+        // Only show placeholder if there's no last task and no ads
+        adsContainer.innerHTML = '<p>No ads or tasks assigned yet.</p>';
+      }
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Google Apps Script Connection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2196F3;
+            text-align: center;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 4px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            min-height: 50px;
+        }
+        .success {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        .error {
+            color: #f44336;
+            font-weight: bold;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Apps Script Connection Tester</h1>
+    
+    <div class="test-section">
+        <h2>1. Ping Test</h2>
+        <p>This test checks if the Apps Script is accessible and responding to basic requests.</p>
+        <button id="ping-test-btn">Run Ping Test</button>
+        <div id="ping-result" class="result">Results will appear here...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. CORS Test</h2>
+        <p>This test checks if the Apps Script is properly configured for cross-origin requests.</p>
+        <button id="cors-test-btn">Run CORS Test</button>
+        <div id="cors-result" class="result">Results will appear here...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. JSONP Test</h2>
+        <p>This test checks if the Apps Script correctly handles JSONP callbacks.</p>
+        <button id="jsonp-test-btn">Run JSONP Test</button>
+        <div id="jsonp-result" class="result">Results will appear here...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. Login Test</h2>
+        <p>This test attempts a login with test credentials.</p>
+        <div style="margin-bottom: 10px;">
+            <label for="test-phone">Phone:</label>
+            <input type="text" id="test-phone" value="7736166218" style="padding: 8px; margin-right: 15px;">
+            
+            <label for="test-password">Password:</label>
+            <input type="password" id="test-password" value="alex" style="padding: 8px;">
+        </div>
+        <button id="login-test-btn">Run Login Test</button>
+        <div id="login-result" class="result">Results will appear here...</div>
+    </div>
+
+    <script>
+        // Configuration
+        const scriptId = 'UPDATE_THIS_WITH_NEW_SCRIPT_ID'; // Update this with your new deployment ID
+        const apiUrl = `https://script.google.com/macros/s/${scriptId}/exec`;
+        
+        // Helper function to show loading state
+        function showLoading(elementId) {
+            document.getElementById(elementId).innerHTML = '<div class="loading"></div> Testing...';
+        }
+        
+        // Helper function to show success
+        function showSuccess(elementId, message, details = '') {
+            let html = '<span class="success">✓ SUCCESS:</span> ' + message;
+            if (details) {
+                html += '<pre>' + JSON.stringify(details, null, 2) + '</pre>';
+            }
+            document.getElementById(elementId).innerHTML = html;
+        }
+        
+        // Helper function to show error
+        function showError(elementId, message, details = '') {
+            let html = '<span class="error">✗ ERROR:</span> ' + message;
+            if (details) {
+                html += '<pre>' + JSON.stringify(details, null, 2) + '</pre>';
+            }
+            document.getElementById(elementId).innerHTML = html;
+        }
+        
+        // Hash password using SHA-256
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+        
+        // 1. Ping Test
+        document.getElementById('ping-test-btn').addEventListener('click', async function() {
+            showLoading('ping-result');
+            
+            try {
+                const startTime = new Date().getTime();
+                const response = await fetch(`${apiUrl}?test=ping&_=${Date.now()}`, {
+                    method: 'GET',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Accept': 'text/plain, application/json'
+                    }
+                });
+                
+                const endTime = new Date().getTime();
+                const responseTime = endTime - startTime;
+                
+                if (response.ok) {
+                    const text = await response.text();
+                    showSuccess('ping-result', `Server responded with: ${text} (in ${responseTime}ms)`);
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                console.error('Ping error:', error);
+                showError('ping-result', 'Request failed', {
+                    error: error.toString(),
+                    details: 'Please check:\n' +
+                            '1. Script ID is correct\n' +
+                            '2. Apps Script is deployed as web app\n' +
+                            '3. Web app is accessible to anyone\n' +
+                            '4. No browser extensions blocking the request'
+                });
+            }
+        });
+        
+        // 2. CORS Test
+        document.getElementById('cors-test-btn').addEventListener('click', async function() {
+            showLoading('cors-result');
+            
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Accept': 'application/json'
+                    },
+                    body: new URLSearchParams({
+                        'action': 'test',
+                        'data': 'cors-test',
+                        '_': Date.now()
+                    })
+                });
+                
+                const data = await response.json();
+                showSuccess('cors-result', 'CORS is properly configured', data);
+            } catch (error) {
+                showError('cors-result', 'CORS request failed', error.toString());
+            }
+        });
+        
+        // 3. JSONP Test
+        document.getElementById('jsonp-test-btn').addEventListener('click', function() {
+            showLoading('jsonp-result');
+            
+            const callbackName = 'jsonpCallback_' + Date.now();
+            let timeoutId;
+            
+            // Create a global callback function
+            window[callbackName] = function(response) {
+                clearTimeout(timeoutId);
+                cleanup();
+                showSuccess('jsonp-result', 'JSONP is working correctly', response);
+            };
+            
+            function cleanup() {
+                if (document.getElementById('jsonp-script')) {
+                    document.body.removeChild(document.getElementById('jsonp-script'));
+                }
+                delete window[callbackName];
+            }
+            
+            // Set a timeout
+            timeoutId = setTimeout(function() {
+                cleanup();
+                showError('jsonp-result', 'JSONP request timed out after 10 seconds');
+            }, 10000);
+            
+            // Create and append the script tag
+            const script = document.createElement('script');
+            script.id = 'jsonp-script';
+            script.src = `${apiUrl}?action=test&callback=${callbackName}&_=${Date.now()}`;
+            document.body.appendChild(script);
+        });
+        
+        // 4. Login Test
+        document.getElementById('login-test-btn').addEventListener('click', async function() {
+            showLoading('login-result');
+            
+            try {
+                const phone = document.getElementById('test-phone').value.replace(/[^0-9]/g, "").slice(-10);
+                const password = document.getElementById('test-password').value;
+                
+                // Hash the password
+                const hashedPassword = await hashPassword(password);
+                
+                // Try multiple login methods
+                let loginSuccess = false;
+                let loginResponse = null;
+                let errorMessages = [];
+                
+                // Method 1: Direct fetch
+                try {
+                    const fetchResponse = await fetch(apiUrl, {
+                        method: 'POST',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            'action': 'login',
+                            'phone': phone,
+                            'password': hashedPassword
+                        })
+                    });
+                    
+                    if (fetchResponse.ok) {
+                        loginResponse = await fetchResponse.json();
+                        loginSuccess = true;
+                        showSuccess('login-result', 'Login successful using direct fetch', loginResponse);
+                    } else {
+                        errorMessages.push('Direct fetch failed with status: ' + fetchResponse.status);
+                    }
+                } catch (fetchError) {
+                    errorMessages.push('Direct fetch error: ' + fetchError.toString());
+                }
+                
+                // Method 2: JSONP (if direct fetch failed)
+                if (!loginSuccess) {
+                    try {
+                        loginResponse = await new Promise((resolve, reject) => {
+                            const callbackName = 'loginCallback_' + new Date().getTime();
+                            
+                            // Set a timeout
+                            const timeoutId = setTimeout(function() {
+                                if (window[callbackName]) {
+                                    delete window[callbackName];
+                                    if (document.getElementById('login-script')) {
+                                        document.body.removeChild(document.getElementById('login-script'));
+                                    }
+                                    reject(new Error('JSONP request timed out'));
+                                }
+                            }, 10000);
+                            
+                            // Create the callback function
+                            window[callbackName] = function(response) {
+                                clearTimeout(timeoutId);
+                                if (document.getElementById('login-script')) {
+                                    document.body.removeChild(document.getElementById('login-script'));
+                                }
+                                delete window[callbackName];
+                                
+                                resolve(response);
+                            };
+                            
+                            // Create and append the script tag
+                            const script = document.createElement('script');
+                            script.id = 'login-script';
+                            script.src = apiUrl + 
+                                        '?action=login' + 
+                                        '&phone=' + encodeURIComponent(phone) + 
+                                        '&password=' + encodeURIComponent(hashedPassword) + 
+                                        '&callback=' + callbackName;
+                            document.body.appendChild(script);
+                        });
+                        
+                        if (loginResponse && loginResponse.success) {
+                            loginSuccess = true;
+                            showSuccess('login-result', 'Login successful using JSONP', loginResponse);
+                        } else {
+                            errorMessages.push('JSONP login failed: ' + (loginResponse ? loginResponse.message : 'Unknown error'));
+                        }
+                    } catch (jsonpError) {
+                        errorMessages.push('JSONP error: ' + jsonpError.toString());
+                    }
+                }
+                
+                // If all methods failed
+                if (!loginSuccess) {
+                    showError('login-result', 'All login methods failed', errorMessages);
+                }
+                
+            } catch (error) {
+                showError('login-result', 'Login test failed', error.toString());
+            }
+        });
+    </script>
+</body>
+</html>
