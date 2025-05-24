@@ -11,26 +11,20 @@ function doGet(e) {
       'Access-Control-Max-Age': '3600'
     };
 
+    const phone = e.parameter.phone;
+    const email = e.parameter.email;
+    const check = e.parameter.check;
+    const action = e.parameter.action;
+    const password = e.parameter.password;
+    const callback = e.parameter.callback;
+
+    let response;
+
     if (e.parameter.method === 'options') {
       return ContentService.createTextOutput('')
         .setMimeType(ContentService.MimeType.TEXT)
     }
 
-    if (e.parameter.test === 'ping') {
-      return ContentService.createTextOutput('pong')
-        .setMimeType(ContentService.MimeType.TEXT)
-    }
-
-    if (e.parameter.callback) {
-      const callback = sanitizeCallback(e.parameter.callback);
-      const jsonData = JSON.stringify({
-        success: true,
-        message: 'JSONP test successful',
-        timestamp: new Date().toISOString()
-      });
-      return ContentService.createTextOutput(`${callback}(${jsonData});`)
-        .setMimeType(ContentService.MimeType.JAVASCRIPT)
-    }
 
     if (e.parameter.action === 'test') {
       const response = {
@@ -43,14 +37,6 @@ function doGet(e) {
         .setMimeType(ContentService.MimeType.JSON)
     }
 
-    const phone = e.parameter.phone;
-    const email = e.parameter.email;
-    const check = e.parameter.check;
-    const action = e.parameter.action;
-    const password = e.parameter.password;
-    const callback = e.parameter.callback;
-
-    let response;
 
     if (action === "login") {
       response = handleLogin(phone, password);
@@ -89,36 +75,30 @@ function doGet(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
 
+    if (e.parameter.test === 'ping') {
+      return ContentService.createTextOutput('pong')
+        .setMimeType(ContentService.MimeType.TEXT)
+    }
+
+    if (e.parameter.callback) {
+      const callback = sanitizeCallback(e.parameter.callback);
+      const jsonData = JSON.stringify({
+        success: true,
+        message: 'JSONP test successful',
+        timestamp: new Date().toISOString()
+      });
+      return ContentService.createTextOutput(`${callback}(${jsonData});`)
+        .setMimeType(ContentService.MimeType.JAVASCRIPT)
+    }
+
     if (callback) {
       const content = response.getContent();
       var textOutput = ContentService.createTextOutput(callback + "(" + content + ");")
         .setMimeType(ContentService.MimeType.JAVASCRIPT);
-      if (typeof textOutput.setHeader === 'function') {
-        textOutput.setHeader('Access-Control-Allow-Origin', '*');
-        textOutput.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        textOutput.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
-        textOutput.setHeader('Access-Control-Max-Age', '3600');
-      }
+      
       return textOutput;
     }
 
-    if (response && typeof response.setHeader === 'function') {
-      response.setHeader('Access-Control-Allow-Origin', '*');
-      response.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-      response.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
-      response.setHeader('Access-Control-Max-Age', '3600');
-      return response;
-    } else {
-      var textOutput = ContentService.createTextOutput(JSON.stringify(response))
-        .setMimeType(ContentService.MimeType.JSON);
-      if (typeof textOutput.setHeader === 'function') {
-        textOutput.setHeader('Access-Control-Allow-Origin', '*');
-        textOutput.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        textOutput.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
-        textOutput.setHeader('Access-Control-Max-Age', '3600');
-      }
-      return textOutput;
-    }
   } catch (error) {
     const errorResponse = {
       success: false,
@@ -128,17 +108,10 @@ function doGet(e) {
     if (e.parameter.callback) {
       return ContentService.createTextOutput(e.parameter.callback + "(" + JSON.stringify(errorResponse) + ");")
         .setMimeType(ContentService.MimeType.JAVASCRIPT)
-        .setHeader('Access-Control-Allow-Origin', '*')
-        .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-        .setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept')
-        .setHeader('Access-Control-Max-Age', '3600');
+
     }
     return ContentService.createTextOutput(JSON.stringify(errorResponse))
       .setMimeType(ContentService.MimeType.JSON)
-      .setHeader('Access-Control-Allow-Origin', '*')
-      .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-      .setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept')
-      .setHeader('Access-Control-Max-Age', '3600');
   }
 }
 
@@ -156,7 +129,7 @@ function getDashboardData(phone, callback) {
   } else {
     // Use the actual spreadsheet ID here
     const ss = SpreadsheetApp.openById("1ym0pnue6tbGImFA2ANYDFi0YAr7JQV8yfD2WPu3-um0");
-    const sheet = ss.getSheetByName("Statuspay247 Poster data");
+    const sheet = ss.getSheetByName("MoneyTracking");
     const lastRow = sheet.getLastRow();
 
     const phoneCol = sheet.getRange(2, 2, lastRow - 1).getValues(); // Column B
@@ -202,10 +175,6 @@ function getDashboardData(phone, callback) {
   // Always set CORS headers
   const output = ContentService.createTextOutput(callback ? `${callback}(${json});` : json)
     .setMimeType(callback ? ContentService.MimeType.JAVASCRIPT : ContentService.MimeType.JSON)
-    .setHeader('Access-Control-Allow-Origin', '*')
-    .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-    .setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept')
-    .setHeader('Access-Control-Max-Age', '3600');
   return output;
 }
 

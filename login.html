@@ -286,10 +286,15 @@
             }
         }
 
-        // Function to show status message
+        // Function to show status message (modified: only show "Authenticating..." and "Logging in...")
         function showStatus(message) {
-            document.getElementById('status-message').textContent = message;
-            document.getElementById('login-status').style.display = 'block';
+            // Only show status for "Authenticating..." or "Logging in..."
+            if (message === 'Authenticating...' || message === 'Logging in...') {
+                document.getElementById('status-message').textContent = message;
+                document.getElementById('login-status').style.display = 'block';
+            } else {
+                document.getElementById('login-status').style.display = 'none';
+            }
             document.getElementById('login-error').style.display = 'none';
         }
 
@@ -320,11 +325,10 @@
         // Form submission handler with multiple fallback methods
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
             const loginBtn = document.querySelector('.login-btn');
             loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
             loginBtn.disabled = true;
-            
+
             // Get form data
             const phone = document.getElementById('phone').value.replace(/[^0-9]/g, "").slice(-10);
             const password = document.getElementById('password').value;
@@ -573,9 +577,17 @@
                 }
                 
             } catch (error) {
+                // Show a friendly message for login errors
+                let msg = error && error.message ? error.message : 'Login failed due to an unknown error.';
+                if (
+                    msg.includes('All login methods failed') ||
+                    msg.includes('Login failed') ||
+                    msg.includes('Details:')
+                ) {
+                    msg = 'Incorrect phone number or password. Please try again.';
+                }
+                showError(msg, '');
                 console.error('Login error:', error);
-                // Show error with details if available
-                showError(error.message || 'Login failed due to an unknown error.', error.stack || '');
             } finally {
                 // Reset the login button
                 loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> Login';

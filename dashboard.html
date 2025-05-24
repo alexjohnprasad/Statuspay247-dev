@@ -4,93 +4,424 @@
 <head>
   <meta charset="UTF-8">
   <title>StatusPay247 Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="shortcut icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="css/styles-cleaned.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      background-color: #f4f6f9;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+    :root {
+      --primary: #28a745;
+      --primary-dark: #218838;
+      --primary-light: #38f9d7;
+      --accent: #ffe259;
+      --bg: #f4f6f9;
+      --white: #fff;
+      --shadow: 0 8px 32px rgba(60, 60, 120, 0.10);
+      --radius: 18px;
+      --transition: 0.2s cubic-bezier(.4, 2, .6, 1);
     }
 
-    .dashboard-container {
-      width: 90%;
+    body {
+      font-family: 'Nunito', 'Segoe UI', Arial, sans-serif;
+      background: var(--bg);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      color: #222;
+    }
+
+    /* Header styles (match homepage) */
+    header {
+      width: 100%;
+      background: var(--white);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .container {
       max-width: 1200px;
-      margin: 20px;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+    }
+
+    .logo img {
+      height: 40px;
+      display: block;
+    }
+
+    .burger-menu {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      margin-left: 18px;
+    }
+
+    .burger-menu span {
+      width: 25px;
+      height: 3px;
+      background: #222;
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #222;
+      font-weight: 600;
+      font-size: 1.08rem;
+      padding: 6px 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    nav ul li a:hover,
+    nav ul li a:focus,
+    nav ul li a.active {
+      border-bottom: 2px solid var(--primary);
+      color: var(--primary-dark);
+    }
+
+    /* Dashboard container */
+    .dashboard-container {
+      width: 96%;
+      max-width: 1100px;
+      margin: 40px auto 0 auto;
+      padding: 36px 28px 28px 28px;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 1;
     }
 
     .card {
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      padding: 20px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+      margin-bottom: 24px;
+      padding: 22px 24px;
+      transition: box-shadow var(--transition);
+    }
+
+    .card h2 {
+      margin: 0 0 10px 0;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
     }
 
     .wallet-card {
-      background-color: #28a745;
-      color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      margin-bottom: 20px;
+      background: linear-gradient(100deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: var(--white);
+      padding: 40px 32px 36px 32px;
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(40, 167, 69, 0.18);
+      margin-bottom: 36px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: box-shadow 0.25s;
+      border: 2px solid #fff;
+    }
+
+    .wallet-card::before,
+    .wallet-card::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      z-index: 0;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .wallet-card::before {
+      top: -60px;
+      right: -60px;
+      width: 160px;
+      height: 160px;
+      background: #fff;
+    }
+
+    .wallet-card::after {
+      bottom: -40px;
+      left: -40px;
+      width: 100px;
+      height: 100px;
+      background: #ffe259;
     }
 
     .wallet-card h3 {
       margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 24px;
+      margin-bottom: 16px;
+      font-size: 2.3rem;
+      letter-spacing: 1px;
+      font-weight: 800;
+      z-index: 1;
+      position: relative;
+      text-shadow: 0 2px 8px rgba(40, 167, 69, 0.10);
     }
 
-    .wallet-card p {
-      font-size: 18px;
-      margin: 5px 0;
+    .wallet-balance-amount {
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin: 0 0 10px 0;
+      letter-spacing: 1px;
+      color: #fff;
+      background: linear-gradient(90deg, #fff 0%, #ffe259 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      z-index: 1;
+      position: relative;
+      display: inline-block;
     }
 
-    .metrics-card {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
+    .wallet-balance-bar-container {
+      margin: 18px auto 18px auto;
+      width: 95%;
+      max-width: 440px;
+      background: rgba(255, 255, 255, 0.22);
+      border-radius: 16px;
+      height: 28px;
+      box-shadow: 0 2px 8px rgba(40, 167, 69, 0.10);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      border: 1.5px solid #fff;
     }
 
-    .metric {
-      font-size: 16px;
-      margin: 5px 0;
-      color: #555;
+    .wallet-balance-bar {
+      height: 100%;
+      border-radius: 16px 0 0 16px;
+      background: linear-gradient(90deg, #fff 0%, var(--accent) 100%);
+      box-shadow: 0 2px 8px rgba(255, 226, 89, 0.13);
+      transition: width 0.7s cubic-bezier(.4, 2, .6, 1);
+      position: absolute;
+      left: 0;
+      top: 0;
     }
 
-    #loading,
-    #error {
-      font-weight: bold;
-      margin-top: 20px;
+    .wallet-balance-bar-label {
+      position: relative;
+      width: 100%;
       text-align: center;
+      font-size: 1.13rem;
+      color: #333;
+      font-weight: 700;
+      line-height: 28px;
+      z-index: 2;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 4px rgba(255, 255, 255, 0.7);
+      pointer-events: none;
+      mix-blend-mode: luminosity;
     }
 
-    #error {
-      color: red;
+    .wallet-card-details {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      margin-top: 18px;
+      z-index: 1;
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    .wallet-detail {
+      background: rgba(255, 255, 255, 0.13);
+      border-radius: 10px;
+      padding: 14px 24px;
+      min-width: 120px;
+      margin: 4px 0;
+      box-shadow: 0 1px 4px rgba(40, 167, 69, 0.07);
+      font-size: 1.08rem;
+      color: #fff;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .wallet-detail-label {
+      font-size: 0.98rem;
+      font-weight: 400;
+      color: #e6ffe6;
+      margin-bottom: 2px;
+      letter-spacing: 0.2px;
+    }
+
+    .wallet-detail-value {
+      font-size: 1.18rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.5px;
+    }
+
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .dashboard-container {
+        padding: 18px 6vw 18px 6vw;
+      }
+
+      nav {
+        padding: 18px 0;
+      }
+
+      .main-footer .footer-columns {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .main-footer .footer-column {
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 700px) {
+      nav ul {
+        gap: 14px;
+      }
+
+      .dashboard-container {
+        padding: 10px 2vw 10px 2vw;
+      }
+
+      .wallet-card-details {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px 0;
+      }
+
+      nav ul {
+        gap: 10px;
+        flex-direction: column;
+        background: var(--white);
+        width: 100%;
+        padding: 10px 0;
+      }
+
+      .dashboard-container {
+        padding: 8px 1vw 8px 1vw;
+      }
+
+      .wallet-card {
+        padding: 18px 4px 14px 4px;
+      }
+
+      .wallet-card-details {
+        gap: 6px;
+      }
+
+      .metrics-card {
+        grid-template-columns: 1fr;
+      }
+
+      .logo img {
+        height: 32px;
+      }
     }
   </style>
 </head>
 
 <body>
+  <!-- Header (match homepage) -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <a href="index.html">
+            <img src="assets/logo.png" alt="StatusPay 247 Logo" class="header-logo">
+          </a>
+        </div>
+        <div class="burger-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul>
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="index.html#what-is-statuspay">About</a></li>
+          <li><a href="index.html#how-it-works">How It Works</a></li>
+          <li><a href="index.html#why-choose-us">Why Choose Us</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="poster.html">Join as Poster</a></li>
+          <li><a href="advertiser-terms.html">Advertisers</a></li>
+        </ul>
+        <!-- Logout button -->
+        <button id="logoutBtn" class="logout-btn">
+          <i class="fas fa-sign-out-alt"></i>Logout
+        </button>
+      </nav>
+    </div>
+  </header>
+
   <div class="dashboard-container">
     <div class="card">
-      <h2>Welcome, <span id="userName">...</span></h2>
+      <h2>
+        Welcome, <span id="userName">...</span>
+      </h2>
     </div>
 
     <div class="wallet-card">
       <h3>Wallet</h3>
-      <p>Current Balance: ₹<span id="balance">...</span></p>
-      <p>Total Earned: ₹<span id="totalEarned">...</span></p>
-      <p>Paid: ₹<span id="paid">...</span></p>
+      <div class="wallet-balance-amount">
+        ₹<span id="balance">...</span>
+      </div>
+      <div class="wallet-balance-bar-container">
+        <div class="wallet-balance-bar" id="walletBar"></div>
+        <span class="wallet-balance-bar-label" id="walletBarLabel">0%</span>
+      </div>
+      <div class="wallet-card-details">
+        <div class="wallet-detail">
+          <span class="wallet-detail-label">Total Earned</span>
+          <span class="wallet-detail-value">₹<span id="totalEarned">...</span></span>
+        </div>
+        <div class="wallet-detail">
+          <span class="wallet-detail-label">Paid</span>
+          <span class="wallet-detail-value">₹<span id="paid">...</span></span>
+        </div>
+      </div>
     </div>
 
     <div class="card metrics-card">
@@ -100,72 +431,122 @@
       <p class="metric">Last Task: <span id="lastTask">...</span></p>
     </div>
 
-    <div id="loading" style="display: none;">Loading dashboard...</div>
-    <div id="error" style="display: none; color: red;">❌ Failed to load your dashboard.</div>
+    <div id="loading" class="loading-message">Loading dashboard...</div>
+    <div id="error" class="error-message">❌ Failed to load your dashboard.</div>
   </div>
 
+    <footer class="section-light">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>StatusPay 247</h3>
+                    <p>Your trusted platform for earning through WhatsApp status ads. Connect with us to start your earning journey today.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html#hero">Home</a></li>
+                        <li><a href="index.html#what-is-statuspay">About Us</a></li>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="index.html#why-choose-us">Why Choose Us</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                        <li><a href="poster.html">Join as Poster</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <p>Follow us on social media for updates and tips.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/statuspay247" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/statuspay247" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/statuspay247" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://wa.me/919744483058" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 StatusPay 247. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
   <script>
-  function loadDashboard(phone) {
-    const callbackName = 'jsonpCallback_' + Date.now(); // unique callback name
+    // Logout button logic
+    document.getElementById('logoutBtn').onclick = function() {
+      localStorage.removeItem('user');
+      localStorage.removeItem('loggedIn');
+      localStorage.removeItem('loginTime');
+      localStorage.removeItem('userPhone');
+      window.location.href = 'login.html';
+    };
 
-    // Create the global callback function
-    window[callbackName] = function(result) {
-      try {
-        if (!result.success) throw new Error(result.message || "Unknown error");
+    function loadDashboard(phone) {
+      const callbackName = 'jsonpCallback_' + Date.now(); // unique callback name
 
-        const data = result.data;
-        document.getElementById("userName").textContent = data.name;
-        document.getElementById("posterId").textContent = data.posterId;
-        document.getElementById("phone").textContent = data.phone;
-        document.getElementById("tasksCompleted").textContent = data.tasksCompleted;
-        document.getElementById("totalEarned").textContent = data.totalEarned;
-        document.getElementById("paid").textContent = data.paid;
-        document.getElementById("balance").textContent = data.balance;
-        document.getElementById("lastTask").textContent = data.lastTask;
+      // Create the global callback function
+      window[callbackName] = function(result) {
+        try {
+          if (!result.success) throw new Error(result.message || "Unknown error");
 
-        document.getElementById("loading").style.display = "none";
-      } catch (error) {
-        console.error("Dashboard error:", error);
+          const data = result.data;
+          document.getElementById("userName").textContent = data.name;
+          document.getElementById("posterId").textContent = data.posterId;
+          document.getElementById("phone").textContent = data.phone;
+          document.getElementById("tasksCompleted").textContent = data.tasksCompleted;
+          document.getElementById("totalEarned").textContent = data.totalEarned;
+          document.getElementById("paid").textContent = data.paid;
+          document.getElementById("balance").textContent = data.balance;
+          document.getElementById("lastTask").textContent = data.lastTask;
+
+          // Update wallet threshold bar
+          const balance = parseFloat(data.balance) || 0;
+          const percent = Math.min(100, Math.round((balance / 500) * 100));
+          const walletBar = document.getElementById("walletBar");
+          walletBar.style.width = percent + "%";
+          document.getElementById("walletBarLabel").textContent = percent + "% of ₹500";
+
+          document.getElementById("loading").style.display = "none";
+        } catch (error) {
+          console.error("Dashboard error:", error);
+          document.getElementById("loading").style.display = "none";
+          document.getElementById("error").style.display = "block";
+        } finally {
+          // Clean up: remove script tag and callback
+          delete window[callbackName];
+          script.remove();
+        }
+      };
+
+      // Show loading UI
+      document.getElementById("loading").style.display = "block";
+      document.getElementById("error").style.display = "none";
+
+      // Create script tag with JSONP URL including callback param
+      const url = `https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec?action=getDashboard&phone=${phone}&callback=${callbackName}`;
+
+      const script = document.createElement('script');
+      script.src = url;
+      script.onerror = function() {
+        console.error("Dashboard error: script loading failed");
         document.getElementById("loading").style.display = "none";
         document.getElementById("error").style.display = "block";
-      } finally {
-        // Clean up: remove script tag and callback
+
+        // Clean up
         delete window[callbackName];
         script.remove();
-      }
-    };
+      };
+      document.head.appendChild(script);
+    }
 
-    // Show loading UI
-    document.getElementById("loading").style.display = "block";
-    document.getElementById("error").style.display = "none";
-
-    // Create script tag with JSONP URL including callback param
-    const url = `https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec?action=getDashboard&phone=${phone}&callback=${callbackName}`;
-
-    const script = document.createElement('script');
-    script.src = url;
-    script.onerror = function() {
-      console.error("Dashboard error: script loading failed");
-      document.getElementById("loading").style.display = "none";
+    // Get phone from localStorage (if user logged in before)
+    const phone = localStorage.getItem("userPhone");
+    if (phone) {
+      loadDashboard(phone);
+    } else {
+      document.getElementById("error").textContent = "Not logged in. Please go to login page.";
       document.getElementById("error").style.display = "block";
-
-      // Clean up
-      delete window[callbackName];
-      script.remove();
-    };
-    document.head.appendChild(script);
-  }
-
-  // Get phone from localStorage (if user logged in before)
-  const phone = localStorage.getItem("userPhone");
-  if (phone) {
-    loadDashboard(phone);
-  } else {
-    document.getElementById("error").textContent = "Not logged in. Please go to login page.";
-    document.getElementById("error").style.display = "block";
-  }
-</script>
-
+    }
+  </script>
 </body>
 
 </html>
