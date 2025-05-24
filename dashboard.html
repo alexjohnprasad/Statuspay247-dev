@@ -216,7 +216,7 @@
       return true;
     }
 
-    function loadDashboardData() {
+    async function loadDashboardData() {
       const loadingText = "Loading...";
       
       // Set loading state
@@ -237,63 +237,51 @@
         window.location.href = 'login.html';
         return;
       }
-      
-      // Use JSONP to fetch dashboard data
-      // Update the scriptId to the new one
+
+      // Use fetch with timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15-second timeout
+
+      // Replace with your deployed web app URL or script ID
       const scriptId = 'AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg';
-      const callbackName = 'dashboardCallback_' + new Date().getTime();
-      
-      // Create a global callback function
-      window[callbackName] = function(response) {
-        console.log('Dashboard response:', response);
-        
-        if (response && response.success && response.data) {
-          updateDashboard(response.data);
+      const url = `https://script.google.com/macros/s/${scriptId}/exec?action=getDashboard&phone=${encodeURIComponent(userPhone)}`;
+
+      try {
+        const response = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeoutId);
+
+        if (!response.ok) throw new Error("Network response was not ok");
+
+        const data = await response.json();
+        console.log("Dashboard data:", data);
+
+        if (data && data.success && data.data) {
+          updateDashboard(data.data);
         } else {
-          const errorMsg = response ? response.message : 'Failed to load dashboard data.';
+          const errorMsg = data ? data.message : 'Failed to load dashboard data.';
           alert(errorMsg);
-          // If user not found, redirect to login
           if (errorMsg.includes('not found')) {
             localStorage.clear();
             window.location.href = 'login.html';
           }
         }
-        
-        // Clean up the script tag and global function
-        document.body.removeChild(document.getElementById('jsonp-script'));
-        delete window[callbackName];
-      };
-      
-      // Create script element for JSONP
-      const script = document.createElement('script');
-      script.id = 'jsonp-script';
-      script.src = `https://script.google.com/macros/s/${scriptId}/exec?action=getDashboard&phone=${encodeURIComponent(userPhone)}&callback=${callbackName}`;
-      document.body.appendChild(script);
-      
-      // Set a timeout in case the script fails to load
-      setTimeout(() => {
-        if (window[callbackName]) {
-          console.log('Dashboard data request timed out');
-          
-          // Clean up
-          if (document.getElementById('jsonp-script')) {
-            document.body.removeChild(document.getElementById('jsonp-script'));
-          }
-          delete window[callbackName];
-          
-          // Show error message
-          alert('Dashboard data request timed out. Please try again.');
-          
-          // Try to use cached data if available
-          const cachedUser = JSON.parse(localStorage.getItem('user') || '{}');
-          if (cachedUser && cachedUser.name) {
-            // Update at least the profile section with cached data
-            document.getElementById('poster-name').textContent = cachedUser.name || "N/A";
-            document.getElementById('eligible').textContent = cachedUser.eligible ? "Yes ✅" : "No ❌";
-            document.getElementById('whatsapp').textContent = cachedUser.phone || "N/A";
-          }
+      } catch (err) {
+        clearTimeout(timeoutId);
+        if (err.name === 'AbortError') {
+          console.error("Dashboard data request timed out");
+          alert("The dashboard is taking too long to load. Please try again.");
+        } else {
+          console.error("Fetch error:", err);
+          alert("An error occurred while loading the dashboard.");
         }
-      }, 15000); // 15 second timeout (increased from 8)
+        // Try to use cached data if available
+        const cachedUser = JSON.parse(localStorage.getItem('user') || '{}');
+        if (cachedUser && cachedUser.name) {
+          document.getElementById('poster-name').textContent = cachedUser.name || "N/A";
+          document.getElementById('eligible').textContent = cachedUser.eligible ? "Yes ✅" : "No ❌";
+          document.getElementById('whatsapp').textContent = cachedUser.phone || "N/A";
+        }
+      }
     }
 
     function updateDashboard(data) {

@@ -158,6 +158,23 @@ function doGet(e) {
  */
 function getDashboardData(phone, callback) {
   const queryPhone = phone ? phone.toString().replace(/[^0-9]/g, "").slice(-10) : "";
+  const cacheKey = `dashboard_${queryPhone}`;
+  const cache = CacheService.getScriptCache();
+
+  let cached = cache.get(cacheKey);
+  if (cached) {
+    const json = cached;
+    if (callback) {
+      return ContentService.createTextOutput(callback + "(" + json + ");")
+        .setMimeType(ContentService.MimeType.JAVASCRIPT)
+        .setHeader('Access-Control-Allow-Origin', '*');
+    } else {
+      return ContentService.createTextOutput(json)
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeader('Access-Control-Allow-Origin', '*');
+    }
+  }
+
   const ss = SpreadsheetApp.openById("1ym0pnue6tbGImFA2ANYDFi0YAr7JQV8yfD2WPu3-um0");
   const sheet = ss.getSheetByName("MoneyTracking");
 
@@ -168,28 +185,35 @@ function getDashboardData(phone, callback) {
       message: "Phone number is required or sheet not found"
     };
   } else {
-    const data = sheet.getDataRange().getValues();
-    for (let i = 1; i < data.length; i++) {
-      const rowPhone = String(data[i][1] || "").replace(/[^0-9]/g, "").slice(-10);
+    const lastRow = sheet.getLastRow();
+    const phoneColumnValues = sheet.getRange(2, 2, lastRow - 1).getValues(); // Column B
+    let foundRow = -1;
+
+    for (let i = 0; i < phoneColumnValues.length; i++) {
+      const rowPhone = String(phoneColumnValues[i][0] || "").replace(/[^0-9]/g, "").slice(-10);
       if (rowPhone === queryPhone) {
-        result = {
-          success: true,
-          data: {
-            posterId: data[i][0] || "",
-            phone: data[i][1] || "",
-            name: data[i][2] || "",
-            tasksCompleted: data[i][3] || 0,
-            totalEarned: data[i][4] || 0,
-            paid: data[i][5] || 0,
-            balance: data[i][6] || 0,
-            lastTask: data[i][7] || "",
-            eligible: data[i][14] === "Yes"
-          }
-        };
+        foundRow = i + 2; // Adjust for header
         break;
       }
     }
-    if (!result) {
+
+    if (foundRow !== -1) {
+      const rowData = sheet.getRange(foundRow, 1, 1, sheet.getLastColumn()).getValues()[0];
+      result = {
+        success: true,
+        data: {
+          posterId: rowData[0] || "",
+          phone: rowData[1] || "",
+          name: rowData[2] || "",
+          tasksCompleted: rowData[3] || 0,
+          totalEarned: rowData[4] || 0,
+          paid: rowData[5] || 0,
+          balance: rowData[6] || 0,
+          lastTask: rowData[7] || "",
+          eligible: rowData[14] === "Yes"
+        }
+      };
+    } else {
       result = {
         success: false,
         message: "No matching record found"
@@ -198,6 +222,8 @@ function getDashboardData(phone, callback) {
   }
 
   const json = JSON.stringify(result);
+  cache.put(cacheKey, json, 300); // Cache for 5 minutes
+
   if (callback) {
     return ContentService.createTextOutput(callback + "(" + json + ");")
       .setMimeType(ContentService.MimeType.JAVASCRIPT)
@@ -208,6 +234,7 @@ function getDashboardData(phone, callback) {
       .setHeader('Access-Control-Allow-Origin', '*');
   }
 }
+
 
 /**
  * Optimized login function with consistent password handling and caching
