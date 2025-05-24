@@ -71,7 +71,7 @@ function doGet(e) {
     if (action === "login") {
       response = handleLogin(phone, password);
     } else if (action === "getDashboard") {
-      response = getDashboardData(phone);
+      return getDashboardData(phone, callback);
     } else {
       const ss = SpreadsheetApp.openById("1ym0pnue6tbGImFA2ANYDFi0YAr7JQV8yfD2WPu3-um0");
       const sheet = ss.getSheetByName("New login");
@@ -156,41 +156,57 @@ function doGet(e) {
 /**
  * Fetches user dashboard data based on phone number
  */
-function getDashboardData(phone) {
+function getDashboardData(phone, callback) {
   const queryPhone = phone ? phone.toString().replace(/[^0-9]/g, "").slice(-10) : "";
   const ss = SpreadsheetApp.openById("1ym0pnue6tbGImFA2ANYDFi0YAr7JQV8yfD2WPu3-um0");
   const sheet = ss.getSheetByName("MoneyTracking");
 
+  let result;
   if (!queryPhone || !sheet) {
-    return ContentService.createTextOutput(JSON.stringify({
+    result = {
       success: false,
       message: "Phone number is required or sheet not found"
-    })).setMimeType(ContentService.MimeType.JSON);
-  }
-
-  const data = sheet.getDataRange().getValues();
-
-  for (let i = 1; i < data.length; i++) {
-    const rowPhone = String(data[i][1] || "").replace(/[^0-9]/g, "").slice(-10);
-    if (rowPhone === queryPhone) {
-      return ContentService.createTextOutput(JSON.stringify({
-        success: true,
-        posterId: data[i][0] || "",
-        phone: data[i][1] || "",
-        name: data[i][2] || "",
-        tasksCompleted: data[i][3] || 0,
-        totalEarned: data[i][4] || 0,
-        paid: data[i][5] || 0,
-        balance: data[i][6] || 0,
-        lastTaskAssigned: data[i][7] || ""
-      })).setMimeType(ContentService.MimeType.JSON);
+    };
+  } else {
+    const data = sheet.getDataRange().getValues();
+    for (let i = 1; i < data.length; i++) {
+      const rowPhone = String(data[i][1] || "").replace(/[^0-9]/g, "").slice(-10);
+      if (rowPhone === queryPhone) {
+        result = {
+          success: true,
+          data: {
+            posterId: data[i][0] || "",
+            phone: data[i][1] || "",
+            name: data[i][2] || "",
+            tasksCompleted: data[i][3] || 0,
+            totalEarned: data[i][4] || 0,
+            paid: data[i][5] || 0,
+            balance: data[i][6] || 0,
+            lastTask: data[i][7] || "",
+            eligible: data[i][14] === "Yes"
+          }
+        };
+        break;
+      }
+    }
+    if (!result) {
+      result = {
+        success: false,
+        message: "No matching record found"
+      };
     }
   }
 
-  return ContentService.createTextOutput(JSON.stringify({
-    success: false,
-    message: "No matching record found"
-  })).setMimeType(ContentService.MimeType.JSON);
+  const json = JSON.stringify(result);
+  if (callback) {
+    return ContentService.createTextOutput(callback + "(" + json + ");")
+      .setMimeType(ContentService.MimeType.JAVASCRIPT)
+      .setHeader('Access-Control-Allow-Origin', '*');
+  } else {
+    return ContentService.createTextOutput(json)
+      .setMimeType(ContentService.MimeType.JSON)
+      .setHeader('Access-Control-Allow-Origin', '*');
+  }
 }
 
 /**
