@@ -353,7 +353,7 @@
                 console.log('Password hash length:', hashedPassword.length);
                 
                 // Get the Apps Script URL
-                const scriptId = 'AKfycbxR7em7ARuHVZqgiybkz4AP-JojWQP9n0SGRppGJethtYL7MLMUn2rduaW-RbPAPT1krg';
+                const scriptId = 'AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg';
                 const apiUrl = 'https://script.google.com/macros/s/' + scriptId + '/exec';
                 
                 // First, test connectivity with a simple ping
@@ -452,12 +452,12 @@
                             // Create and append the script tag
                             const script = document.createElement('script');
                             script.id = 'jsonp-script';
-                            script.src = apiUrl + 
-                                        '?action=login' + 
-                                        '&phone=' + encodeURIComponent(phone) + 
-                                        '&password=' + encodeURIComponent(hashedPassword) + 
-                                        '&callback=' + callbackName + 
-                                        '&t=' + new Date().getTime();
+                script.src = 'https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec' + 
+                            '?action=login' + 
+                            '&phone=' + encodeURIComponent(phone) + 
+                            '&password=' + encodeURIComponent(hashedPassword) + 
+                            '&callback=' + callbackName + 
+                            '&t=' + new Date().getTime();
                             document.body.appendChild(script);
                         });
                         
