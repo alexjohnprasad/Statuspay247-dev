@@ -343,6 +343,12 @@
                 
                 // Hash the password
                 const hashedPassword = await hashPassword(password);
+                if (!hashedPassword) {
+                    showError('Password hashing failed. Please use a modern browser.');
+                    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> Login';
+                    loginBtn.disabled = false;
+                    return;
+                }
                 console.log('Attempting login with phone:', phone);
                 console.log('Password hash length:', hashedPassword.length);
                 
