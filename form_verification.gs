@@ -157,83 +157,64 @@ function doGet(e) {
  * Fetches user dashboard data based on phone number
  */
 function getDashboardData(phone, callback) {
-  const queryPhone = phone ? phone.toString().replace(/[^0-9]/g, "").slice(-10) : "";
-  const cacheKey = `dashboard_${queryPhone}`;
+  const queryPhone = (phone || "").toString().replace(/[^0-9]/g, "").slice(-10);
   const cache = CacheService.getScriptCache();
+  const cacheKey = "dashboard_all_users_v1";
 
-  let cached = cache.get(cacheKey);
-  if (cached) {
-    const json = cached;
-    if (callback) {
-      return ContentService.createTextOutput(callback + "(" + json + ");")
-        .setMimeType(ContentService.MimeType.JAVASCRIPT)
-        .setHeader('Access-Control-Allow-Origin', '*');
-    } else {
-      return ContentService.createTextOutput(json)
-        .setMimeType(ContentService.MimeType.JSON)
-        .setHeader('Access-Control-Allow-Origin', '*');
-    }
-  }
-
-  const ss = SpreadsheetApp.openById("1ym0pnue6tbGImFA2ANYDFi0YAr7JQV8yfD2WPu3-um0");
-  const sheet = ss.getSheetByName("MoneyTracking");
-
-  let result;
-  if (!queryPhone || !sheet) {
-    result = {
-      success: false,
-      message: "Phone number is required or sheet not found"
-    };
+  let sheetData = cache.get(cacheKey);
+  if (sheetData) {
+    sheetData = JSON.parse(sheetData);
   } else {
+    const ss = SpreadsheetApp.openById("YOUR_SPREADSHEET_ID_HERE");
+    const sheet = ss.getSheetByName("Statuspay247 Poster data");
     const lastRow = sheet.getLastRow();
-    const phoneColumnValues = sheet.getRange(2, 2, lastRow - 1).getValues(); // Column B
-    let foundRow = -1;
 
-    for (let i = 0; i < phoneColumnValues.length; i++) {
-      const rowPhone = String(phoneColumnValues[i][0] || "").replace(/[^0-9]/g, "").slice(-10);
-      if (rowPhone === queryPhone) {
-        foundRow = i + 2; // Adjust for header
-        break;
+    const phoneCol = sheet.getRange(2, 2, lastRow - 1).getValues(); // Column B
+    const dataCol = sheet.getRange(2, 9, lastRow - 1).getValues();  // Column I
+
+    sheetData = {};
+    for (let i = 0; i < phoneCol.length; i++) {
+      const cleanPhone = (phoneCol[i][0] || "").toString().replace(/[^0-9]/g, "").slice(-10);
+      if (cleanPhone) {
+        sheetData[cleanPhone] = dataCol[i][0] || "";
       }
     }
 
-    if (foundRow !== -1) {
-      const rowData = sheet.getRange(foundRow, 1, 1, sheet.getLastColumn()).getValues()[0];
-      result = {
-        success: true,
-        data: {
-          posterId: rowData[0] || "",
-          phone: rowData[1] || "",
-          name: rowData[2] || "",
-          tasksCompleted: rowData[3] || 0,
-          totalEarned: rowData[4] || 0,
-          paid: rowData[5] || 0,
-          balance: rowData[6] || 0,
-          lastTask: rowData[7] || "",
-          eligible: rowData[14] === "Yes"
-        }
-      };
-    } else {
-      result = {
-        success: false,
-        message: "No matching record found"
-      };
-    }
+    cache.put(cacheKey, JSON.stringify(sheetData), 300); // 5-minute cache
+  }
+
+  const line = sheetData[queryPhone];
+  let result;
+
+  if (!line) {
+    result = {
+      success: false,
+      message: "No matching record found"
+    };
+  } else {
+    const parts = line.split(" ||| ");
+    result = {
+      success: true,
+      data: {
+        name: parts[0] || "",
+        phone: parts[1] || "",
+        posterId: parts[2] || "",
+        tasksCompleted: parts[3] || "0",
+        totalEarned: parts[4] || "0",
+        paid: parts[5] || "0",
+        balance: parts[6] || "0",
+        lastTask: parts[7] || ""
+      }
+    };
   }
 
   const json = JSON.stringify(result);
-  cache.put(cacheKey, json, 300); // Cache for 5 minutes
-
-  if (callback) {
-    return ContentService.createTextOutput(callback + "(" + json + ");")
-      .setMimeType(ContentService.MimeType.JAVASCRIPT)
-      .setHeader('Access-Control-Allow-Origin', '*');
-  } else {
-    return ContentService.createTextOutput(json)
-      .setMimeType(ContentService.MimeType.JSON)
-      .setHeader('Access-Control-Allow-Origin', '*');
-  }
+  const output = ContentService.createTextOutput(callback ? `${callback}(${json});` : json)
+    .setMimeType(callback ? ContentService.MimeType.JAVASCRIPT : ContentService.MimeType.JSON)
+    .setHeader('Access-Control-Allow-Origin', '*');
+  return output;
 }
+
 
 
 /**

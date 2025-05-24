@@ -3,330 +3,148 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StatusPay247 | Poster Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>StatusPay247 Dashboard</title>
   <style>
-    * {
-      box-sizing: border-box;
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f6f9;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', sans-serif;
-    }
-
-    body {
-      background-color: #f4f6f8;
-      color: #333;
-      padding: 20px;
-    }
-
-    header {
-      background-color: #fff;
-      padding: 20px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 30px;
-      border-radius: 12px;
-    }
-
-    header h1 {
-      font-size: 24px;
-      font-weight: 700;
-      color: #0a3d62;
-    }
-
-    .dashboard-section {
-      background-color: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    }
-
-    .dashboard-section h2 {
-      font-size: 20px;
-      margin-bottom: 15px;
-      color: #1e272e;
-    }
-
-    .info-row {
       display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 15px;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
 
-    .info-box {
-      flex: 1 1 45%;
-      background-color: #f1f2f6;
-      padding: 15px;
+    .dashboard-container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px;
+      padding: 20px;
+      background-color: #fff;
       border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .info-box strong {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: 600;
-    }
-
-    .ads-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .ad-card {
-      background-color: #dff9fb;
-      padding: 15px;
-      border-radius: 10px;
-      border: 1px solid #c7ecee;
-    }
-
-    .ad-card img {
-      max-width: 100%;
-      height: auto;
+    .card {
+      background-color: #fff;
       border-radius: 8px;
-      margin-top: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      padding: 20px;
     }
 
-    .earnings-stats {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .earnings-card {
-      flex: 1;
-      background-color: #f5f6fa;
+    .wallet-card {
+      background-color: #28a745;
+      color: white;
       padding: 20px;
       border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
       text-align: center;
-      border: 1px solid #dcdde1;
     }
 
-    .earnings-card h3 {
-      font-size: 16px;
+    .wallet-card h3 {
+      margin-top: 0;
       margin-bottom: 10px;
-      color: #2f3640;
-    }
-
-    .earnings-card span {
       font-size: 24px;
-      font-weight: 700;
-      color: #44bd32;
     }
 
-    .support-card a {
-      color: #487eb0;
-      text-decoration: none;
-      font-weight: 600;
+    .wallet-card p {
+      font-size: 18px;
+      margin: 5px 0;
     }
 
-    @media (max-width: 768px) {
-      .info-row {
-        flex-direction: column;
-      }
+    .metrics-card {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
 
-      .earnings-stats {
-        flex-direction: column;
-      }
+    .metric {
+      font-size: 16px;
+      margin: 5px 0;
+      color: #555;
+    }
+
+    #loading,
+    #error {
+      font-weight: bold;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #error {
+      color: red;
     }
   </style>
 </head>
 
 <body>
-  <header>
-    <h1>StatusPay247 Poster Dashboard</h1>
-  </header>
-
-  <section class="dashboard-section" id="profile-section">
-    <h2>Your Profile</h2>
-    <div class="info-row">
-      <div class="info-box">
-        <strong>Name:</strong>
-        <span id="poster-name">Loading...</span>
-      </div>
-      <div class="info-box">
-        <strong>Poster ID:</strong>
-        <span id="poster-id">Loading...</span>
-      </div>
-      <div class="info-box">
-        <strong>Eligibility:</strong>
-        <span id="eligible">Loading...</span>
-      </div>
-      <div class="info-box">
-        <strong>WhatsApp Number:</strong>
-        <span id="whatsapp">Loading...</span>
-      </div>
+  <div class="dashboard-container">
+    <div class="card">
+      <h2>Welcome, <span id="userName">...</span></h2>
     </div>
-  </section>
 
-  <section class="dashboard-section" id="ads-section">
-    <h2>Assigned Ads</h2>
-    <div class="ads-container" id="ads-list">
-      <!-- JS will populate this -->
+    <div class="wallet-card">
+      <h3>Wallet</h3>
+      <p>Current Balance: ₹<span id="balance">...</span></p>
+      <p>Total Earned: ₹<span id="totalEarned">...</span></p>
+      <p>Paid: ₹<span id="paid">...</span></p>
     </div>
-  </section>
 
-  <section class="dashboard-section" id="earnings-section">
-    <h2>Your Earnings</h2>
-    <div class="earnings-stats">
-      <div class="earnings-card">
-        <h3>Total Tasks</h3>
-        <span id="total-tasks">0</span>
-      </div>
-      <div class="earnings-card">
-        <h3>Total Earned</h3>
-        <span id="total-earned">₹0</span>
-      </div>
-      <div class="earnings-card">
-        <h3>Paid</h3>
-        <span id="paid">₹0</span>
-      </div>
-      <div class="earnings-card">
-        <h3>Balance</h3>
-        <span id="balance">₹0</span>
-      </div>
+    <div class="card metrics-card">
+      <p class="metric">Poster ID: <span id="posterId">...</span></p>
+      <p class="metric">Phone: <span id="phone">...</span></p>
+      <p class="metric">Tasks Completed: <span id="tasksCompleted">...</span></p>
+      <p class="metric">Last Task: <span id="lastTask">...</span></p>
     </div>
-  </section>
 
-  <section class="dashboard-section support-card">
-    <h2>Support</h2>
-    <p>If you need any help, please <a href="https://wa.me/919744483058" target="_blank">WhatsApp us</a>.</p>
-  </section>
+    <div id="loading" style="display: none;">Loading dashboard...</div>
+    <div id="error" style="display: none; color: red;">❌ Failed to load your dashboard.</div>
+  </div>
 
   <script>
-    // Check authentication
-    document.addEventListener('DOMContentLoaded', function() {
-      checkAuth();
-      loadDashboardData();
-    });
+    function loadDashboard(phone) {
+      const url = `https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID_HERE/exec?action=getDashboard&phone=${phone}`;
 
-    function checkAuth() {
-      const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
-      const loginTime = new Date(localStorage.getItem('loginTime'));
-      const now = new Date();
-      
-      // Session expires after 24 hours
-      if (!isLoggedIn || !loginTime || (now - loginTime > 24 * 60 * 60 * 1000)) {
-        localStorage.clear();
-        window.location.href = 'login.html';
-        return false;
-      }
-      
-      return true;
-    }
+      document.getElementById("loading").style.display = "block";
+      document.getElementById("error").style.display = "none";
 
-    async function loadDashboardData() {
-      const loadingText = "Loading...";
-      
-      // Set loading state
-      document.getElementById('poster-name').textContent = loadingText;
-      document.getElementById('poster-id').textContent = loadingText;
-      document.getElementById('eligible').textContent = loadingText;
-      document.getElementById('whatsapp').textContent = loadingText;
-      document.getElementById('total-tasks').textContent = "0";
-      document.getElementById('total-earned').textContent = "₹0";
-      document.getElementById('paid').textContent = "₹0";
-      document.getElementById('balance').textContent = "₹0";
-      
-      // Get user phone from localStorage
-      const userPhone = localStorage.getItem('userPhone');
-      if (!userPhone) {
-        alert('User information not found. Please login again.');
-        localStorage.clear();
-        window.location.href = 'login.html';
-        return;
-      }
+      fetch(url)
+        .then(response => {
+          if (!response.ok) throw new Error("Network error");
+          return response.json();
+        })
+        .then(result => {
+          if (!result.success) throw new Error(result.message || "Unknown error");
 
-      // Use fetch with timeout
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 15000); // 15-second timeout
+          const data = result.data;
+          document.getElementById("userName").textContent = data.name;
+          document.getElementById("posterId").textContent = data.posterId;
+          document.getElementById("phone").textContent = data.phone;
+          document.getElementById("tasksCompleted").textContent = data.tasksCompleted;
+          document.getElementById("totalEarned").textContent = data.totalEarned;
+          document.getElementById("paid").textContent = data.paid;
+          document.getElementById("balance").textContent = data.balance;
+          document.getElementById("lastTask").textContent = data.lastTask;
 
-      // Replace with your deployed web app URL or script ID
-      const scriptId = 'AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg';
-      const url = `https://script.google.com/macros/s/${scriptId}/exec?action=getDashboard&phone=${encodeURIComponent(userPhone)}`;
-
-      try {
-        const response = await fetch(url, { signal: controller.signal });
-        clearTimeout(timeoutId);
-
-        if (!response.ok) throw new Error("Network response was not ok");
-
-        const data = await response.json();
-        console.log("Dashboard data:", data);
-
-        if (data && data.success && data.data) {
-          updateDashboard(data.data);
-        } else {
-          const errorMsg = data ? data.message : 'Failed to load dashboard data.';
-          alert(errorMsg);
-          if (errorMsg.includes('not found')) {
-            localStorage.clear();
-            window.location.href = 'login.html';
-          }
-        }
-      } catch (err) {
-        clearTimeout(timeoutId);
-        if (err.name === 'AbortError') {
-          console.error("Dashboard data request timed out");
-          alert("The dashboard is taking too long to load. Please try again.");
-        } else {
-          console.error("Fetch error:", err);
-          alert("An error occurred while loading the dashboard.");
-        }
-        // Try to use cached data if available
-        const cachedUser = JSON.parse(localStorage.getItem('user') || '{}');
-        if (cachedUser && cachedUser.name) {
-          document.getElementById('poster-name').textContent = cachedUser.name || "N/A";
-          document.getElementById('eligible').textContent = cachedUser.eligible ? "Yes ✅" : "No ❌";
-          document.getElementById('whatsapp').textContent = cachedUser.phone || "N/A";
-        }
-      }
-    }
-
-    function updateDashboard(data) {
-      // Update profile section
-      document.getElementById('poster-name').textContent = data.name || "N/A";
-      document.getElementById('poster-id').textContent = data.posterId || "N/A";
-      document.getElementById('eligible').textContent = data.eligible ? "Yes ✅" : "No ❌";
-      document.getElementById('whatsapp').textContent = data.phone || "N/A";
-      
-      // Update earnings section
-      document.getElementById('total-tasks').textContent = data.tasksCompleted || "0";
-      document.getElementById('total-earned').textContent = `₹${data.totalEarned || "0"}`;
-      document.getElementById('paid').textContent = `₹${data.paid || "0"}`;
-      document.getElementById('balance').textContent = `₹${data.balance || "0"}`;
-      
-      // Update ads section
-      const adsContainer = document.getElementById('ads-list');
-      adsContainer.innerHTML = ''; // Clear existing content
-      
-      // If there's a last task, display it
-      if (data.lastTask && data.lastTask !== "No active tasks") {
-        const taskCard = document.createElement('div');
-        taskCard.className = 'ad-card';
-        taskCard.innerHTML = `
-          <strong>Current Task</strong>
-          <p>${data.lastTask}</p>
-        `;
-        adsContainer.appendChild(taskCard);
-      }
-      
-      if (data.ads && data.ads.length > 0) {
-        data.ads.forEach(ad => {
-          const card = document.createElement('div');
-          card.className = 'ad-card';
-          card.innerHTML = `
-            <strong>${ad.title}</strong>
-            <p>Status: ${ad.status}</p>
-            ${ad.image ? `<img src="${ad.image}" alt="Ad image">` : ''}
-          `;
-          adsContainer.appendChild(card);
+          document.getElementById("loading").style.display = "none";
+        })
+        .catch(error => {
+          console.error("Dashboard error:", error);
+          document.getElementById("loading").style.display = "none";
+          document.getElementById("error").style.display = "block";
         });
-      } else if (adsContainer.children.length === 0) {
-        // Only show placeholder if there's no last task and no ads
-        adsContainer.innerHTML = '<p>No ads or tasks assigned yet.</p>';
-      }
+    }
+
+    // Get phone from localStorage (if user logged in before)
+    const phone = localStorage.getItem("userPhone");
+    if (phone) {
+      loadDashboard(phone);
+    } else {
+      document.getElementById("error").textContent = "Not logged in. Please go to login page.";
+      document.getElementById("error").style.display = "block";
     }
   </script>
 </body>
