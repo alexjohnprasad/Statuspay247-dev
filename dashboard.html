@@ -105,48 +105,67 @@
   </div>
 
   <script>
-    function loadDashboard(phone) {
-      const url = `https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec?action=getDashboard&phone=${phone}`;
+  function loadDashboard(phone) {
+    const callbackName = 'jsonpCallback_' + Date.now(); // unique callback name
 
-      document.getElementById("loading").style.display = "block";
-      document.getElementById("error").style.display = "none";
+    // Create the global callback function
+    window[callbackName] = function(result) {
+      try {
+        if (!result.success) throw new Error(result.message || "Unknown error");
 
-      fetch(url)
-        .then(response => {
-          if (!response.ok) throw new Error("Network error");
-          return response.json();
-        })
-        .then(result => {
-          if (!result.success) throw new Error(result.message || "Unknown error");
+        const data = result.data;
+        document.getElementById("userName").textContent = data.name;
+        document.getElementById("posterId").textContent = data.posterId;
+        document.getElementById("phone").textContent = data.phone;
+        document.getElementById("tasksCompleted").textContent = data.tasksCompleted;
+        document.getElementById("totalEarned").textContent = data.totalEarned;
+        document.getElementById("paid").textContent = data.paid;
+        document.getElementById("balance").textContent = data.balance;
+        document.getElementById("lastTask").textContent = data.lastTask;
 
-          const data = result.data;
-          document.getElementById("userName").textContent = data.name;
-          document.getElementById("posterId").textContent = data.posterId;
-          document.getElementById("phone").textContent = data.phone;
-          document.getElementById("tasksCompleted").textContent = data.tasksCompleted;
-          document.getElementById("totalEarned").textContent = data.totalEarned;
-          document.getElementById("paid").textContent = data.paid;
-          document.getElementById("balance").textContent = data.balance;
-          document.getElementById("lastTask").textContent = data.lastTask;
+        document.getElementById("loading").style.display = "none";
+      } catch (error) {
+        console.error("Dashboard error:", error);
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("error").style.display = "block";
+      } finally {
+        // Clean up: remove script tag and callback
+        delete window[callbackName];
+        script.remove();
+      }
+    };
 
-          document.getElementById("loading").style.display = "none";
-        })
-        .catch(error => {
-          console.error("Dashboard error:", error);
-          document.getElementById("loading").style.display = "none";
-          document.getElementById("error").style.display = "block";
-        });
-    }
+    // Show loading UI
+    document.getElementById("loading").style.display = "block";
+    document.getElementById("error").style.display = "none";
 
-    // Get phone from localStorage (if user logged in before)
-    const phone = localStorage.getItem("userPhone");
-    if (phone) {
-      loadDashboard(phone);
-    } else {
-      document.getElementById("error").textContent = "Not logged in. Please go to login page.";
+    // Create script tag with JSONP URL including callback param
+    const url = `https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec?action=getDashboard&phone=${phone}&callback=${callbackName}`;
+
+    const script = document.createElement('script');
+    script.src = url;
+    script.onerror = function() {
+      console.error("Dashboard error: script loading failed");
+      document.getElementById("loading").style.display = "none";
       document.getElementById("error").style.display = "block";
-    }
-  </script>
+
+      // Clean up
+      delete window[callbackName];
+      script.remove();
+    };
+    document.head.appendChild(script);
+  }
+
+  // Get phone from localStorage (if user logged in before)
+  const phone = localStorage.getItem("userPhone");
+  if (phone) {
+    loadDashboard(phone);
+  } else {
+    document.getElementById("error").textContent = "Not logged in. Please go to login page.";
+    document.getElementById("error").style.display = "block";
+  }
+</script>
+
 </body>
 
 </html>
