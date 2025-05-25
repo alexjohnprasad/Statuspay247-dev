@@ -10,129 +10,6 @@
     <link rel="stylesheet" href="css/styles-cleaned.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        .login-container {
-            max-width: 450px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background-color: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        
-        .login-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        .login-header img {
-            max-width: 180px;
-            margin-bottom: 1rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-        
-        .login-btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 1rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .login-btn:hover {
-            background-color: #3d9c40;
-        }
-        
-        .login-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-        
-        .login-footer a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-        
-        .login-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .password-input-container {
-            position: relative;
-        }
-        
-        .password-input-container input {
-            padding-right: 35px; /* Make space for the eye icon */
-        }
-        
-        .password-toggle {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #777;
-        }
-
-        #login-error {
-            color: #d32f2f;
-            padding: 10px;
-            margin: 10px 0;
-            background-color: #ffebee;
-            border-radius: 4px;
-            border: 1px solid #ef9a9a;
-        }
-
-        #login-status {
-            color: #2196F3;
-            padding: 10px;
-            margin: 10px 0;
-            background-color: #E3F2FD;
-            border-radius: 4px;
-            border: 1px solid #90CAF9;
-            text-align: center;
-        }
-
-        .spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #2196F3;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -162,7 +39,7 @@
     </header>
 
     <main>
-        <section class="section-light">
+        <section>
             <div class="container">
                 <div class="login-container">
                     <div class="login-header">
@@ -206,12 +83,6 @@
         </section>
     </main>
 
-    <div id="cors-warning" style="display:none;color:#d32f2f;background:#fff3cd;border:1px solid #ffeeba;padding:10px;margin:10px auto;max-width:450px;border-radius:4px;">
-        <strong>Warning:</strong> This page is being served from <code>file://</code>.<br>
-        For login to work, please open this site using a local web server (e.g., VS Code Live Server, Python http.server, etc).<br>
-        <span style="font-size:0.95em;">See browser console for details.</span>
-    </div>
-
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -222,12 +93,11 @@
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="index.html#hero">Home</a></li>
-                        <li><a href="index.html#what-is-statuspay">About</a></li>
-                        <li><a href="index.html#how-it-works">How It Works</a></li>
-                        <li><a href="index.html#why-choose-us">Why Choose Us</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
-                        <li><a href="poster.html">Join as Poster</a></li>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#what-is-statuspay">About Us</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#why-choose-us">Why Choose Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -243,6 +113,7 @@
             </div>
             <div class="copyright">
                 <p>&copy; 2025 StatusPay 247. All rights reserved.</p>
+                <p class="disclaimer">WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc. The services we provide involve direct WhatsApp status marketing using our network of users, and the use of the WhatsApp® logo or name is strictly for illustrative purposes. All rights to WhatsApp® remain the property of Meta Platforms, Inc.</p>
             </div>
         </div>
     </footer>
