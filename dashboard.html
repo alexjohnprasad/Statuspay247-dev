@@ -325,6 +325,34 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* Custom styles for wallet withdraw button */
+    .wallet-withdraw-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      display: inline-block;
+      text-align: center;
+      min-width: 180px;
+    }
+    
+    .wallet-withdraw-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .withdraw-note {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-top: 0.5rem;
+    }
   </style>
 </head>
 
@@ -419,6 +447,17 @@
               <span class="wallet-detail-value">₹<span id="paid">0</span></span>
             </div>
           </div>
+          <!-- Withdraw Button with lock/unlock icon -->
+          <div style="text-align:center; margin-top:1.5rem;">
+            <button id="withdrawBtn" class="btn wallet-withdraw-btn" style="min-width:180px;" disabled>
+              <i id="withdrawLockIcon" class="fas fa-lock"></i>
+              Withdraw
+            </button>
+            <div class="withdraw-note">
+              <i class="fas fa-info-circle"></i>
+              You can only withdraw your amount after meeting the ₹500 threshold.
+            </div>
+          </div>
         </div>
 
         <!-- Profile Card -->
@@ -440,8 +479,8 @@
               <span class="info-value" id="phone">...</span>
             </div>
             <div class="info-item">
-              <span class="info-label">Member Since</span>
-              <span class="info-value">January 2025</span>
+              <span class="info-label">Total Tasks Completed</span>
+              <span class="info-value" id="profileTasksCompleted">0</span>
             </div>
             <div class="info-item">
               <span class="info-label">Status</span>
@@ -450,38 +489,46 @@
           </div>
         </div>
 
-        <!-- Statistics Card -->
+        <!-- Statistics Card (Replaced) -->
         <div class="dashboard-card">
           <div class="card-header">
             <div class="card-icon stats-icon">
-              <i class="fas fa-chart-line"></i>
+              <i class="fas fa-users"></i>
             </div>
-            <h3 class="card-title">Your Statistics</h3>
+            <h3 class="card-title">Join Official Posters Group</h3>
           </div>
-          
-          <div class="stats-grid">
-            <div class="stat-item">
-              <span class="stat-number" id="tasksCompleted">0</span>
-              <span class="stat-label">Tasks Completed</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">98%</span>
-              <span class="stat-label">Success Rate</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">₹20</span>
-              <span class="stat-label">Per Task</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number">5★</span>
-              <span class="stat-label">Rating</span>
-            </div>
+          <div class="join-group-section" style="text-align:center; margin-bottom:1.2rem;">
+            <p style="margin-bottom:1.2rem; color:var(--text-light);">
+              Connect with other posters, get updates, and support in our official WhatsApp group.
+            </p>
+            <a href="https://chat.whatsapp.com/your-group-link" target="_blank" class="btn join-group-btn">
+              <i class="fab fa-whatsapp"></i> Join Group
+            </a>
           </div>
-          
           <div class="info-item" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
             <span class="info-label">Last Task</span>
             <span class="info-value" id="lastTask">...</span>
           </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Upload Card -->
+      <div class="dashboard-card" style="max-width:600px; margin:2rem auto;">
+        <div class="card-header">
+          <div class="card-icon" style="background: var(--primary-color);">
+            <i class="fas fa-upload"></i>
+          </div>
+          <h3 class="card-title">Upload Task Screenshot</h3>
+        </div>
+        <div style="text-align:center;">
+          <input type="text" id="uploadPhone" placeholder="Phone Number" style="margin-bottom:0.7rem;max-width:220px;width:100%;padding:0.6rem 0.8rem;border:1px solid var(--border-color);border-radius:5px;font-size:1rem;">
+          <br>
+          <input type="file" id="uploadFile" accept="image/*" style="margin-bottom:1rem;" required>
+          <br>
+          <button type="button" id="uploadBtn" class="btn" style="min-width:160px;">
+            <i class="fas fa-cloud-upload-alt"></i> Upload Screenshot
+          </button>
+          <div id="uploadStatusMessage" style="margin-top:1rem; font-size:0.98rem; color:var(--primary-color);"></div>
         </div>
       </div>
 
@@ -562,29 +609,64 @@
           if (!result.success) throw new Error(result.message || "Unknown error");
 
           const data = result.data;
-          document.getElementById("userName").textContent = data.name;
-          document.getElementById("posterId").textContent = data.posterId;
-          document.getElementById("phone").textContent = data.phone;
-          document.getElementById("tasksCompleted").textContent = data.tasksCompleted;
-          document.getElementById("totalEarned").textContent = data.totalEarned;
-          document.getElementById("paid").textContent = data.paid;
-          document.getElementById("balance").textContent = data.balance;
-          document.getElementById("lastTask").textContent = data.lastTask;
+          // Defensive: Only update elements if they exist
+          const setText = (id, value) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value;
+          };
+          setText("userName", data.name);
+          setText("posterId", data.posterId);
+          setText("phone", data.phone);
+          setText("tasksCompleted", data.tasksCompleted);
+          setText("profileTasksCompleted", data.tasksCompleted);
+          setText("totalEarned", data.totalEarned);
+          setText("paid", data.paid);
+          setText("balance", data.balance);
+          setText("lastTask", data.lastTask);
 
           // Update wallet progress bar
+          const walletBar = document.getElementById("walletBar");
+          const walletBarLabel = document.getElementById("walletBarLabel");
           const balance = parseFloat(data.balance) || 0;
           const percent = Math.min(100, Math.round((balance / 500) * 100));
-          const walletBar = document.getElementById("walletBar");
-          walletBar.style.width = percent + "%";
-          document.getElementById("walletBarLabel").textContent = percent + "% of ₹500 threshold";
+          if (walletBar) walletBar.style.width = percent + "%";
+          if (walletBarLabel) walletBarLabel.textContent = percent + "% of ₹500 threshold";
+
+          // Withdraw button logic with lock/unlock icon
+          const withdrawBtn = document.getElementById("withdrawBtn");
+          const withdrawLockIcon = document.getElementById("withdrawLockIcon");
+          if (withdrawBtn && withdrawLockIcon) {
+            if (balance >= 500) {
+              withdrawBtn.disabled = false;
+              withdrawLockIcon.className = "fas fa-unlock";
+              withdrawBtn.onclick = function() {
+                const msg = encodeURIComponent(
+                  `Hi StatusPay247, I have met the ₹500 threshold and would like to withdraw my earnings. My current balance is ₹${balance}.`
+                );
+                window.open(`https://wa.me/919744483058?text=${msg}`, "_blank");
+              };
+            } else {
+              withdrawBtn.disabled = true;
+              withdrawLockIcon.className = "fas fa-lock";
+              withdrawBtn.onclick = null;
+            }
+          }
 
           // Show dashboard content and hide loading
           document.getElementById("loading").style.display = "none";
           document.getElementById("dashboardContent").style.display = "block";
         } catch (error) {
-          console.error("Dashboard error:", error);
+          console.error("Dashboard error:", error, result);
           document.getElementById("loading").style.display = "none";
           document.getElementById("error").style.display = "block";
+          // Show more details for debugging
+          var errorP = document.querySelector("#error p");
+          if (errorP) {
+            errorP.textContent =
+              "❌ Failed to load your dashboard data. " +
+              (result && result.message ? result.message : error.message || "") +
+              " Please try refreshing the page.";
+          }
         } finally {
           delete window[callbackName];
           script.remove();
@@ -594,7 +676,7 @@
       document.getElementById("loading").style.display = "block";
       document.getElementById("error").style.display = "none";
 
-      const url = `https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec?action=getDashboard&phone=${phone}&callback=${callbackName}`;
+      const url = `https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec?action=getDashboard&phone=${encodeURIComponent(phone)}&callback=${callbackName}`;
 
       const script = document.createElement('script');
       script.src = url;
@@ -602,6 +684,11 @@
         console.error("Dashboard error: script loading failed");
         document.getElementById("loading").style.display = "none";
         document.getElementById("error").style.display = "block";
+        var errorP = document.querySelector("#error p");
+        if (errorP) {
+          errorP.textContent =
+            "❌ Failed to load your dashboard data. (Network or server error) Please try refreshing the page.";
+        }
         delete window[callbackName];
         script.remove();
       };
@@ -617,6 +704,89 @@
       document.getElementById("error").style.display = "block";
       document.querySelector("#error p").textContent = "Not logged in. Please go to login page.";
     }
+
+    // Screenshot upload handler using Google Apps Script backend
+    document.addEventListener('DOMContentLoaded', function() {
+      // Autofill phone number if available
+      const phone = localStorage.getItem('userPhone') || '';
+      const phoneInput = document.getElementById('uploadPhone');
+      if (phoneInput && phone) phoneInput.value = phone;
+
+      const uploadBtn = document.getElementById("uploadBtn");
+      if (uploadBtn) {
+        uploadBtn.addEventListener("click", function () {
+          const phoneInput = document.getElementById("uploadPhone");
+          const fileInput = document.getElementById("uploadFile");
+          const statusMessage = document.getElementById("uploadStatusMessage");
+
+          const phone = phoneInput.value.trim();
+          const file = fileInput.files[0];
+
+          if (!phone || !file) {
+            statusMessage.textContent = "Please enter a phone number and select a file.";
+            statusMessage.style.color = "red";
+            return;
+          }
+
+          // Convert file to base64
+          const reader = new FileReader();
+          reader.onload = function () {
+            const base64Image = reader.result.split(",")[1]; // remove prefix
+
+            // Use the provided deployed Google Apps Script Web App URL
+            const webAppUrl = "https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec";
+
+            fetch(webAppUrl, {
+              method: "POST",
+              mode: "cors",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: `phone=${encodeURIComponent(phone)}&file=${encodeURIComponent(base64Image)}`
+            })
+            .then(response => {
+              // If the Apps Script does not return JSON, handle as text
+              return response.text().then(text => {
+                try {
+                  return JSON.parse(text);
+                } catch {
+                  // If not JSON, treat as success if HTTP 200
+                  if (response.ok) {
+                    return { success: true };
+                  }
+                  return { success: false, message: "Unexpected server response." };
+                }
+              });
+            })
+            .then(data => {
+              if (data.success) {
+                statusMessage.textContent = "Screenshot uploaded successfully!";
+                statusMessage.style.color = "green";
+                // Optionally clear file input
+                // phoneInput.value = "";
+                fileInput.value = "";
+              } else {
+                statusMessage.textContent = "Error: " + (data.message || "Unknown error");
+                statusMessage.style.color = "red";
+              }
+            })
+            .catch(error => {
+              console.error("Upload error:", error);
+              statusMessage.textContent = "Failed to connect to server. Please check your internet connection or contact support.";
+              statusMessage.style.color = "red";
+            });
+          };
+
+          reader.onerror = function (error) {
+            console.error("File reading error:", error);
+            statusMessage.textContent = "Error reading file.";
+            statusMessage.style.color = "red";
+          };
+
+          reader.readAsDataURL(file);
+        });
+      }
+    });
   </script>
 </body>
 

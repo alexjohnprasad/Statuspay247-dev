@@ -39,7 +39,7 @@ function doGet(e) {
 
 
     if (action === "login") {
-      response = handleLogin(phone, password);
+      return handleLogin(phone, password); // <-- Fix: return the login response
     } else if (action === "getDashboard") {
       return getDashboardData(phone, callback);
     } else {
@@ -185,7 +185,7 @@ function getDashboardData(phone, callback) {
  */
 function checkLogin(phone, password) {
   const startTime = new Date().getTime();
-  Logger.log("checkLogin called with phone: " + phone);
+  Logger.log("checkLogin called with phone: " + phone + ", password: " + password);
   
   const queryPhone = standardizePhone(phone);
   if (queryPhone.length !== 10) {
@@ -348,7 +348,17 @@ function addRecord(name, phone, email, password) {
  */
 function doPost(e) {
   try {
-    const params = e.parameter;
+    let params = e.parameter;
+    // Add this block to support raw POST body parsing
+    if (e.postData && e.postData.type === "application/x-www-form-urlencoded" && e.postData.contents) {
+      const raw = e.postData.contents;
+      const parsed = {};
+      raw.split("&").forEach(function(pair) {
+        const [k, v] = pair.split("=");
+        if (k) parsed[decodeURIComponent(k)] = decodeURIComponent(v || "");
+      });
+      params = Object.assign({}, params, parsed);
+    }
     Logger.log("doPost called with action: " + params.action);
     
     const createResponse = function(content) {

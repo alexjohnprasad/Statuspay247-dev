@@ -39,44 +39,48 @@
     </header>
 
     <main>
-        <section>
-            <div class="container">
-                <div class="login-container">
-                    <div class="login-header">
-                        <img src="assets/logo.png" alt="StatusPay 247 Logo">
-                        <h2>Login to Your Account</h2>
-                    </div>
-                    <div id="login-status" style="display: none;">
-                        <div style="display: flex; align-items: center; justify-content: center;">
+        <section class="login-section">
+            <div class="login-outer-wrapper login-outer-wrapper--centered">
+                <div class="login-form-side login-form-side--centered">
+                    <div class="login-card-modern">
+                        <div class="login-header-modern">
+                            <img src="assets/logo.png" alt="StatusPay 247 Logo">
+                            <h2>Sign In</h2>
+                        </div>
+                        <div id="login-status" class="login-status-modern" style="display: none;">
                             <div class="spinner"></div>
                             <span id="status-message">Connecting to server...</span>
                         </div>
-                    </div>
-                    <div id="login-error" style="display: none;">
-                        <strong>Login Error:</strong> <span id="error-message"></span>
-                        <div id="error-details" style="margin-top: 5px; font-size: 0.9em; display: none;"></div>
-                    </div>
-                    <form id="loginForm">
-                        <div class="form-group">
-                            <label for="phone">WhatsApp Number</label>
-                            <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required>
+                        <div id="login-error" class="login-error-modern" style="display: none;">
+                            <strong>Login Error:</strong> <span id="error-message"></span>
+                            <div id="error-details"></div>
                         </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <div class="password-input-container">
-                                <input type="password" id="password" placeholder="Enter your password" required>
-                                <span class="password-toggle" onclick="togglePasswordVisibility('password')">
-                                    <i class="fas fa-eye"></i>
-                                </span>
+                        <form id="loginForm" class="login-form-modern">
+                            <div class="form-group-modern">
+                                <label for="phone">WhatsApp Number</label>
+                                <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required>
                             </div>
+                            <div class="form-group-modern">
+                                <label for="password">Password</label>
+                                <div class="password-input-container-modern">
+                                    <input type="password" id="password" placeholder="Enter your password" required>
+                                    <span class="password-toggle-modern" onclick="togglePasswordVisibility('password')">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <button type="submit" class="login-btn-modern">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </button>
+                        </form>
+                        <div class="login-footer-modern">
+                            <p>Don't have an account? <a href="poster.html">Register here</a></p>
+                            <p>
+                                <a href="https://wa.me/919744483058?text=Hi%20StatusPay247%2C%20I%20forgot%20my%20password%20and%20need%20help%20to%20change%20it." target="_blank" rel="noopener">
+                                    Forgot password?
+                                </a>
+                            </p>
                         </div>
-                        <button type="submit" class="login-btn">
-                            <i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> Login
-                        </button>
-                    </form>
-                    <div class="login-footer">
-                        <p>Don't have an account? <a href="poster.html">Register here</a></p>
-                        <p><a href="#">Forgot password?</a></p>
                     </div>
                 </div>
             </div>
@@ -196,7 +200,7 @@
         // Form submission handler with multiple fallback methods
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const loginBtn = document.querySelector('.login-btn');
+            const loginBtn = document.querySelector('.login-btn-modern'); // <-- updated selector
             loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
             loginBtn.disabled = true;
 
