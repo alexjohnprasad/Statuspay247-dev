@@ -184,6 +184,35 @@ nav a:hover:after { width: 100%; }
     position: relative;
     z-index: 1100;
 }
+
+/* Mobile Navigation */
+@media (max-width: 992px) {
+    nav ul {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: var(--background-color);
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 2rem;
+        transition: all 0.3s ease;
+    }
+    
+    nav ul.active {
+        left: 0;
+    }
+    
+    nav ul li {
+        margin: 1rem 0;
+    }
+    
+    .burger-menu {
+        display: flex;
+    }
+}
 .burger-menu span {
     display: block;
     width: 100%;
@@ -218,6 +247,40 @@ section { padding: 5rem 0; }
 #hero {
     padding: 8rem 0 5rem;
     background-color: var(--background-light);
+}
+
+@media (max-width: 768px) {
+    #hero {
+        padding: 6rem 0 3rem;
+    }
+    
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .hero-text {
+        padding-right: 0;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-buttons {
+        justify-content: center;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+    
+    .hero-buttons .btn {
+        flex: 1 1 auto;
+        min-width: 200px;
+        max-width: 250px;
+        text-align: center;
+        margin: 0 auto;
+    }
 }
 .hero-content {
     display: flex;
@@ -305,6 +368,18 @@ section { padding: 5rem 0; }
     margin: 0 auto;
     padding: 2rem 0;
 }
+
+@media (max-width: 992px) {
+    .split-layout {
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+    }
+    
+    .content-text, .content-image {
+        max-width: 100%;
+    }
+}
 .content-text {
     flex: 1;
     max-width: 600px;
@@ -331,6 +406,12 @@ section { padding: 5rem 0; }
     gap: 2rem;
     align-items: start;
 }
+
+@media (max-width: 768px) {
+    .who-can-join-grid {
+        grid-template-columns: 1fr;
+    }
+}
 .join-info, .join-whatsapp {
     padding: 1.5rem;
 }
@@ -350,6 +431,13 @@ section { padding: 5rem 0; }
     display: flex;
     gap: 4rem;
     margin-top: 3rem;
+}
+
+@media (max-width: 992px) {
+    .split-benefits {
+        flex-direction: column;
+        gap: 2rem;
+    }
 }
 
 .benefits-column {
@@ -709,6 +797,51 @@ footer {
     background-color: var(--text-color);
     color: white;
     padding: 3rem 0;
+}
+
+/* Base Responsive Adjustments */
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+    }
+    
+    header {
+        height: 70px;
+    }
+    
+    .logo img {
+        height: 50px;
+    }
+    
+    section {
+        padding: 3rem 0;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.75rem;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .footer-column {
+        text-align: center;
+    }
+    
+    .footer-column h3:after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
 }
 .footer-content {
     display: flex;

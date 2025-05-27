@@ -399,6 +399,37 @@
 
   <!-- Main Dashboard Content -->
   <main class="container">
+    <!-- Onboarding Screen -->
+    <div id="onboardingScreen" style="display:none; text-align:center; padding:3rem;">
+      <div style="font-size:2.5rem; color:var(--primary-color); margin-bottom:1rem;">
+        <i class="fas fa-user-plus"></i>
+      </div>
+      <h2>Welcome to StatusPay247</h2>
+      <p style="font-size:1.1rem; color:var(--text-light); margin-bottom:1.5rem;">
+        Please follow our social media pages and upload your verification screenshot.
+      </p>
+      <div class="social-links" style="margin-bottom:1.5rem;">
+        <a href="https://facebook.com/statuspay247" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com/statuspay247" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://twitter.com/statuspay247" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://wa.me/919744483058" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <a href="#uploadSection" class="btn btn-primary" style="font-size:1.1rem;">
+        <i class="fas fa-upload"></i> Upload Screenshot
+      </a>
+    </div>
+
+    <!-- Waiting Screen -->
+    <div id="waitingScreen" style="display:none; text-align:center; padding:3rem;">
+      <div style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;">
+        <i class="fas fa-hourglass-half"></i>
+      </div>
+      <h2>Verification Pending</h2>
+      <p style="font-size:1.1rem; color:var(--text-light);">
+        Your screenshot has been submitted. Our team will review it shortly.
+      </p>
+    </div>
+
     <!-- Loading State -->
     <div id="loading" class="loading-spinner">
       <div class="spinner"></div>
@@ -412,7 +443,10 @@
         <i class="fas fa-exclamation-triangle"></i>
       </div>
       <h3>Unable to load dashboard</h3>
-      <p>❌ Failed to load your dashboard data. Please try refreshing the page.</p>
+      <p>
+        ❌ Failed to load your dashboard data.<br>
+        <span id="errorDetails">Please try refreshing the page.</span>
+      </p>
     </div>
 
     <!-- Dashboard Content -->
@@ -601,193 +635,125 @@
       window.location.href = 'login.html';
     };
 
-    function loadDashboard(phone) {
-      const callbackName = 'jsonpCallback_' + Date.now();
-
-      window[callbackName] = function(result) {
-        try {
-          if (!result.success) throw new Error(result.message || "Unknown error");
-
-          const data = result.data;
-          // Defensive: Only update elements if they exist
-          const setText = (id, value) => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = value;
-          };
-          setText("userName", data.name);
-          setText("posterId", data.posterId);
-          setText("phone", data.phone);
-          setText("tasksCompleted", data.tasksCompleted);
-          setText("profileTasksCompleted", data.tasksCompleted);
-          setText("totalEarned", data.totalEarned);
-          setText("paid", data.paid);
-          setText("balance", data.balance);
-          setText("lastTask", data.lastTask);
-
-          // Update wallet progress bar
-          const walletBar = document.getElementById("walletBar");
-          const walletBarLabel = document.getElementById("walletBarLabel");
-          const balance = parseFloat(data.balance) || 0;
-          const percent = Math.min(100, Math.round((balance / 500) * 100));
-          if (walletBar) walletBar.style.width = percent + "%";
-          if (walletBarLabel) walletBarLabel.textContent = percent + "% of ₹500 threshold";
-
-          // Withdraw button logic with lock/unlock icon
-          const withdrawBtn = document.getElementById("withdrawBtn");
-          const withdrawLockIcon = document.getElementById("withdrawLockIcon");
-          if (withdrawBtn && withdrawLockIcon) {
-            if (balance >= 500) {
-              withdrawBtn.disabled = false;
-              withdrawLockIcon.className = "fas fa-unlock";
-              withdrawBtn.onclick = function() {
-                const msg = encodeURIComponent(
-                  `Hi StatusPay247, I have met the ₹500 threshold and would like to withdraw my earnings. My current balance is ₹${balance}.`
-                );
-                window.open(`https://wa.me/919744483058?text=${msg}`, "_blank");
-              };
-            } else {
-              withdrawBtn.disabled = true;
-              withdrawLockIcon.className = "fas fa-lock";
-              withdrawBtn.onclick = null;
-            }
-          }
-
-          // Show dashboard content and hide loading
-          document.getElementById("loading").style.display = "none";
-          document.getElementById("dashboardContent").style.display = "block";
-        } catch (error) {
-          console.error("Dashboard error:", error, result);
-          document.getElementById("loading").style.display = "none";
-          document.getElementById("error").style.display = "block";
-          // Show more details for debugging
-          var errorP = document.querySelector("#error p");
-          if (errorP) {
-            errorP.textContent =
-              "❌ Failed to load your dashboard data. " +
-              (result && result.message ? result.message : error.message || "") +
-              " Please try refreshing the page.";
-          }
-        } finally {
-          delete window[callbackName];
-          script.remove();
-        }
-      };
-
-      document.getElementById("loading").style.display = "block";
+    function showOnboardingScreen(message) {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("dashboardContent").style.display = "none";
       document.getElementById("error").style.display = "none";
+      let onboarding = document.getElementById("onboardingScreen");
+      if (!onboarding) {
+        onboarding = document.createElement("div");
+        onboarding.id = "onboardingScreen";
+        onboarding.style.textAlign = "center";
+        onboarding.style.padding = "3rem";
+        onboarding.innerHTML = `
+          <div style="font-size:2.5rem; color:var(--primary-color); margin-bottom:1rem;">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <h2>Complete Onboarding</h2>
+          <p style="font-size:1.1rem; color:var(--text-light); margin-bottom:2rem;">${message || "Please complete onboarding by uploading your screenshot."}</p>
+          <a href="#uploadSection" class="btn" style="font-size:1.1rem;">
+            <i class="fas fa-upload"></i> Upload Screenshot
+          </a>
+        `;
+        document.querySelector("main.container").prepend(onboarding);
+      } else {
+        onboarding.style.display = "block";
+      }
+      // Scroll to onboarding if needed
+      onboarding.scrollIntoView({ behavior: "smooth" });
+    }
 
-      const url = `https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec?action=getDashboard&phone=${encodeURIComponent(phone)}&callback=${callbackName}`;
+    function showWaitingScreen(message) {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("dashboardContent").style.display = "none";
+      document.getElementById("error").style.display = "none";
+      let waiting = document.getElementById("waitingScreen");
+      if (!waiting) {
+        waiting = document.createElement("div");
+        waiting.id = "waitingScreen";
+        waiting.style.textAlign = "center";
+        waiting.style.padding = "3rem";
+        waiting.innerHTML = `
+          <div style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;">
+            <i class="fas fa-hourglass-half"></i>
+          </div>
+          <h2>Verification Pending</h2>
+          <p style="font-size:1.1rem; color:var(--text-light);">${message || "Your screenshot has been uploaded. Waiting for manual verification."}</p>
+        `;
+        document.querySelector("main.container").prepend(waiting);
+      } else {
+        waiting.style.display = "block";
+      }
+      waiting.scrollIntoView({ behavior: "smooth" });
+    }
 
+    function hideSpecialScreens() {
+      let onboarding = document.getElementById("onboardingScreen");
+      if (onboarding) onboarding.style.display = "none";
+      let waiting = document.getElementById("waitingScreen");
+      if (waiting) waiting.style.display = "none";
+    }
+
+    function checkOnboardingStatus(phone, callback) {
+      const cbName = 'onboardingStatusCb_' + Date.now();
+      window[cbName] = function(result) {
+        callback(result);
+        // Remove script tag after callback
+        const script = document.getElementById(cbName);
+        if (script) script.remove();
+        delete window[cbName];
+      };
+      const url = `https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec?action=onboardingStatus&phone=${encodeURIComponent(phone)}&callback=${cbName}`;
       const script = document.createElement('script');
       script.src = url;
-      script.onerror = function() {
-        console.error("Dashboard error: script loading failed");
-        document.getElementById("loading").style.display = "none";
-        document.getElementById("error").style.display = "block";
-        var errorP = document.querySelector("#error p");
-        if (errorP) {
-          errorP.textContent =
-            "❌ Failed to load your dashboard data. (Network or server error) Please try refreshing the page.";
-        }
-        delete window[callbackName];
-        script.remove();
-      };
+      script.id = cbName; // Add id for cleanup
       document.head.appendChild(script);
     }
 
-    // Initialize dashboard
-    const phone = localStorage.getItem("userPhone");
-    if (phone) {
-      loadDashboard(phone);
-    } else {
-      document.getElementById("loading").style.display = "none";
-      document.getElementById("error").style.display = "block";
-      document.querySelector("#error p").textContent = "Not logged in. Please go to login page.";
-    }
-
-    // Screenshot upload handler using Google Apps Script backend
-    document.addEventListener('DOMContentLoaded', function() {
-      // Autofill phone number if available
-      const phone = localStorage.getItem('userPhone') || '';
-      const phoneInput = document.getElementById('uploadPhone');
-      if (phoneInput && phone) phoneInput.value = phone;
-
-      const uploadBtn = document.getElementById("uploadBtn");
-      if (uploadBtn) {
-        uploadBtn.addEventListener("click", function () {
-          const phoneInput = document.getElementById("uploadPhone");
-          const fileInput = document.getElementById("uploadFile");
-          const statusMessage = document.getElementById("uploadStatusMessage");
-
-          const phone = phoneInput.value.trim();
-          const file = fileInput.files[0];
-
-          if (!phone || !file) {
-            statusMessage.textContent = "Please enter a phone number and select a file.";
-            statusMessage.style.color = "red";
+    function loadDashboard(phone) {
+      hideSpecialScreens();
+      // Update loading message
+      var loadingDiv = document.getElementById("loading");
+      if (loadingDiv) {
+        loadingDiv.style.display = "block";
+        var h3 = loadingDiv.querySelector("h3");
+        var p = loadingDiv.querySelector("p");
+        if (h3) h3.textContent = "Loading your dashboard...";
+        if (p) p.textContent = "Please wait while we fetch your latest data";
+      }
+      checkOnboardingStatus(phone, function(statusResult) {
+        if (statusResult && statusResult.success && statusResult.step) {
+          if (statusResult.step === "onboarding") {
+            showOnboardingScreen(statusResult.message);
+            if (loadingDiv) loadingDiv.style.display = "none";
             return;
           }
+          if (statusResult.step === "waiting") {
+            showWaitingScreen(statusResult.message);
+            if (loadingDiv) loadingDiv.style.display = "none";
+            return;
+          }
+          // else, step === "dashboard", continue to load dashboard
+        } else if (statusResult && statusResult.success === false) {
+          if (loadingDiv) loadingDiv.style.display = "none";
+          document.getElementById("dashboardContent").style.display = "none";
+          document.getElementById("error").style.display = "block";
+          var errorP = document.querySelector("#error p");
+          if (errorP) {
+            errorP.textContent = statusResult.message || "Unable to verify onboarding status.";
+          }
+          return;
+        }
+        // ...existing code for loading dashboard
+        const callbackName = 'jsonpCallback_' + Date.now();
 
-          // Convert file to base64
-          const reader = new FileReader();
-          reader.onload = function () {
-            const base64Image = reader.result.split(",")[1]; // remove prefix
-
-            // Use the provided deployed Google Apps Script Web App URL
-            const webAppUrl = "https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec";
-
-            fetch(webAppUrl, {
-              method: "POST",
-              mode: "cors",
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-              body: `phone=${encodeURIComponent(phone)}&file=${encodeURIComponent(base64Image)}`
-            })
-            .then(response => {
-              // If the Apps Script does not return JSON, handle as text
-              return response.text().then(text => {
-                try {
-                  return JSON.parse(text);
-                } catch {
-                  // If not JSON, treat as success if HTTP 200
-                  if (response.ok) {
-                    return { success: true };
-                  }
-                  return { success: false, message: "Unexpected server response." };
-                }
-              });
-            })
-            .then(data => {
-              if (data.success) {
-                statusMessage.textContent = "Screenshot uploaded successfully!";
-                statusMessage.style.color = "green";
-                // Optionally clear file input
-                // phoneInput.value = "";
-                fileInput.value = "";
-              } else {
-                statusMessage.textContent = "Error: " + (data.message || "Unknown error");
-                statusMessage.style.color = "red";
-              }
-            })
-            .catch(error => {
-              console.error("Upload error:", error);
-              statusMessage.textContent = "Failed to connect to server. Please check your internet connection or contact support.";
-              statusMessage.style.color = "red";
-            });
-          };
-
-          reader.onerror = function (error) {
-            console.error("File reading error:", error);
-            statusMessage.textContent = "Error reading file.";
-            statusMessage.style.color = "red";
-          };
-
-          reader.readAsDataURL(file);
-        });
-      }
-    });
-  </script>
-</body>
-
-</html>
+        window[callbackName] = function(result) {
+          try {
+            if (!result.success || !result.data) throw new Error(result.message || "Unknown error");
+            const data = result.data;
+            // Defensive: Only update elements if they exist
+            const setText = (id, value) => {
+              const el = document.getElementById(id);
+              if (el) el.textContent = value;
+            };
+            setText("userName", data.name || "...");

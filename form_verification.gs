@@ -18,6 +18,16 @@ function doGet(e) {
     const password = e.parameter.password;
     const callback = e.parameter.callback;
 
+    // --- JSONP onboardingStatus support ---
+    if (action === 'onboardingStatus' && phone && callback) {
+      Logger.log("onboardingStatus JSONP requested for phone: " + phone);
+      const response = checkOnboardingStatus(phone);
+      const sanitizedCallback = sanitizeCallback(callback);
+      return ContentService.createTextOutput(`${sanitizedCallback}(${JSON.stringify(response)});`)
+        .setMimeType(ContentService.MimeType.JAVASCRIPT);
+    }
+    // --- end JSONP onboardingStatus ---
+
     let response;
 
     if (e.parameter.method === 'options') {
@@ -39,10 +49,32 @@ function doGet(e) {
 
 
     if (action === "login") {
-      return handleLogin(phone, password); // <-- Fix: return the login response
+      Logger.log("Action: login");
+      return handleLogin(phone, password);
     } else if (action === "getDashboard") {
+      Logger.log("Action: getDashboard");
+      // Add this check:
+      if (!phone) {
+        Logger.log("Missing phone parameter for getDashboard");
+        return ContentService.createTextOutput(JSON.stringify({
+          success: false,
+          message: "Phone number is required for dashboard"
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
       return getDashboardData(phone, callback);
+    } else if (action === "onboardingStatus") {
+      Logger.log("Action: onboardingStatus (non-JSONP)");
+      if (!phone) {
+        return ContentService.createTextOutput(JSON.stringify({
+          success: false,
+          message: "Phone number is required"
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+      const result = checkOnboardingStatus(phone);
+      return ContentService.createTextOutput(JSON.stringify(result))
+        .setMimeType(ContentService.MimeType.JSON);
     } else {
+      Logger.log("Action: default/other");
       const ss = SpreadsheetApp.openById("1ym0pnue6tbGImFA2ANYDFi0YAr7JQV8yfD2WPu3-um0");
       const sheet = ss.getSheetByName("New login");
       const data = sheet.getDataRange().getValues();
@@ -100,15 +132,16 @@ function doGet(e) {
     }
 
   } catch (error) {
+    Logger.log("doGet error: " + error.toString());
     const errorResponse = {
       success: false,
       message: "Server error occurred",
-      error: error.toString()
+      error: error.toString(),
+      stack: error.stack || ""
     };
-    if (e.parameter.callback) {
+    if (e && e.parameter && e.parameter.callback) {
       return ContentService.createTextOutput(e.parameter.callback + "(" + JSON.stringify(errorResponse) + ");")
         .setMimeType(ContentService.MimeType.JAVASCRIPT)
-
     }
     return ContentService.createTextOutput(JSON.stringify(errorResponse))
       .setMimeType(ContentService.MimeType.JSON)
@@ -119,18 +152,28 @@ function doGet(e) {
  * Fetches user dashboard data based on phone number
  */
 function getDashboardData(phone, callback) {
+  Logger.log("getDashboardData called with phone: " + phone + ", callback: " + callback);
   const queryPhone = (phone || "").toString().replace(/[^0-9]/g, "").slice(-10);
   const cache = CacheService.getScriptCache();
   const cacheKey = "dashboard_all_users_v1";
 
   let sheetData = cache.get(cacheKey);
   if (sheetData) {
+    Logger.log("Dashboard cache hit");
     sheetData = JSON.parse(sheetData);
   } else {
-    // Use the actual spreadsheet ID here
+    Logger.log("Dashboard cache miss, reading from sheet");
     const ss = SpreadsheetApp.openById("1ym0pnue6tbGImFA2ANYDFi0YAr7JQV8yfD2WPu3-um0");
     const sheet = ss.getSheetByName("MoneyTracking");
     const lastRow = sheet.getLastRow();
+
+    if (lastRow < 2) {
+      Logger.log("MoneyTracking sheet is empty or only has header");
+      return ContentService.createTextOutput(JSON.stringify({
+        success: false,
+        message: "No data available"
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
 
     const phoneCol = sheet.getRange(2, 2, lastRow - 1).getValues(); // Column B
     const dataCol = sheet.getRange(2, 9, lastRow - 1).getValues();  // Column I
@@ -146,15 +189,18 @@ function getDashboardData(phone, callback) {
     cache.put(cacheKey, JSON.stringify(sheetData), 300); // 5-minute cache
   }
 
+  Logger.log("Looking up dashboard for phone: " + queryPhone);
   const line = sheetData[queryPhone];
   let result;
 
   if (!line) {
+    Logger.log("No dashboard record found for phone: " + queryPhone);
     result = {
       success: false,
       message: "No matching record found"
     };
   } else {
+    Logger.log("Dashboard record found: " + line);
     const parts = line.split(" ||| ");
     result = {
       success: true,
@@ -172,7 +218,7 @@ function getDashboardData(phone, callback) {
   }
 
   const json = JSON.stringify(result);
-  // Always set CORS headers
+  Logger.log("Dashboard response: " + json);
   const output = ContentService.createTextOutput(callback ? `${callback}(${json});` : json)
     .setMimeType(callback ? ContentService.MimeType.JAVASCRIPT : ContentService.MimeType.JSON)
   return output;
@@ -348,6 +394,7 @@ function addRecord(name, phone, email, password) {
  */
 function doPost(e) {
   try {
+    Logger.log("doPost called with params: " + JSON.stringify(e.parameter));
     let params = e.parameter;
     // Add this block to support raw POST body parsing
     if (e.postData && e.postData.type === "application/x-www-form-urlencoded" && e.postData.contents) {
@@ -395,6 +442,17 @@ function doPost(e) {
       
       const result = addRecord(name, phone, email, password);
       return createResponse(result);
+    } else if (params.action === "onboardingStatus") {
+      const phone = params.phone;
+      if (!phone) {
+        return ContentService.createTextOutput(JSON.stringify({
+          success: false,
+          message: "Phone number is required"
+        })).setMimeType(ContentService.MimeType.JSON);
+      }
+      const result = checkOnboardingStatus(phone);
+      return ContentService.createTextOutput(JSON.stringify(result))
+        .setMimeType(ContentService.MimeType.JSON);
     }
     
     return createResponse({
@@ -410,6 +468,70 @@ function doPost(e) {
       error: error.toString()
     })).setMimeType(ContentService.MimeType.JSON);
   }
+}
+
+/**
+ * Checks onboarding status for a given phone number.
+ */
+function checkOnboardingStatus(phone) {
+  const queryPhone = standardizePhone(phone);
+  const ss = SpreadsheetApp.openById("1ym0pnue6tbGImFA2ANYDFi0YAr7JQV8yfD2WPu3-um0");
+  const sheet = ss.getSheetByName("New login");
+  const data = sheet.getDataRange().getValues();
+
+  for (let i = 1; i < data.length; i++) {
+    const rowPhone = standardizePhone(data[i][5]); // Column F (index 5)
+    if (rowPhone === queryPhone) {
+      let eligibleChecked = false;
+      try {
+        // Column N (index 13) is the "eligible" checkbox/value
+        eligibleChecked = sheet.getRange(i + 1, 14).isChecked();
+      } catch (e) {
+        // Fallback: treat "yes", true, or 1 as eligible
+        eligibleChecked = (data[i][13] || "").toString().trim().toLowerCase() === "yes" ||
+                          data[i][13] === true ||
+                          data[i][13] === 1;
+      }
+
+      const status = (data[i][14] || "").toString().trim(); // Column O (index 14)
+      const screenshotURL = (data[i][19] || "").toString().trim(); // Column T (index 19)
+
+      if (!eligibleChecked && !status) {
+        return {
+          success: true,
+          step: "onboarding",
+          message: "Please complete onboarding by uploading your screenshot."
+        };
+      }
+
+      if (screenshotURL && status !== "Verified") {
+        return {
+          success: true,
+          step: "waiting",
+          message: "Your screenshot has been uploaded. Waiting for manual verification."
+        };
+      }
+
+      if (eligibleChecked && status === "Verified") {
+        return {
+          success: true,
+          step: "dashboard",
+          message: "Verification complete."
+        };
+      }
+
+      return {
+        success: true,
+        step: "waiting",
+        message: "We are still reviewing your screenshot."
+      };
+    }
+  }
+
+  return {
+    success: false,
+    message: "User not found. Please check your phone number or register again."
+  };
 }
 
 // Utility functions
