@@ -53,9 +53,32 @@
                 <div style="display:flex;gap:20px;margin-top:5px;">
                     <button type="button" id="btn-en" class="btn" style="min-width:100px;">English</button>
                     <button type="button" id="btn-ml" class="btn" style="min-width:100px;">മലയാളം</button>
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
+
+    <style>
+    .terms-summary {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 800px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .terms-summary h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    .terms-summary ul {
+        padding-left: 20px;
+    }
+    .terms-summary li {
+        margin-bottom: 8px;
+    }
+    </style>
         <style>
         /* Responsive center alignment for language select section */
         .language-select-container {
@@ -360,6 +383,33 @@
                             </div>
                         </div>
 
+                        <div class="terms-summary" id="terms-summary-en">
+                            <h3>Key Terms Summary</h3>
+                            <div class="terms-content">
+                                <ul>
+                                    <li><strong>Eligibility:</strong> Must be 18+ with active WhatsApp account and minimum 100 status views</li>
+                                    <li><strong>Payment:</strong> ₹20 per approved status (min 100 views)</li>
+                                    <li><strong>Withdrawal:</strong> Minimum ₹500 balance required</li>
+                                    <li><strong>Posting Rules:</strong> Must post ads exactly as received within specified time</li>
+                                    <li><strong>Termination:</strong> Account may be terminated for violations or inactivity</li>
+                                    <li><strong>Fraud Policy:</strong> Any manipulation results in immediate termination</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="terms-summary" id="terms-summary-ml" style="display:none;">
+                            <h3>പ്രധാന നിബന്ധനകൾ</h3>
+                            <div class="terms-content">
+                                <ul>
+                                    <li><strong>യോഗ്യത:</strong> 18+ വയസ്സ്, സജീവ WhatsApp അക്കൗണ്ട്, കുറഞ്ഞത് 100 സ്റ്റാറ്റസ് കാഴ്ചകൾ</li>
+                                    <li><strong>പേയ്‌മെന്റ്:</strong> അംഗീകരിച്ച സ്റ്റാറ്റസിന് ₹20 (കുറഞ്ഞത് 100 കാഴ്ചകൾ)</li>
+                                    <li><strong>പണമടയ്ക്കൽ:</strong> കുറഞ്ഞത് ₹500 ബാലൻസ് ആവശ്യമാണ്</li>
+                                    <li><strong>പോസ്റ്റിംഗ് നിയമങ്ങൾ:</strong> പരസ്യങ്ങൾ ലഭിച്ചതുപോലെ നിശ്ചിത സമയത്തിനുള്ളിൽ പോസ്റ്റ് ചെയ്യണം</li>
+                                    <li><strong>അവസാനിപ്പിക്കൽ:</strong> നിയമലംഘനം അല്ലെങ്കിൽ നിഷ്ക്രിയത്വം ഉള്ളപ്പോൾ അക്കൗണ്ട് അവസാനിപ്പിക്കാം</li>
+                                    <li><strong>വഞ്ചനാ നയം:</strong> ഏതെങ്കിലും കൃത്രിമത്വം ഉണ്ടെങ്കിൽ ഉടൻ അക്കൗണ്ട് അവസാനിപ്പിക്കും</li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <div class="terms-disclaimer">
                             <div class="checkbox-wrapper">
                                 <input type="checkbox" id="terms-accept" required>
@@ -624,6 +674,7 @@
                             </div>
                             <p class="disclaimer-text">ദയവായി ഞങ്ങളുടെ നിബന്ധനകളും വ്യവസ്ഥകളും ശ്രദ്ധയോടെ വായിക്കുക. രജിസ്ട്രേഷൻ ചെയ്യുന്നത് എല്ലാ നിബന്ധനകളും അംഗീകരിക്കുന്നതായിരിക്കും.</p>
                         </div>
+
                         <button type="submit" class="btn" id="submit-btn-ml" disabled>അപേക്ഷ സമർപ്പിക്കുക</button>
                     </form>
                 </div>
@@ -669,204 +720,231 @@
     </footer>
 
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-        function handleCityChange() {
-            const citySelect = document.getElementById("city");
-            const otherCityContainer = document.getElementById("otherCity");
-            
-            if (citySelect.value === "Other") {
-                otherCityContainer.style.display = "block";
-                document.getElementById("otherCity").required = true;
-            } else {
-                otherCityContainer.style.display = "none";
-                document.getElementById("otherCity").required = false;
+        document.addEventListener('DOMContentLoaded', function() {
+            // City change handler
+            function handleCityChange() {
+                const citySelect = document.getElementById("city");
+                const otherCityContainer = document.getElementById("otherCityContainer");
+
+                if (citySelect.value === "Other") {
+                    otherCityContainer.style.display = "block";
+                    document.getElementById("otherCity").required = true;
+                } else {
+                    otherCityContainer.style.display = "none";
+                    document.getElementById("otherCity").required = false;
+                }
             }
-        }
 
-        function handleDistrictChange() {
-            const districtSelect = document.getElementById("district");
-            const otherDistrictContainer = document.getElementById("otherDistrict");
-            
-            if (districtSelect.value === "Other") {
-                otherDistrictContainer.style.display = "block";
-                document.getElementById("otherDistrict").required = true;
-            } else {
-                otherDistrictContainer.style.display = "none";
-                document.getElementById("otherDistrict").required = false;
+            function handleDistrictChange() {
+                const districtSelect = document.getElementById("district");
+                const otherDistrictContainer = document.getElementById("otherDistrictContainer");
+
+                if (districtSelect.value === "Other") {
+                    otherDistrictContainer.style.display = "block";
+                    document.getElementById("otherDistrict").required = true;
+                } else {
+                    otherDistrictContainer.style.display = "none";
+                    document.getElementById("otherDistrict").required = false;
+                }
             }
-        }
 
-        // Generate random CAPTCHA challenge
-        function generateCaptcha() {
-            const num1 = Math.floor(Math.random() * 10) + 1;
-            const num2 = Math.floor(Math.random() * 10) + 1;
-            document.getElementById("num1").textContent = num1;
-            document.getElementById("num2").textContent = num2;
-            document.getElementById("captcha-answer").value = "";
-            return { num1, num2 };
-        }
-
-        // Initialize CAPTCHA on page load
-        let currentCaptcha = generateCaptcha();
-
-        // Improved age validation function
-        function validateAge(dobInput) {
-            const dob = new Date(dobInput.value);
-            const today = new Date();
-            
-            // Calculate age with milliseconds for more accuracy
-            const ageTime = today.getTime() - dob.getTime();
-            const ageDate = new Date(ageTime);
-            const age = Math.abs(ageDate.getUTCFullYear() - 1970);
-            
-            const ageError = document.getElementById("age-error");
-            const submitBtn = document.getElementById("submit-btn");
-            const termsAccepted = document.getElementById("terms-accept").checked;
-            
-            console.log("Age calculated:", age, "DOB:", dobInput.value);
-            
-            if (age < 18) {
-                ageError.style.display = "block";
-                dobInput.setCustomValidity("You must be at least 18 years old to register.");
-                submitBtn.disabled = true;
-                return false;
-            } else {
-                ageError.style.display = "none";
-                dobInput.setCustomValidity("");
-                submitBtn.disabled = !termsAccepted;
-                return true;
+            // Generate random CAPTCHA challenge
+            function generateCaptcha() {
+                const num1 = Math.floor(Math.random() * 10) + 1;
+                const num2 = Math.floor(Math.random() * 10) + 1;
+                document.getElementById("num1").textContent = num1;
+                document.getElementById("num2").textContent = num2;
+                document.getElementById("captcha-answer").value = "";
+                return { num1, num2 };
             }
-        }
 
-        // Set the max date to exactly 18 years ago and update it daily
-        window.addEventListener('DOMContentLoaded', function() {
+            // Initialize CAPTCHA on page load
+            let currentCaptcha = generateCaptcha();
+
+            // Improved age validation function
+            function validateAge(dobInput) {
+                const dob = new Date(dobInput.value);
+                const today = new Date();
+
+                // Calculate age with milliseconds for more accuracy
+                const ageTime = today.getTime() - dob.getTime();
+                const ageDate = new Date(ageTime);
+                const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
+                const ageError = document.getElementById("age-error");
+                const submitBtn = document.getElementById("submit-btn");
+                const termsAccepted = document.getElementById("terms-accept").checked;
+
+                console.log("Age calculated:", age, "DOB:", dobInput.value);
+
+                if (age < 18) {
+                    ageError.style.display = "block";
+                    dobInput.setCustomValidity("You must be at least 18 years old to register.");
+                    submitBtn.disabled = true;
+                    return false;
+                } else {
+                    ageError.style.display = "none";
+                    dobInput.setCustomValidity("");
+                    submitBtn.disabled = !termsAccepted;
+                    return true;
+                }
+            }
+
+            // Set the max date to exactly 18 years ago and update it daily
             const dobInput = document.getElementById('dob');
             const today = new Date();
-            
+
             // Calculate date 18 years ago from today
             const minYear = today.getFullYear() - 18;
             const minMonth = today.getMonth();
             const minDay = today.getDate();
-            
+
             // Format as YYYY-MM-DD with leading zeros
             const formattedMonth = (minMonth + 1).toString().padStart(2, '0');
             const formattedDay = minDay.toString().padStart(2, '0');
             const maxDate = `${minYear}-${formattedMonth}-${formattedDay}`;
-            
+
             // Set max attribute - this prevents selection of dates after this (younger than 18)
             dobInput.setAttribute('max', maxDate);
-            
+
             console.log("Max date set to:", maxDate, "(updates daily)");
-            
+
             // Add event listener to prevent manual entry of invalid dates
             dobInput.addEventListener('input', function(e) {
                 const selectedDate = new Date(this.value);
                 const minDate = new Date(minYear, minMonth, minDay);
-                
+
                 if (selectedDate > minDate) {
                     this.value = maxDate;
                     alert("You must be at least 18 years old to register.");
                 }
             });
-        });
 
-        // Add strong Gmail validation
-        document.getElementById("email").addEventListener('input', function() {
-            const email = this.value.toLowerCase();
-            const emailError = document.getElementById("email-error");
-            const emailPattern = /[a-zA-Z0-9._%+-]+@gmail\.com$/;
-            
-            if (email && !emailPattern.test(email)) {
-                emailError.style.display = "block";
-                this.setCustomValidity("Only Gmail addresses are allowed (example@gmail.com)");
-            } else {
-                emailError.style.display = "none";
-                this.setCustomValidity("");
-            }
-        });
+            // Add strong Gmail validation
+            document.getElementById("email").addEventListener('input', function() {
+                const email = this.value.toLowerCase();
+                const emailError = document.getElementById("email-error");
+                const emailPattern = /[a-zA-Z0-9._%+-]+@gmail\.com$/;
 
-        // Update terms handler to recheck age validation
-        document.getElementById("terms-accept").addEventListener("change", function(event) {
-            const submitButton = document.getElementById("submit-btn");
-            const dobInput = document.getElementById("dob");
-            
-            // If DOB is filled, validate age, otherwise just check terms
-            if (dobInput.value) {
-                validateAge(dobInput);
-            } else {
-                submitButton.disabled = !this.checked;
-            }
-        });
+                if (email && !emailPattern.test(email)) {
+                    emailError.style.display = "block";
+                    this.setCustomValidity("Only Gmail addresses are allowed (example@gmail.com)");
+                } else {
+                    emailError.style.display = "none";
+                    this.setCustomValidity("");
+                }
+            });
 
-        // Password visibility toggle function
-        function togglePasswordVisibility(inputId) {
-            const passwordInput = document.getElementById(inputId);
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            
-            // Toggle the eye icon
-            const toggleIcon = document.querySelector('#' + inputId + ' + .password-toggle i');
-            if (toggleIcon) {
-                toggleIcon.classList.toggle('fa-eye');
-                toggleIcon.classList.toggle('fa-eye-slash');
-            }
-        }
+            // Update terms handler to recheck age validation
+            document.getElementById("terms-accept").addEventListener("change", function(event) {
+                const submitButton = document.getElementById("submit-btn");
+                const dobInput = document.getElementById("dob");
 
-        // Form submission handler
-        document.getElementById("posterForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            // Basic validation
-            const email = document.getElementById("email").value.toLowerCase();
-            if (!email.endsWith('@gmail.com')) {
-                document.getElementById("email-error").style.display = "block";
-                document.getElementById("email").focus();
-                return;
-            }
-            
-            // Check age
-            const dobInput = document.getElementById("dob");
-            if (dobInput.value && !validateAge(dobInput)) {
-                dobInput.focus();
-                return;
-            }
-            
-            // Check terms acceptance
-            if (!document.getElementById("terms-accept").checked) {
-                alert("Please accept the terms and conditions.");
-                return;
+                // If DOB is filled, validate age, otherwise just check terms
+                if (dobInput.value) {
+                    validateAge(dobInput);
+                } else {
+                    submitButton.disabled = !this.checked;
+                }
+            });
+
+            // Password visibility toggle function
+            function togglePasswordVisibility(inputId) {
+                const passwordInput = document.getElementById(inputId);
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+
+                // Toggle the eye icon
+                const toggleIcon = document.querySelector('#' + inputId + ' + .password-toggle i');
+                if (toggleIcon) {
+                    toggleIcon.classList.toggle('fa-eye');
+                    toggleIcon.classList.toggle('fa-eye-slash');
+                }
             }
 
-            // Check CAPTCHA
-            const num1 = parseInt(document.getElementById("num1").textContent);
-            const num2 = parseInt(document.getElementById("num2").textContent);
-            const answer = parseInt(document.getElementById("captcha-answer").value);
-            
-            if (answer !== (num1 + num2)) {
-                alert("Please solve the math challenge correctly.");
-                document.getElementById("captcha-answer").focus();
-                return;
-            }
+            // Form submission handler
+            document.getElementById("posterForm").addEventListener("submit", function(event) {
+                event.preventDefault();
 
-            // Check password match
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
-            
-            if (password !== confirmPassword) {
-                alert("Passwords do not match.");
-                document.getElementById("confirmPassword").focus();
-                return;
-            }
+                // Basic validation
+                const email = document.getElementById("email").value.toLowerCase();
+                if (!email.endsWith('@gmail.com')) {
+                    document.getElementById("email-error").style.display = "block";
+                    document.getElementById("email").focus();
+                    return;
+                }
 
-            alert("Form submitted successfully! (This is a demo - no actual submission occurred)");
-            
-            // Reset form
-            this.reset();
-            generateCaptcha();
+                // Check age
+                const dobInput = document.getElementById("dob");
+                if (dobInput.value && !validateAge(dobInput)) {
+                    dobInput.focus();
+                    return;
+                }
+
+                // Check terms acceptance
+                if (!document.getElementById("terms-accept").checked) {
+                    alert("Please accept the terms and conditions.");
+                    return;
+                }
+
+                // Check CAPTCHA
+                const num1 = parseInt(document.getElementById("num1").textContent);
+                const num2 = parseInt(document.getElementById("num2").textContent);
+                const answer = parseInt(document.getElementById("captcha-answer").value);
+
+                if (answer !== (num1 + num2)) {
+                    alert("Please solve the math challenge correctly.");
+                    document.getElementById("captcha-answer").focus();
+                    return;
+                }
+
+                // Check password match
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirmPassword").value;
+
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match.");
+                    document.getElementById("confirmPassword").focus();
+                    return;
+                }
+
+                alert("Form submitted successfully! (This is a demo - no actual submission occurred)");
+                
+                // Reset form
+                this.reset();
+                generateCaptcha();
+                handleCityChange();
+                handleDistrictChange();
+            });
+
+            // Language toggle functionality
+            document.getElementById('btn-en').addEventListener('click', function() {
+                document.getElementById('poster-content-en').style.display = 'block';
+                document.getElementById('poster-content-ml').style.display = 'none';
+                // Show English terms, hide Malayalam terms
+                document.getElementById('terms-summary-en').style.display = 'block';
+                document.getElementById('terms-summary-ml').style.display = 'none';
+                // Also update the terms checkbox language
+                document.getElementById('terms-accept').checked = false;
+                document.getElementById('submit-btn').disabled = true;
+            });
+
+            document.getElementById('btn-ml').addEventListener('click', function() {
+                document.getElementById('poster-content-en').style.display = 'none';
+                document.getElementById('poster-content-ml').style.display = 'block';
+                // Show Malayalam terms, hide English terms
+                document.getElementById('terms-summary-en').style.display = 'none';
+                document.getElementById('terms-summary-ml').style.display = 'block';
+                // Also update the terms checkbox language
+                document.getElementById('terms-accept-ml').checked = false;
+                document.getElementById('submit-btn-ml').disabled = true;
+            });
+
+            // Initialize the page
             handleCityChange();
             handleDistrictChange();
+            generateCaptcha();
         });
-    }
     </script>
 </body>
 </html>
