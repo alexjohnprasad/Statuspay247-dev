@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://statuspay247.com/sitemap.xml

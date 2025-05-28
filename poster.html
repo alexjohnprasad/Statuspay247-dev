@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Join StatusPay 247 as a Poster and start earning by sharing WhatsApp status ads.">
+    <meta name="keywords" content="Join, Poster, WhatsApp, Status, Ads, Earn Money">
+    <meta name="author" content="StatusPay 247">
+    <title>Join as Poster - StatusPay 247</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+    <link rel="shortcut icon" href="assets/favicon.png">
+    <link rel="stylesheet" href="css/styles-cleaned.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <script src="js/main.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="/">
+                        <img src="assets/logo.png" alt="StatusPay 247 Logo">
+                    </a>
+                </div>
+                <div class="burger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul>
+                    <li><a href="index.html#hero">Home</a></li>
+                    <li><a href="index.html#what-is-statuspay">About</a></li>
+                    <li><a href="index.html#how-it-works">How It Works</a></li>
+                    <li><a href="index.html#why-choose-us">Why Choose Us</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="poster.html">Join as Poster</a></li>
+                    <li><a href="advertiser-terms.html">Advertisers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Language selection section -->
+        <section id="language-select" class="section-light" style="padding-bottom:0;">
+            <div class="container language-select-container">
+                <span style="font-weight:600;">
+                    Choose your desired language.<br>
+                    <span style="font-weight:400;">നിങ്ങൾക്ക് ഇഷ്ടമുള്ള ഭാഷ തിരഞ്ഞെടുക്കുക.</span>
+                </span>
+                <div style="display:flex;gap:20px;margin-top:5px;">
+                    <button type="button" id="btn-en" class="btn" style="min-width:100px;">English</button>
+                    <button type="button" id="btn-ml" class="btn" style="min-width:100px;">മലയാളം</button>
+                </div>
+            </div>
+        </section>
+        <style>
+        /* Responsive center alignment for language select section */
+        .language-select-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            .language-select-container {
+                text-align: center;
+                align-items: center;
+            }
+            .language-select-container > div {
+                justify-content: center !important;
+                width: 100%;
+            }
+            /* Malayalam content center alignment on mobile, but keep forms left aligned */
+            #poster-content-ml {
+                text-align: center;
+            }
+            #poster-content-ml .section-title,
+            #poster-content-ml .existing-poster-login,
+            #poster-content-ml .section-content {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #poster-content-ml form {
+                margin-left: auto;
+                margin-right: auto;
+                text-align: left;
+            }
+            /* Footer left align on mobile */
+            footer, .footer-content, .footer-column, .footer-column ul, .footer-column p, .footer-column h3 {
+                text-align: left !important;
+                align-items: flex-start !important;
+                justify-content: flex-start !important;
+            }
+            /* Center copyright and disclaimer only */
+            .copyright {
+                text-align: center !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            .copyright .disclaimer {
+                text-align: center !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+        }
+        </style>
+
+        <section id="join-poster" class="section-light">
+            <div class="container">
+                <!-- English content (default visible) -->
+                <div id="poster-content-en">
+                    <div class="section-title">
+                        <h2>Join as a Poster</h2>
+                    </div>
+
+                    <!-- New login card for existing posters -->
+                    <div class="existing-poster-login">
+                        <div class="login-card">
+                            <div class="login-card-content">
+                                <h3>Already a Poster?</h3>
+                                <p>Access your account dashboard, track your earnings, view your tasks, and manage your payments all in one place.</p>
+                                <a href="login.html" class="btn login-btn">Login to Your Account</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-content">
+                        <p>Fill out the form below to join StatusPay 247 as a poster and start earning by sharing WhatsApp status ads.</p>
+                    </div>
+                    <form id="posterForm" class="form">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" 
+                                   id="email" 
+                                   placeholder="Enter your Gmail address" 
+                                   required 
+                                   pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" 
+                                   title="Please enter a valid Gmail address (example@gmail.com)">
+                            <span id="email-error" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">Only Gmail addresses are allowed (example@gmail.com)</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" id="genderMale" name="gender" value="Male" required> 
+                                    <span>Male</span>
+                                </label>
+                                <label>
+                                    <input type="radio" id="genderFemale" name="gender" value="Female" required> 
+                                    <span>Female</span>
+                                </label>
+                                <label>
+                                    <input type="radio" id="genderPreferNotToSay" name="gender" value="Prefer not to say" required> 
+                                    <span>Prefer not to say</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp">WhatsApp Number</label>
+                            <input type="tel" 
+                                   id="whatsapp" 
+                                   placeholder="Enter your WhatsApp number (10 digits)" 
+                                   required 
+                                   pattern="^(\+91)?[6-9][0-9]{9}$"
+                                   title="Please enter a valid Indian mobile number">
+                            <span id="phone-error" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">Only Indian WhatsApp numbers are allowed</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="street">Street Address</label>
+                            <input type="text" id="street" placeholder="Enter your street address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City / Town</label>
+                            <select id="city" required onchange="handleCityChange()">
+                                <option value="">Select City / Town</option>
+                                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                <option value="Kozhikode">Kozhikode</option>
+                                <option value="Kochi">Kochi</option>
+                                <option value="Kollam">Kollam</option>
+                                <option value="Thrissur">Thrissur</option>
+                                <option value="Kannur">Kannur</option>
+                                <option value="Alappuzha">Alappuzha</option>
+                                <option value="Kottayam">Kottayam</option>
+                                <option value="Palakkad">Palakkad</option>
+                                <option value="Manjeri">Manjeri</option>
+                                <option value="Thalassery">Thalassery</option>
+                                <option value="Thrippunithura">Thrippunithura</option>
+                                <option value="Ponnani">Ponnani</option>
+                                <option value="Vatakara">Vatakara</option>
+                                <option value="Kanhangad">Kanhangad</option>
+                                <option value="Payyanur">Payyanur</option>
+                                <option value="Koyilandy">Koyilandy</option>
+                                <option value="Parappanangadi">Parappanangadi</option>
+                                <option value="Kalamassery">Kalamassery</option>
+                                <option value="Kodungallur">Kodungallur</option>
+                                <option value="Neyyattinkara">Neyyattinkara</option>
+                                <option value="Tanur">Tanur</option>
+                                <option value="Kayamkulam">Kayamkulam</option>
+                                <option value="Malappuram">Malappuram</option>
+                                <option value="Guruvayur">Guruvayur</option>
+                                <option value="Thrikkakkara">Thrikkakkara</option>
+                                <option value="Irinjalakuda">Irinjalakuda</option>
+                                <option value="Wadakkancherry">Wadakkancherry</option>
+                                <option value="Nedumangad">Nedumangad</option>
+                                <option value="Kondotty">Kondotty</option>
+                                <option value="Tirurangadi">Tirurangadi</option>
+                                <option value="Tirur">Tirur</option>
+                                <option value="Panoor">Panoor</option>
+                                <option value="Kasaragod">Kasaragod</option>
+                                <option value="Feroke">Feroke</option>
+                                <option value="Kunnamkulam">Kunnamkulam</option>
+                                <option value="Ottappalam">Ottappalam</option>
+                                <option value="Thiruvalla">Thiruvalla</option>
+                                <option value="Thodupuzha">Thodupuzha</option>
+                                <option value="Perinthalmanna">Perinthalmanna</option>
+                                <option value="Karunagappalli">Karunagappalli</option>
+                                <option value="Chalakudy">Chalakudy</option>
+                                <option value="Payyoli">Payyoli</option>
+                                <option value="Koduvally">Koduvally</option>
+                                <option value="Mananthavady">Mananthavady</option>
+                                <option value="Changanassery">Changanassery</option>
+                                <option value="Mattanur">Mattanur</option>
+                                <option value="Punalur">Punalur</option>
+                                <option value="Nilambur">Nilambur</option>
+                                <option value="Cherthala">Cherthala</option>
+                                <option value="Sultan Bathery">Sultan Bathery</option>
+                                <option value="Maradu">Maradu</option>
+                                <option value="Kottakkal">Kottakkal</option>
+                                <option value="Taliparamba">Taliparamba</option>
+                                <option value="Shornur">Shornur</option>
+                                <option value="Pandalam">Pandalam</option>
+                                <option value="Kattappana">Kattappana</option>
+                                <option value="Cherpulassery">Cherpulassery</option>
+                                <option value="Mukkam">Mukkam</option>
+                                <option value="Iritty">Iritty</option>
+                                <option value="Valanchery">Valanchery</option>
+                                <option value="Varkala">Varkala</option>
+                                <option value="Nileshwaram">Nileshwaram</option>
+                                <option value="Chavakkad">Chavakkad</option>
+                                <option value="Kothamangalam">Kothamangalam</option>
+                                <option value="Pathanamthitta">Pathanamthitta</option>
+                                <option value="Attingal">Attingal</option>
+                                <option value="Paravur">Paravur</option>
+                                <option value="Ramanattukara">Ramanattukara</option>
+                                <option value="Mannarkkad">Mannarkkad</option>
+                                <option value="Erattupetta">Erattupetta</option>
+                                <option value="Sreekandapuram">Sreekandapuram</option>
+                                <option value="Angamaly">Angamaly</option>
+                                <option value="Chittur-Thathamangalam">Chittur-Thathamangalam</option>
+                                <option value="Kalpetta">Kalpetta</option>
+                                <option value="North Paravur">North Paravur</option>
+                                <option value="Haripad">Haripad</option>
+                                <option value="Muvattupuzha">Muvattupuzha</option>
+                                <option value="Kottarakara">Kottarakara</option>
+                                <option value="Kuthuparamba">Kuthuparamba</option>
+                                <option value="Adoor">Adoor</option>
+                                <option value="Pattambi">Pattambi</option>
+                                <option value="Anthoor">Anthoor</option>
+                                <option value="Perumbavoor">Perumbavoor</option>
+                                <option value="Piravom">Piravom</option>
+                                <option value="Ettumanoor">Ettumanoor</option>
+                                <option value="Mavelikkara">Mavelikkara</option>
+                                <option value="Eloor">Eloor</option>
+                                <option value="Chengannur">Chengannur</option>
+                                <option value="Vaikom">Vaikom</option>
+                                <option value="Aluva">Aluva</option>
+                                <option value="Pala">Pala</option>
+                                <option value="Koothattukulam">Koothattukulam</option>
+                                <option value="Other">Other (not listed)</option>
+                            </select>
+                            <div id="otherCityContainer" style="display: none; margin-top: 8px;">
+                                <input type="text" id="otherCity" placeholder="Please specify your city/town" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="district">District</label>
+                            <select id="district" required onchange="handleDistrictChange()">
+                                <option value="">Select District</option>
+                                <option value="Alappuzha">Alappuzha</option>
+                                <option value="Ernakulam">Ernakulam</option>
+                                <option value="Idukki">Idukki</option>
+                                <option value="Kannur">Kannur</option>
+                                <option value="Kasaragod">Kasaragod</option>
+                                <option value="Kollam">Kollam</option>
+                                <option value="Kottayam">Kottayam</option>
+                                <option value="Kozhikode">Kozhikode</option>
+                                <option value="Malappuram">Malappuram</option>
+                                <option value="Palakkad">Palakkad</option>
+                                <option value="Pathanamthitta">Pathanamthitta</option>
+                                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                <option value="Thrissur">Thrissur</option>
+                                <option value="Wayanad">Wayanad</option>
+                                <option value="Other">Other (not listed)</option>
+                            </select>
+                            <div id="otherDistrictContainer" style="display: none; margin-top: 8px;">
+                                <input type="text" id="otherDistrict" placeholder="Please specify your district" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" id="state" value="Kerala" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pincode">Postal Code</label>
+                            <input type="text" id="pincode" placeholder="Enter your postal code" required pattern="\d{6}" title="Please enter a valid 6-digit postal code">
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <input type="text" id="country" value="India" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" required onchange="validateAge(this)">
+                            <span id="age-error" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">You must be at least 18 years old to register.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="password-input-container">
+                                <input type="password" id="password" placeholder="Create a strong password" required>
+                                <span class="password-toggle" onclick="togglePasswordVisibility('password')">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <div class="password-input-container">
+                                <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                                <span class="password-toggle" onclick="togglePasswordVisibility('confirmPassword')">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Honeypot field -->
+                        <div class="form-group contact-field-hp" aria-hidden="true">
+                            <label for="contact-email">Email</label>
+                            <input type="text" id="contact-email" name="contact-email" autocomplete="off" tabindex="-1">
+                        </div>
+
+                        <div class="captcha-container" style="margin: 20px 0;">
+                            <div class="math-challenge" style="display: flex; align-items: center; gap: 8px;">
+                                <span id="num1">5</span>
+                                <span>+</span>
+                                <span id="num2">3</span>
+                                <span>=</span>
+                                <input type="number" id="captcha-answer" min="0" max="20" required style="width: 60px;">
+                                <button type="button" class="captcha-reset" onclick="generateCaptcha()" title="Get New Challenge" style="padding: 6px 10px;">
+                                    <i class="fas fa-redo"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="terms-disclaimer">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="terms-accept" required>
+                                <label for="terms-accept">
+                                    I have read and agree to the <a href="terms-and-conditions-for-posters.html" target="_blank">Terms and Conditions</a>
+                                </label>
+                            </div>
+                            <p class="disclaimer-text">Please carefully read our terms and conditions before proceeding. Your registration indicates acceptance of all terms.</p>
+                        </div>
+
+                        <button type="submit" class="btn" id="submit-btn" disabled>Submit Application</button>
+                    </form>
+                </div>
+                <!-- Malayalam content (hidden by default) -->
+                <div id="poster-content-ml" style="display:none;">
+                    <div class="section-title">
+                        <h2>പോസ്റ്ററായി ചേരുക</h2>
+                    </div>
+                    <div class="existing-poster-login">
+                        <div class="login-card">
+                            <div class="login-card-content">
+                                <h3>ഇതിനകം പോസ്റ്ററാണോ?</h3>
+                                <p>നിങ്ങളുടെ അക്കൗണ്ട് ഡാഷ്ബോർഡ്, വരുമാനം, ടാസ്കുകൾ, പേയ്മെന്റുകൾ എന്നിവയെല്ലാം ഒരിടത്ത് കാണാം.</p>
+                                <a href="login.html" class="btn login-btn">അക്കൗണ്ടിലേക്ക് ലോഗിൻ ചെയ്യുക</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="section-content">
+                        <p>WhatsApp സ്റ്റാറ്റസ് പരസ്യങ്ങൾ പങ്കുവെച്ച് വരുമാനം നേടാൻ StatusPay 247-ൽ പോസ്റ്ററായി ചേരാൻ താഴെയുള്ള ഫോം പൂരിപ്പിക്കുക.</p>
+                    </div>
+                    <form id="posterForm-ml" class="form">
+                        <div class="form-group">
+                            <label for="name-ml">പേര്</label>
+                            <input type="text" id="name-ml" placeholder="നിങ്ങളുടെ മുഴുവൻ പേര് നൽകുക" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-ml">ഇമെയിൽ വിലാസം</label>
+                            <input type="email" 
+                                   id="email-ml" 
+                                   placeholder="നിങ്ങളുടെ Gmail വിലാസം നൽകുക" 
+                                   required 
+                                   pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" 
+                                   title="ദയവായി ശരിയായ Gmail വിലാസം നൽകുക (example@gmail.com)">
+                            <span id="email-error-ml" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">Gmail വിലാസങ്ങൾ മാത്രം അനുവദനീയമാണ് (example@gmail.com)</span>
+                        </div>
+                        <div class="form-group">
+                            <label>ലിംഗം</label>
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" id="genderMale-ml" name="gender-ml" value="Male" required> 
+                                    <span>പുരുഷൻ</span>
+                                </label>
+                                <label>
+                                    <input type="radio" id="genderFemale-ml" name="gender-ml" value="Female" required> 
+                                    <span>സ്ത്രീ</span>
+                                </label>
+                                <label>
+                                    <input type="radio" id="genderPreferNotToSay-ml" name="gender-ml" value="Prefer not to say" required> 
+                                    <span>പറയാൻ ഇഷ്ടമില്ല</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp-ml">WhatsApp നമ്പർ</label>
+                            <input type="tel" 
+                                   id="whatsapp-ml" 
+                                   placeholder="നിങ്ങളുടെ WhatsApp നമ്പർ (10 അക്കങ്ങൾ)" 
+                                   required 
+                                   pattern="^(\+91)?[6-9][0-9]{9}$"
+                                   title="ദയവായി ശരിയായ ഇന്ത്യൻ മൊബൈൽ നമ്പർ നൽകുക">
+                            <span id="phone-error-ml" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">ഇന്ത്യൻ WhatsApp നമ്പറുകൾ മാത്രം അനുവദനീയമാണ്</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="street-ml">വീഥി വിലാസം</label>
+                            <input type="text" id="street-ml" placeholder="നിങ്ങളുടെ വീഥി വിലാസം നൽകുക" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city-ml">നഗരം / പട്ടണം</label>
+                            <select id="city-ml" required onchange="handleCityChangeML()">
+                                <option value="">നഗരം / പട്ടണം തിരഞ്ഞെടുക്കുക</option>
+                                <option value="Thiruvananthapuram">തിരുവനന്തപുരം</option>
+                                <option value="Kozhikode">കോഴിക്കോട്</option>
+                                <option value="Kochi">കൊച്ചി</option>
+                                <option value="Kollam">കൊല്ലം</option>
+                                <option value="Thrissur">തൃശ്ശൂർ</option>
+                                <option value="Kannur">കണ്ണൂർ</option>
+                                <option value="Alappuzha">ആലപ്പുഴ</option>
+                                <option value="Kottayam">കോട്ടയം</option>
+                                <option value="Palakkad">പാലക്കാട്</option>
+                                <option value="Manjeri">മഞ്ചേരി</option>
+                                <option value="Thalassery">തലശ്ശേരി</option>
+                                <option value="Thrippunithura">തൃപ്പൂണിത്തുറ</option>
+                                <option value="Ponnani">പൊന്നാനി</option>
+                                <option value="Vatakara">വടകര</option>
+                                <option value="Kanhangad">കാഞ്ഞങ്ങാട്</option>
+                                <option value="Payyanur">പയ്യന്നൂർ</option>
+                                <option value="Koyilandy">കോയിലാണ്ടി</option>
+                                <option value="Parappanangadi">പരപ്പനങ്ങാടി</option>
+                                <option value="Kalamassery">കലമശ്ശേരി</option>
+                                <option value="Kodungallur">കൊടുങ്ങല്ലൂർ</option>
+                                <option value="Neyyattinkara">നെയ്യാറ്റിൻകര</option>
+                                <option value="Tanur">താനൂർ</option>
+                                <option value="Kayamkulam">കായംകുളം</option>
+                                <option value="Malappuram">മലപ്പുറം</option>
+                                <option value="Guruvayur">ഗുരുവായൂർ</option>
+                                <option value="Thrikkakkara">തൃക്കാക്കര</option>
+                                <option value="Irinjalakuda">ഇരിഞ്ഞാലക്കുട</option>
+                                <option value="Wadakkancherry">വടക്കാഞ്ചേരി</option>
+                                <option value="Nedumangad">നെടുമങ്ങാട്</option>
+                                <option value="Kondotty">കൊണ്ടോട്ടി</option>
+                                <option value="Tirurangadi">തിരൂരങ്ങാടി</option>
+                                <option value="Tirur">തിരൂർ</option>
+                                <option value="Panoor">പാനൂർ</option>
+                                <option value="Kasaragod">കാസർഗോഡ്</option>
+                                <option value="Feroke">ഫെറോക്ക്</option>
+                                <option value="Kunnamkulam">കുന്നംകുളം</option>
+                                <option value="Ottappalam">ഒറ്റപ്പാലം</option>
+                                <option value="Thiruvalla">തിരുവല്ല</option>
+                                <option value="Thodupuzha">തൊടുപുഴ</option>
+                                <option value="Perinthalmanna">പെരിന്തൽമണ്ണ</option>
+                                <option value="Karunagappalli">കരുനാഗപ്പള്ളി</option>
+                                <option value="Chalakudy">ചാലക്കുടി</option>
+                                <option value="Payyoli">പയ്യോളി</option>
+                                <option value="Koduvally">കൊടുവള്ളി</option>
+                                <option value="Mananthavady">മാനന്തവാടി</option>
+                                <option value="Changanassery">ചങ്ങനാശ്ശേരി</option>
+                                <option value="Mattanur">മട്ടന്നൂർ</option>
+                                <option value="Punalur">പുനലൂർ</option>
+                                <option value="Nilambur">നിലമ്പൂർ</option>
+                                <option value="Cherthala">ചേർത്തല</option>
+                                <option value="Sultan Bathery">സുൽത്താൻ ബത്തേരി</option>
+                                <option value="Maradu">മരാട്</option>
+                                <option value="Kottakkal">കോട്ടക്കൽ</option>
+                                <option value="Taliparamba">തളിപ്പറമ്പ</option>
+                                <option value="Shornur">ശോരണൂർ</option>
+                                <option value="Pandalam">പന്തളം</option>
+                                <option value="Kattappana">കട്ടപ്പന</option>
+                                <option value="Cherpulassery">ചെർപ്പുളശ്ശേരി</option>
+                                <option value="Mukkam">മുക്കം</option>
+                                <option value="Iritty">ഇരിട്ടി</option>
+                                <option value="Valanchery">വളാഞ്ചേരി</option>
+                                <option value="Varkala">വർക്കല</option>
+                                <option value="Nileshwaram">നീലേശ്വരം</option>
+                                <option value="Chavakkad">ചാവക്കാട്</option>
+                                <option value="Kothamangalam">കൊത്തമംഗലം</option>
+                                <option value="Pathanamthitta">പത്തനംതിട്ട</option>
+                                <option value="Attingal">അറ്റിങ്ങൽ</option>
+                                <option value="Paravur">പരവൂർ</option>
+                                <option value="Ramanattukara">രാമനാട്ടുകര</option>
+                                <option value="Mannarkkad">മണ്ണാർക്കാട്</option>
+                                <option value="Erattupetta">എരാറ്റുപേട്ട</option>
+                                <option value="Sreekandapuram">ശ്രീകണ്ഠപുരം</option>
+                                <option value="Angamaly">അങ്കമാലി</option>
+                                <option value="Chittur-Thathamangalam">ചിറ്റൂർ-തത്തമംഗലം</option>
+                                <option value="Kalpetta">കൽപ്പറ്റ</option>
+                                <option value="North Paravur">നോർത്ത് പരവൂർ</option>
+                                <option value="Haripad">ഹരിപ്പാട്</option>
+                                <option value="Muvattupuzha">മുവാറ്റുപുഴ</option>
+                                <option value="Kottarakara">കോട്ടരക്കര</option>
+                                <option value="Kuthuparamba">കൂത്തുപറമ്പ</option>
+                                <option value="Adoor">അടൂർ</option>
+                                <option value="Pattambi">പട്ടാമ്പി</option>
+                                <option value="Anthoor">അന്തൂർ</option>
+                                <option value="Perumbavoor">പെരുമ്പാവൂർ</option>
+                                <option value="Piravom">പിറവം</option>
+                                <option value="Ettumanoor">എറ്റുമാനൂർ</option>
+                                <option value="Mavelikkara">മാവേലിക്കര</option>
+                                <option value="Eloor">ഇളൂർ</option>
+                                <option value="Chengannur">ചെങ്ങന്നൂർ</option>
+                                <option value="Vaikom">വൈക്കം</option>
+                                <option value="Aluva">അലുവ</option>
+                                <option value="Pala">പാലാ</option>
+                                <option value="Koothattukulam">കൂത്താട്ടുകുളം</option>
+                                <option value="Other">മറ്റുള്ളത്</option>
+                            </select>
+                            <div id="otherCityContainer-ml" style="display: none; margin-top: 8px;">
+                                <input type="text" id="otherCity-ml" placeholder="നിങ്ങളുടെ നഗരം/പട്ടണം നൽകുക" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="district-ml">ജില്ല</label>
+                            <select id="district-ml" required onchange="handleDistrictChangeML()">
+                                <option value="">ജില്ല തിരഞ്ഞെടുക്കുക</option>
+                                <option value="Alappuzha">ആലപ്പുഴ</option>
+                                <option value="Ernakulam">എറണാകുളം</option>
+                                <option value="Idukki">ഇടുക്കി</option>
+                                <option value="Kannur">കണ്ണൂർ</option>
+                                <option value="Kasaragod">കാസർഗോഡ്</option>
+                                <option value="Kollam">കൊല്ലം</option>
+                                <option value="Kottayam">കോട്ടയം</option>
+                                <option value="Kozhikode">കോഴിക്കോട്</option>
+                                <option value="Malappuram">മലപ്പുറം</option>
+                                <option value="Palakkad">പാലക്കാട്</option>
+                                <option value="Pathanamthitta">പത്തനംതിട്ട</option>
+                                <option value="Thiruvananthapuram">തിരുവനന്തപുരം</option>
+                                <option value="Thrissur">തൃശ്ശൂർ</option>
+                                <option value="Wayanad">വയനാട്</option>
+                                <option value="Other">മറ്റുള്ളത്</option>
+                            </select>
+                            <div id="otherDistrictContainer-ml" style="display: none; margin-top: 8px;">
+                                <input type="text" id="otherDistrict-ml" placeholder="നിങ്ങളുടെ ജില്ല നൽകുക" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="state-ml">സംസ്ഥാനം</label>
+                            <input type="text" id="state-ml" value="കേരളം" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pincode-ml">പോസ്റ്റൽ കോഡ്</label>
+                            <input type="text" id="pincode-ml" placeholder="നിങ്ങളുടെ പോസ്റ്റൽ കോഡ് നൽകുക" required pattern="\d{6}" title="ശരിയായ 6-അക്ക പോസ്റ്റൽ കോഡ് നൽകുക">
+                        </div>
+                        <div class="form-group">
+                            <label for="country-ml">രാജ്യം</label>
+                            <input type="text" id="country-ml" value="ഇന്ത്യ" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob-ml">ജനനത്തിയ്യതി</label>
+                            <input type="date" id="dob-ml" required onchange="validateAgeML(this)">
+                            <span id="age-error-ml" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">രജിസ്റ്റർ ചെയ്യാൻ കുറഞ്ഞത് 18 വയസ്സ് ആവണം.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password-ml">പാസ്‌വേഡ്</label>
+                            <div class="password-input-container">
+                                <input type="password" id="password-ml" placeholder="ശക്തമായ പാസ്‌വേഡ് സൃഷ്ടിക്കുക" required>
+                                <span class="password-toggle" onclick="togglePasswordVisibility('password-ml')">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword-ml">പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക</label>
+                            <div class="password-input-container">
+                                <input type="password" id="confirmPassword-ml" placeholder="നിങ്ങളുടെ പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക" required>
+                                <span class="password-toggle" onclick="togglePasswordVisibility('confirmPassword-ml')">
+                                    <i class="fas fa-eye"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Honeypot field -->
+                        <div class="form-group contact-field-hp" aria-hidden="true">
+                            <label for="contact-email-ml">Email</label>
+                            <input type="text" id="contact-email-ml" name="contact-email-ml" autocomplete="off" tabindex="-1">
+                        </div>
+                        <div class="captcha-container" style="margin: 20px 0;">
+                            <div class="math-challenge" style="display: flex; align-items: center; gap: 8px;">
+                                <span id="num1-ml">5</span>
+                                <span>+</span>
+                                <span id="num2-ml">3</span>
+                                <span>=</span>
+                                <input type="number" id="captcha-answer-ml" min="0" max="20" required style="width: 60px;">
+                                <button type="button" class="captcha-reset" onclick="generateCaptchaML()" title="പുതിയ ചലഞ്ച്" style="padding: 6px 10px;">
+                                    <i class="fas fa-redo"></i> റീസെറ്റ്
+                                </button>
+                            </div>
+                        </div>
+                        <div class="terms-disclaimer">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="terms-accept-ml" required>
+                                <label for="terms-accept-ml">
+                                    ഞാൻ <a href="terms-and-conditions-for-posters.html" target="_blank">നിബന്ധനകളും വ്യവസ്ഥകളും</a> വായിച്ചിരിക്കുന്നു, അംഗീകരിക്കുന്നു
+                                </label>
+                            </div>
+                            <p class="disclaimer-text">ദയവായി ഞങ്ങളുടെ നിബന്ധനകളും വ്യവസ്ഥകളും ശ്രദ്ധയോടെ വായിക്കുക. രജിസ്ട്രേഷൻ ചെയ്യുന്നത് എല്ലാ നിബന്ധനകളും അംഗീകരിക്കുന്നതായിരിക്കും.</p>
+                        </div>
+                        <button type="submit" class="btn" id="submit-btn-ml" disabled>അപേക്ഷ സമർപ്പിക്കുക</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>StatusPay 247</h3>
+                    <p>Your trusted platform for earning through WhatsApp status ads. Connect with us to start your earning journey today.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html#hero">Home</a></li>
+                        <li><a href="index.html#what-is-statuspay">About</a></li>
+                        <li><a href="index.html#how-it-works">How It Works</a></li>
+                        <li><a href="index.html#why-choose-us">Why Choose Us</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                        <li><a href="poster.html">Join as Poster</a></li>
+                        <li><a href="advertiser-terms.html">Advertisers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <p>Follow us on social media for updates and tips.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/statuspay247" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/statuspay247" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/statuspay247" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://wa.me/919744483058" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 StatusPay 247. All rights reserved.</p>
+                <p class="disclaimer">WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc. The services we provide involve direct WhatsApp status marketing using our network of users, and the use of the WhatsApp® logo or name is strictly for illustrative purposes. All rights to WhatsApp® remain the property of Meta Platforms, Inc.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+        function handleCityChange() {
+            const citySelect = document.getElementById("city");
+            const otherCityContainer = document.getElementById("otherCity");
+            
+            if (citySelect.value === "Other") {
+                otherCityContainer.style.display = "block";
+                document.getElementById("otherCity").required = true;
+            } else {
+                otherCityContainer.style.display = "none";
+                document.getElementById("otherCity").required = false;
+            }
+        }
+
+        function handleDistrictChange() {
+            const districtSelect = document.getElementById("district");
+            const otherDistrictContainer = document.getElementById("otherDistrict");
+            
+            if (districtSelect.value === "Other") {
+                otherDistrictContainer.style.display = "block";
+                document.getElementById("otherDistrict").required = true;
+            } else {
+                otherDistrictContainer.style.display = "none";
+                document.getElementById("otherDistrict").required = false;
+            }
+        }
+
+        // Generate random CAPTCHA challenge
+        function generateCaptcha() {
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            document.getElementById("num1").textContent = num1;
+            document.getElementById("num2").textContent = num2;
+            document.getElementById("captcha-answer").value = "";
+            return { num1, num2 };
+        }
+
+        // Initialize CAPTCHA on page load
+        let currentCaptcha = generateCaptcha();
+
+        // Improved age validation function
+        function validateAge(dobInput) {
+            const dob = new Date(dobInput.value);
+            const today = new Date();
+            
+            // Calculate age with milliseconds for more accuracy
+            const ageTime = today.getTime() - dob.getTime();
+            const ageDate = new Date(ageTime);
+            const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+            
+            const ageError = document.getElementById("age-error");
+            const submitBtn = document.getElementById("submit-btn");
+            const termsAccepted = document.getElementById("terms-accept").checked;
+            
+            console.log("Age calculated:", age, "DOB:", dobInput.value);
+            
+            if (age < 18) {
+                ageError.style.display = "block";
+                dobInput.setCustomValidity("You must be at least 18 years old to register.");
+                submitBtn.disabled = true;
+                return false;
+            } else {
+                ageError.style.display = "none";
+                dobInput.setCustomValidity("");
+                submitBtn.disabled = !termsAccepted;
+                return true;
+            }
+        }
+
+        // Set the max date to exactly 18 years ago and update it daily
+        window.addEventListener('DOMContentLoaded', function() {
+            const dobInput = document.getElementById('dob');
+            const today = new Date();
+            
+            // Calculate date 18 years ago from today
+            const minYear = today.getFullYear() - 18;
+            const minMonth = today.getMonth();
+            const minDay = today.getDate();
+            
+            // Format as YYYY-MM-DD with leading zeros
+            const formattedMonth = (minMonth + 1).toString().padStart(2, '0');
+            const formattedDay = minDay.toString().padStart(2, '0');
+            const maxDate = `${minYear}-${formattedMonth}-${formattedDay}`;
+            
+            // Set max attribute - this prevents selection of dates after this (younger than 18)
+            dobInput.setAttribute('max', maxDate);
+            
+            console.log("Max date set to:", maxDate, "(updates daily)");
+            
+            // Add event listener to prevent manual entry of invalid dates
+            dobInput.addEventListener('input', function(e) {
+                const selectedDate = new Date(this.value);
+                const minDate = new Date(minYear, minMonth, minDay);
+                
+                if (selectedDate > minDate) {
+                    this.value = maxDate;
+                    alert("You must be at least 18 years old to register.");
+                }
+            });
+        });
+
+        // Add strong Gmail validation
+        document.getElementById("email").addEventListener('input', function() {
+            const email = this.value.toLowerCase();
+            const emailError = document.getElementById("email-error");
+            const emailPattern = /[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            
+            if (email && !emailPattern.test(email)) {
+                emailError.style.display = "block";
+                this.setCustomValidity("Only Gmail addresses are allowed (example@gmail.com)");
+            } else {
+                emailError.style.display = "none";
+                this.setCustomValidity("");
+            }
+        });
+
+        // Update terms handler to recheck age validation
+        document.getElementById("terms-accept").addEventListener("change", function(event) {
+            const submitButton = document.getElementById("submit-btn");
+            const dobInput = document.getElementById("dob");
+            
+            // If DOB is filled, validate age, otherwise just check terms
+            if (dobInput.value) {
+                validateAge(dobInput);
+            } else {
+                submitButton.disabled = !this.checked;
+            }
+        });
+
+        // Password visibility toggle function
+        function togglePasswordVisibility(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Toggle the eye icon
+            const toggleIcon = document.querySelector('#' + inputId + ' + .password-toggle i');
+            if (toggleIcon) {
+                toggleIcon.classList.toggle('fa-eye');
+                toggleIcon.classList.toggle('fa-eye-slash');
+            }
+        }
+
+        // Form submission handler
+        document.getElementById("posterForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            // Basic validation
+            const email = document.getElementById("email").value.toLowerCase();
+            if (!email.endsWith('@gmail.com')) {
+                document.getElementById("email-error").style.display = "block";
+                document.getElementById("email").focus();
+                return;
+            }
+            
+            // Check age
+            const dobInput = document.getElementById("dob");
+            if (dobInput.value && !validateAge(dobInput)) {
+                dobInput.focus();
+                return;
+            }
+            
+            // Check terms acceptance
+            if (!document.getElementById("terms-accept").checked) {
+                alert("Please accept the terms and conditions.");
+                return;
+            }
+
+            // Check CAPTCHA
+            const num1 = parseInt(document.getElementById("num1").textContent);
+            const num2 = parseInt(document.getElementById("num2").textContent);
+            const answer = parseInt(document.getElementById("captcha-answer").value);
+            
+            if (answer !== (num1 + num2)) {
+                alert("Please solve the math challenge correctly.");
+                document.getElementById("captcha-answer").focus();
+                return;
+            }
+
+            // Check password match
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+            
+            if (password !== confirmPassword) {
+                alert("Passwords do not match.");
+                document.getElementById("confirmPassword").focus();
+                return;
+            }
+
+            alert("Form submitted successfully! (This is a demo - no actual submission occurred)");
+            
+            // Reset form
+            this.reset();
+            generateCaptcha();
+            handleCityChange();
+            handleDistrictChange();
+        });
+
+        // Language toggle logic
+        document.getElementById('btn-en').addEventListener('click', function() {
+            document.getElementById('poster-content-en').style.display = '';
+            document.getElementById('poster-content-ml').style.display = 'none';
+            this.classList.add('btn-primary');
+            document.getElementById('btn-ml').classList.remove('btn-primary');
+        });
+        document.getElementById('btn-ml').addEventListener('click', function() {
+            document.getElementById('poster-content-en').style.display = 'none';
+            document.getElementById('poster-content-ml').style.display = '';
+            this.classList.add('btn-primary');
+            document.getElementById('btn-en').classList.remove('btn-primary');
+        });
+
+        // Malayalam city/district handlers
+        function handleCityChangeML() {
+            const citySelect = document.getElementById("city-ml");
+            const otherCityContainer = document.getElementById("otherCityContainer-ml");
+            if (citySelect.value === "Other") {
+                otherCityContainer.style.display = "block";
+                document.getElementById("otherCity-ml").required = true;
+            } else {
+                otherCityContainer.style.display = "none";
+                document.getElementById("otherCity-ml").required = false;
+            }
+        }
+        function handleDistrictChangeML() {
+            const districtSelect = document.getElementById("district-ml");
+            const otherDistrictContainer = document.getElementById("otherDistrictContainer-ml");
+            if (districtSelect.value === "Other") {
+                otherDistrictContainer.style.display = "block";
+                document.getElementById("otherDistrict-ml").required = true;
+            } else {
+                otherDistrictContainer.style.display = "none";
+                document.getElementById("otherDistrict-ml").required = false;
+            }
+        }
+
+        // Malayalam CAPTCHA
+        function generateCaptchaML() {
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            document.getElementById("num1-ml").textContent = num1;
+            document.getElementById("num2-ml").textContent = num2;
+            document.getElementById("captcha-answer-ml").value = "";
+            return { num1, num2 };
+        }
+        // Initialize Malayalam CAPTCHA on page load
+        generateCaptchaML();
+
+        // Malayalam age validation
+        function validateAgeML(dobInput) {
+            const dob = new Date(dobInput.value);
+            const today = new Date();
+            const ageTime = today.getTime() - dob.getTime();
+            const ageDate = new Date(ageTime);
+            const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+            const ageError = document.getElementById("age-error-ml");
+            const submitBtn = document.getElementById("submit-btn-ml");
+            const termsAccepted = document.getElementById("terms-accept-ml").checked;
+            if (age < 18) {
+                ageError.style.display = "block";
+                dobInput.setCustomValidity("രജിസ്റ്റർ ചെയ്യാൻ കുറഞ്ഞത് 18 വയസ്സ് ആവണം.");
+                submitBtn.disabled = true;
+                return false;
+            } else {
+                ageError.style.display = "none";
+                dobInput.setCustomValidity("");
+                submitBtn.disabled = !termsAccepted;
+                return true;
+            }
+        }
+
+        // Malayalam DOB max date
+        window.addEventListener('DOMContentLoaded', function() {
+            // ...existing code...
+            // Malayalam DOB max date
+            const dobInputML = document.getElementById('dob-ml');
+            if (dobInputML) {
+                const today = new Date();
+                const minYear = today.getFullYear() - 18;
+                const minMonth = today.getMonth();
+                const minDay = today.getDate();
+                const formattedMonth = (minMonth + 1).toString().padStart(2, '0');
+                const formattedDay = minDay.toString().padStart(2, '0');
+                const maxDate = `${minYear}-${formattedMonth}-${formattedDay}`;
+                dobInputML.setAttribute('max', maxDate);
+                dobInputML.addEventListener('input', function(e) {
+                    const selectedDate = new Date(this.value);
+                    const minDate = new Date(minYear, minMonth, minDay);
+                    if (selectedDate > minDate) {
+                        this.value = maxDate;
+                        alert("രജിസ്റ്റർ ചെയ്യാൻ കുറഞ്ഞത് 18 വയസ്സ് ആവണം.");
+                    }
+                });
+            }
+        });
+
+        // Malayalam Gmail validation
+        const emailML = document.getElementById("email-ml");
+        if (emailML) {
+            emailML.addEventListener('input', function() {
+                const email = this.value.toLowerCase();
+                const emailError = document.getElementById("email-error-ml");
+                const emailPattern = /[a-zA-Z0-9._%+-]+@gmail\.com$/;
+                if (email && !emailPattern.test(email)) {
+                    emailError.style.display = "block";
+                    this.setCustomValidity("Gmail വിലാസങ്ങൾ മാത്രം അനുവദനീയമാണ് (example@gmail.com)");
+                } else {
+                    emailError.style.display = "none";
+                    this.setCustomValidity("");
+                }
+            });
+        }
+
+        // Malayalam terms handler
+        const termsML = document.getElementById("terms-accept-ml");
+        if (termsML) {
+            termsML.addEventListener("change", function(event) {
+                const submitButton = document.getElementById("submit-btn-ml");
+                const dobInput = document.getElementById("dob-ml");
+                if (dobInput.value) {
+                    validateAgeML(dobInput);
+                } else {
+                    submitButton.disabled = !this.checked;
+                }
+            });
+        }
+
+        // Malayalam form submission
+        const posterFormML = document.getElementById("posterForm-ml");
+        if (posterFormML) {
+            posterFormML.addEventListener("submit", function(event) {
+                event.preventDefault();
+                const email = document.getElementById("email-ml").value.toLowerCase();
+                if (!email.endsWith('@gmail.com')) {
+                    document.getElementById("email-error-ml").style.display = "block";
+                    document.getElementById("email-ml").focus();
+                    return;
+                }
+                const dobInput = document.getElementById("dob-ml");
+                if (dobInput.value && !validateAgeML(dobInput)) {
+                    dobInput.focus();
+                    return;
+                }
+                if (!document.getElementById("terms-accept-ml").checked) {
+                    alert("ദയവായി നിബന്ധനകളും വ്യവസ്ഥകളും അംഗീകരിക്കുക.");
+                    return;
+                }
+                const num1 = parseInt(document.getElementById("num1-ml").textContent);
+                const num2 = parseInt(document.getElementById("num2-ml").textContent);
+                const answer = parseInt(document.getElementById("captcha-answer-ml").value);
+                if (answer !== (num1 + num2)) {
+                    alert("ദയവായി ഗണിത ചലഞ്ച് ശരിയായി പരിഹരിക്കുക.");
+                    document.getElementById("captcha-answer-ml").focus();
+                    return;
+                }
+                const password = document.getElementById("password-ml").value;
+                const confirmPassword = document.getElementById("confirmPassword-ml").value;
+                if (password !== confirmPassword) {
+                    alert("പാസ്‌വേഡുകൾ പൊരുത്തപ്പെടുന്നില്ല.");
+                    document.getElementById("confirmPassword-ml").focus();
+                    return;
+                }
+                alert("ഫോം വിജയകരമായി സമർപ്പിച്ചു! (ഇത് ഒരു ഡെമോയാണ് - യാതൊരു സബ്മിഷനും നടന്നിട്ടില്ല)");
+                this.reset();
+                generateCaptchaML();
+                handleCityChangeML();
+                handleDistrictChangeML();
+            });
+        }
+
+        // Malayalam <-> English mapping for dropdowns
+        const cityMLtoEN = {
+            "തിരുവനന്തപുരം": "Thiruvananthapuram",
+            "കോഴിക്കോട്": "Kozhikode",
+            "കൊച്ചി": "Kochi",
+            "കൊല്ലം": "Kollam",
+            "തൃശ്ശൂർ": "Thrissur",
+            "കണ്ണൂർ": "Kannur",
+            "ആലപ്പുഴ": "Alappuzha",
+            "കോട്ടയം": "Kottayam",
+            "പാലക്കാട്": "Palakkad",
+            "മഞ്ചേരി": "Manjeri",
+            "തലശ്ശേരി": "Thalassery",
+            "തൃപ്പൂണിത്തുറ": "Thrippunithura",
+            "പൊന്നാനി": "Ponnani",
+            "വടകര": "Vatakara",
+            "കാഞ്ഞങ്ങാട്": "Kanhangad",
+            "പയ്യന്നൂർ": "Payyanur",
+            "കോയിലാണ്ടി": "Koyilandy",
+            "പരപ്പനങ്ങാടി": "Parappanangadi",
+            "കലമശ്ശേരി": "Kalamassery",
+            "കൊടുങ്ങല്ലൂർ": "Kodungallur",
+            "നെയ്യാറ്റിൻകര": "Neyyattinkara",
+            "താനൂർ": "Tanur",
+            "കായംകുളം": "Kayamkulam",
+            "മലപ്പുറം": "Malappuram",
+            "ഗുരുവായൂർ": "Guruvayur",
+            "തൃക്കാക്കര": "Thrikkakkara",
+            "ഇരിഞ്ഞാലക്കുട": "Irinjalakuda",
+            "വടക്കാഞ്ചേരി": "Wadakkancherry",
+            "നെടുമങ്ങാട്": "Nedumangad",
+            "കൊണ്ടോട്ടി": "Kondotty",
+            "തിരൂരങ്ങാടി": "Tirurangadi",
+            "തിരൂർ": "Tirur",
+            "പാനൂർ": "Panoor",
+            "കാസർഗോഡ്": "Kasaragod",
+            "ഫെറോക്ക്": "Feroke",
+            "കുന്നംകുളം": "Kunnamkulam",
+            "ഒറ്റപ്പാലം": "Ottappalam",
+            "തിരുവല്ല": "Thiruvalla",
+            "തൊടുപുഴ": "Thodupuzha",
+            "പെരിന്തൽമണ്ണ": "Perinthalmanna",
+            "കരുനാഗപ്പള്ളി": "Karunagappalli",
+            "ചാലക്കുടി": "Chalakudy",
+            "പയ്യോളി": "Payyoli",
+            "കൊടുവള്ളി": "Koduvally",
+            "മാനന്തവാടി": "Mananthavady",
+            "ചങ്ങനാശ്ശേരി": "Changanassery",
+            "മട്ടന്നൂർ": "Mattanur",
+            "പുനലൂർ": "Punalur",
+            "നിലമ്പൂർ": "Nilambur",
+            "ചേർത്തല": "Cherthala",
+            "സുൽത്താൻ ബത്തേരി": "Sultan Bathery",
+            "മരാട്": "Maradu",
+            "കോട്ടക്കൽ": "Kottakkal",
+            "തളിപ്പറമ്പ": "Taliparamba",
+            "ശോരണൂർ": "Shornur",
+            "പന്തളം": "Pandalam",
+            "കട്ടപ്പന": "Kattappana",
+            "ചെർപ്പുളശ്ശേരി": "Cherpulassery",
+            "മുക്കം": "Mukkam",
+            "ഇരിട്ടി": "Iritty",
+            "വളാഞ്ചേരി": "Valanchery",
+            "വർക്കല": "Varkala",
+            "നീലേശ്വരം": "Nileshwaram",
+            "ചാവക്കാട്": "Chavakkad",
+            "കൊത്തമംഗലം": "Kothamangalam",
+            "പത്തനംതിട്ട": "Pathanamthitta",
+            "അറ്റിങ്ങൽ": "Attingal",
+            "പരവൂർ": "Paravur",
+            "രാമനാട്ടുകര": "Ramanattukara",
+            "മണ്ണാർക്കാട്": "Mannarkkad",
+            "എരാറ്റുപേട്ട": "Erattupetta",
+            "ശ്രീകണ്ഠപുരം": "Sreekandapuram",
+            "അങ്കമാലി": "Angamaly",
+            "ചിറ്റൂർ-തത്തമംഗലം": "Chittur-Thathamangalam",
+            "കൽപ്പറ്റ": "Kalpetta",
+            "നോർത്ത് പരവൂർ": "North Paravur",
+            "ഹരിപ്പാട്": "Haripad",
+            "മുവാറ്റുപുഴ": "Muvattupuzha",
+            "കോട്ടരക്കര": "Kottarakara",
+            "കൂത്തുപറമ്പ": "Kuthuparamba",
+            "അടൂർ": "Adoor",
+            "പട്ടാമ്പി": "Pattambi",
+            "അന്തൂർ": "Anthoor",
+            "പെരുമ്പാവൂർ": "Perumbavoor",
+            "പിറവം": "Piravom",
+            "എറ്റുമാനൂർ": "Ettumanoor",
+            "മാവേലിക്കര": "Mavelikkara",
+            "ഇളൂർ": "Eloor",
+            "ചെങ്ങന്നൂർ": "Chengannur",
+            "വൈക്കം": "Vaikom",
+            "അലുവ": "Aluva",
+            "പാലാ": "Pala",
+            "കൂത്താട്ടുകുളം": "Koothattukulam",
+            "മറ്റുള്ളത്": "Other"
+        };
+        const districtMLtoEN = {
+            "ആലപ്പുഴ": "Alappuzha",
+            "എറണാകുളം": "Ernakulam",
+            "ഇടുക്കി": "Idukki",
+            "കണ്ണൂർ": "Kannur",
+            "കാസർഗോഡ്": "Kasaragod",
+            "കൊല്ലം": "Kollam",
+            "കോട്ടയം": "Kottayam",
+            "കോഴിക്കോട്": "Kozhikode",
+            "മലപ്പുറം": "Malappuram",
+            "പാലക്കാട്": "Palakkad",
+            "പത്തനംതിട്ട": "Pathanamthitta",
+            "തിരുവനന്തപുരം": "Thiruvananthapuram",
+            "തൃശ്ശൂർ": "Thrissur",
+            "വയനാട്": "Wayanad",
+            "മറ്റുള്ളത്": "Other"
+        };
+
+        // On Malayalam form submit, convert dropdown values to English before sending
+        const posterFormML = document.getElementById("posterForm-ml");
+        if (posterFormML) {
+            posterFormML.addEventListener("submit", function(event) {
+                // ...existing code before reset...
+                // Convert city and district to English before submission
+                const cityML = document.getElementById("city-ml").value;
+                const districtML = document.getElementById("district-ml").value;
+                // If "Other", use the text input value, else map
+                if (cityML === "മറ്റുള്ളത്") {
+                    // leave as is, or use the text input value
+                } else if (cityMLtoEN[cityML]) {
+                    document.getElementById("city-ml").value = cityMLtoEN[cityML];
+                }
+                if (districtML === "മറ്റുള്ളത്") {
+                    // leave as is, or use the text input value
+                } else if (districtMLtoEN[districtML]) {
+                    document.getElementById("district-ml").value = districtMLtoEN[districtML];
+                }
+                // ...existing code...
+            });
+        }
+    });
+    </script>
+</body>
+</html>

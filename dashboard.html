@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>StatusPay247 Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="shortcut icon" href="assets/favicon.png">
+  <link rel="stylesheet" href="css/styles-cleaned.css">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="js/main.js" defer></script>
+  <style>
+    /* Dashboard-specific styles using the provided color scheme */
+    .dashboard-header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 3rem 0;
+      margin-bottom: 3rem;
+    }
+    
+    .dashboard-welcome {
+      text-align: center;
+    }
+    
+    .dashboard-welcome h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      color: white;
+    }
+    
+    .dashboard-welcome p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .dashboard-card {
+      background: var(--background-color);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+    
+    .dashboard-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      font-size: 1.5rem;
+      color: white;
+    }
+    
+    .wallet-icon {
+      background: var(--primary-color);
+    }
+    
+    .profile-icon {
+      background: var(--secondary-color);
+    }
+    
+    .stats-icon {
+      background: var(--accent-color);
+    }
+    
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-color);
+      margin: 0;
+    }
+    
+    .wallet-balance {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      margin: 1rem 0;
+      text-align: center;
+    }
+    
+    .progress-container {
+      background: var(--background-dark);
+      border-radius: 25px;
+      height: 12px;
+      margin: 1.5rem 0;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 25px;
+      transition: width 0.8s ease;
+      position: relative;
+    }
+    
+    .progress-label {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-top: 0.5rem;
+    }
+    
+    .wallet-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .wallet-detail {
+      text-align: center;
+      padding: 1rem;
+      background: var(--background-light);
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .wallet-detail-label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 0.5rem;
+    }
+    
+    .wallet-detail-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+    
+    .profile-info {
+      display: grid;
+      gap: 1rem;
+    }
+    
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .info-item:last-child {
+      border-bottom: none;
+    }
+    
+    .info-label {
+      font-weight: 600;
+      color: var(--text-light);
+    }
+    
+    .info-value {
+      color: var(--text-color);
+      font-weight: 500;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: var(--background-light);
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      display: block;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-top: 0.5rem;
+    }
+    
+    .loading-spinner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      text-align: center;
+    }
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--background-dark);
+      border-top: 4px solid var(--primary-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .loading-spinner h3 {
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .loading-spinner p {
+      color: var(--text-light);
+    }
+    
+    .error-container {
+      text-align: center;
+      padding: 3rem;
+      color: #e74c3c;
+    }
+    
+    .error-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .error-container h3 {
+      color: var(--text-color);
+      margin-bottom: 1rem;
+    }
+    
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 1.5rem;
+      background: var(--background-color);
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .action-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    
+    .action-btn i {
+      margin-right: 0.5rem;
+    }
+    
+    .status-badge {
+      color: var(--primary-color);
+      font-weight: 600;
+      background: rgba(30, 151, 126, 0.1);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .dashboard-welcome h1 {
+        font-size: 2rem;
+      }
+      
+      .wallet-balance {
+        font-size: 2.5rem;
+      }
+      
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .wallet-details {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .quick-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Custom styles for wallet withdraw button */
+    .wallet-withdraw-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      display: inline-block;
+      text-align: center;
+      min-width: 180px;
+    }
+    
+    .wallet-withdraw-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .withdraw-note {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-top: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">
+          <a href="index.html">
+            <img src="assets/logo.png" alt="StatusPay 247 Logo">
+          </a>
+        </div>
+        <div class="burger-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul>
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="index.html#what-is-statuspay">About</a></li>
+          <li><a href="index.html#how-it-works">How It Works</a></li>
+          <li><a href="index.html#why-choose-us">Why Choose Us</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+          <li><a href="poster.html">Join as Poster</a></li>
+          <li><a href="advertiser-terms.html">Advertisers</a></li>
+          <li><button id="logoutBtn" class="logout-btn btn btn-secondary">
+              <i class="fas fa-sign-out-alt"></i>Logout
+            </button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Dashboard Header -->
+  <section class="dashboard-header">
+    <div class="container">
+      <div class="dashboard-welcome">
+        <h1>Welcome back, <span id="userName">...</span>!</h1>
+        <p>Here's your earnings overview and account details</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Dashboard Content -->
+  <main class="container">
+    <!-- Onboarding Screen -->
+    <div id="onboardingScreen" style="display:none; text-align:center; padding:3rem;">
+      <div style="font-size:2.5rem; color:var(--primary-color); margin-bottom:1rem;">
+        <i class="fas fa-user-plus"></i>
+      </div>
+      <h2>Welcome to StatusPay247</h2>
+      <p style="font-size:1.1rem; color:var(--text-light); margin-bottom:1.5rem;">
+        Please follow our social media pages and upload your verification screenshot.
+      </p>
+      <div class="social-links" style="margin-bottom:1.5rem;">
+        <a href="https://facebook.com/statuspay247" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com/statuspay247" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://twitter.com/statuspay247" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://wa.me/919744483058" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <a href="#uploadSection" class="btn btn-primary" style="font-size:1.1rem;">
+        <i class="fas fa-upload"></i> Upload Screenshot
+      </a>
+    </div>
+
+    <!-- Waiting Screen -->
+    <div id="waitingScreen" style="display:none; text-align:center; padding:3rem;">
+      <div style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;">
+        <i class="fas fa-hourglass-half"></i>
+      </div>
+      <h2>Verification Pending</h2>
+      <p style="font-size:1.1rem; color:var(--text-light);">
+        Your screenshot has been submitted. Our team will review it shortly.
+      </p>
+    </div>
+
+    <!-- Loading State -->
+    <div id="loading" class="loading-spinner">
+      <div class="spinner"></div>
+      <h3>Loading your dashboard...</h3>
+      <p>Please wait while we fetch your latest data</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error" class="error-container" style="display: none;">
+      <div class="error-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <h3>Unable to load dashboard</h3>
+      <p>
+        ❌ Failed to load your dashboard data.<br>
+        <span id="errorDetails">Please try refreshing the page.</span>
+      </p>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div id="dashboardContent" style="display: none;">
+      <!-- Dashboard Grid -->
+      <div class="dashboard-grid">
+        <!-- Wallet Card -->
+        <div class="dashboard-card">
+          <div class="card-header">
+            <div class="card-icon wallet-icon">
+              <i class="fas fa-wallet"></i>
+            </div>
+            <h3 class="card-title">Your Wallet</h3>
+          </div>
+          
+          <div class="wallet-balance">
+            ₹<span id="balance">0</span>
+          </div>
+          
+          <div class="progress-container">
+            <div class="progress-bar" id="walletBar" style="width: 0%"></div>
+          </div>
+          <div class="progress-label" id="walletBarLabel">0% of ₹500 threshold</div>
+          
+          <div class="wallet-details">
+            <div class="wallet-detail">
+              <span class="wallet-detail-label">Total Earned</span>
+              <span class="wallet-detail-value">₹<span id="totalEarned">0</span></span>
+            </div>
+            <div class="wallet-detail">
+              <span class="wallet-detail-label">Paid Out</span>
+              <span class="wallet-detail-value">₹<span id="paid">0</span></span>
+            </div>
+          </div>
+          <!-- Withdraw Button with lock/unlock icon -->
+          <div style="text-align:center; margin-top:1.5rem;">
+            <button id="withdrawBtn" class="btn wallet-withdraw-btn" style="min-width:180px;" disabled>
+              <i id="withdrawLockIcon" class="fas fa-lock"></i>
+              Withdraw
+            </button>
+            <div class="withdraw-note">
+              <i class="fas fa-info-circle"></i>
+              You can only withdraw your amount after meeting the ₹500 threshold.
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="dashboard-card">
+          <div class="card-header">
+            <div class="card-icon profile-icon">
+              <i class="fas fa-user"></i>
+            </div>
+            <h3 class="card-title">Profile Information</h3>
+          </div>
+          
+          <div class="profile-info">
+            <div class="info-item">
+              <span class="info-label">Poster ID</span>
+              <span class="info-value" id="posterId">...</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Phone Number</span>
+              <span class="info-value" id="phone">...</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Total Tasks Completed</span>
+              <span class="info-value" id="profileTasksCompleted">0</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Status</span>
+              <span class="info-value status-badge">Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Statistics Card (Replaced) -->
+        <div class="dashboard-card">
+          <div class="card-header">
+            <div class="card-icon stats-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3 class="card-title">Join Official Posters Group</h3>
+          </div>
+          <div class="join-group-section" style="text-align:center; margin-bottom:1.2rem;">
+            <p style="margin-bottom:1.2rem; color:var(--text-light);">
+              Connect with other posters, get updates, and support in our official WhatsApp group.
+            </p>
+            <a href="https://chat.whatsapp.com/your-group-link" target="_blank" class="btn join-group-btn">
+              <i class="fab fa-whatsapp"></i> Join Group
+            </a>
+          </div>
+          <div class="info-item" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+            <span class="info-label">Last Task</span>
+            <span class="info-value" id="lastTask">...</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screenshot Upload Card -->
+      <div class="dashboard-card" style="max-width:600px; margin:2rem auto;">
+        <div class="card-header">
+          <div class="card-icon" style="background: var(--primary-color);">
+            <i class="fas fa-upload"></i>
+          </div>
+          <h3 class="card-title">Upload Task Screenshot</h3>
+        </div>
+        <div style="text-align:center;">
+          <input type="text" id="uploadPhone" placeholder="Phone Number" style="margin-bottom:0.7rem;max-width:220px;width:100%;padding:0.6rem 0.8rem;border:1px solid var(--border-color);border-radius:5px;font-size:1rem;">
+          <br>
+          <input type="file" id="uploadFile" accept="image/*" style="margin-bottom:1rem;" required>
+          <br>
+          <button type="button" id="uploadBtn" class="btn" style="min-width:160px;">
+            <i class="fas fa-cloud-upload-alt"></i> Upload Screenshot
+          </button>
+          <div id="uploadStatusMessage" style="margin-top:1rem; font-size:0.98rem; color:var(--primary-color);"></div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions">
+        <a href="https://wa.me/919744483058" target="_blank" class="action-btn">
+          <i class="fab fa-whatsapp"></i>
+          Contact Support
+        </a>
+        <a href="terms-and-conditions-for-posters.html" target="_blank" class="action-btn">
+          <i class="fas fa-file-contract"></i>
+          View Terms
+        </a>
+        <a href="index.html#how-it-works" class="action-btn">
+          <i class="fas fa-question-circle"></i>
+          How It Works
+        </a>
+        <a href="#" onclick="window.print()" class="action-btn">
+          <i class="fas fa-print"></i>
+          Print Dashboard
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer style="margin-top: 4rem;">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>StatusPay 247</h3>
+          <p>Your trusted platform for earning through WhatsApp status ads. Connect with us to start your earning journey today.</p>
+        </div>
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html#hero">Home</a></li>
+            <li><a href="index.html#what-is-statuspay">About Us</a></li>
+            <li><a href="index.html#how-it-works">How It Works</a></li>
+            <li><a href="index.html#why-choose-us">Why Choose Us</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="poster.html">Join as Poster</a></li>
+            <li><a href="advertiser-terms.html">Advertisers</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Connect With Us</h3>
+          <p>Follow us on social media for updates and tips.</p>
+          <div class="social-links">
+            <a href="https://www.facebook.com/statuspay247" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/statuspay247" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/statuspay247" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://wa.me/919744483058" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 StatusPay 247. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Logout button logic
+    document.getElementById('logoutBtn').onclick = function() {
+      localStorage.removeItem('user');
+      localStorage.removeItem('loggedIn');
+      localStorage.removeItem('loginTime');
+      localStorage.removeItem('userPhone');
+      window.location.href = 'login.html';
+    };
+
+    function showOnboardingScreen(message) {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("dashboardContent").style.display = "none";
+      document.getElementById("error").style.display = "none";
+      let onboarding = document.getElementById("onboardingScreen");
+      if (!onboarding) {
+        onboarding = document.createElement("div");
+        onboarding.id = "onboardingScreen";
+        onboarding.style.textAlign = "center";
+        onboarding.style.padding = "3rem";
+        onboarding.innerHTML = `
+          <div style="font-size:2.5rem; color:var(--primary-color); margin-bottom:1rem;">
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <h2>Complete Onboarding</h2>
+          <p style="font-size:1.1rem; color:var(--text-light); margin-bottom:2rem;">${message || "Please complete onboarding by uploading your screenshot."}</p>
+          <a href="#uploadSection" class="btn" style="font-size:1.1rem;">
+            <i class="fas fa-upload"></i> Upload Screenshot
+          </a>
+        `;
+        document.querySelector("main.container").prepend(onboarding);
+      } else {
+        onboarding.style.display = "block";
+      }
+      // Scroll to onboarding if needed
+      onboarding.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function showWaitingScreen(message) {
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("dashboardContent").style.display = "none";
+      document.getElementById("error").style.display = "none";
+      let waiting = document.getElementById("waitingScreen");
+      if (!waiting) {
+        waiting = document.createElement("div");
+        waiting.id = "waitingScreen";
+        waiting.style.textAlign = "center";
+        waiting.style.padding = "3rem";
+        waiting.innerHTML = `
+          <div style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;">
+            <i class="fas fa-hourglass-half"></i>
+          </div>
+          <h2>Verification Pending</h2>
+          <p style="font-size:1.1rem; color:var(--text-light);">${message || "Your screenshot has been uploaded. Waiting for manual verification."}</p>
+        `;
+        document.querySelector("main.container").prepend(waiting);
+      } else {
+        waiting.style.display = "block";
+      }
+      waiting.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function hideSpecialScreens() {
+      let onboarding = document.getElementById("onboardingScreen");
+      if (onboarding) onboarding.style.display = "none";
+      let waiting = document.getElementById("waitingScreen");
+      if (waiting) waiting.style.display = "none";
+    }
+
+    function checkOnboardingStatus(phone, callback) {
+      const cbName = 'onboardingStatusCb_' + Date.now();
+      window[cbName] = function(result) {
+        callback(result);
+        // Remove script tag after callback
+        const script = document.getElementById(cbName);
+        if (script) script.remove();
+        delete window[cbName];
+      };
+      const url = `https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec?action=onboardingStatus&phone=${encodeURIComponent(phone)}&callback=${cbName}`;
+      const script = document.createElement('script');
+      script.src = url;
+      script.id = cbName; // Add id for cleanup
+      document.head.appendChild(script);
+    }
+
+    function loadDashboard(phone) {
+      hideSpecialScreens();
+      // Update loading message
+      var loadingDiv = document.getElementById("loading");
+      if (loadingDiv) {
+        loadingDiv.style.display = "block";
+        var h3 = loadingDiv.querySelector("h3");
+        var p = loadingDiv.querySelector("p");
+        if (h3) h3.textContent = "Loading your dashboard...";
+        if (p) p.textContent = "Please wait while we fetch your latest data";
+      }
+      checkOnboardingStatus(phone, function(statusResult) {
+        if (statusResult && statusResult.success && statusResult.step) {
+          if (statusResult.step === "onboarding") {
+            showOnboardingScreen(statusResult.message);
+            if (loadingDiv) loadingDiv.style.display = "none";
+            return;
+          }
+          if (statusResult.step === "waiting") {
+            showWaitingScreen(statusResult.message);
+            if (loadingDiv) loadingDiv.style.display = "none";
+            return;
+          }
+          // else, step === "dashboard", continue to load dashboard
+        } else if (statusResult && statusResult.success === false) {
+          if (loadingDiv) loadingDiv.style.display = "none";
+          document.getElementById("dashboardContent").style.display = "none";
+          document.getElementById("error").style.display = "block";
+          var errorP = document.querySelector("#error p");
+          if (errorP) {
+            errorP.textContent = statusResult.message || "Unable to verify onboarding status.";
+          }
+          return;
+        }
+        // ...existing code for loading dashboard
+        const callbackName = 'jsonpCallback_' + Date.now();
+
+        window[callbackName] = function(result) {
+          try {
+            if (!result.success || !result.data) throw new Error(result.message || "Unknown error");
+            const data = result.data;
+            // Defensive: Only update elements if they exist
+            const setText = (id, value) => {
+              const el = document.getElementById(id);
+              if (el) el.textContent = value;
+            };
+            setText("userName", data.name || "...");

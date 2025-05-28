@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - StatusPay 247</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+    <link rel="shortcut icon" href="assets/favicon.png">
+    <link rel="stylesheet" href="css/styles-cleaned.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="/">
+                        <img src="assets/logo.png" alt="StatusPay 247 Logo">
+                    </a>
+                </div>
+                <div class="burger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul>
+                    <li><a href="index.html#hero">Home</a></li>
+                    <li><a href="index.html#what-is-statuspay">About</a></li>
+                    <li><a href="index.html#how-it-works">How It Works</a></li>
+                    <li><a href="index.html#why-choose-us">Why Choose Us</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="poster.html">Join as Poster</a></li>
+                    <li><a href="advertiser-terms.html">Advertisers</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="login-section">
+            <div class="login-outer-wrapper login-outer-wrapper--centered">
+                <div class="login-form-side login-form-side--centered">
+                    <div class="login-card-modern">
+                        <div class="login-header-modern">
+                            <img src="assets/logo.png" alt="StatusPay 247 Logo">
+                            <h2>Sign In</h2>
+                        </div>
+                        <div id="login-status" class="login-status-modern" style="display: none;">
+                            <div class="spinner"></div>
+                            <span id="status-message">Connecting to server...</span>
+                        </div>
+                        <div id="login-error" class="login-error-modern" style="display: none;">
+                            <strong>Login Error:</strong> <span id="error-message"></span>
+                            <div id="error-details"></div>
+                        </div>
+                        <form id="loginForm" class="login-form-modern">
+                            <div class="form-group-modern">
+                                <label for="phone">WhatsApp Number</label>
+                                <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required>
+                            </div>
+                            <div class="form-group-modern">
+                                <label for="password">Password</label>
+                                <div class="password-input-container-modern">
+                                    <input type="password" id="password" placeholder="Enter your password" required>
+                                    <span class="password-toggle-modern" onclick="togglePasswordVisibility('password')">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <button type="submit" class="login-btn-modern">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </button>
+                        </form>
+                        <div class="login-footer-modern">
+                            <p>Don't have an account? <a href="poster.html">Register here</a></p>
+                            <p>
+                                <a href="https://wa.me/919744483058?text=Hi%20StatusPay247%2C%20I%20forgot%20my%20password%20and%20need%20help%20to%20change%20it." target="_blank" rel="noopener">
+                                    Forgot password?
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>StatusPay 247</h3>
+                    <p>Your trusted platform for earning through WhatsApp status ads. Connect with us to start your earning journey today.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#what-is-statuspay">About Us</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#why-choose-us">Why Choose Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <p>Follow us on social media for updates and tips.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/statuspay247" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/statuspay247" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/statuspay247" target="_blank"><i class="fab fa-twitter"></i></a>
+                        <a href="https://wa.me/919744483058" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 StatusPay 247. All rights reserved.</p>
+                <p class="disclaimer">WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc. The services we provide involve direct WhatsApp status marketing using our network of users, and the use of the WhatsApp® logo or name is strictly for illustrative purposes. All rights to WhatsApp® remain the property of Meta Platforms, Inc.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Function to hash passwords consistently using SHA-256
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            if (!crypto || !crypto.subtle || !TextEncoder) {
+                showError('Your browser does not support the required cryptography functions. Please use a modern browser.');
+                return null;
+            }
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
+        // Function to show error message
+        function showError(message, details) {
+            const errorElement = document.getElementById('login-error');
+            const errorMessage = document.getElementById('error-message');
+            const errorDetails = document.getElementById('error-details');
+            
+            errorMessage.textContent = message;
+            
+            if (details) {
+                errorDetails.textContent = details;
+                errorDetails.style.display = 'block';
+            } else {
+                errorDetails.style.display = 'none';
+            }
+            
+            errorElement.style.display = 'block';
+            document.getElementById('login-status').style.display = 'none';
+
+            // For debugging: also log to console
+            if (details) {
+                console.error('Login error details:', details);
+            }
+        }
+
+        // Function to show status message (modified: only show "Authenticating..." and "Logging in...")
+        function showStatus(message) {
+            // Only show status for "Authenticating..." or "Logging in..."
+            if (message === 'Authenticating...' || message === 'Logging in...') {
+                document.getElementById('status-message').textContent = message;
+                document.getElementById('login-status').style.display = 'block';
+            } else {
+                document.getElementById('login-status').style.display = 'none';
+            }
+            document.getElementById('login-error').style.display = 'none';
+        }
+
+        // Function to handle successful login
+        function handleLoginSuccess(response, phone) {
+            // Store user data and login time
+            localStorage.setItem('user', JSON.stringify(response.user));
+            localStorage.setItem('loggedIn', 'true');
+            localStorage.setItem('loginTime', new Date().toString());
+            localStorage.setItem('userPhone', phone);
+            
+            // Show success message and redirect
+            // alert('Login successful! Redirecting to dashboard...');
+            window.location.href = 'dashboard.html';
+        }
+
+        // Password visibility toggle
+        function togglePasswordVisibility(inputId) {
+            const passwordInput = document.getElementById(inputId);
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            const toggleIcon = document.querySelector('#' + inputId + ' + .password-toggle i');
+            toggleIcon.classList.toggle('fa-eye');
+            toggleIcon.classList.toggle('fa-eye-slash');
+        }
+
+        // Form submission handler with multiple fallback methods
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const loginBtn = document.querySelector('.login-btn-modern'); // <-- updated selector
+            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+            loginBtn.disabled = true;
+
+            // Get form data
+            const phone = document.getElementById('phone').value.replace(/[^0-9]/g, "").slice(-10);
+            const password = document.getElementById('password').value;
+            
+            // Form validation
+            if (!phone || !password) {
+                showError('Please fill in all fields');
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> Login';
+                loginBtn.disabled = false;
+                return;
+            }
+            
+            try {
+                // Show status
+                showStatus('Authenticating...');
+                
+                // Hash the password
+                const hashedPassword = await hashPassword(password);
+                if (!hashedPassword) {
+                    showError('Password hashing failed. Please use a modern browser.');
+                    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> Login';
+                    loginBtn.disabled = false;
+                    return;
+                }
+                console.log('Attempting login with phone:', phone);
+                console.log('Password hash length:', hashedPassword.length);
+                
+                // Get the Apps Script URL
+                const scriptId = 'AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg';
+                const apiUrl = 'https://script.google.com/macros/s/' + scriptId + '/exec';
+                
+                // First, test connectivity with a simple ping
+                try {
+                    showStatus('Testing connection...');
+                    const pingResponse = await fetch(apiUrl + '?test=ping', {
+                        method: 'GET',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'text/plain'
+                        }
+                    });
+                    
+                    if (pingResponse.ok) {
+                        const pingText = await pingResponse.text();
+                        console.log('Ping test response:', pingText);
+                        if (pingText !== 'pong') {
+                            console.warn('Unexpected ping response:', pingText);
+                        }
+                    } else {
+                        console.warn('Ping test failed with status:', pingResponse.status);
+                    }
+                } catch (pingError) {
+                    console.warn('Ping test error:', pingError);
+                    // Continue anyway, the main login might still work
+                }
+                
+                // Try multiple login methods in sequence
+                let loginResponse = null;
+                let errorMessages = [];
+                
+                // Method 1: Try direct fetch with JSON
+                showStatus('Trying direct fetch...');
+                try {
+                    const fetchResponse = await fetch(apiUrl, {
+                        method: 'POST',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            'action': 'login',
+                            'phone': phone,
+                            'password': hashedPassword
+                        })
+                    });
+                    
+                    if (fetchResponse.ok) {
+                        loginResponse = await fetchResponse.json();
+                        console.log('Direct fetch successful:', loginResponse);
+                    } else {
+                        errorMessages.push('Fetch failed with status: ' + fetchResponse.status);
+                        const text = await fetchResponse.text();
+                        errorMessages.push('Fetch response: ' + text);
+                    }
+                } catch (fetchError) {
+                    console.warn('Direct fetch error:', fetchError);
+                    errorMessages.push('Fetch error: ' + fetchError.message);
+                }
+                
+                // Method 2: If direct fetch failed, try JSONP
+                if (!loginResponse) {
+                    showStatus('Trying JSONP...');
+                    try {
+                        loginResponse = await new Promise((resolve, reject) => {
+                            const callbackName = 'loginCallback_' + new Date().getTime();
+                            
+                            // Set a timeout
+                            const timeoutId = setTimeout(function() {
+                                if (window[callbackName]) {
+                                    delete window[callbackName];
+                                    if (document.getElementById('jsonp-script')) {
+                                        document.body.removeChild(document.getElementById('jsonp-script'));
+                                    }
+                                    reject(new Error('JSONP request timed out'));
+                                }
+                            }, 20000); // 20 second timeout
+                            
+                            // Create the callback function
+                            window[callbackName] = function(response) {
+                                clearTimeout(timeoutId);
+                                if (document.getElementById('jsonp-script')) {
+                                    document.body.removeChild(document.getElementById('jsonp-script'));
+                                }
+                                delete window[callbackName];
+                                
+                                if (response && response.success) {
+                                    resolve(response);
+                                } else {
+                                    reject(new Error(response ? response.message : 'Login failed'));
+                                }
+                            };
+                            
+                            // Create and append the script tag
+                            const script = document.createElement('script');
+                            script.id = 'jsonp-script';
+                script.src = 'https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec' + 
+                            '?action=login' + 
+                            '&phone=' + encodeURIComponent(phone) + 
+                            '&password=' + encodeURIComponent(hashedPassword) + 
+                            '&callback=' + callbackName + 
+                            '&t=' + new Date().getTime();
+                            document.body.appendChild(script);
+                        });
+                        
+                        console.log('JSONP successful:', loginResponse);
+                    } catch (jsonpError) {
+                        console.warn('JSONP error:', jsonpError);
+                        errorMessages.push('JSONP error: ' + jsonpError.message);
+                    }
+                }
+                
+                // Method 3: If JSONP failed, try form submission in an iframe
+                if (!loginResponse) {
+                    showStatus('Trying form submission...');
+                    try {
+                        loginResponse = await new Promise((resolve, reject) => {
+                            // Create a hidden iframe
+                            const iframe = document.createElement('iframe');
+                            iframe.style.display = 'none';
+                            iframe.name = 'login-target-' + new Date().getTime();
+                            document.body.appendChild(iframe);
+                            
+                            // Create a form that targets the iframe
+                            const form = document.createElement('form');
+                            form.style.display = 'none';
+                            form.method = 'POST';
+                            form.action = apiUrl;
+                            form.target = iframe.name;
+                            
+                            // Add form fields
+                            const addField = (name, value) => {
+                                const input = document.createElement('input');
+                                input.type = 'hidden';
+                                input.name = name;
+                                input.value = value;
+                                form.appendChild(input);
+                            };
+                            
+                            addField('action', 'login');
+                            addField('phone', phone);
+                            addField('password', hashedPassword);
+                            
+                            document.body.appendChild(form);
+                            
+                            // Set a timeout
+                            const timeoutId = setTimeout(function() {
+                                document.body.removeChild(iframe);
+                                document.body.removeChild(form);
+                                reject(new Error('Form submission timed out'));
+                            }, 20000);
+                            
+                            // Listen for iframe load
+                            iframe.onload = function() {
+                                try {
+                                    clearTimeout(timeoutId);
+                                    
+                                    // Try to read the response from the iframe
+                                    // Note: This might fail due to same-origin policy
+                                    const iframeContent = iframe.contentWindow.document.body.textContent;
+                                    let response = null;
+                                    
+                                    try {
+                                        response = JSON.parse(iframeContent);
+                                    } catch (parseError) {
+                                        console.warn('Failed to parse iframe response:', parseError);
+                                        errorMessages.push('Iframe parse error: ' + parseError.message);
+                                        errorMessages.push('Iframe content: ' + iframeContent);
+                                    }
+                                    
+                                    document.body.removeChild(iframe);
+                                    document.body.removeChild(form);
+                                    
+                                    if (response && response.success) {
+                                        resolve(response);
+                                    } else {
+                                        reject(new Error('Form submission failed'));
+                                    }
+                                } catch (error) {
+                                    document.body.removeChild(iframe);
+                                    document.body.removeChild(form);
+                                    reject(error);
+                                }
+                            };
+                            
+                            // Submit the form
+                            form.submit();
+                        });
+                        
+                        console.log('Form submission successful:', loginResponse);
+                    } catch (formError) {
+                        console.warn('Form submission error:', formError);
+                        errorMessages.push('Form submission error: ' + formError.message);
+                    }
+                }
+                
+                // If we have a successful login response, handle it
+                if (loginResponse && loginResponse.success) {
+                    handleLoginSuccess(loginResponse, phone);
+                } else {
+                    // All methods failed
+                    let userFriendlyMsg = 'Login failed. ';
+                    if (!navigator.onLine) {
+                        userFriendlyMsg += 'You appear to be offline. Please check your internet connection and try again.';
+                    } else if (
+                        errorMessages.some(msg => msg.includes('Failed to fetch') || msg.includes('CORS'))
+                    ) {
+                        userFriendlyMsg += 'Unable to connect to the server. This may be due to network issues or browser security restrictions (CORS). Please try again later or use a different browser/network.';
+                    } else {
+                        userFriendlyMsg += 'All login methods failed. Please try again later.';
+                    }
+                    // Show all error messages in details for debugging
+                    showError(userFriendlyMsg, errorMessages.join('\n'));
+                    throw new Error(userFriendlyMsg + ' Details: ' + errorMessages.join(' | '));
+                }
+                
+            } catch (error) {
+                // Show a friendly message for login errors
+                let msg = error && error.message ? error.message : 'Login failed due to an unknown error.';
+                if (
+                    msg.includes('All login methods failed') ||
+                    msg.includes('Login failed') ||
+                    msg.includes('Details:')
+                ) {
+                    msg = 'Incorrect phone number or password. Please try again.';
+                }
+                showError(msg, '');
+                console.error('Login error:', error);
+            } finally {
+                // Reset the login button
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> Login';
+                loginBtn.disabled = false;
+            }
+        });
+
+        // Check for registration data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const registrationData = localStorage.getItem('registrationData');
+            const urlParams = new URLSearchParams(window.location.search);
+            const fromRegistration = urlParams.get('fromRegistration') === 'true';
+            
+            if (fromRegistration && registrationData) {
+                try {
+                    const data = JSON.parse(registrationData);
+                    document.getElementById('phone').value = data.phone || '';
+                    document.getElementById('password').value = data.password || '';
+                    
+                    // Clear registration data after use
+                    localStorage.removeItem('registrationData');
+                    
+                    // Auto submit if data exists
+                    if (data.phone && data.password) {
+                        document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+                    }
+                } catch (error) {
+                    console.error('Error parsing registration data:', error);
+                }
+            }
+        });
+
+        // Show CORS warning if running from file://
+        if (window.location.protocol === 'file:') {
+            document.getElementById('cors-warning').style.display = 'block';
+            console.warn('You are running from file://. For login to work, serve this page from a local web server.');
+        }
+    </script>
+</body>
+</html>
