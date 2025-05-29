@@ -81,6 +81,7 @@ header {
     width: 100%;
     z-index: 1000;
     height: 80px;
+    overflow: visible;
 }
 
 nav {
@@ -88,6 +89,8 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 0;
+    position: relative;
+    z-index: 1001;
 }
 
 .logo {
@@ -199,18 +202,31 @@ nav a:hover:after { width: 100%; }
         justify-content: flex-start;
         padding-top: 2rem;
         transition: all 0.3s ease;
+        z-index: 1101;
+        overflow-y: auto;
+        display: none; /* Hide by default */
     }
     
     nav ul.active {
         left: 0;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        display: flex; /* Show when active */
     }
     
     nav ul li {
         margin: 1rem 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    nav ul li a {
+        display: block;
+        padding: 0.75rem 1rem;
     }
     
     .burger-menu {
         display: flex;
+        z-index: 1100;
     }
 }
 .burger-menu span {
@@ -832,15 +848,25 @@ footer {
     
     .footer-column {
         text-align: center;
+        align-items: center !important;
+        justify-content: center !important;
     }
-    
     .footer-column h3:after {
         left: 50%;
         transform: translateX(-50%);
     }
-    
     .social-links {
         justify-content: center;
+    }
+    .copyright {
+        text-align: center !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .copyright .disclaimer {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
     }
 }
 .footer-content {
@@ -1435,6 +1461,68 @@ footer {
     font-size: 0.98rem;
     color: var(--primary-color);
     text-align: center;
+}
+
+/* Force Style Fix */
+.force-style-fix {
+    /* Re-apply the same styles as your normal input */
+    padding: 0.8rem 1rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 7px;
+    font-size: 1rem;
+    background: #f9fafb;
+    color: var(--text-color);
+    transition: border-color 0.2s;
+}
+
+/* Footer Responsive - Match posters page, improved alignment for mobile */
+@media (max-width: 900px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: flex-start;
+    }
+    .footer-column {
+        text-align: left;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        min-width: 0;
+        width: 100%;
+        margin-bottom: 0;
+    }
+    .footer-column h3 {
+        text-align: left;
+        width: 100%;
+    }
+    .footer-column h3:after {
+        left: 0;
+        transform: none;
+    }
+    .footer-column ul,
+    .footer-column p {
+        text-align: left;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .social-links {
+        justify-content: flex-start;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .copyright {
+        text-align: center !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-top: 2rem;
+        padding-top: 1rem;
+    }
+    .copyright .disclaimer {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
 }
 
 /* End of CSS file */

@@ -394,6 +394,7 @@
                                     <li><strong>Termination:</strong> Account may be terminated for violations or inactivity</li>
                                     <li><strong>Fraud Policy:</strong> Any manipulation results in immediate termination</li>
                                 </ul>
+                                <a href="terms-and-conditions-for-posters.html" class="btn" style="margin-top:16px;">Read Full Terms &amp; Conditions</a>
                             </div>
                         </div>
                         <div class="terms-summary" id="terms-summary-ml" style="display:none;">
@@ -407,6 +408,7 @@
                                     <li><strong>അവസാനിപ്പിക്കൽ:</strong> നിയമലംഘനം അല്ലെങ്കിൽ നിഷ്ക്രിയത്വം ഉള്ളപ്പോൾ അക്കൗണ്ട് അവസാനിപ്പിക്കാം</li>
                                     <li><strong>വഞ്ചനാ നയം:</strong> ഏതെങ്കിലും കൃത്രിമത്വം ഉണ്ടെങ്കിൽ ഉടൻ അക്കൗണ്ട് അവസാനിപ്പിക്കും</li>
                                 </ul>
+                                <a href="terms-and-conditions-for-posters.html" class="btn" style="margin-top:16px;">പൂർണ്ണ നിബന്ധനകളും വ്യവസ്ഥകളും വായിക്കുക</a>
                             </div>
                         </div>
 
@@ -414,7 +416,7 @@
                             <div class="checkbox-wrapper">
                                 <input type="checkbox" id="terms-accept" required>
                                 <label for="terms-accept">
-                                    I have read and agree to the <a href="terms-and-conditions-for-posters.html" target="_blank">Terms and Conditions</a>
+                                    I have read and agree to the <a href="terms-and-conditions-for-posters.html">Terms and Conditions</a>
                                 </label>
                             </div>
                             <p class="disclaimer-text">Please carefully read our terms and conditions before proceeding. Your registration indicates acceptance of all terms.</p>
@@ -665,11 +667,25 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="terms-summary" id="terms-summary-ml" style="display:block;">
+                            <h3>പ്രധാന നിബന്ധനകൾ</h3>
+                            <div class="terms-content">
+                                <ul>
+                                    <li><strong>യോഗ്യത:</strong> നിങ്ങൾക്ക് കുറഞ്ഞത് 18 വയസും സജീവമായ WhatsApp അക്കൗണ്ടും കുറഞ്ഞത് 100 സ്റ്റാറ്റസ് കാഴ്ചകളും വേണം.</li>
+                                    <li><strong>പണം:</strong> അംഗീകരിച്ച ഓരോ സ്റ്റാറ്റസിനും (കുറഞ്ഞത് 100 കാഴ്ചകൾ) ₹20 ലഭിക്കും.</li>
+                                    <li><strong>പിൻവലിക്കൽ:</strong> പണം പിൻവലിക്കാൻ കുറഞ്ഞത് ₹500 ബാലൻസ് വേണം.</li>
+                                    <li><strong>പോസ്റ്റിംഗ്:</strong> പരസ്യങ്ങൾ ലഭിച്ചതുപോലെ തന്നെ സമയത്ത് പോസ്റ്റ് ചെയ്യണം.</li>
+                                    <li><strong>അക്കൗണ്ട് റദ്ദാക്കൽ:</strong> നിയമലംഘനം ചെയ്യുകയോ, സജീവമല്ലാതിരികയോ ചെയ്താൽ അക്കൗണ്ട് റദ്ദാക്കപ്പെടും.</li>
+                                    <li><strong>വഞ്ചനാ നയം:</strong> കൃത്രിമത്വം കണ്ടെത്തിയാൽ അക്കൗണ്ട് ഉടൻ റദ്ദാക്കും.</li>
+                                </ul>
+                                <a href="terms-and-conditions-for-posters.html" class="btn" style="margin-top:16px;">പൂർണ്ണ നിബന്ധനകളും വ്യവസ്ഥകളും വായിക്കുക</a>
+                            </div>
+                        </div>
                         <div class="terms-disclaimer">
                             <div class="checkbox-wrapper">
                                 <input type="checkbox" id="terms-accept-ml" required>
                                 <label for="terms-accept-ml">
-                                    ഞാൻ <a href="terms-and-conditions-for-posters.html" target="_blank">നിബന്ധനകളും വ്യവസ്ഥകളും</a> വായിച്ചിരിക്കുന്നു, അംഗീകരിക്കുന്നു
+                                    ഞാൻ <a href="terms-and-conditions-for-posters.html">നിബന്ധനകളും വ്യവസ്ഥകളും</a> വായിച്ചിരിക്കുന്നു, അംഗീകരിക്കുന്നു
                                 </label>
                             </div>
                             <p class="disclaimer-text">ദയവായി ഞങ്ങളുടെ നിബന്ധനകളും വ്യവസ്ഥകളും ശ്രദ്ധയോടെ വായിക്കുക. രജിസ്ട്രേഷൻ ചെയ്യുന്നത് എല്ലാ നിബന്ധനകളും അംഗീകരിക്കുന്നതായിരിക്കും.</p>
@@ -939,6 +955,116 @@
                 document.getElementById('terms-accept-ml').checked = false;
                 document.getElementById('submit-btn-ml').disabled = true;
             });
+
+            // --- Form Persistence Logic Start ---
+            // Helper to save and restore form data
+            function persistForm(formId, storageKey) {
+                const form = document.getElementById(formId);
+                if (!form) return;
+
+                // Restore values
+                const saved = localStorage.getItem(storageKey);
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        for (const [k, v] of Object.entries(data)) {
+                            const el = form.querySelector('[id="' + k + '"]');
+                            if (el) {
+                                if (el.type === 'checkbox' || el.type === 'radio') {
+                                    el.checked = v;
+                                } else {
+                                    el.value = v;
+                                }
+                            }
+                        }
+                    } catch (e) {}
+                }
+
+                // Save on input/change
+                form.addEventListener('input', function(e) {
+                    const fields = form.querySelectorAll('input, select, textarea');
+                    const data = {};
+                    fields.forEach(function(el) {
+                        if (el.type === 'checkbox' || el.type === 'radio') {
+                            data[el.id] = el.checked;
+                        } else {
+                            data[el.id] = el.value;
+                        }
+                    });
+                    localStorage.setItem(storageKey, JSON.stringify(data));
+                });
+
+                // Save on change for selects/radios
+                form.addEventListener('change', function(e) {
+                    const fields = form.querySelectorAll('input, select, textarea');
+                    const data = {};
+                    fields.forEach(function(el) {
+                        if (el.type === 'checkbox' || el.type === 'radio') {
+                            data[el.id] = el.checked;
+                        } else {
+                            data[el.id] = el.value;
+                        }
+                    });
+                    localStorage.setItem(storageKey, JSON.stringify(data));
+                });
+
+                // Clear on submit
+                form.addEventListener('submit', function() {
+                    localStorage.removeItem(storageKey);
+                });
+            }
+            persistForm('posterForm', 'posterForm_en');
+            persistForm('posterForm-ml', 'posterForm_ml');
+            // --- Form Persistence Logic End ---
+
+            // --- Language Preference Tracking Across Pages ---
+            // Set language button state and persist selection
+            function setLanguage(lang) {
+                if (lang === 'ml') {
+                    document.getElementById('poster-content-en').style.display = 'none';
+                    document.getElementById('poster-content-ml').style.display = 'block';
+                    document.getElementById('btn-ml').classList.add('active');
+                    document.getElementById('btn-en').classList.remove('active');
+                    document.getElementById('terms-summary-en').style.display = 'none';
+                    document.getElementById('terms-summary-ml').style.display = 'block';
+                    document.getElementById('terms-accept-ml').checked = false;
+                    document.getElementById('submit-btn-ml').disabled = true;
+                } else {
+                    document.getElementById('poster-content-en').style.display = 'block';
+                    document.getElementById('poster-content-ml').style.display = 'none';
+                    document.getElementById('btn-en').classList.add('active');
+                    document.getElementById('btn-ml').classList.remove('active');
+                    document.getElementById('terms-summary-en').style.display = 'block';
+                    document.getElementById('terms-summary-ml').style.display = 'none';
+                    document.getElementById('terms-accept').checked = false;
+                    document.getElementById('submit-btn').disabled = true;
+                }
+                localStorage.setItem('statuspay247_lang', lang);
+            }
+
+            // On load, check localStorage for language preference
+            var savedLang = localStorage.getItem('statuspay247_lang');
+            setLanguage(savedLang === 'ml' ? 'ml' : 'en');
+
+            // Language toggle functionality
+            document.getElementById('btn-en').addEventListener('click', function() {
+                setLanguage('en');
+            });
+            document.getElementById('btn-ml').addEventListener('click', function() {
+                setLanguage('ml');
+            });
+
+            // Update all terms links to store language before navigating
+            function updateTermsLinks() {
+                var lang = localStorage.getItem('statuspay247_lang') || 'en';
+                var links = document.querySelectorAll('a[href="terms-and-conditions-for-posters.html"]');
+                links.forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        localStorage.setItem('statuspay247_lang', lang);
+                    });
+                });
+            }
+            updateTermsLinks();
 
             // Initialize the page
             handleCityChange();

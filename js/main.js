@@ -1,8 +1,19 @@
 function toggleMenu() {
+    console.log('toggleMenu() called');
     const menu = document.querySelector('nav ul');
     const burger = document.querySelector('.burger-menu');
+    
+    if (!menu || !burger) {
+        console.error('Menu or burger elements not found');
+        return;
+    }
+    
+    console.log('Toggling classes');
     menu.classList.toggle('active');
     burger.classList.toggle('active');
+    
+    console.log('Menu classes:', menu.className);
+    console.log('Burger classes:', burger.className);
 }
 
 // Password visibility toggle
@@ -147,27 +158,51 @@ function validateAgeML(dobInput) {
 
 // CAPTCHA functions
 function generateCaptcha() {
+    const num1El = document.getElementById("num1");
+    const num2El = document.getElementById("num2");
+    if (!num1El || !num2El) return null;
+    
     const num1 = Math.floor(Math.random() * 10) + 1;
     const num2 = Math.floor(Math.random() * 10) + 1;
-    document.getElementById("num1").textContent = num1;
-    document.getElementById("num2").textContent = num2;
+    num1El.textContent = num1;
+    num2El.textContent = num2;
     document.getElementById("captcha-answer").value = "";
     return { num1, num2 };
 }
 
 function generateCaptchaML() {
+    const num1El = document.getElementById("num1-ml");
+    const num2El = document.getElementById("num2-ml");
+    if (!num1El || !num2El) return null;
+    
     const num1 = Math.floor(Math.random() * 10) + 1;
     const num2 = Math.floor(Math.random() * 10) + 1;
-    document.getElementById("num1-ml").textContent = num1;
-    document.getElementById("num2-ml").textContent = num2;
+    num1El.textContent = num1;
+    num2El.textContent = num2;
     document.getElementById("captcha-answer-ml").value = "";
     return { num1, num2 };
 }
 
-// Initialize menu toggle
-document.querySelector('.burger-menu').addEventListener('click', toggleMenu);
+// Initialize menu toggle for all pages
+function initMenuToggle() {
+    const burgerMenu = document.querySelector('.burger-menu');
+    if (burgerMenu) {
+        burgerMenu.addEventListener('click', toggleMenu);
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize menu toggle first
+    initMenuToggle();
+    
+    // Try to initialize captcha (won't error if elements don't exist)
+    try {
+        generateCaptcha();
+        generateCaptchaML();
+    } catch (e) {
+        console.log('Captcha initialization skipped:', e.message);
+    }
+    
     // Language toggle functionality
     const btnEn = document.getElementById('btn-en');
     const btnMl = document.getElementById('btn-ml');
