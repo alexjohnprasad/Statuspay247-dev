@@ -289,13 +289,25 @@ section { padding: 5rem 0; }
         margin: 0 auto;
         padding: 0 1rem;
     }
-    
     .hero-buttons .btn {
-        flex: 1 1 auto;
+        flex: 1 1 100%;
         min-width: 200px;
         max-width: 250px;
         text-align: center;
-        margin: 0 auto;
+        margin: 0.5rem auto;
+        display: block;
+    }
+    /* Center the poster login button specifically */
+    .hero-buttons .btn-poster-login {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        display: block;
+        margin: 0.5rem auto !important;
+        width: 100%;
+        max-width: 250px;
+        text-align: center;
+        /* Ensure center alignment even if wrapping */
+        align-self: center;
     }
 }
 .hero-content {
@@ -1525,4 +1537,45 @@ footer {
     }
 }
 
-/* End of CSS file */
+/* Poster Login Button (Hero Section) */
+.btn-poster-login {
+    background: #ff9800 !important;
+    color: #fff !important;
+    border: none !important;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.15);
+    transition: background 0.2s;
+}
+
+/* Center Poster Login button in mobile hero section and when wrapping */
+@media (max-width: 768px) {
+    /* ...existing code... */
+    .hero-buttons {
+        justify-content: center;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+    .hero-buttons .btn {
+        flex: 1 1 100%;
+        min-width: 200px;
+        max-width: 250px;
+        text-align: center;
+        margin: 0.5rem auto;
+        display: block;
+    }
+    .hero-buttons .btn-poster-login {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        display: block;
+        margin: 0.5rem auto !important;
+        width: 100%;
+        max-width: 250px;
+        text-align: center;
+        /* Ensure center alignment even if wrapping */
+        align-self: center;
+    }
+}

@@ -388,35 +388,124 @@
   </header>
 
   <!-- Dashboard Header -->
-  <section class="dashboard-header">
+  <section class="dashboard-header" id="dashboardHeaderSection">
     <div class="container">
       <div class="dashboard-welcome">
-        <h1>Welcome back, <span id="userName">...</span>!</h1>
-        <p>Here's your earnings overview and account details</p>
+        <h1 id="dashboardWelcomeHeader">Welcome back, <span id="userName">...</span>!</h1>
+        <p id="dashboardWelcomeSub">Here's your earnings overview and account details</p>
       </div>
     </div>
   </section>
 
   <!-- Main Dashboard Content -->
   <main class="container">
-    <!-- Onboarding Screen -->
+    <!-- Redesigned Onboarding Screen -->
     <div id="onboardingScreen" style="display:none; text-align:center; padding:3rem;">
-      <div style="font-size:2.5rem; color:var(--primary-color); margin-bottom:1rem;">
-        <i class="fas fa-user-plus"></i>
+      <div style="font-size:1.08rem;color:var(--text-light);margin-bottom:2rem;">
+        To join StatusPay247, please complete <b>all the steps below</b>:
       </div>
-      <h2>Welcome to StatusPay247</h2>
-      <p style="font-size:1.1rem; color:var(--text-light); margin-bottom:1.5rem;">
-        Please follow our social media pages and upload your verification screenshot.
-      </p>
-      <div class="social-links" style="margin-bottom:1.5rem;">
-        <a href="https://facebook.com/statuspay247" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a href="https://instagram.com/statuspay247" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://twitter.com/statuspay247" target="_blank"><i class="fab fa-twitter"></i></a>
-        <a href="https://wa.me/919744483058" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      <!-- Social Media Follow Card -->
+      <div style="background:var(--background-light);border-radius:14px;padding:2rem 1rem 1.5rem 1rem;max-width:500px;margin:0 auto 2rem auto;box-shadow:0 4px 16px rgba(0,0,0,0.07);">
+        <h2 style="color:var(--primary-color);margin-bottom:1.2rem;font-size:1.5rem;">
+          Step 1: Follow us on Social Media
+        </h2>
+        <div style="display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" style="color:#1877f3;font-size:2.5rem;margin-bottom:0.5rem;">
+              <i class="fab fa-facebook-square"></i>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" class="btn" style="background:#1877f3;color:#fff;padding:0.5rem 1.2rem;font-size:1rem;border-radius:6px;margin-bottom:0.2rem;">
+              Follow
+            </a>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <a href="https://instagram.com/statuspay247" target="_blank" style="color:#e4405f;font-size:2.5rem;margin-bottom:0.5rem;">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://instagram.com/statuspay247" target="_blank" class="btn" style="background:#e4405f;color:#fff;padding:0.5rem 1.2rem;font-size:1rem;border-radius:6px;margin-bottom:0.2rem;">
+              Follow
+            </a>
+          </div>
+        </div>
+        <div style="font-size:1rem;color:var(--text-light);margin-top:0.5rem;">
+          Please follow our official pages and keep a screenshot for verification.
+        </div>
       </div>
-      <a href="#uploadSection" class="btn btn-primary" style="font-size:1.1rem;">
-        <i class="fas fa-upload"></i> Upload Screenshot
-      </a>
+      <!-- Download Image & Copy Text Card -->
+      <div style="background:var(--background-light);border-radius:18px;padding:2.2rem 1.2rem 2rem 1.2rem;max-width:540px;margin:0 auto;box-shadow:0 6px 24px rgba(30,151,126,0.10);">
+        <h3 style="color:var(--primary-color);margin-bottom:1.3rem;font-size:1.25rem;letter-spacing:0.01em;">
+          <i class="fas fa-tasks" style="color:#1e977e;margin-right:0.5em;"></i>
+          Step 2: WhatsApp Status Task
+        </h3>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;">
+          <!-- Image with Download Button -->
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <img id="onboardingAdImage" src="assets/onboarding-ad.jpg" alt="Onboarding Ad" style="max-width:240px;border-radius:12px;box-shadow:0 2px 12px rgba(30,151,126,0.08);border:2px solid #e5e7eb;">
+            <a id="downloadAdImageBtn" href="assets/onboarding-ad.jpg" download="StatusPay247-Ad.jpg"
+               class="btn"
+               style="margin-top:0.8rem;background:#1e977e;color:#fff;padding:0.45rem 1.1rem;font-size:1rem;border-radius:7px;box-shadow:0 2px 8px rgba(30,151,126,0.10);display:flex;align-items:center;gap:0.5em;">
+              <i class="fas fa-download"></i> Download
+            </a>
+            <div style="font-size:0.93rem;color:var(--text-light);margin-top:0.7rem;text-align:center;">
+              <i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i>
+              Download and post this image to your WhatsApp status.
+            </div>
+          </div>
+          <!-- Text with Copy Button -->
+          <div style="width:100%;max-width:350px;display:flex;flex-direction:column;align-items:stretch;gap:0.5rem;">
+            <label for="onboardingAdText" style="font-weight:600;color:var(--secondary-color);margin-bottom:0.2rem;text-align:left;">
+              Status Caption (copy & paste)
+            </label>
+            <div style="display:flex;gap:0.5rem;">
+              <textarea id="onboardingAdText" readonly
+                style="flex:1;width:100%;min-height:110px;padding:0.85rem 1.1rem;border-radius:8px;border:1.5px solid var(--border-color);font-size:1.05rem;background:#f9fafb;color:var(--text-color);resize:none;box-shadow:0 1px 4px rgba(30,151,126,0.04);transition:border-color 0.2s;">
+Get paid for what you already do — *posting WhatsApp Status updates.*
+
+StatusPay247 connects real users with real advertisers.
+
+*No gimmicks, no false promises* — just simple earning from home.
+
+Register at StatusPay247.com
+and start your journey today.</textarea>
+              <button id="copyAdTextBtn" class="btn" title="Copy text"
+                style="align-self:flex-start;margin-top:0.2rem;background:#17314b;color:#fff;font-size:1.1rem;border-radius:7px;padding:0.7rem 1rem;min-width:44px;display:flex;align-items:center;justify-content:center;">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <div style="font-size:0.93rem;color:var(--text-light);margin-top:0.2rem;text-align:left;">
+              <i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i>
+              Copy this caption and paste it with your status image.
+            </div>
+          </div>
+        </div>
+        <div style="font-size:1rem;color:var(--primary-color);margin-top:1.5rem;text-align:center;font-weight:600;">
+          <i class="fas fa-check-circle" style="color:#1e977e;margin-right:0.4em;"></i>
+          Post both the image and caption to your WhatsApp status for approval.
+        </div>
+      </div>
+      <!-- Step 3: Upload Screenshot Card -->
+      <div style="background:var(--background-light);border-radius:18px;padding:2.2rem 1.2rem 2rem 1.2rem;max-width:540px;margin:2rem auto 0 auto;box-shadow:0 6px 24px rgba(30,151,126,0.10);">
+        <h3 style="color:var(--primary-color);margin-bottom:1.3rem;font-size:1.25rem;letter-spacing:0.01em;">
+          <i class="fas fa-upload" style="color:#1e977e;margin-right:0.5em;"></i>
+          Step 3: Upload Your Status Screenshot
+        </h3>
+        <div style="font-size:1rem;color:var(--text-light);margin-bottom:1.2rem;text-align:center;">
+          After 23 hours of posting, take a screenshot of your WhatsApp status showing the number of views your post received.<br>
+          <b>Upload that screenshot here for verification.</b>
+        </div>
+        <form id="onboardingScreenshotForm" style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
+          <input type="file" id="onboardingScreenshotFile" accept="image/jpeg,image/png,image/gif" required
+            style="padding:0.7rem 1rem;border-radius:7px;border:1.5px solid var(--border-color);background:#f9fafb;color:var(--text-color);font-size:1rem;width:100%;max-width:320px;">
+          <button type="submit" class="btn" style="background:#1e977e;color:#fff;font-size:1rem;border-radius:7px;padding:0.7rem 2.2rem;">
+            <i class="fas fa-upload"></i> Upload Screenshot
+          </button>
+          <div id="onboardingScreenshotStatus" style="font-size:0.97rem;color:var(--primary-color);margin-top:0.5rem;"></div>
+        </form>
+        <div style="font-size:0.93rem;color:var(--text-light);margin-top:1.2rem;text-align:center;">
+          <i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i>
+          Make sure your screenshot clearly shows the number of views on your status after 23 hours.
+        </div>
+      </div>
     </div>
 
     <!-- Waiting Screen -->
@@ -555,14 +644,14 @@
           <h3 class="card-title">Upload Task Screenshot</h3>
         </div>
         <div style="text-align:center;">
-          <input type="text" id="uploadPhone" placeholder="Phone Number" style="margin-bottom:0.7rem;max-width:220px;width:100%;padding:0.6rem 0.8rem;border:1px solid var(--border-color);border-radius:5px;font-size:1rem;">
-          <br>
+          <!-- Removed manual phone input field -->
           <input type="file" id="uploadFile" accept="image/*" style="margin-bottom:1rem;" required>
           <br>
           <button type="button" id="uploadBtn" class="btn" style="min-width:160px;">
             <i class="fas fa-cloud-upload-alt"></i> Upload Screenshot
           </button>
           <div id="uploadStatusMessage" style="margin-top:1rem; font-size:0.98rem; color:var(--primary-color);"></div>
+          <div id="dashboardScreenshotLinks" style="font-size:0.93rem;color:var(--secondary-color);margin-top:1.2rem;text-align:left;max-width:420px;word-break:break-all;"></div>
         </div>
       </div>
 
@@ -636,11 +725,37 @@
       window.location.href = 'login.html';
     };
 
+    // Set the correct welcome header/subtitle depending on onboarding/dashboard
+    function setDashboardHeader(isOnboarding, userName) {
+      var headerSection = document.getElementById("dashboardHeaderSection");
+      var header = document.getElementById("dashboardWelcomeHeader");
+      var sub = document.getElementById("dashboardWelcomeSub");
+      if (isOnboarding) {
+        header.innerHTML = `Welcome, <span id="userName">${userName || "..."}</span>!`;
+        sub.textContent = "Please complete the below tasks to join StatusPay247";
+        headerSection.style.display = "";
+      } else {
+        header.innerHTML = `Welcome back, <span id="userName">${userName || "..."}</span>!`;
+        sub.textContent = "Here's your earnings overview and account details";
+        headerSection.style.display = "";
+      }
+    }
+
     function showOnboardingScreen(message) {
       document.getElementById("loading").style.display = "none";
       document.getElementById("dashboardContent").style.display = "none";
       document.getElementById("error").style.display = "none";
+      // Hide dashboard header to avoid duplicate welcome
+      var headerSection = document.getElementById("dashboardHeaderSection");
+      if (headerSection) headerSection.style.display = "none";
       let onboarding = document.getElementById("onboardingScreen");
+      // Set onboarding name
+      var user = JSON.parse(localStorage.getItem("user"));
+      var name = user && user.name ? user.name : "...";
+      var onboardingUserName = document.getElementById("onboardingUserName");
+      if (onboardingUserName) onboardingUserName.textContent = name;
+      // No need to call setDashboardHeader(true, name) here
+
       if (!onboarding) {
         onboarding = document.createElement("div");
         onboarding.id = "onboardingScreen";
@@ -660,32 +775,18 @@
       } else {
         onboarding.style.display = "block";
       }
-      // Scroll to onboarding if needed
       onboarding.scrollIntoView({ behavior: "smooth" });
     }
 
-    function showWaitingScreen(message) {
+    // When showing dashboard, set header to "Welcome back"
+    function showDashboardContent() {
+      var user = JSON.parse(localStorage.getItem("user"));
+      var name = user && user.name ? user.name : "...";
+      setDashboardHeader(false, name);
+      var headerSection = document.getElementById("dashboardHeaderSection");
+      if (headerSection) headerSection.style.display = "";
+      document.getElementById("dashboardContent").style.display = "block";
       document.getElementById("loading").style.display = "none";
-      document.getElementById("dashboardContent").style.display = "none";
-      document.getElementById("error").style.display = "none";
-      let waiting = document.getElementById("waitingScreen");
-      if (!waiting) {
-        waiting = document.createElement("div");
-        waiting.id = "waitingScreen";
-        waiting.style.textAlign = "center";
-        waiting.style.padding = "3rem";
-        waiting.innerHTML = `
-          <div style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;">
-            <i class="fas fa-hourglass-half"></i>
-          </div>
-          <h2>Verification Pending</h2>
-          <p style="font-size:1.1rem; color:var(--text-light);">${message || "Your screenshot has been uploaded. Waiting for manual verification."}</p>
-        `;
-        document.querySelector("main.container").prepend(waiting);
-      } else {
-        waiting.style.display = "block";
-      }
-      waiting.scrollIntoView({ behavior: "smooth" });
     }
 
     function hideSpecialScreens() {
@@ -711,7 +812,8 @@
       document.head.appendChild(script);
     }
 
-    function loadDashboard(token, eligible) {
+    // New: Step-by-step dashboard loader
+    async function loadDashboardSequence(token) {
       hideSpecialScreens();
       var loadingDiv = document.getElementById("loading");
       if (loadingDiv) {
@@ -722,145 +824,432 @@
         if (p) p.textContent = "Please wait while we fetch your latest data";
       }
 
-      // Debug: Log token and eligible
-      console.log("Loading dashboard with token:", token, "eligible:", eligible);
-
-      // Timeout: Show error if backend doesn't respond in 20 seconds
-      let dashboardTimeout = setTimeout(function() {
+      // 1. Verify token
+      let phone = null;
+      try {
+        const cbName = "verifyTokenCb_" + Date.now();
+        const verifyUrl = "https://script.google.com/macros/s/AKfycbzBHaOZQjCMHy94swo86M_Hb_mFodqt-c5hepUy89RglCGeUbbv_5yf1E8tf3Ebhycd/exec"
+          + "?action=verifyToken"
+          + "&token=" + encodeURIComponent(token)
+          + "&callback=" + cbName;
+        phone = await new Promise((resolve, reject) => {
+          window[cbName] = function(result) {
+            // --- FIX: Accept both {success:true, phone:...} and {success:true, data:{phone:...}} for compatibility ---
+            let phoneVal = null;
+            if (result && result.success) {
+              if (result.phone) phoneVal = result.phone;
+              else if (result.data && result.data.phone) phoneVal = result.data.phone;
+            }
+            if (phoneVal) {
+              resolve(phoneVal);
+            } else {
+              reject(result && result.message ? result.message : "Token verification failed");
+            }
+            delete window[cbName];
+            const script = document.getElementById(cbName);
+            if (script) script.remove();
+          };
+          const script = document.createElement("script");
+          script.src = verifyUrl;
+          script.id = cbName;
+          document.body.appendChild(script);
+        });
+      } catch (err) {
         if (loadingDiv) loadingDiv.style.display = "none";
         document.getElementById("dashboardContent").style.display = "none";
         document.getElementById("error").style.display = "block";
         var errorP = document.querySelector("#error p");
-        if (errorP) {
-          errorP.textContent = "Dashboard is taking too long to load. Please check your internet connection or try again later.";
-        }
-        // Debug: Timeout occurred
-        console.error("Dashboard load timeout after 20 seconds");
-      }, 20000);
-
-      const callbackName = 'jsonpCallback_' + Date.now();
-      window[callbackName] = function(result) {
-        clearTimeout(dashboardTimeout);
-        // Debug: Log backend result
-        console.log("Dashboard backend result:", result);
-        try {
-          if (result.success && result.eligible === false) {
-            showOnboardingScreen("Please complete onboarding by uploading your screenshot.");
-            if (loadingDiv) loadingDiv.style.display = "none";
-            return;
-          }
-          if (!result.success || !result.data) throw new Error(result.message || "Unknown error");
-          const data = result.data;
-
-          // Remove this: setText("userName", (user && user.name) ? user.name : "...");
-
-          // Always set user's name from localStorage in the welcome header
-          const user = JSON.parse(localStorage.getItem("user"));
-          const setText = (id, value) => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = value;
-          };
-          setText("userName", (user && user.name) ? user.name : "...");
-
-          // If dashboard is empty (no earnings yet), show a friendly message in the dashboard
-          if (
-            (!data.name || data.name.trim() === "") &&
-            (!data.totalEarned || data.totalEarned === "0") &&
-            (!data.balance || data.balance === "0")
-          ) {
-            document.getElementById("dashboardContent").style.display = "block";
-            document.getElementById("loading").style.display = "none";
-            // Optionally, show a message in the dashboard header or as a notification
-            const dashboardWelcome = document.querySelector(".dashboard-welcome p");
-            if (dashboardWelcome) {
-              dashboardWelcome.textContent = result.message || "No earnings yet. Complete your first task to see your dashboard.";
-            }
-            // Optionally, clear out the earnings fields
-            setText("balance", "0.00");
-            setText("totalEarned", "0.00");
-            setText("paid", "0.00");
-            setText("posterId", "...");
-            setText("phone", data.phone || "...");
-            setText("profileTasksCompleted", "0");
-            setText("lastTask", "...");
-            // Update wallet bar
-            const walletBar = document.getElementById("walletBar");
-            const walletBarLabel = document.getElementById("walletBarLabel");
-            if (walletBar && walletBarLabel) {
-              walletBar.style.width = "0%";
-              walletBarLabel.textContent = "0% of ₹500 threshold";
-            }
-            return;
-          }
-
-          // Defensive: Only update elements if they exist
-          setText("balance", data.balance !== undefined ? Number(data.balance).toFixed(2) : "0.00");
-          setText("totalEarned", data.totalEarned !== undefined ? Number(data.totalEarned).toFixed(2) : "0.00");
-          setText("paid", data.paid !== undefined ? Number(data.paid).toFixed(2) : "0.00");
-          setText("posterId", data.posterId || "...");
-          setText("phone", data.phone || "...");
-          setText("profileTasksCompleted", data.tasksCompleted !== undefined ? data.tasksCompleted : 0);
-          setText("lastTask", data.lastTask || "...");
-
-          // Update wallet bar
-          const walletBar = document.getElementById("walletBar");
-          const walletBarLabel = document.getElementById("walletBarLabel");
-          if (walletBar && walletBarLabel) {
-            const threshold = 500;
-            const progress = Math.min((Number(data.balance) / threshold) * 100, 100);
-            walletBar.style.width = progress + "%";
-            walletBarLabel.textContent = `${progress.toFixed(0)}% of ₹${threshold} threshold`;
-          }
-
-          // Show dashboard content
-          document.getElementById("dashboardContent").style.display = "block";
-          document.getElementById("loading").style.display = "none";
-        } catch (error) {
-          console.error("Error processing dashboard data:", error, result);
-          if (loadingDiv) loadingDiv.style.display = "none";
-          document.getElementById("dashboardContent").style.display = "none";
-          document.getElementById("error").style.display = "block";
-          var errorP = document.querySelector("#error p");
-          if (errorP) {
-            errorP.textContent = "Failed to load dashboard data. Please try again later.";
-          }
-        }
-      };
-
-      // JSONP request to load dashboard data using token
-      const url = `https://script.google.com/macros/s/AKfycbzBHaOZQjCMHy94swo86M_Hb_mFodqt-c5hepUy89RglCGeUbbv_5yf1E8tf3Ebhycd/exec?token=${encodeURIComponent(token)}&callback=${callbackName}`;
-      // Debug: Log request URL
-      console.log("Dashboard JSONP request URL:", url);
-      const script = document.createElement("script");
-      script.src = url;
-      document.body.appendChild(script);
-    }
-
-    // Initial load
-    document.addEventListener("DOMContentLoaded", function() {
-      const user = JSON.parse(localStorage.getItem("user"));
-      // Debug: Log user object
-      console.log("Dashboard loaded, user from localStorage:", user);
-
-      // Always set the user's name in the welcome header immediately
-      const userNameEl = document.getElementById("userName");
-      if (userNameEl && user && user.name) {
-        userNameEl.textContent = user.name;
+        if (errorP) errorP.textContent = "Invalid or expired session. Please log in again.";
+        return;
       }
 
-      if (user && user.token) {
-        loadDashboard(user.token, user.eligible);
-      } else {
-        document.getElementById("loading").style.display = "none";
+      // 2. Check eligibility
+      let eligible = false;
+      try {
+        const eligibleUrl = "https://script.google.com/macros/s/AKfycbzBHaOZQjCMHy94swo86M_Hb_mFodqt-c5hepUy89RglCGeUbbv_5yf1E8tf3Ebhycd/exec?action=checkEligibility&phone=" + encodeURIComponent(phone) + "&callback=checkEligibleCb_" + Date.now();
+        eligible = await new Promise((resolve, reject) => {
+          const cbName = "checkEligibleCb_" + Date.now();
+          window[cbName] = function(result) {
+            if (result && result.success) {
+              resolve(result.eligible === true);
+            } else {
+              reject(result && result.message ? result.message : "Eligibility check failed");
+            }
+            delete window[cbName];
+            const script = document.getElementById(cbName);
+            if (script) script.remove();
+          };
+          const script = document.createElement("script");
+          script.src = eligibleUrl.replace(/callback=[^&]+/, "callback=" + cbName);
+          script.id = cbName;
+          document.body.appendChild(script);
+        });
+      } catch (err) {
+        if (loadingDiv) loadingDiv.style.display = "none";
+        document.getElementById("dashboardContent").style.display = "none";
         document.getElementById("error").style.display = "block";
         var errorP = document.querySelector("#error p");
-        if (errorP) {
-          errorP.textContent = "Failed to load dashboard data. Please try again later.";
-        }
-        // Debug: No user/token found
-        console.error("No user or token found in localStorage");
+        if (errorP) errorP.textContent = "Failed to check eligibility. Please try again.";
+        return;
+      }
+
+      // 3. Get dashboard data or show onboarding
+      if (!eligible) {
+        showOnboardingScreen("Please complete onboarding by uploading your screenshot.");
+        if (loadingDiv) loadingDiv.style.display = "none";
+        return;
+      }
+
+      try {
+        const dashboardUrl = "https://script.google.com/macros/s/AKfycbzBHaOZQjCMHy94swo86M_Hb_mFodqt-c5hepUy89RglCGeUbbv_5yf1E8tf3Ebhycd/exec?action=getDashboardData&phone=" + encodeURIComponent(phone) + "&callback=getDashboardCb_" + Date.now();
+        await new Promise((resolve, reject) => {
+          const cbName = "getDashboardCb_" + Date.now();
+          window[cbName] = function(result) {
+            try {
+              if (!result.success || !result.data) throw new Error(result.message || "Unknown error");
+              const data = result.data;
+              // Set user's name from localStorage in the welcome header
+              const user = JSON.parse(localStorage.getItem("user"));
+              const setText = (id, value) => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = value;
+              };
+              setText("userName", (user && user.name) ? user.name : "...");
+              // If dashboard is empty (no earnings yet), show a friendly message in the dashboard
+              if (
+                (!data.name || data.name.trim() === "") &&
+                (!data.totalEarned || data.totalEarned === "0") &&
+                (!data.balance || data.balance === "0")
+              ) {
+                document.getElementById("dashboardContent").style.display = "block";
+                document.getElementById("loading").style.display = "none";
+                const dashboardWelcome = document.querySelector(".dashboard-welcome p");
+                if (dashboardWelcome) {
+                  dashboardWelcome.textContent = result.message || "No earnings yet. Complete your first task to see your dashboard.";
+                }
+                setText("balance", "0.00");
+                setText("totalEarned", "0.00");
+                setText("paid", "0.00");
+                setText("posterId", "...");
+                setText("phone", data.phone || "...");
+                setText("profileTasksCompleted", "0");
+                setText("lastTask", "...");
+                // Update wallet bar
+                const walletBar = document.getElementById("walletBar");
+                const walletBarLabel = document.getElementById("walletBarLabel");
+                if (walletBar && walletBarLabel) {
+                  walletBar.style.width = "0%";
+                  walletBarLabel.textContent = "0% of ₹500 threshold";
+                }
+                resolve();
+                return;
+              }
+              // Defensive: Only update elements if they exist
+              setText("balance", data.balance !== undefined ? Number(data.balance).toFixed(2) : "0.00");
+              setText("totalEarned", data.totalEarned !== undefined ? Number(data.totalEarned).toFixed(2) : "0.00");
+              setText("paid", data.paid !== undefined ? Number(data.paid).toFixed(2) : "0.00");
+              setText("posterId", data.posterId || "...");
+              setText("phone", data.phone || "...");
+              setText("profileTasksCompleted", data.tasksCompleted !== undefined ? data.tasksCompleted : 0);
+              setText("lastTask", data.lastTask || "...");
+              // Update wallet bar
+              const walletBar = document.getElementById("walletBar");
+              const walletBarLabel = document.getElementById("walletBarLabel");
+              if (walletBar && walletBarLabel) {
+                const threshold = 500;
+                const progress = Math.min((Number(data.balance) / threshold) * 100, 100);
+                walletBar.style.width = progress + "%";
+                walletBarLabel.textContent = `${progress.toFixed(0)}% of ₹${threshold} threshold`;
+              }
+              document.getElementById("dashboardContent").style.display = "block";
+              document.getElementById("loading").style.display = "none";
+              resolve();
+            } catch (error) {
+              document.getElementById("dashboardContent").style.display = "none";
+              document.getElementById("loading").style.display = "none";
+              document.getElementById("error").style.display = "block";
+              var errorP = document.querySelector("#error p");
+              if (errorP) errorP.textContent = "Failed to load dashboard data. Please try again later.";
+              reject(error);
+            }
+        delete window[cbName];
+        const script = document.getElementById(cbName);
+        if (script) script.remove();
+      };
+      const script = document.createElement("script");
+      script.src = dashboardUrl.replace(/callback=[^&]+/, "callback=" + cbName);
+      script.id = cbName;
+      document.body.appendChild(script);
+    });
+  } catch (err) {
+    document.getElementById("dashboardContent").style.display = "none";
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("error").style.display = "block";
+    var errorP = document.querySelector("#error p");
+    if (errorP) errorP.textContent = "Failed to load dashboard data. Please try again later.";
+    return;
+  }
+}
+
+// Initial load: use the new sequence loader
+document.addEventListener("DOMContentLoaded", function() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  // Debug: Log user object
+  console.log("Dashboard loaded, user from localStorage:", user);
+
+  // Always set the user's name in the welcome header immediately
+  const userNameEl = document.getElementById("userName");
+  if (userNameEl && user && user.name) {
+    userNameEl.textContent = user.name;
+  }
+
+  if (user && user.token) {
+    loadDashboardSequence(user.token);
+  } else {
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("error").style.display = "block";
+    var errorP = document.querySelector("#error p");
+    if (errorP) {
+      errorP.textContent = "Failed to load dashboard data. Please try again later.";
+    }
+    // Debug: No user/token found
+    console.error("No user or token found in localStorage");
+  }
+});
+
+// Onboarding copy button logic
+document.addEventListener("DOMContentLoaded", function() {
+  var copyBtn = document.getElementById("copyAdTextBtn");
+  var adText = document.getElementById("onboardingAdText");
+  if (copyBtn && adText) {
+    copyBtn.onclick = function() {
+      adText.select();
+      adText.setSelectionRange(0, 99999); // For mobile
+      document.execCommand("copy");
+      copyBtn.textContent = "Copied!";
+      setTimeout(function() {
+        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Text';
+      }, 1500);
+    };
+  }
+});
+
+// Updated onboarding screenshot upload logic (using iframe like dashboard)
+document.addEventListener("DOMContentLoaded", function() {
+  var form = document.getElementById("onboardingScreenshotForm");
+  var fileInput = document.getElementById("onboardingScreenshotFile");
+  var statusDiv = document.getElementById("onboardingScreenshotStatus");
+
+  if (form && fileInput && statusDiv) {
+    form.addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      statusDiv.style.color = "var(--primary-color)";
+      statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Reading file...';
+
+      if (!fileInput.files.length) {
+        statusDiv.textContent = "Please select a screenshot to upload.";
+        statusDiv.style.color = "#e74c3c";
+        return;
+      }
+      var file = fileInput.files[0];
+      var allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+      if (allowedTypes.indexOf(file.type) === -1) {
+        statusDiv.textContent = "Only JPG, PNG, or GIF images are allowed.";
+        statusDiv.style.color = "#e74c3c";
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        statusDiv.textContent = "File size exceeds 5MB limit.";
+        statusDiv.style.color = "#e74c3c";
+        return;
+      }
+
+      // Always get phone from localStorage at submit time
+      var user = null;
+      try {
+        user = JSON.parse(localStorage.getItem("user"));
+      } catch (err) {
+        user = null;
+      }
+      var phone = user && user.phone ? user.phone : "";
+      if (!phone) {
+        statusDiv.textContent = "Could not determine your phone number. Please log in again.";
+        statusDiv.style.color = "#e74c3c";
+        return;
+      }
+
+      try {
+        // Use the same handleScreenshotUpload function as dashboard
+        await handleScreenshotUpload(file, phone, statusDiv);
+      } catch (err) {
+        // Error already handled in handleScreenshotUpload
+        console.error("Onboarding upload error:", err);
       }
     });
+  }
+});
+
+// Add helper functions at the start
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
+// Screenshot upload handler
+async function handleScreenshotUpload(file, phone, statusElement) {
+  try {
+    if (!file) throw new Error("Please select a screenshot to upload.");
+    if (!["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
+      throw new Error("Only JPG, PNG, or GIF images are allowed.");
+    }
+    if (file.size > 5 * 1024 * 1024) throw new Error("File size exceeds 5MB limit.");
+
+    statusElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+    statusElement.style.color = "var(--primary-color)";
+
+    const base64Data = await readFileAsBase64(file);
+    const base64Content = base64Data.split(',')[1];
+
+    console.log("Starting upload for phone:", phone, "file type:", file.type);
+
+    const result = await uploadViaIframe({
+      phone: phone,
+      base64Data: base64Content,
+      contentType: file.type,
+      filename: file.name || "screenshot.jpg"
+    });
+
+    if (result.success) {
+      statusElement.innerHTML = '<i class="fas fa-check-circle"></i> Screenshot uploaded successfully!';
+      statusElement.style.color = "var(--primary-color)";
+    } else {
+      throw new Error(result.message || "Upload failed");
+    }
+    return result;
+  } catch (err) {
+    statusElement.textContent = err.message || "Upload failed";
+    statusElement.style.color = "#e74c3c";
+    console.error("Upload error:", err);
+    throw err;
+  }
+}
+
+function uploadViaIframe(uploadData) {
+  return new Promise((resolve, reject) => {
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyvi-3XhtKLrBsvfgbQSkYDTmlbyk6oLP0G3qlb5Hl8AXhEZCUz49ZaVbYRZzbULGwsjQ/exec';
+    
+    // Listen for postMessage response
+    const messageHandler = (event) => {
+      try {
+        console.log("Received message from iframe:", event.data); // Log iframe response
+        const result = event.data;
+        if (result.success) {
+          resolve(result);
+        } else {
+          console.error("Upload failed:", result.message || "Unknown error");
+          reject(new Error(result.message || 'Upload failed'));
+        }
+      } catch (err) {
+        console.error("Error handling iframe message:", err);
+        reject(err);
+      } finally {
+        // Cleanup
+        window.removeEventListener('message', messageHandler);
+        if (form.parentNode) form.parentNode.removeChild(form);
+        if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+        clearTimeout(timeoutId); // Clear timeout
+      }
+    };
+    window.addEventListener('message', messageHandler);
+
+    // Generate unique IDs
+    const frameId = `upload_frame_${Date.now()}`;
+    const formId = `upload_form_${Date.now()}`;
+    
+    // Create form
+    const form = document.createElement('form');
+    form.id = formId;
+    form.style.display = 'none';
+    form.method = 'POST';
+    form.action = SCRIPT_URL;
+    form.target = frameId;
+
+    // Add fields
+    Object.entries(uploadData).forEach(([key, value]) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = value;
+      form.appendChild(input);
+    });
+
+    // Create iframe
+    const iframe = document.createElement('iframe');
+    iframe.id = frameId;
+    iframe.name = frameId;
+    iframe.style.display = 'none';
+
+    // Add timeout
+    const timeoutId = setTimeout(() => {
+      console.error("Upload timed out or forbidden (403).");
+      window.removeEventListener('message', messageHandler);
+      if (form.parentNode) form.parentNode.removeChild(form);
+      if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+      reject(new Error('Upload timed out or forbidden (403). Please check permissions.'));
+    }, 30000);
+
+    // Submit
+    document.body.appendChild(iframe);
+    document.body.appendChild(form);
+    form.submit();
+  });
+}
+
+// Add event listener for dashboard upload button
+document.addEventListener("DOMContentLoaded", function() {
+  const uploadBtn = document.getElementById("uploadBtn");
+  const fileInput = document.getElementById("uploadFile");
+  const statusDiv = document.getElementById("uploadStatusMessage");
+
+  if (uploadBtn && fileInput) {
+    uploadBtn.addEventListener("click", async function() {
+      if (!fileInput.files.length) {
+        if (statusDiv) {
+          statusDiv.textContent = "Please select a file first";
+          statusDiv.style.color = "#e74c3c";
+        }
+        return;
+      }
+
+      // Get user phone from localStorage
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const phone = user.phone;
+
+      if (!phone) {
+        if (statusDiv) {
+          statusDiv.textContent = "Please log in again";
+          statusDiv.style.color = "#e74c3c";
+        }
+        return;
+      }
+
+      try {
+        await handleScreenshotUpload(fileInput.files[0], phone, statusDiv);
+      } catch (err) {
+        console.error("Upload error:", err);
+        if (statusDiv) {
+          statusDiv.textContent = err.message || "Upload failed";
+          statusDiv.style.color = "#e74c3c";
+        }
+      }
+    });
+  }
+});
   </script>
 </body>
 

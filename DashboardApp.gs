@@ -21,8 +21,35 @@ function doGet(e) {
     return ContentService.createTextOutput(JSON.stringify(dashboardData)).setMimeType(ContentService.MimeType.JSON);
   }
 
+  const action = e.parameter && e.parameter.action;
+  const callback = e.parameter && e.parameter.callback;
+
+  if (action === "verifyToken") {
+    const token = e.parameter.token;
+    if (!token) {
+      return jsonpResponse({ success: false, message: "Token is required" }, callback);
+    }
+    const phone = verifyToken(token);
+    if (!phone) {
+      return jsonpResponse({ success: false, message: "Invalid or expired token" }, callback);
+    }
+    return jsonpResponse({ success: true, phone: phone }, callback);
+  }
+
+  if (action === "checkEligibility") {
+    const phone = standardizePhone(e.parameter.phone);
+    const eligible = checkEligibility(phone);
+    return jsonpResponse({ success: true, eligible: eligible }, callback);
+  }
+
+  if (action === "getDashboardData") {
+    const phone = standardizePhone(e.parameter.phone);
+    const dashboardData = getDashboardData(phone);
+    return jsonpResponse(dashboardData, callback);
+  }
+
+  // Legacy: fallback to old combined flow for backward compatibility
   const token = e.parameter.token;
-  const callback = e.parameter.callback;
   let output;
 
   if (!token) {
@@ -74,9 +101,18 @@ function checkEligibility(phone) {
   const data = sheet.getDataRange().getValues();
   for (let i = 1; i < data.length; i++) {
     const rowPhone = standardizePhone(data[i][5]);
+    // --- DEBUG LOGGING ---
+    Logger.log("Row " + (i+1) + ": phone=" + rowPhone + " | eligible=" + data[i][14] + " | typeof=" + typeof data[i][14]);
     if (rowPhone === phone) {
-      Logger.log("Eligibility for phone " + phone + ": " + !!data[i][14]);
-      return !!data[i][14];
+      // Accept both boolean true and string "TRUE"
+      const eligibleCell = data[i][14];
+      const eligible =
+        eligibleCell === true ||
+        eligibleCell === "TRUE" ||
+        eligibleCell === 1 ||
+        eligibleCell === "1";
+      Logger.log("Eligibility for phone " + phone + ": " + eligible + " (raw value: " + eligibleCell + ")");
+      return eligible;
     }
   }
   Logger.log("Eligibility not found for phone: " + phone);

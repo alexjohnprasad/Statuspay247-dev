@@ -93,6 +93,14 @@ function saveTokenToRegistry(token, phone) {
   let sheet = ss.getSheetByName(TOKEN_REGISTRY_SHEET);
   if (!sheet) sheet = ss.insertSheet(TOKEN_REGISTRY_SHEET);
 
+  // Remove any previous tokens for this phone before adding a new one
+  const data = sheet.getDataRange().getValues();
+  for (let i = data.length - 1; i >= 1; i--) {
+    if (standardizePhone(data[i][1]) === phone) {
+      sheet.deleteRow(i + 1);
+    }
+  }
+
   const expiration = new Date();
   expiration.setMinutes(expiration.getMinutes() + 10); // 10-minute expiry
 
