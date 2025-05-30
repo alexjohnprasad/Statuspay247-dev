@@ -158,7 +158,7 @@
                     <form id="posterForm" class="form">
                         <div class="form-group">
                             <label for="name">Full Name</label>
-                            <input type="text" id="name" placeholder="Enter your full name" required>
+                            <input type="text" id="name" placeholder="Enter your full name" required value="Test User">
                         </div>
                         <div class="form-group">
                             <label for="email">Email Address</label>
@@ -167,14 +167,15 @@
                                    placeholder="Enter your Gmail address" 
                                    required 
                                    pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" 
-                                   title="Please enter a valid Gmail address (example@gmail.com)">
+                                   title="Please enter a valid Gmail address (example@gmail.com)"
+                                   value="test.user@gmail.com">
                             <span id="email-error" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">Only Gmail addresses are allowed (example@gmail.com)</span>
                         </div>
                         <div class="form-group">
                             <label>Gender</label>
                             <div class="radio-group">
                                 <label>
-                                    <input type="radio" id="genderMale" name="gender" value="Male" required> 
+                                    <input type="radio" id="genderMale" name="gender" value="Male" required checked> 
                                     <span>Male</span>
                                 </label>
                                 <label>
@@ -194,16 +195,18 @@
                                    placeholder="Enter your WhatsApp number (10 digits)" 
                                    required 
                                    pattern="^(\+91)?[6-9][0-9]{9}$"
-                                   title="Please enter a valid Indian mobile number">
+                                   title="Please enter a valid Indian mobile number"
+                                   value="9876543210">
                             <span id="phone-error" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">Only Indian WhatsApp numbers are allowed</span>
                         </div>
                         <div class="form-group">
                             <label for="street">Street Address</label>
-                            <input type="text" id="street" placeholder="Enter your street address" required>
+                            <input type="text" id="street" placeholder="Enter your street address" required value="123 Test Street">
                         </div>
                         <div class="form-group">
                             <label for="city">City / Town</label>
                             <select id="city" required onchange="handleCityChange()">
+                                <option value="Kochi" selected>Kochi</option>
                                 <option value="">Select City / Town</option>
                                 <option value="Thiruvananthapuram">Thiruvananthapuram</option>
                                 <option value="Kozhikode">Kozhikode</option>
@@ -307,6 +310,7 @@
                         <div class="form-group">
                             <label for="district">District</label>
                             <select id="district" required onchange="handleDistrictChange()">
+                                <option value="Ernakulam" selected>Ernakulam</option>
                                 <option value="">Select District</option>
                                 <option value="Alappuzha">Alappuzha</option>
                                 <option value="Ernakulam">Ernakulam</option>
@@ -334,7 +338,7 @@
                         </div>
                         <div class="form-group">
                             <label for="pincode">Postal Code</label>
-                            <input type="text" id="pincode" placeholder="Enter your postal code" required pattern="\d{6}" title="Please enter a valid 6-digit postal code">
+                            <input type="text" id="pincode" placeholder="Enter your postal code" required pattern="\d{6}" title="Please enter a valid 6-digit postal code" value="682001">
                         </div>
                         <div class="form-group">
                             <label for="country">Country</label>
@@ -342,13 +346,13 @@
                         </div>
                         <div class="form-group">
                             <label for="dob">Date of Birth</label>
-                            <input type="date" id="dob" required onchange="validateAge(this)">
+                            <input type="date" id="dob" required onchange="validateAge(this)" value="1990-01-01">
                             <span id="age-error" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">You must be at least 18 years old to register.</span>
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
                             <div class="password-input-container">
-                                <input type="password" id="password" placeholder="Create a strong password" required>
+                                <input type="password" id="password" placeholder="Create a strong password" required value="Test@1234">
                                 <span class="password-toggle" onclick="togglePasswordVisibility('password')">
                                     <i class="fas fa-eye"></i>
                                 </span>
@@ -357,7 +361,7 @@
                         <div class="form-group">
                             <label for="confirmPassword">Confirm Password</label>
                             <div class="password-input-container">
-                                <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                                <input type="password" id="confirmPassword" placeholder="Confirm your password" required value="Test@1234">
                                 <span class="password-toggle" onclick="togglePasswordVisibility('confirmPassword')">
                                     <i class="fas fa-eye"></i>
                                 </span>
@@ -376,7 +380,7 @@
                                 <span>+</span>
                                 <span id="num2">3</span>
                                 <span>=</span>
-                                <input type="number" id="captcha-answer" min="0" max="20" required style="width: 60px;">
+                                <input type="number" id="captcha-answer" min="0" max="20" required style="width: 60px;" value="8">
                                 <button type="button" class="captcha-reset" onclick="generateCaptcha()" title="Get New Challenge" style="padding: 6px 10px;">
                                     <i class="fas fa-redo"></i> Reset
                                 </button>
@@ -924,13 +928,151 @@
                     return;
                 }
 
-                alert("Form submitted successfully! (This is a demo - no actual submission occurred)");
+                // Prepare data for Google Form
+                const formData = new FormData();
+                // Replace the entry IDs below with your actual Google Form entry IDs
+                formData.append("entry.1234567890", document.getElementById("name").value); // Full Name
+                formData.append("entry.2345678901", document.getElementById("email").value); // Email
+                formData.append("entry.3456789012", document.querySelector('input[name="gender"]:checked')?.value || ""); // Gender
+                formData.append("entry.4567890123", document.getElementById("whatsapp").value); // WhatsApp Number
+                formData.append("entry.5678901234", document.getElementById("street").value); // Street Address
+                formData.append("entry.6789012345", document.getElementById("city").value === "Other" ? document.getElementById("otherCity").value : document.getElementById("city").value); // City
+                formData.append("entry.7890123456", document.getElementById("district").value === "Other" ? document.getElementById("otherDistrict").value : document.getElementById("district").value); // District
+                formData.append("entry.8901234567", document.getElementById("state").value); // State
+                formData.append("entry.9012345678", document.getElementById("pincode").value); // Postal Code
+                formData.append("entry.0123456789", document.getElementById("country").value); // Country
+                formData.append("entry.1122334455", document.getElementById("dob").value); // Date of Birth
+
+                // Submit to Google Form using a hidden iframe as a fallback for CORS issues
+                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSelLUo3QdkFAeyL1Dr40hHgvxOT0DGalDIuJx-Gg1e6BZ-bYg/formResponse";
+
+                // Create a hidden iframe and form for submission
+                const iframe = document.createElement('iframe');
+                iframe.name = 'hidden_iframe_en';
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+
+                const tempForm = document.createElement('form');
+                tempForm.action = googleFormUrl;
+                tempForm.method = 'POST';
+                tempForm.target = 'hidden_iframe_en';
+                tempForm.style.display = 'none';
+
+                // Copy fields from FormData to the temp form
+                for (let [name, value] of formData.entries()) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = name;
+                    input.value = value;
+                    tempForm.appendChild(input);
+                }
+
+                document.body.appendChild(tempForm);
+
+                // Listen for iframe load to show success message
+                iframe.onload = () => {
+                    alert("Form submitted successfully! Thank you for registering.");
+                    this.reset();
+                    generateCaptcha();
+                    handleCityChange();
+                    handleDistrictChange();
+                    setTimeout(() => {
+                        document.body.removeChild(iframe);
+                        document.body.removeChild(tempForm);
+                    }, 500);
+                };
+
+                // Show success message with form data
+                const formData = {
+                    name: document.getElementById("name").value,
+                    email: document.getElementById("email").value,
+                    gender: document.querySelector('input[name="gender"]:checked')?.value || "",
+                    whatsapp: document.getElementById("whatsapp").value,
+                    address: document.getElementById("street").value,
+                    city: document.getElementById("city").value === "Other" ? document.getElementById("otherCity").value : document.getElementById("city").value,
+                    district: document.getElementById("district").value === "Other" ? document.getElementById("otherDistrict").value : document.getElementById("district").value,
+                    state: document.getElementById("state").value,
+                    pincode: document.getElementById("pincode").value,
+                    country: document.getElementById("country").value,
+                    dob: document.getElementById("dob").value
+                };
+
+                alert("Form would be submitted with:\n" + JSON.stringify(formData, null, 2));
                 
                 // Reset form
                 this.reset();
                 generateCaptcha();
                 handleCityChange();
                 handleDistrictChange();
+            });
+
+            document.getElementById('posterForm-ml').addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Basic validation
+                const email = document.getElementById("email-ml").value.toLowerCase();
+                if (!email.endsWith('@gmail.com')) {
+                    document.getElementById("email-error-ml").style.display = "block";
+                    document.getElementById("email-ml").focus();
+                    return;
+                }
+
+                // Check age
+                const dobInput = document.getElementById("dob-ml");
+                if (dobInput.value && !validateAgeML(dobInput)) {
+                    dobInput.focus();
+                    return;
+                }
+
+                // Check terms acceptance
+                if (!document.getElementById("terms-accept-ml").checked) {
+                    alert("Please accept the terms and conditions.");
+                    return;
+                }
+
+                // Check CAPTCHA
+                const num1 = parseInt(document.getElementById("num1-ml").textContent);
+                const num2 = parseInt(document.getElementById("num2-ml").textContent);
+                const answer = parseInt(document.getElementById("captcha-answer-ml").value);
+
+                if (answer !== (num1 + num2)) {
+                    alert("Please solve the math challenge correctly.");
+                    document.getElementById("captcha-answer-ml").focus();
+                    return;
+                }
+
+                // Check password match
+                const password = document.getElementById("password-ml").value;
+                const confirmPassword = document.getElementById("confirmPassword-ml").value;
+
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match.");
+                    document.getElementById("confirmPassword-ml").focus();
+                    return;
+                }
+
+                // Show success message with form data
+                const formData = {
+                    name: document.getElementById("name-ml").value,
+                    email: document.getElementById("email-ml").value,
+                    gender: document.querySelector('input[name="gender-ml"]:checked')?.value || "",
+                    whatsapp: document.getElementById("whatsapp-ml").value,
+                    address: document.getElementById("street-ml").value,
+                    city: document.getElementById("city-ml").value === "Other" ? document.getElementById("otherCity-ml").value : document.getElementById("city-ml").value,
+                    district: document.getElementById("district-ml").value === "Other" ? document.getElementById("otherDistrict-ml").value : document.getElementById("district-ml").value,
+                    state: document.getElementById("state-ml").value,
+                    pincode: document.getElementById("pincode-ml").value,
+                    country: document.getElementById("country-ml").value,
+                    dob: document.getElementById("dob-ml").value
+                };
+
+                alert("Form would be submitted with:\n" + JSON.stringify(formData, null, 2));
+                
+                // Reset form
+                this.reset();
+                generateCaptchaML();
+                handleCityChangeML();
+                handleDistrictChangeML();
             });
 
             // Language toggle functionality
@@ -1046,30 +1188,291 @@
             var savedLang = localStorage.getItem('statuspay247_lang');
             setLanguage(savedLang === 'ml' ? 'ml' : 'en');
 
+            // --- Fix: Enable submit button when terms checkbox is checked and age is valid ---
+            function updateSubmitButtonStateEn() {
+                var termsChecked = document.getElementById('terms-accept').checked;
+                var dobInput = document.getElementById('dob');
+                var ageValid = dobInput.value ? (function() {
+                    const dob = new Date(dobInput.value);
+                    const today = new Date();
+                    const ageTime = today.getTime() - dob.getTime();
+                    const ageDate = new Date(ageTime);
+                    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                    return age >= 18;
+                })() : false;
+                document.getElementById('submit-btn').disabled = !(termsChecked && ageValid);
+            }
+            function updateSubmitButtonStateMl() {
+                var termsChecked = document.getElementById('terms-accept-ml').checked;
+                var dobInput = document.getElementById('dob-ml');
+                var ageValid = dobInput.value ? (function() {
+                    const dob = new Date(dobInput.value);
+                    const today = new Date();
+                    const ageTime = today.getTime() - dob.getTime();
+                    const ageDate = new Date(ageTime);
+                    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                    return age >= 18;
+                })() : false;
+                document.getElementById('submit-btn-ml').disabled = !(termsChecked && ageValid);
+            }
+            // English
+            document.getElementById('terms-accept').addEventListener('change', updateSubmitButtonStateEn);
+            document.getElementById('dob').addEventListener('input', updateSubmitButtonStateEn);
+            // Malayalam
+            document.getElementById('terms-accept-ml').addEventListener('change', updateSubmitButtonStateMl);
+            document.getElementById('dob-ml').addEventListener('input', updateSubmitButtonStateMl);
+
+            // Fix: Remove any event.preventDefault() from form submit handlers to allow submission
+            document.getElementById('posterForm').addEventListener('submit', function(event) {
+                // Basic validation
+                const email = document.getElementById("email").value.toLowerCase();
+                if (!email.endsWith('@gmail.com')) {
+                    document.getElementById("email-error").style.display = "block";
+                    document.getElementById("email").focus();
+                    return;
+                }
+
+                // Check age
+                const dobInput = document.getElementById("dob");
+                if (dobInput.value && !validateAge(dobInput)) {
+                    dobInput.focus();
+                    return;
+                }
+
+                // Check terms acceptance
+                if (!document.getElementById("terms-accept").checked) {
+                    alert("Please accept the terms and conditions.");
+                    return;
+                }
+
+                // Check CAPTCHA
+                const num1 = parseInt(document.getElementById("num1").textContent);
+                const num2 = parseInt(document.getElementById("num2").textContent);
+                const answer = parseInt(document.getElementById("captcha-answer").value);
+
+                if (answer !== (num1 + num2)) {
+                    alert("Please solve the math challenge correctly.");
+                    document.getElementById("captcha-answer").focus();
+                    return;
+                }
+
+                // Check password match
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirmPassword").value;
+
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match.");
+                    document.getElementById("confirmPassword").focus();
+                    return;
+                }
+
+                alert("Form submitted successfully! (This is a demo - no actual submission occurred)");
+                
+                // Reset form
+                this.reset();
+                generateCaptcha();
+                handleCityChange();
+                handleDistrictChange();
+            });
+
+            document.getElementById('posterForm-ml').addEventListener('submit', function(event) {
+                // Basic validation
+                const email = document.getElementById("email-ml").value.toLowerCase();
+                if (!email.endsWith('@gmail.com')) {
+                    document.getElementById("email-error-ml").style.display = "block";
+                    document.getElementById("email-ml").focus();
+                    return;
+                }
+
+                // Check age
+                const dobInput = document.getElementById("dob-ml");
+                if (dobInput.value && !validateAgeML(dobInput)) {
+                    dobInput.focus();
+                    return;
+                }
+
+                // Check terms acceptance
+                if (!document.getElementById("terms-accept-ml").checked) {
+                    alert("Please accept the terms and conditions.");
+                    return;
+                }
+
+                // Check CAPTCHA
+                const num1 = parseInt(document.getElementById("num1-ml").textContent);
+                const num2 = parseInt(document.getElementById("num2-ml").textContent);
+                const answer = parseInt(document.getElementById("captcha-answer-ml").value);
+
+                if (answer !== (num1 + num2)) {
+                    alert("Please solve the math challenge correctly.");
+                    document.getElementById("captcha-answer-ml").focus();
+                    return;
+                }
+
+                // Check password match
+                const password = document.getElementById("password-ml").value;
+                const confirmPassword = document.getElementById("confirmPassword-ml").value;
+
+                if (password !== confirmPassword) {
+                    alert("Passwords do not match.");
+                    document.getElementById("confirmPassword-ml").focus();
+                    return;
+                }
+
+                alert("Form submitted successfully! (This is a demo - no actual submission occurred)");
+                
+                // Reset form
+                this.reset();
+                generateCaptchaML();
+                handleCityChangeML();
+                handleDistrictChangeML();
+            });
+
             // Language toggle functionality
             document.getElementById('btn-en').addEventListener('click', function() {
-                setLanguage('en');
-            });
-            document.getElementById('btn-ml').addEventListener('click', function() {
-                setLanguage('ml');
+                document.getElementById('poster-content-en').style.display = 'block';
+                document.getElementById('poster-content-ml').style.display = 'none';
+                // Show English terms, hide Malayalam terms
+                document.getElementById('terms-summary-en').style.display = 'block';
+                document.getElementById('terms-summary-ml').style.display = 'none';
+                // Also update the terms checkbox language
+                document.getElementById('terms-accept').checked = false;
+                document.getElementById('submit-btn').disabled = true;
             });
 
-            // Update all terms links to store language before navigating
-            function updateTermsLinks() {
-                var lang = localStorage.getItem('statuspay247_lang') || 'en';
-                var links = document.querySelectorAll('a[href="terms-and-conditions-for-posters.html"]');
-                links.forEach(function(link) {
-                    link.addEventListener('click', function() {
-                        localStorage.setItem('statuspay247_lang', lang);
+            document.getElementById('btn-ml').addEventListener('click', function() {
+                document.getElementById('poster-content-en').style.display = 'none';
+                document.getElementById('poster-content-ml').style.display = 'block';
+                // Show Malayalam terms, hide English terms
+                document.getElementById('terms-summary-en').style.display = 'none';
+                document.getElementById('terms-summary-ml').style.display = 'block';
+                // Also update the terms checkbox language
+                document.getElementById('terms-accept-ml').checked = false;
+                document.getElementById('submit-btn-ml').disabled = true;
+            });
+
+            // --- Form Persistence Logic Start ---
+            // Helper to save and restore form data
+            function persistForm(formId, storageKey) {
+                const form = document.getElementById(formId);
+                if (!form) return;
+
+                // Restore values
+                const saved = localStorage.getItem(storageKey);
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        for (const [k, v] of Object.entries(data)) {
+                            const el = form.querySelector('[id="' + k + '"]');
+                            if (el) {
+                                if (el.type === 'checkbox' || el.type === 'radio') {
+                                    el.checked = v;
+                                } else {
+                                    el.value = v;
+                                }
+                            }
+                        }
+                    } catch (e) {}
+                }
+
+                // Save on input/change
+                form.addEventListener('input', function(e) {
+                    const fields = form.querySelectorAll('input, select, textarea');
+                    const data = {};
+                    fields.forEach(function(el) {
+                        if (el.type === 'checkbox' || el.type === 'radio') {
+                            data[el.id] = el.checked;
+                        } else {
+                            data[el.id] = el.value;
+                        }
                     });
+                    localStorage.setItem(storageKey, JSON.stringify(data));
+                });
+
+                // Save on change for selects/radios
+                form.addEventListener('change', function(e) {
+                    const fields = form.querySelectorAll('input, select, textarea');
+                    const data = {};
+                    fields.forEach(function(el) {
+                        if (el.type === 'checkbox' || el.type === 'radio') {
+                            data[el.id] = el.checked;
+                        } else {
+                            data[el.id] = el.value;
+                        }
+                    });
+                    localStorage.setItem(storageKey, JSON.stringify(data));
+                });
+
+                // Clear on submit
+                form.addEventListener('submit', function() {
+                    localStorage.removeItem(storageKey);
                 });
             }
-            updateTermsLinks();
+            persistForm('posterForm', 'posterForm_en');
+                       persistForm('posterForm-ml', 'posterForm_ml');
+            // --- Form Persistence Logic End ---
 
-            // Initialize the page
-            handleCityChange();
-            handleDistrictChange();
-            generateCaptcha();
+            // --- Language Preference Tracking Across Pages ---
+            // Set language button state and persist selection
+            function setLanguage(lang) {
+                if (lang === 'ml') {
+                    document.getElementById('poster-content-en').style.display = 'none';
+                    document.getElementById('poster-content-ml').style.display = 'block';
+                    document.getElementById('btn-ml').classList.add('active');
+                    document.getElementById('btn-en').classList.remove('active');
+                    document.getElementById('terms-summary-en').style.display = 'none';
+                    document.getElementById('terms-summary-ml').style.display = 'block';
+                    document.getElementById('terms-accept-ml').checked = false;
+                    document.getElementById('submit-btn-ml').disabled = true;
+                } else {
+                    document.getElementById('poster-content-en').style.display = 'block';
+                    document.getElementById('poster-content-ml').style.display = 'none';
+                    document.getElementById('btn-en').classList.add('active');
+                    document.getElementById('btn-ml').classList.remove('active');
+                    document.getElementById('terms-summary-en').style.display = 'block';
+                    document.getElementById('terms-summary-ml').style.display = 'none';
+                    document.getElementById('terms-accept').checked = false;
+                    document.getElementById('submit-btn').disabled = true;
+                }
+                localStorage.setItem('statuspay247_lang', lang);
+            }
+
+            // On load, check localStorage for language preference
+            var savedLang = localStorage.getItem('statuspay247_lang');
+            setLanguage(savedLang === 'ml' ? 'ml' : 'en');
+
+            // --- Fix: Enable submit button when terms checkbox is checked and age is valid ---
+            function updateSubmitButtonStateEn() {
+                var termsChecked = document.getElementById('terms-accept').checked;
+                var dobInput = document.getElementById('dob');
+                var ageValid = dobInput.value ? (function() {
+                    const dob = new Date(dobInput.value);
+                    const today = new Date();
+                    const ageTime = today.getTime() - dob.getTime();
+                    const ageDate = new Date(ageTime);
+                    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                    return age >= 18;
+                })() : false;
+                document.getElementById('submit-btn').disabled = !(termsChecked && ageValid);
+            }
+            function updateSubmitButtonStateMl() {
+                var termsChecked = document.getElementById('terms-accept-ml').checked;
+                var dobInput = document.getElementById('dob-ml');
+                var ageValid = dobInput.value ? (function() {
+                    const dob = new Date(dobInput.value);
+                    const today = new Date();
+                    const ageTime = today.getTime() - dob.getTime();
+                    const ageDate = new Date(ageTime);
+                    const age = Math.abs(ageDate.getUTCFullYear() - 1970);
+                    return age >= 18;
+                })() : false;
+                document.getElementById('submit-btn-ml').disabled = !(termsChecked && ageValid);
+            }
+            // English
+            document.getElementById('terms-accept').addEventListener('change', updateSubmitButtonStateEn);
+            document.getElementById('dob').addEventListener('input', updateSubmitButtonStateEn);
+            // Malayalam
+            document.getElementById('terms-accept-ml').addEventListener('change', updateSubmitButtonStateMl);
+            document.getElementById('dob-ml').addEventListener('input', updateSubmitButtonStateMl);
         });
     </script>
 </body>

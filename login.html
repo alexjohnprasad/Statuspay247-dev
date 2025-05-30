@@ -178,14 +178,13 @@
 
         // Function to handle successful login
         function handleLoginSuccess(response, phone) {
-            // Store user data and login time
+            // Store the full user object in localStorage, including eligible
             localStorage.setItem('user', JSON.stringify(response.user));
             localStorage.setItem('loggedIn', 'true');
-            localStorage.setItem('loginTime', new Date().toString());
-            localStorage.setItem('userPhone', phone);
-            
-            // Show success message and redirect
-            // alert('Login successful! Redirecting to dashboard...');
+            localStorage.setItem('loginTime', new Date().toISOString());
+            // Remove old keys if present
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('userPhone');
             window.location.href = 'dashboard.html';
         }
 
@@ -260,8 +259,9 @@
                 console.log('Password hash length:', hashedPassword.length);
                 
                 // Get the Apps Script URL
-                const scriptId = 'AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg';
-                const apiUrl = 'https://script.google.com/macros/s/' + scriptId + '/exec';
+                // const scriptId = 'AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg';
+                // const apiUrl = 'https://script.google.com/macros/s/' + scriptId + '/exec';
+                const apiUrl = 'https://script.google.com/macros/s/AKfycbzraI_Ii_8bfSxaqYHmo2FhONUPcYxJuRhZghQueuvwZ4bQskpc40nqczAQYazramSRYw/exec';
                 
                 // First, test connectivity with a simple ping
                 try {
@@ -359,7 +359,7 @@
                             // Create and append the script tag
                             const script = document.createElement('script');
                             script.id = 'jsonp-script';
-                script.src = 'https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec' + 
+                script.src = 'https://script.google.com/macros/s/AKfycbzraI_Ii_8bfSxaqYHmo2FhONUPcYxJuRhZghQueuvwZ4bQskpc40nqczAQYazramSRYw/exec' + 
                             '?action=login' + 
                             '&phone=' + encodeURIComponent(phone) + 
                             '&password=' + encodeURIComponent(hashedPassword) + 

@@ -711,9 +711,8 @@
       document.head.appendChild(script);
     }
 
-    function loadDashboard(phone) {
+    function loadDashboard(token, eligible) {
       hideSpecialScreens();
-      // Update loading message
       var loadingDiv = document.getElementById("loading");
       if (loadingDiv) {
         loadingDiv.style.display = "block";
@@ -722,140 +721,137 @@
         if (h3) h3.textContent = "Loading your dashboard...";
         if (p) p.textContent = "Please wait while we fetch your latest data";
       }
-      checkOnboardingStatus(phone, function(statusResult) {
-        if (statusResult && statusResult.success && statusResult.step) {
-          if (statusResult.step === "onboarding") {
-            showOnboardingScreen(statusResult.message);
+
+      // Debug: Log token and eligible
+      console.log("Loading dashboard with token:", token, "eligible:", eligible);
+
+      // Timeout: Show error if backend doesn't respond in 20 seconds
+      let dashboardTimeout = setTimeout(function() {
+        if (loadingDiv) loadingDiv.style.display = "none";
+        document.getElementById("dashboardContent").style.display = "none";
+        document.getElementById("error").style.display = "block";
+        var errorP = document.querySelector("#error p");
+        if (errorP) {
+          errorP.textContent = "Dashboard is taking too long to load. Please check your internet connection or try again later.";
+        }
+        // Debug: Timeout occurred
+        console.error("Dashboard load timeout after 20 seconds");
+      }, 20000);
+
+      const callbackName = 'jsonpCallback_' + Date.now();
+      window[callbackName] = function(result) {
+        clearTimeout(dashboardTimeout);
+        // Debug: Log backend result
+        console.log("Dashboard backend result:", result);
+        try {
+          if (result.success && result.eligible === false) {
+            showOnboardingScreen("Please complete onboarding by uploading your screenshot.");
             if (loadingDiv) loadingDiv.style.display = "none";
             return;
           }
-          if (statusResult.step === "waiting") {
-            showWaitingScreen(statusResult.message);
-            if (loadingDiv) loadingDiv.style.display = "none";
+          if (!result.success || !result.data) throw new Error(result.message || "Unknown error");
+          const data = result.data;
+
+          // Always show user's name from localStorage in the welcome header
+          const user = JSON.parse(localStorage.getItem("user"));
+          const setText = (id, value) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value;
+          };
+          setText("userName", (user && user.name) ? user.name : "...");
+
+          // If dashboard is empty (no earnings yet), show a friendly message in the dashboard
+          if (
+            (!data.name || data.name.trim() === "") &&
+            (!data.totalEarned || data.totalEarned === "0") &&
+            (!data.balance || data.balance === "0")
+          ) {
+            document.getElementById("dashboardContent").style.display = "block";
+            document.getElementById("loading").style.display = "none";
+            // Optionally, show a message in the dashboard header or as a notification
+            const dashboardWelcome = document.querySelector(".dashboard-welcome p");
+            if (dashboardWelcome) {
+              dashboardWelcome.textContent = result.message || "No earnings yet. Complete your first task to see your dashboard.";
+            }
+            // Optionally, clear out the earnings fields
+            setText("balance", "0.00");
+            setText("totalEarned", "0.00");
+            setText("paid", "0.00");
+            setText("posterId", "...");
+            setText("phone", data.phone || "...");
+            setText("profileTasksCompleted", "0");
+            setText("lastTask", "...");
+            // Update wallet bar
+            const walletBar = document.getElementById("walletBar");
+            const walletBarLabel = document.getElementById("walletBarLabel");
+            if (walletBar && walletBarLabel) {
+              walletBar.style.width = "0%";
+              walletBarLabel.textContent = "0% of ₹500 threshold";
+            }
             return;
           }
-          // else, step === "dashboard", continue to load dashboard
-        } else if (statusResult && statusResult.success === false) {
+
+          // Defensive: Only update elements if they exist
+          setText("balance", data.balance !== undefined ? Number(data.balance).toFixed(2) : "0.00");
+          setText("totalEarned", data.totalEarned !== undefined ? Number(data.totalEarned).toFixed(2) : "0.00");
+          setText("paid", data.paid !== undefined ? Number(data.paid).toFixed(2) : "0.00");
+          setText("posterId", data.posterId || "...");
+          setText("phone", data.phone || "...");
+          setText("profileTasksCompleted", data.tasksCompleted !== undefined ? data.tasksCompleted : 0);
+          setText("lastTask", data.lastTask || "...");
+
+          // Update wallet bar
+          const walletBar = document.getElementById("walletBar");
+          const walletBarLabel = document.getElementById("walletBarLabel");
+          if (walletBar && walletBarLabel) {
+            const threshold = 500;
+            const progress = Math.min((Number(data.balance) / threshold) * 100, 100);
+            walletBar.style.width = progress + "%";
+            walletBarLabel.textContent = `${progress.toFixed(0)}% of ₹${threshold} threshold`;
+          }
+
+          // Show dashboard content
+          document.getElementById("dashboardContent").style.display = "block";
+          document.getElementById("loading").style.display = "none";
+        } catch (error) {
+          console.error("Error processing dashboard data:", error, result);
           if (loadingDiv) loadingDiv.style.display = "none";
           document.getElementById("dashboardContent").style.display = "none";
           document.getElementById("error").style.display = "block";
           var errorP = document.querySelector("#error p");
           if (errorP) {
-            errorP.textContent = statusResult.message || "Unable to verify onboarding status.";
+            errorP.textContent = "Failed to load dashboard data. Please try again later.";
           }
-          return;
         }
-        // ...existing code for loading dashboard
-        const callbackName = 'jsonpCallback_' + Date.now();
+      };
 
-        window[callbackName] = function(result) {
-          try {
-            if (!result.success || !result.data) throw new Error(result.message || "Unknown error");
-            const data = result.data;
-            // Defensive: Only update elements if they exist
-            const setText = (id, value) => {
-              const el = document.getElementById(id);
-              if (el) el.textContent = value;
-            };
-            setText("userName", data.name || "...");
-            setText("balance", data.balance !== undefined ? data.balance.toFixed(2) : "0.00");
-            setText("totalEarned", data.total_earned !== undefined ? data.total_earned.toFixed(2) : "0.00");
-            setText("paid", data.paid !== undefined ? data.paid.toFixed(2) : "0.00");
-            setText("posterId", data.poster_id || "...");
-            setText("phone", data.phone || "...");
-            setText("profileTasksCompleted", data.tasks_completed !== undefined ? data.tasks_completed : 0);
-            setText("lastTask", data.last_task || "...");
-
-            // Update wallet bar
-            const walletBar = document.getElementById("walletBar");
-            const walletBarLabel = document.getElementById("walletBarLabel");
-            if (walletBar && walletBarLabel) {
-              const threshold = 500;
-              const progress = Math.min((data.balance / threshold) * 100, 100);
-              walletBar.style.width = progress + "%";
-              walletBarLabel.textContent = `${progress.toFixed(0)}% of ₹${threshold} threshold`;
-            }
-
-            // Show dashboard content
-            document.getElementById("dashboardContent").style.display = "block";
-            document.getElementById("loading").style.display = "none";
-          } catch (error) {
-            console.error("Error processing dashboard data:", error);
-            if (loadingDiv) loadingDiv.style.display = "none";
-            document.getElementById("dashboardContent").style.display = "none";
-            document.getElementById("error").style.display = "block";
-            var errorP = document.querySelector("#error p");
-            if (errorP) {
-              errorP.textContent = "Failed to load dashboard data. Please try again later.";
-            }
-          }
-        };
-
-        // JSONP request to load dashboard data
-        const url = `https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec?action=fetchDashboard&phone=${encodeURIComponent(phone)}&callback=${callbackName}`;
-        const script = document.createElement("script");
-        script.src = url;
-        document.body.appendChild(script);
-      });
+      // JSONP request to load dashboard data using token
+      const url = `https://script.google.com/macros/s/AKfycbzBHaOZQjCMHy94swo86M_Hb_mFodqt-c5hepUy89RglCGeUbbv_5yf1E8tf3Ebhycd/exec?token=${encodeURIComponent(token)}&callback=${callbackName}`;
+      // Debug: Log request URL
+      console.log("Dashboard JSONP request URL:", url);
+      const script = document.createElement("script");
+      script.src = url;
+      document.body.appendChild(script);
     }
 
     // Initial load
     document.addEventListener("DOMContentLoaded", function() {
       const user = JSON.parse(localStorage.getItem("user"));
-      if (user && user.phone) {
-        loadDashboard(user.phone);
+      // Debug: Log user object
+      console.log("Dashboard loaded, user from localStorage:", user);
+      if (user && user.token) {
+        loadDashboard(user.token, user.eligible);
       } else {
         document.getElementById("loading").style.display = "none";
         document.getElementById("error").style.display = "block";
         var errorP = document.querySelector("#error p");
         if (errorP) {
-          errorP.textContent = "User not found. Please log in again.";
+          errorP.textContent = "Failed to load dashboard data. Please try again later.";
         }
+        // Debug: No user/token found
+        console.error("No user or token found in localStorage");
       }
     });
-
-    // Upload screenshot logic
-    document.getElementById("uploadBtn").onclick = function() {
-      const phone = document.getElementById("uploadPhone").value.trim();
-      const fileInput = document.getElementById("uploadFile");
-      if (!phone) {
-        alert("Please enter your phone number.");
-        return;
-      }
-      if (fileInput.files.length === 0) {
-        alert("Please select a file to upload.");
-        return;
-      }
-      const file = fileInput.files[0];
-      const formData = new FormData();
-      formData.append("phone", phone);
-      formData.append("file", file);
-
-      // Show loading state
-      const uploadStatusMessage = document.getElementById("uploadStatusMessage");
-      uploadStatusMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
-
-      // Upload via POST request
-      fetch("https://script.google.com/macros/s/AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg/exec?action=uploadScreenshot", {
-        method: "POST",
-        body: formData
-      })
-      .then(response => response.json())
-      .then(result => {
-        if (result.success) {
-          uploadStatusMessage.innerHTML = '<span style="color:green;"><i class="fas fa-check-circle"></i> Upload successful!</span>';
-          // Optionally, refresh the dashboard or take further action
-          setTimeout(() => {
-            location.reload();
-          }, 2000);
-        } else {
-          throw new Error(result.message || "Upload failed. Please try again.");
-        }
-      })
-      .catch(error => {
-        uploadStatusMessage.innerHTML = `<span style="color:red;"><i class="fas fa-exclamation-triangle"></i> ${error.message}</span>`;
-      });
-    };
   </script>
 </body>
 
