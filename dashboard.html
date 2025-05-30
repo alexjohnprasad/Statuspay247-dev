@@ -752,7 +752,9 @@
           if (!result.success || !result.data) throw new Error(result.message || "Unknown error");
           const data = result.data;
 
-          // Always show user's name from localStorage in the welcome header
+          // Remove this: setText("userName", (user && user.name) ? user.name : "...");
+
+          // Always set user's name from localStorage in the welcome header
           const user = JSON.parse(localStorage.getItem("user"));
           const setText = (id, value) => {
             const el = document.getElementById(id);
@@ -839,6 +841,13 @@
       const user = JSON.parse(localStorage.getItem("user"));
       // Debug: Log user object
       console.log("Dashboard loaded, user from localStorage:", user);
+
+      // Always set the user's name in the welcome header immediately
+      const userNameEl = document.getElementById("userName");
+      if (userNameEl && user && user.name) {
+        userNameEl.textContent = user.name;
+      }
+
       if (user && user.token) {
         loadDashboard(user.token, user.eligible);
       } else {
