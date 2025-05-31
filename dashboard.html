@@ -512,8 +512,8 @@ and start your journey today.</textarea>
     <!-- Loading State -->
     <div id="loading" class="loading-spinner">
       <div class="spinner"></div>
-      <h3>Loading your dashboard...</h3>
-      <p>Please wait while we fetch your latest data</p>
+      <h3 id="loadingMessage">Loading your dashboard...</h3>
+      <p id="loadingSubMessage">Please wait while we fetch your latest data. This will take approximately 30 seconds.</p>
     </div>
 
     <!-- Error State -->
@@ -657,14 +657,6 @@ and start your journey today.</textarea>
         <a href="terms-and-conditions-for-posters.html" target="_blank" class="action-btn">
           <i class="fas fa-file-contract"></i>
           View Terms
-        </a>
-        <a href="index.html#how-it-works" class="action-btn">
-          <i class="fas fa-question-circle"></i>
-          How It Works
-        </a>
-        <a href="#" onclick="window.print()" class="action-btn">
-          <i class="fas fa-print"></i>
-          Print Dashboard
         </a>
       </div>
     </div>
@@ -811,10 +803,12 @@ and start your journey today.</textarea>
       const loadingDiv = document.getElementById("loading");
       if (loadingDiv) {
         loadingDiv.style.display = "block";
-        const h3 = loadingDiv.querySelector("h3");
-        const p = loadingDiv.querySelector("p");
-        if (h3) h3.textContent = "Loading your dashboard...";
-        if (p) p.textContent = "Please wait while we fetch your latest data";
+        const user = JSON.parse(localStorage.getItem("user"));
+        const userName = user && user.name ? user.name : "User";
+        const h3 = loadingDiv.querySelector("#loadingMessage");
+        const p = loadingDiv.querySelector("#loadingSubMessage");
+        if (h3) h3.textContent = `Loading your dashboard, ${userName}...`;
+        if (p) p.textContent = "Please wait while we fetch your latest data. This will take approximately 30 seconds.";
       }
 
       // Verify token

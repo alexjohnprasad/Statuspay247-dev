@@ -1116,50 +1116,57 @@ footer {
 /* --- Redesigned Login Page Styles --- */
 .login-section {
     min-height: calc(100vh - 80px);
-    background: linear-gradient(120deg, #e0f7fa 0%, #f5f7fa 100%);
+    background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    padding: 2rem;
 }
 
 .login-outer-wrapper {
     display: flex;
-    max-width: 950px;
     width: 100%;
-    margin: 3rem auto;
-    background: #fff;
-    border-radius: 24px;
-    box-shadow: 0 8px 32px rgba(30, 151, 126, 0.10), 0 1.5px 8px rgba(30, 151, 126, 0.08);
-    overflow: hidden;
-    min-height: 540px;
+    max-width: 400px;
+    margin: 0 auto;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    min-height: auto;
 }
 
-/* Centered modifier for login-only layout */
 .login-outer-wrapper--centered {
     justify-content: center;
     align-items: center;
-    min-height: 540px;
-    max-width: 420px;
-    background: #fff;
-    box-shadow: 0 8px 32px rgba(30, 151, 126, 0.10), 0 1.5px 8px rgba(30, 151, 126, 0.08);
-    border-radius: 24px;
-    margin: 3rem auto;
+    min-height: auto;
+    max-width: 400px;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0 auto;
     display: flex;
+    padding: 0;
+}
+
+@media (min-width: 992px) {
+    .login-outer-wrapper--centered {
+        min-height: 600px;
+        max-width: 480px;
+    }
 }
 
 .login-form-side {
-    flex: 1.5;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f5f7fa;
-    padding: 2.5rem 2rem;
+    background: transparent;
+    padding: 0;
+    width: 100%;
 }
 
-/* Centered modifier for login-only layout */
 .login-form-side--centered {
-    background: #fff;
+    background: transparent;
     padding: 0;
     width: 100%;
     display: flex;
@@ -1210,19 +1217,21 @@ footer {
 
 .form-group-modern input[type="tel"],
 .form-group-modern input[type="password"] {
-    padding: 0.8rem 1rem;
-    border: 1.5px solid var(--border-color);
-    border-radius: 7px;
-    font-size: 1rem;
-    background: #f9fafb;
+    padding: 1rem 1.2rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    background: #fff;
     color: var(--text-color);
-    transition: border-color 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .form-group-modern input:focus {
     border-color: var(--primary-color);
     outline: none;
-    background: #fff;
+    box-shadow: 0 0 0 3px rgba(30, 151, 126, 0.15);
+    transform: translateY(-1px);
 }
 
 .password-input-container-modern {
@@ -1256,26 +1265,32 @@ footer {
 
 .login-btn-modern {
     width: 100%;
-    padding: 0.9rem 0;
+    padding: 1.1rem 0;
     background: linear-gradient(90deg, var(--primary-color) 60%, var(--accent-color) 100%);
     color: #fff;
     border: none;
-    border-radius: 7px;
-    font-size: 1.1rem;
+    border-radius: 12px;
+    font-size: 1.2rem;
     font-weight: 700;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(30, 151, 126, 0.08);
-    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(30, 151, 126, 0.15);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.7rem;
+    margin-top: 1rem;
 }
 
 .login-btn-modern:hover,
 .login-btn-modern:focus {
     background: linear-gradient(90deg, var(--secondary-color) 60%, var(--primary-color) 100%);
-    transform: translateY(-2px) scale(1.01);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 16px rgba(30, 151, 126, 0.25);
+}
+
+.login-btn-modern:active {
+    transform: translateY(1px) scale(0.98);
 }
 
 .login-footer-modern {
@@ -1318,27 +1333,48 @@ footer {
 
 @media (max-width: 600px) {
     .login-section {
-        min-height: unset;
-        padding: 1.5rem 0;
+        min-height: 100vh;
+        padding: 0;
+        background: #fff;
     }
     .login-outer-wrapper {
-        margin: 1.2rem auto;
-        border-radius: 14px;
-    }
-    .login-visual-side {
-        padding: 1.2rem 0.7rem 0.7rem 0.7rem;
-        border-radius: 14px 14px 0 0;
+        margin: 0;
+        border-radius: 0;
+        min-height: 100vh;
+        box-shadow: none;
+        max-width: 100%;
     }
     .login-form-side {
-        padding: 1.2rem 0.7rem 1.5rem 0.7rem;
-        border-radius: 0 0 14px 14px;
+        padding: 2rem 1.5rem;
+        border-radius: 0;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        background: transparent;
     }
     .login-card-modern {
-        padding: 1.2rem 0.5rem 1rem 0.5rem;
-        border-radius: 10px;
+        padding: 2rem 1.5rem;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
     }
     .login-header-modern img {
-        height: 48px;
+        height: 60px;
+    }
+    .login-header-modern h2 {
+        font-size: 1.8rem;
+    }
+    .form-group-modern input[type="tel"],
+    .form-group-modern input[type="password"] {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+    .login-btn-modern {
+        padding: 1.1rem 0;
+        font-size: 1.2rem;
     }
 }
 
