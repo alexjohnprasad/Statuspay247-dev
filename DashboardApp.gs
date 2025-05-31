@@ -138,6 +138,7 @@ function verifyToken(token) {
       } else {
         Logger.log("Token expired, deleting row: " + (i + 1));
         sheet.deleteRow(i + 1); // Clean up expired token
+        return "EXPIRED"; // Indicate that the token is expired
       }
     }
   }

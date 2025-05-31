@@ -387,16 +387,6 @@
     </div>
   </header>
 
-  <!-- Dashboard Header -->
-  <section class="dashboard-header" id="dashboardHeaderSection">
-    <div class="container">
-      <div class="dashboard-welcome">
-        <h1 id="dashboardWelcomeHeader">Welcome back, <span id="userName">...</span>!</h1>
-        <p id="dashboardWelcomeSub">Here's your earnings overview and account details</p>
-      </div>
-    </div>
-  </section>
-
   <!-- Main Dashboard Content -->
   <main class="container">
     <!-- Redesigned Onboarding Screen -->
@@ -592,6 +582,9 @@ and start your journey today.</textarea>
             <h3 class="card-title">Profile Information</h3>
           </div>
           
+          <!-- Added username in bold below the profile title -->
+          <div style="text-align: center; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem;" id="userName">...</div>
+          
           <div class="profile-info">
             <div class="info-item">
               <span class="info-label">Poster ID</span>
@@ -624,7 +617,7 @@ and start your journey today.</textarea>
             <p style="margin-bottom:1.2rem; color:var(--text-light);">
               Connect with other posters, get updates, and support in our official WhatsApp group.
             </p>
-            <a href="https://chat.whatsapp.com/your-group-link" target="_blank" class="btn join-group-btn">
+            <a href="https://chat.whatsapp.com/HEIxYpyYJQ9J0dydC7nSfH" target="_blank" class="btn join-group-btn">
               <i class="fab fa-whatsapp"></i> Join Group
             </a>
           </div>
@@ -815,16 +808,16 @@ and start your journey today.</textarea>
     // New: Step-by-step dashboard loader
     async function loadDashboardSequence(token) {
       hideSpecialScreens();
-      var loadingDiv = document.getElementById("loading");
+      const loadingDiv = document.getElementById("loading");
       if (loadingDiv) {
         loadingDiv.style.display = "block";
-        var h3 = loadingDiv.querySelector("h3");
-        var p = loadingDiv.querySelector("p");
+        const h3 = loadingDiv.querySelector("h3");
+        const p = loadingDiv.querySelector("p");
         if (h3) h3.textContent = "Loading your dashboard...";
         if (p) p.textContent = "Please wait while we fetch your latest data";
       }
 
-      // 1. Verify token
+      // Verify token
       let phone = null;
       try {
         const cbName = "verifyTokenCb_" + Date.now();
@@ -834,14 +827,13 @@ and start your journey today.</textarea>
           + "&callback=" + cbName;
         phone = await new Promise((resolve, reject) => {
           window[cbName] = function(result) {
-            // --- FIX: Accept both {success:true, phone:...} and {success:true, data:{phone:...}} for compatibility ---
-            let phoneVal = null;
-            if (result && result.success) {
-              if (result.phone) phoneVal = result.phone;
-              else if (result.data && result.data.phone) phoneVal = result.data.phone;
+            if (result === "EXPIRED" || (result && !result.success)) {
+              // Redirect to login page if token is expired or invalid
+              window.location.href = "login.html";
+              return;
             }
-            if (phoneVal) {
-              resolve(phoneVal);
+            if (result && result.success && result.phone) {
+              resolve(result.phone);
             } else {
               reject(result && result.message ? result.message : "Token verification failed");
             }
@@ -855,11 +847,8 @@ and start your journey today.</textarea>
           document.body.appendChild(script);
         });
       } catch (err) {
-        if (loadingDiv) loadingDiv.style.display = "none";
-        document.getElementById("dashboardContent").style.display = "none";
-        document.getElementById("error").style.display = "block";
-        var errorP = document.querySelector("#error p");
-        if (errorP) errorP.textContent = "Invalid or expired session. Please log in again.";
+        // Redirect to login page if an error occurs
+        window.location.href = "login.html";
         return;
       }
 
@@ -888,7 +877,7 @@ and start your journey today.</textarea>
         if (loadingDiv) loadingDiv.style.display = "none";
         document.getElementById("dashboardContent").style.display = "none";
         document.getElementById("error").style.display = "block";
-        var errorP = document.querySelector("#error p");
+        const errorP = document.querySelector("#error p");
         if (errorP) errorP.textContent = "Failed to check eligibility. Please try again.";
         return;
       }
