@@ -1083,6 +1083,17 @@ function readFileAsBase64(file) {
   });
 }
 
+function getTimestampString() {
+  const now = new Date();
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const dd = String(now.getDate()).padStart(2, '0');
+  const hh = String(now.getHours()).padStart(2, '0');
+  const min = String(now.getMinutes()).padStart(2, '0');
+  const ss = String(now.getSeconds()).padStart(2, '0');
+  return `${yyyy}${mm}${dd}T${hh}${min}${ss}`;
+}
+
 // Screenshot upload handler
 async function handleScreenshotUpload(file, phone, statusElement) {
   try {
@@ -1097,15 +1108,25 @@ async function handleScreenshotUpload(file, phone, statusElement) {
 
     const base64Data = await readFileAsBase64(file);
     const base64Content = base64Data.split(',')[1];
+    const timestamp = getTimestampString();
+    const filename = `${phone.slice(-10)}_${timestamp}.${file.name.split('.').pop() || 'png'}`;
 
-    console.log("Starting upload for phone:", phone, "file type:", file.type);
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzE6OeV9iBVyWzNpz6o2hMMqJXrCxmbB0ryqz6PFiESeAhbRpRvyc2gJUjfh-4XOUASWw/exec';
 
-    const result = await uploadViaIframe({
-      phone: phone,
-      base64Data: base64Content,
-      contentType: file.type,
-      filename: file.name || "screenshot.jpg"
+    const response = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams({
+        phone: phone,
+        base64Data: base64Content,
+        contentType: file.type,
+        filename: filename
+      })
     });
+
+    const result = await response.json();
 
     if (result.success) {
       statusElement.innerHTML = '<i class="fas fa-check-circle"></i> Screenshot uploaded successfully!';
@@ -1113,6 +1134,7 @@ async function handleScreenshotUpload(file, phone, statusElement) {
     } else {
       throw new Error(result.message || "Upload failed");
     }
+
     return result;
   } catch (err) {
     statusElement.textContent = err.message || "Upload failed";
@@ -1120,77 +1142,6 @@ async function handleScreenshotUpload(file, phone, statusElement) {
     console.error("Upload error:", err);
     throw err;
   }
-}
-
-function uploadViaIframe(uploadData) {
-  return new Promise((resolve, reject) => {
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyvi-3XhtKLrBsvfgbQSkYDTmlbyk6oLP0G3qlb5Hl8AXhEZCUz49ZaVbYRZzbULGwsjQ/exec';
-    
-    // Listen for postMessage response
-    const messageHandler = (event) => {
-      try {
-        console.log("Received message from iframe:", event.data); // Log iframe response
-        const result = event.data;
-        if (result.success) {
-          resolve(result);
-        } else {
-          console.error("Upload failed:", result.message || "Unknown error");
-          reject(new Error(result.message || 'Upload failed'));
-        }
-      } catch (err) {
-        console.error("Error handling iframe message:", err);
-        reject(err);
-      } finally {
-        // Cleanup
-        window.removeEventListener('message', messageHandler);
-        if (form.parentNode) form.parentNode.removeChild(form);
-        if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
-        clearTimeout(timeoutId); // Clear timeout
-      }
-    };
-    window.addEventListener('message', messageHandler);
-
-    // Generate unique IDs
-    const frameId = `upload_frame_${Date.now()}`;
-    const formId = `upload_form_${Date.now()}`;
-    
-    // Create form
-    const form = document.createElement('form');
-    form.id = formId;
-    form.style.display = 'none';
-    form.method = 'POST';
-    form.action = SCRIPT_URL;
-    form.target = frameId;
-
-    // Add fields
-    Object.entries(uploadData).forEach(([key, value]) => {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = key;
-      input.value = value;
-      form.appendChild(input);
-    });
-
-    // Create iframe
-    const iframe = document.createElement('iframe');
-    iframe.id = frameId;
-    iframe.name = frameId;
-    iframe.style.display = 'none';
-
-    // Add timeout
-    const timeoutId = setTimeout(() => {
-      console.error("Upload timed out or forbidden (403).");
-      window.removeEventListener('message', messageHandler);
-      if (form.parentNode) form.parentNode.removeChild(form);
-      if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
-      reject(new Error('Upload timed out or forbidden (403). Please check permissions.'));
-    }, 30000);
-
-    // Submit
-    document.body.appendChild(iframe);
-    document.body.appendChild(form);
-    form.submit();
-  });
 }
 
 // Add event listener for dashboard upload button
