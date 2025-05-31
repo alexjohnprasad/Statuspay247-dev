@@ -1111,7 +1111,7 @@ async function handleScreenshotUpload(file, phone, statusElement) {
     const timestamp = getTimestampString();
     const filename = `${phone.slice(-10)}_${timestamp}.${file.name.split('.').pop() || 'png'}`;
 
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzE6OeV9iBVyWzNpz6o2hMMqJXrCxmbB0ryqz6PFiESeAhbRpRvyc2gJUjfh-4XOUASWw/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxp23JcJ69LiuJ0ks0M7Z0YLU-OPDpfVWQqDwLCtN2AjDCWhx_mwP52-GnOSfpq764SPQ/exec';
 
     const response = await fetch(SCRIPT_URL, {
       method: "POST",
