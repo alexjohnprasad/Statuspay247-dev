@@ -526,25 +526,107 @@ section { padding: 5rem 0; }
 .carousel-track {
     display: flex;
     animation: scroll 60s linear infinite;
-    width: calc(250px * 16);
+    align-items: center;
+    width: max-content;
 }
 .client-slide {
-    flex: 0 0 250px;
-    padding: 1rem;
+    flex: 0 0 280px;
+    padding: 1rem 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 240px; /* Double the previous 120px */
 }
 .client-slide img {
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
     height: auto;
+    display: block;
     object-fit: contain;
     border-radius: 8px;
-    background-color: white;
+    background-color: #fff;
     padding: 1rem;
-    transition: transform 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    transition: transform 0.3s;
 }
-.client-slide img:hover { transform: scale(1.05); }
 @keyframes scroll {
     0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-250px * 8)); }
+    100% { transform: translateX(calc(-280px * 8)); }
+}
+
+/* Our Trusted Clients Section Grid */
+.clients-section-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2.5rem;
+    align-items: center;
+    min-height: 160px;
+}
+.clients-section-info {
+    grid-column: 1 / 2;
+    color: #232323;
+    padding-right: 1rem;
+}
+.clients-section-title {
+    color: #1E977E;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+.clients-section-desc {
+    color: #4B5563;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+.clients-section-carousel {
+    grid-column: 2 / 3;
+    width: 100%;
+    overflow: hidden;
+    /* Ensures carousel is vertically centered */
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+}
+
+/* Responsive: stack on mobile */
+@media (max-width: 900px) {
+    .clients-section-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .clients-section-info {
+        grid-column: 1 / 2;
+        padding-right: 0;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+    .clients-section-carousel {
+        grid-column: 1 / 2;
+        min-height: 80px;
+        justify-content: center;
+    }
+    .clients-section-title {
+        font-size: 1.5rem;
+    }
+    .client-slide {
+        flex: 0 0 200px;
+        padding: 1rem 1rem;
+        height: 160px;
+    }
+    .client-slide img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        padding: 0.6rem;
+    }
+    @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(calc(-200px * 8)); }
+    }
 }
 
 /* Contact Section */
@@ -714,9 +796,37 @@ textarea { resize: vertical; }
 }
 .faq-item[open] summary::after { transform: rotate(180deg); }
 .faq-item .faq-content {
-    padding: 1.5rem;
+    padding: 1.5rem 1.5rem 1.5rem 2.2rem;
     color: var(--text-light);
     border-top: 1px solid var(--border-color);
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 1.07rem;
+    background: var(--background-color);
+    border-radius: 0 0 8px 8px;
+}
+.faq-item .faq-answer {
+    padding: 1.5rem 1.5rem 1.5rem 2.2rem;
+    color: var(--text-light);
+    border-top: 1px solid var(--border-color);
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 1.07rem;
+    background: var(--background-color);
+    border-radius: 0 0 8px 8px;
+}
+.faq-item .faq-answer p,
+.faq-item .faq-answer ul,
+.faq-item .faq-answer li {
+    margin-bottom: 0.7rem;
+    margin-top: 0.2rem;
+}
+.faq-item .faq-answer ul {
+    padding-left: 1.5em;
+}
+.faq-item .faq-answer:last-child,
+.faq-item .faq-content:last-child {
+    margin-bottom: 1.2rem;
 }
 .faq-toggle {
     text-align: center;
@@ -2044,5 +2154,23 @@ footer {
     }
     .advertiser-ref-card {
         padding: 2rem 1rem;
+    }
+}
+
+/* ...existing code... */
+.split-benefits.two-col-benefits {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    margin-top: 3rem;
+}
+.split-benefits.two-col-benefits .benefits-column {
+    flex: 1 1 0;
+    min-width: 0;
+}
+@media (max-width: 900px) {
+    .split-benefits.two-col-benefits {
+        flex-direction: column;
+        gap: 2rem;
     }
 }

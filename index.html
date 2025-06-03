@@ -314,9 +314,9 @@
                 <div class="section-title">
                     <h2>Why Choose StatusPay247?</h2>
                 </div>
-                <div class="split-benefits">
+                <div class="split-benefits two-col-benefits">
                     <div class="benefits-column">
-                        <h3 class="column-title">For Clients</h3>
+                        <h3 class="column-title">Advertisers</h3>
                         <div class="benefits-list">
                             <div class="benefit-item">
                                 <h4><i class="fas fa-eye"></i> Direct Visibility</h4>
@@ -341,7 +341,7 @@
                         </div>
                     </div>
                     <div class="benefits-column">
-                        <h3 class="column-title">For Posters</h3>
+                        <h3 class="column-title">Posters</h3>
                         <div class="benefits-list">
                             <div class="benefit-item">
                                 <h4><i class="fas fa-bullseye"></i> Post with Purpose</h4>
@@ -372,53 +372,62 @@
         <!-- Our Clients Section -->
         <section id="our-clients" class="section-dark">
             <div class="container">
-                <div class="section-title">
-                    <h2>Our Trusted Clients</h2>
-                </div>
-                <div class="clients-carousel">
-                    <div class="carousel-track">
-                        <div class="client-slide">
-                            <img src="assets/Clients/client1.png" alt="Client 1">
-                        </div>
-                        <div class="client-slide">
-                            <img src="assets/Clients/client2.png" alt="Client 2">
-                        </div>
-                        <div class="client-slide">
-                            <img src="assets/Clients/client3.png" alt="Client 3">
-                        </div>
-                        <div class="client-slide">
-                            <img src="assets/Clients/client4.png" alt="Client 4">
-                        </div>
-                        <div class="client-slide">
-                            <img src="assets/Clients/client5.png" alt="Client 5">
-                        </div>
-                        <div class="client-slide">
-                            <img src="assets/Clients/client6.png" alt="Client 6">
-                        </div>
-                        <div class="client-slide">
-                            <img src="assets/Clients/client7.png" alt="Client 7">
-                        </div>
-                        <!-- Duplicate slides for seamless scrolling -->
-                        <div class="client-slide">
-                            <img src="assets/Clients/client1.png" alt="Client 1">
-                        </div>
-                        <div class="client-slide">
-                            <img src="assets/Clients/client2.png" alt="Client 2">
-                        </div>
-                        <div class="client-slide">
-                            <img src="assets/Clients/client3.png" alt="Client 3">
-                        </div>
-                        <div class="client-slide">
-                            <img src="assets/Clients/client4.png" alt="Client 4">
-                        </div>
-                        <div class="client-slide">
-                            <img src="assets/Clients/client5.png" alt="Client 5">
-                        </div>
-                        <div class="client-slide">
-                            <img src="assets/Clients/client6.png" alt="Client 6">
-                        </div>
-                        <div class="client-slide">
-                            <img src="assets/Clients/client7.png" alt="Client 7">
+                <div class="clients-section-grid">
+                    <!-- Left column: Heading and intro -->
+                    <div class="clients-section-info">
+                        <h2 class="clients-section-title">Our Trusted Clients</h2>
+                        <p class="clients-section-desc">
+                            We are proud to have worked with brands and businesses who trust StatusPay247 for authentic WhatsApp marketing.
+                        </p>
+                    </div>
+                    <!-- Right columns: Carousel -->
+                    <div class="clients-section-carousel">
+                        <div class="clients-carousel">
+                            <div class="carousel-track">
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client1.png" alt="Client 1">
+                                </div>
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client2.png" alt="Client 2">
+                                </div>
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client3.png" alt="Client 3">
+                                </div>
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client4.png" alt="Client 4">
+                                </div>
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client5.png" alt="Client 5">
+                                </div>
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client6.png" alt="Client 6">
+                                </div>
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client7.png" alt="Client 7">
+                                </div>
+                                <!-- Duplicate slides for seamless scrolling -->
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client1.png" alt="Client 1">
+                                </div>
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client2.png" alt="Client 2">
+                                </div>
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client3.png" alt="Client 3">
+                                </div>
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client4.png" alt="Client 4">
+                                </div>
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client5.png" alt="Client 5">
+                                </div>
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client6.png" alt="Client 6">
+                                </div>
+                                <div class="client-slide">
+                                    <img src="assets/Clients/client7.png" alt="Client 7">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -583,6 +592,29 @@
                 </div>
             </div>
         </section>
+        <script>
+        // FAQ "Show More FAQs" button logic
+        document.addEventListener('DOMContentLoaded', function() {
+            var currentGroup = 1;
+            var maxGroups = 5;
+            var btn = document.getElementById('loadMoreFaq');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    var nextGroup = currentGroup + 1;
+                    var nextGroupDiv = document.getElementById('faq-group-' + nextGroup);
+                    if (nextGroupDiv) {
+                        nextGroupDiv.classList.remove('hidden');
+                        currentGroup = nextGroup;
+                        if (currentGroup === maxGroups) {
+                            btn.style.display = 'none';
+                        }
+                    } else {
+                        btn.style.display = 'none';
+                    }
+                });
+            }
+        });
+        </script>
 
         <!-- Company Information Section -->
         <section id="company-info" class="section-light">
