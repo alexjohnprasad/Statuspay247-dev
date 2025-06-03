@@ -459,12 +459,39 @@ section { padding: 5rem 0; }
     display: flex;
     gap: 4rem;
     margin-top: 3rem;
+    align-items: flex-start;
 }
 
 @media (max-width: 992px) {
     .split-benefits {
-        flex-direction: column;
+        flex-direction: column !important;
         gap: 2rem;
+    }
+    
+    .benefits-column {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* Responsive for Split Benefits specifically */
+@media (max-width: 768px) {
+    #why-choose-us .split-benefits {
+        flex-direction: column !important;
+        gap: 2rem;
+    }
+    
+    #why-choose-us .benefits-column {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+    
+    #why-choose-us .benefit-item {
+        text-align: center;
+    }
+    
+    #why-choose-us .benefit-item h4 {
+        justify-content: center;
     }
 }
 
