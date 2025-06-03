@@ -999,8 +999,11 @@
 
                 // Listen for iframe load to show success message
                 iframe.onload = () => {
-                    alert("Form submitted successfully! Thank you for registering.");
-                    tempForm.reset();
+                    // Clear both forms
+                    var enForm = document.getElementById('posterForm');
+                    var mlForm = document.getElementById('posterForm-ml');
+                    if (enForm) enForm.reset();
+                    if (mlForm) mlForm.reset();
                     generateCaptcha();
                     handleCityChange();
                     handleDistrictChange();
@@ -1008,6 +1011,13 @@
                         document.body.removeChild(iframe);
                         document.body.removeChild(tempForm);
                     }, 500);
+
+                    // Show popup and redirect to login
+                    setTimeout(function() {
+                        if (confirm("Registration complete! Click OK to go to the login page.")) {
+                            window.location.href = "login.html";
+                        }
+                    }, 100);
                 };
 
                 tempForm.submit();
