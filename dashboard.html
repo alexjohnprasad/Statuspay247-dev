@@ -10,7 +10,7 @@
   <link rel="shortcut icon" href="assets/favicon.png">
   <link rel="stylesheet" href="css/styles-cleaned.css">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <script src="js/main.js" defer></script>
   <style>
     /* Dashboard-specific styles using the provided color scheme */
@@ -353,6 +353,99 @@
       color: var(--text-light);
       margin-top: 0.5rem;
     }
+
+    /* Updated Language selection bar styles */
+    .lang-select-wrapper {
+      width: 100%;
+      background: var(--background-light);
+      border-bottom: 1px solid var(--border-color);
+      margin: 0 0 2rem 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .lang-select-bar {
+      width: 100%;
+      background: #f8f9fa;
+      border-bottom: 1px solid #e5e7eb;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+      font-size: 1rem;
+      position: relative;
+      z-index: 900;
+      min-height: 38px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    .lang-label {
+      font-size: 1rem;
+      color: #444;
+      margin-right: 0.5rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .lang-select-bar button {
+      background: #fff;
+      color: #1E977E;
+      border: 1px solid #d1d5db;
+      border-radius: 5px;
+      padding: 0.25rem 1.1rem;
+      font-size: 1rem;
+      margin: 0 0.1rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border 0.2s;
+      outline: none;
+      font-family: inherit;
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(30,151,126,0.04);
+    }
+
+    .lang-select-bar button.active,
+    .lang-select-bar button:focus {
+      background: #1E977E;
+      color: #fff;
+      border: 1.5px solid #1E977E;
+    }
+
+    .lang-select-bar button:hover:not(.active) {
+      background: #e6f7f2;
+      color: #17314B;
+      border-color: #1E977E;
+    }
+    
+    @media (max-width: 600px) {
+      .lang-select-bar {
+        flex-wrap: wrap;
+        font-size: 0.97rem;
+        padding: 0.2rem 0.1rem;
+        gap: 0.2rem;
+        min-height: 0;
+        justify-content: center;
+        text-align: center;
+      }
+      .lang-label {
+        font-size: 0.97rem;
+        margin-right: 0.2rem;
+        white-space: normal;
+        margin-bottom: 0.2rem;
+        flex-basis: 100%;
+        text-align: center;
+      }
+      .lang-select-bar button {
+        font-size: 0.97rem;
+        padding: 0.18rem 0.7rem;
+        min-width: 70px;
+        margin-bottom: 0.2rem;
+      }
+    }
+
+    /* ...existing styles... */
   </style>
 </head>
 
@@ -363,7 +456,7 @@
       <nav>
         <div class="logo">
           <a href="/">
-            <img src="assets/logo.png" alt="StatusPay 247 Logo">
+            <img src="assets/logo.png" alt="StatusPay 247 Logo" id="logo-img">
           </a>
         </div>
         <div class="burger-menu">
@@ -387,6 +480,15 @@
     </div>
   </header>
 
+  <!-- Language selection: simple, minimal, one line, no extra styling -->
+  <div class="lang-select-bar">
+    <span class="lang-label">
+      Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:
+    </span>
+    <button type="button" id="btn-en" class="active">English</button>
+    <button type="button" id="btn-ml">മലയാളം</button>
+  </div>
+
   <!-- Main Dashboard Content -->
   <main class="container">
     <!-- Redesigned Onboarding Screen -->
@@ -399,20 +501,36 @@
         <h2 style="color:var(--primary-color);margin-bottom:1.2rem;font-size:1.5rem;">
           Step 1: Follow us on Social Media
         </h2>
-        <div style="display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;">
+        <div style="display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap;">
           <div style="display:flex;flex-direction:column;align-items:center;">
-            <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" style="color:#1877f3;font-size:2.5rem;margin-bottom:0.5rem;">
-              <i class="fab fa-facebook-square"></i>
+            <a href="https://x.com/statuspay247" target="_blank" style="color:#000; margin:0 0.5em; font-size:2.5em;" aria-label="X.com">
+              <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a href="https://x.com/statuspay247" target="_blank" class="btn" style="background:#000;color:#fff;padding:0.5rem 1.2rem;font-size:1rem;border-radius:6px;margin-bottom:0.2rem;">
+              Follow
+            </a>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" style="color:#1877f3; margin:0 0.5em; font-size:2.5em;" aria-label="Facebook">
+              <i class="fab fa-facebook-f"></i>
             </a>
             <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" class="btn" style="background:#1877f3;color:#fff;padding:0.5rem 1.2rem;font-size:1rem;border-radius:6px;margin-bottom:0.2rem;">
               Follow
             </a>
           </div>
           <div style="display:flex;flex-direction:column;align-items:center;">
-            <a href="https://instagram.com/statuspay247" target="_blank" style="color:#e4405f;font-size:2.5rem;margin-bottom:0.5rem;">
+            <a href="https://www.instagram.com/statuspay247" target="_blank" style="color:#e4405f; margin:0 0.5em; font-size:2.5em;" aria-label="Instagram">
               <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://instagram.com/statuspay247" target="_blank" class="btn" style="background:#e4405f;color:#fff;padding:0.5rem 1.2rem;font-size:1rem;border-radius:6px;margin-bottom:0.2rem;">
+            <a href="https://www.instagram.com/statuspay247" target="_blank" class="btn" style="background:#e4405f;color:#fff;padding:0.5rem 1.2rem;font-size:1rem;border-radius:6px;margin-bottom:0.2rem;">
+              Follow
+            </a>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <a href="https://www.linkedin.com/company/statuspay247" target="_blank" style="color:#0077b5; margin:0 0.5em; font-size:2.5em;" aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.linkedin.com/company/statuspay247" target="_blank" class="btn" style="background:#0077b5;color:#fff;padding:0.5rem 1.2rem;font-size:1rem;border-radius:6px;margin-bottom:0.2rem;">
               Follow
             </a>
           </div>
@@ -494,6 +612,10 @@ and start your journey today.</textarea>
         <div style="font-size:0.93rem;color:var(--text-light);margin-top:1.2rem;text-align:center;">
           <i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i>
           Make sure your screenshot clearly shows the number of views on your status after 23 hours.
+        </div>
+        <div style="font-size:0.97rem;color:var(--primary-color);margin-top:1.2rem;text-align:center;">
+          <i class="fas fa-clock" style="color:#1e977e;margin-right:0.3em;"></i>
+          <b>Note:</b> Screenshot verification is a manual process and may take up to <b>24 hours</b>. Once you upload your screenshot, just sit back and relax – our team will review and approve it as soon as possible!
         </div>
       </div>
     </div>
@@ -1184,7 +1306,175 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+
+    // --- Language Preference Tracking Across Pages ---
+    const dashboardTranslations = {
+      "lang-label": "Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:",
+      "btn-en": "English",
+      "btn-ml": "മലയാളം",
+      
+      // Onboarding section translations
+      "onboarding-steps-heading": "StatusPay247-ൽ ചേരാൻ താഴെ പറയുന്ന ഘട്ടങ്ങൾ പൂർത്തിയാക്കുക:",
+      "step1-title": "ഒന്നാം ഘട്ടം: സോഷ്യൽ മീഡിയയിൽ ഫോളോ ചെയ്യുക", 
+      "step1-note": "ഞങ്ങളുടെ ഔദ്യോഗിക പേജുകൾ ഫോളോ ചെയ്ത് സ്ക്രീൻഷോട്ട് സൂക്ഷിക്കുക",
+      "step2-title": "രണ്ടാം ഘട്ടം: WhatsApp സ്റ്റാറ്റസ് പോസ്റ്റ് ചെയ്യുക",
+      "step2-download": "ഡൗൺലോഡ് ചെയ്യുക",
+      "step2-img-note": "താഴെയുള്ള ചിത്രം ഡൗൺലോഡ് ചെയ്ത് WhatsApp സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യുക",
+      "step2-caption-label": "സ്റ്റാറ്റസ് വിവരണം (പകർത്തുക)",
+      "step2-caption-note": "വിവരണം പകർത്തി ചിത്രത്തിനൊപ്പം ചേർക്കുക",
+      "step2-final-note": "ചിത്രവും വിവരണവും സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യുക",
+      "step3-title": "മൂന്നാം ഘട്ടം: സ്റ്റാറ്റസ് സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യുക",
+      "step3-desc": "23 മണിക്കൂറിന് ശേഷം, നിങ്ങളുടെ സ്റ്റാറ്റസിലെ കാഴ്ചകളുടെ എണ്ണം കാണിക്കുന്ന സ്ക്രീൻഷോട്ട് എടുക്കുക.<br><b>പരിശോധനയ്ക്കായി ഇവിടെ അപ്‌ലോഡ് ചെയ്യുക</b>",
+      "step3-upload-btn": "സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യുക",
+
+      // Dashboard translations
+      "title-dashboard": "ഡാഷ്ബോർഡ്",
+      "welcome-back": "വീണ്ടും സ്വാഗതം",
+      "Your Wallet": "എന്റെ വാലറ്റ്",
+      "Total Earned": "ആകെ വരുമാനം",
+      "Paid Out": "കൈപ്പറ്റിയ തുക",
+      "Withdraw": "പിൻവലിക്കുക",
+      "threshold-note": "₹500 തികയുമ്പോൾ മാത്രമേ പണം പിൻവലിക്കാൻ കഴിയൂ",
+      "Profile Information": "പ്രൊഫൈൽ വിവരങ്ങൾ",
+      "Poster ID": "പോസ്റ്റർ ഐഡി",
+      "Phone Number": "ഫോൺ നമ്പർ", 
+      "Total Tasks Completed": "പൂർത്തിയാക്കിയ ജോലികൾ",
+      "Status": "നിലവിലെ സ്ഥിതി",
+      "Active": "സജീവം",
+      "Join Official Posters Group": "ഔദ്യോഗിക പോസ്റ്റർ ഗ്രൂപ്പിൽ ചേരുക",
+      "group-description": "മറ്റ് പോസ്റ്റർമാരുമായി ആശയവിനിമയം നടത്തി പുതിയ അപ്‌ഡേറ്റുകൾ നേടൂ",
+      "Join Group": "ഗ്രൂപ്പിൽ ചേരുക",
+      "Last Task": "അവസാന ജോലി",
+      "Upload Task Screenshot": "സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യുക",
+      "Contact Support": "സഹായത്തിന്",
+      "View Terms": "നിബന്ധനകൾ",
+      "Please select a file": "ഒരു ഫയൽ തിരഞ്ഞെടുക്കുക",
+      "Upload": "അപ്‌ലോഡ് ചെയ്യുക",
+      "File uploaded successfully": "ഫയൽ വിജയകരമായി അപ്‌ലോഡ് ചെയ്തു",
+      "Upload failed": "അപ്‌ലോഡ് പരാജയപ്പെട്ടു",
+      "Please login again": "വീണ്ടും ലോഗിൻ ചെയ്യുക",
+
+      // Add new translations for onboarding text
+      "onboarding-intro": "StatusPay247-ൽ ചേരുന്നതിന് ദയവായി താഴെയുള്ള എല്ലാ ഘട്ടങ്ങളും പൂർത്തിയാക്കുക:",
+      "follow-pages-note": "ഞങ്ങളുടെ ഔദ്യോഗിക പേജുകൾ ഫോളോ ചെയ്ത് പരിശോധനയ്ക്കായി സ്ക്രീൻഷോട്ട് സൂക്ഷിക്കുക.",
+      "download-image-note": "ഈ ചിത്രം ഡൗൺലോഡ് ചെയ്ത് നിങ്ങളുടെ WhatsApp സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യുക.",
+      "copy-caption-note": "ഈ വിവരണം പകർത്തി സ്റ്റാറ്റസ് ചിത്രത്തിനൊപ്പം ചേർക്കുക.",
+      "post-approval-note": "അംഗീകാരത്തിനായി ചിത്രവും വിവരണവും നിങ്ങളുടെ WhatsApp സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യുക.",
+      "step3-heading": "മൂന്നാം ഘട്ടം: സ്റ്റാറ്റസ് സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യുക",
+      "status-screenshot-note": "23 മണിക്കൂറിന് ശേഷം, നിങ്ങളുടെ സ്റ്റാറ്റസ് കാണുന്നവരുടെ എണ്ണം കാണിക്കുന്ന സ്ക്രീൻഷോട്ട് എടുക്കുക.",
+      "upload-verification-note": "പരിശോധനയ്ക്കായി സ്ക്രീൻഷോട്ട് ഇവിടെ അപ്‌ലോഡ് ചെയ്യുക.",
+      "views-note": "23 മണിക്കൂറിന് ശേഷം നിങ്ങളുടെ സ്റ്റാറ്റസ് കാണുന്നവരുടെ എണ്ണം വ്യക്തമായി കാണിക്കുന്ന സ്ക്രീൻഷോട്ട് ആണ് അപ്‌ലോഡ് ചെയ്യേണ്ടത്.",
+      "verification-process-note": "കുറിപ്പ്: സ്ക്രീൻഷോട്ട് പരിശോധിക്കുന്നത് മാനുവൽ പ്രക്രിയയാണ്, സാധാരണ 24 മണിക്കൂർ വരെ എടുക്കാം. സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്തു കഴിഞ്ഞാൽ, വിശ്രമിച്ചിരിക്കൂ - ഞങ്ങളുടെ ടീം എത്രയും വേഗം പരിശോധിച്ച് അംഗീകരിക്കും!"
+    };
+
+    function setLanguage(lang) {
+      // Update body class and button states
+      if (lang === 'ml') {
+        document.body.classList.add('lang-ml');
+        document.body.classList.remove('lang-en');
+        document.getElementById('btn-ml').classList.add('active');
+        document.getElementById('btn-en').classList.remove('active');
+      } else {
+        document.body.classList.add('lang-en');
+        document.body.classList.remove('lang-ml');
+        document.getElementById('btn-en').classList.add('active');
+        document.getElementById('btn-ml').classList.remove('active');
+      }
+      localStorage.setItem('statuspay247_lang', lang);
+
+      // Translation helper
+      function setText(id, text) {
+        var el = document.getElementById(id);
+        if (el) el.innerHTML = text;
+      }
+
+      // Apply translations
+      setText("lang-label", lang === "ml" ? dashboardTranslations["lang-label"] : "Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:");
+      
+      // Step 1
+      var step1Title = document.querySelector('#onboardingScreen h2');
+      if (step1Title) step1Title.innerHTML = lang === "ml" ? dashboardTranslations["step1-title"] : "Step 1: Follow us on Social Media";
+      var step1Note = document.querySelector('#onboardingScreen .lang-step1-note');
+      if (step1Note) step1Note.innerHTML = lang === "ml" ? dashboardTranslations["step1-note"] : "Please follow our official pages and keep a screenshot for verification.";
+      // Step 2
+      var step2Title = document.querySelector('#onboardingScreen h3');
+      if (step2Title) step2Title.innerHTML = lang === "ml" ? `<i class="fas fa-tasks" style="color:#1e977e;margin-right:0.5em;"></i> ${dashboardTranslations["step2-title"]}` : `<i class="fas fa-tasks" style="color:#1e977e;margin-right:0.5em;"></i> Step 2: WhatsApp Status Task`;
+      var step2ImgNote = document.querySelector('#onboardingScreen .lang-step2-img-note');
+      if (step2ImgNote) step2ImgNote.innerHTML = lang === "ml" ? `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step2-img-note"]}` : `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> Download and post this image to your WhatsApp status.`;
+      var step2CaptionLabel = document.querySelector('#onboardingScreen label[for="onboardingAdText"]');
+      if (step2CaptionLabel) step2CaptionLabel.innerHTML = lang === "ml" ? dashboardTranslations["step2-caption-label"] : "Status Caption (copy & paste)";
+      var step2CaptionNote = document.querySelector('#onboardingScreen .lang-step2-caption-note');
+      if (step2CaptionNote) step2CaptionNote.innerHTML = lang === "ml" ? `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step2-caption-note"]}` : `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> Copy this caption and paste it with your status image.`;
+      var step2FinalNote = document.querySelector('#onboardingScreen .lang-step2-final-note');
+      if (step2FinalNote) step2FinalNote.innerHTML = lang === "ml" ? `<i class="fas fa-check-circle" style="color:#1e977e;margin-right:0.4em;"></i> ${dashboardTranslations["step2-final-note"]}` : `<i class="fas fa-check-circle" style="color:#1e977e;margin-right:0.4em;"></i> Post both the image and caption to your WhatsApp status for approval.`;
+      // Step 3
+      var step3Title = document.querySelector('#onboardingScreen h3[style*="fa-upload"]');
+      if (step3Title) step3Title.innerHTML = lang === "ml" ? `<i class="fas fa-upload" style="color:#1e977e;margin-right:0.5em;"></i> ${dashboardTranslations["step3-title"]}` : `<i class="fas fa-upload" style="color:#1e977e;margin-right:0.5em;"></i> Step 3: Upload Your Status Screenshot`;
+      var step3Desc = document.querySelector('#onboardingScreen .lang-step3-desc');
+      if (step3Desc) step3Desc.innerHTML = lang === "ml" ? dashboardTranslations["step3-desc"] : 'After 23 hours of posting, take a screenshot of your WhatsApp status showing the number of views your post received.<br><b>Upload that screenshot here for verification.</b>';
+      var step3Btn = document.querySelector('#onboardingScreenshotForm button[type="submit"]');
+      if (step3Btn) step3Btn.innerHTML = lang === "ml" ? `<i class="fas fa-upload"></i> ${dashboardTranslations["step3-upload-btn"]}` : `<i class="fas fa-upload"></i> Upload Screenshot`;
+      var step3FormNote = document.querySelector('#onboardingScreen .lang-step3-form-note');
+      if (step3FormNote) step3FormNote.innerHTML = lang === "ml" ? `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step3-form-note"]}` : `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> Make sure your screenshot clearly shows the number of views on your status after 23 hours.`;
+      var step3FormWait = document.querySelector('#onboardingScreen .lang-step3-form-wait');
+      if (step3FormWait) step3FormWait.innerHTML = lang === "ml" ? `<i class="fas fa-clock" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step3-form-wait"]}` : `<i class="fas fa-clock" style="color:#1e977e;margin-right:0.3em;"></i> <b>Note:</b> Screenshot verification is a manual process and may take up to <b>24 hours</b>. Once you upload your screenshot, just sit back and relax – our team will review and approve it as soon as possible!`;
+
+      // Dashboard section (example for wallet card)
+      var walletTitle = document.querySelector('.wallet-icon + .card-title');
+      if (walletTitle) walletTitle.textContent = lang === "ml" ? dashboardTranslations["Your Wallet"] : "Your Wallet";
+      var totalEarned = document.getElementById("totalEarned");
+      if (totalEarned) {
+        var label = totalEarned.closest('.wallet-detail').querySelector('.wallet-detail-label');
+        if (label) label.textContent = lang === "ml" ? dashboardTranslations["Total Earned"] : "Total Earned";
+      }
+      var paid = document.getElementById("paid");
+      if (paid) {
+        var label = paid.closest('.wallet-detail').querySelector('.wallet-detail-label');
+        if (label) label.textContent = lang === "ml" ? dashboardTranslations["Paid Out"] : "Paid Out";
+      }  var withdrawBtn = document.getElementById("withdrawBtn");
+      if (withdrawBtn) withdrawBtn.innerHTML = `<i id="withdrawLockIcon" class="fas fa-lock"></i> ${lang === "ml" ? dashboardTranslations["Withdraw"] : "Withdraw"}`;
+      var withdrawNote = document.querySelector('.withdraw-note');      if (withdrawNote) withdrawNote.innerHTML = `<i class="fas fa-info-circle"></i> ${lang === "ml" ? dashboardTranslations["You can only withdraw your amount after meeting the ₹500 threshold."] : "You can only withdraw your amount after meeting the ₹500 threshold."}`;      // Profile card      var profileTitle = document.querySelector('.profile-icon + .card-title');
+      if (profileTitle) profileTitle.textContent = lang === "ml" ? dashboardTranslations["Profile Information"] : "Profile Information";
+      var posterIdLabel = document.getElementById("posterId")?.closest('.info-item')?.querySelector('.info-label');
+      if (posterIdLabel) posterIdLabel.textContent = lang === "ml" ? dashboardTranslations["Poster ID"] : "Poster ID";
+      var phoneLabel = document.getElementById("phone")?.closest('.info-item')?.querySelector('.info-label');
+      if (phoneLabel) phoneLabel.textContent = lang === "ml" ? dashboardTranslations["Phone Number"] : "Phone Number";
+      var tasksLabel = document.getElementById("profileTasksCompleted")?.closest('.info-item')?.querySelector('.info-label');
+      if (tasksLabel) tasksLabel.textContent = lang === "ml" ? dashboardTranslations["Total Tasks Completed"] : "Total Tasks Completed";
+      var statusLabel = document.querySelector('.status-badge')?.closest('.info-item')?.querySelector('.info-label');
+      if (statusLabel) statusLabel.textContent = lang === "ml" ? dashboardTranslations["Status"] : "Status";
+      var statusBadge = document.querySelector('.status-badge');
+      if (statusBadge) statusBadge.textContent = lang === "ml" ? dashboardTranslations["Active"] : "Active";
+
+      // Group card
+      var groupTitle = document.querySelector('.stats-icon + .card-title');
+      if (groupTitle) groupTitle.textContent = lang === "ml" ? dashboardTranslations["Join Official Posters Group"] : "Join Official Posters Group";
+      var groupDesc = document.querySelector('.join-group-section p');
+      if (groupDesc) groupDesc.textContent = lang === "ml" ? dashboardTranslations["Connect with other posters, get updates, and support in our official WhatsApp group."] : "Connect with other posters, get updates, and support in our official WhatsApp group.";
+      var joinGroupBtn = document.querySelector('.join-group-btn');
+      if (joinGroupBtn) joinGroupBtn.innerHTML = `<i class="fab fa-whatsapp"></i> ${lang === "ml" ? dashboardTranslations["Join Group"] : "Join Group"}`;
+      var lastTaskLabel = document.getElementById("lastTask")?.closest('.info-item')?.querySelector('.info-label');
+      if (lastTaskLabel) lastTaskLabel.textContent = lang === "ml" ? dashboardTranslations["Last Task"] : "Last Task";
+
+      // Screenshot upload card
+      var uploadCardTitle = document.querySelector('.dashboard-card .card-icon + .card-title');
+      if (uploadCardTitle) uploadCardTitle.textContent = lang === "ml" ? dashboardTranslations["Upload Task Screenshot"] : "Upload Task Screenshot";
+
+      // Quick actions
+      var quickActions = document.querySelectorAll('.quick-actions .action-btn');
+      if (quickActions.length > 0) {
+        quickActions[0].innerHTML = `<i class="fab fa-whatsapp"></i> ${lang === "ml" ? dashboardTranslations["Contact Support"] : "Contact Support"}`;
+        quickActions[1].innerHTML = `<i class="fas fa-file-contract"></i> ${lang === "ml" ? dashboardTranslations["View Terms"] : "View Terms"}`;
+      }
+    }
+
+    // On load, check localStorage for language preference
+    var savedLang = localStorage.getItem('statuspay247_lang');
+    setLanguage(savedLang === 'ml' ? 'ml' : 'en');
+
+    // Language button event listeners
+    document.getElementById('btn-en').addEventListener('click', () => setLanguage('en'));
+    document.getElementById('btn-ml').addEventListener('click', () => setLanguage('ml'));
   </script>
 </body>
-
 </html>
