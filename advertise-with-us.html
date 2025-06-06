@@ -6,7 +6,7 @@
     <title>Advertise With Us | StatusPay247</title>
     <link rel="stylesheet" href="css/styles-cleaned.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="js/main.js" defer></script>
     <!-- Add favicon -->
     <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -22,21 +22,29 @@
                         <img src="assets/logo.png" alt="StatusPay 247 Logo">
                     </a>
                 </div>
-                <div class="burger-menu">
+                <div class="burger-menu" onclick="toggleMenu()">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#hero">Home</a></li>
                     <li><a href="poster.html">Join as Poster</a></li>
-                    <li><a href="advertise-with-us.html" class="active">Advertise</a></li>
-                    <li><a href="advertiser-terms.html">Advertisers</a></li>
+                    <li><a href="advertise-with-us.html">Advertise With Us</a></li>
                     <li><a href="login.html" class="btn btn-secondary">Login</a></li>
                 </ul>
             </nav>
         </div>
     </header>
+
+    <!-- Language selection bar directly under header -->
+    <div class="lang-select-bar">
+        <span class="lang-label">
+            Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:
+        </span>
+        <button type="button" id="btn-en" class="lang-btn active">English</button>
+        <button type="button" id="btn-ml" class="lang-btn">മലയാളം</button>
+    </div>
 
     <main>
         <!-- Hero Section -->
@@ -256,36 +264,57 @@
     </main>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>StatusPay 247</h3>
-                    <p>Your trusted platform for WhatsApp status advertising and digital marketing services.</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="poster.html">Join as Poster</a></li>
-                        <li><a href="advertise-with-us.html">Advertise</a></li>
-                        <li><a href="login.html">Login</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Connect With Us</h3>
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/statuspay247" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://twitter.com/statuspay247" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://wa.me/919744483058" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
+        <div class="copyright" style="background-color:#1F2937; color:white; padding:0;">
+            <p style="margin-top:1.5rem;">&copy; 2025 StatusPay 247. All rights reserved.</p>
+            <div class="footer-social" style="margin:1rem 0 0.5rem 0;">
+                <a href="https://x.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="X.com">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 StatusPay 247. All rights reserved.</p>
-                <p class="disclaimer">WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc. The services we provide involve direct WhatsApp status marketing using our network of users, and the use of the WhatsApp® logo or name is strictly for illustrative purposes. All rights to WhatsApp® remain the property of Meta Platforms, Inc.</p>
-            </div>
+            <p class="disclaimer" style="color:#9CA3AF;">WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc. The services we provide involve direct WhatsApp status marketing using our network of users, and the use of the WhatsApp® logo or name is strictly for illustrative purposes. All rights to WhatsApp® remain the property of Meta Platforms, Inc.</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Language toggle functionality
+            var btnEn = document.getElementById('btn-en');
+            var btnMl = document.getElementById('btn-ml');
+
+            function setLanguage(lang) {
+                if (lang === 'ml') {
+                    btnMl.classList.add('active');
+                    btnEn.classList.remove('active');
+                } else {
+                    btnEn.classList.add('active');
+                    btnMl.classList.remove('active');
+                }
+                localStorage.setItem('statuspay247_lang', lang);
+            }
+
+            // On load, check localStorage for language preference
+            var savedLang = localStorage.getItem('statuspay247_lang');
+            setLanguage(savedLang === 'ml' ? 'ml' : 'en');
+
+            btnEn.addEventListener('click', function(event) {
+                event.preventDefault();
+                setLanguage('en');
+            });
+
+            btnMl.addEventListener('click', function(event) {
+                event.preventDefault();
+                setLanguage('ml');
+            });
+        });
+    </script>
 </body>
 </html>

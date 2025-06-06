@@ -459,7 +459,7 @@
             <img src="assets/logo.png" alt="StatusPay 247 Logo" id="logo-img">
           </a>
         </div>
-        <div class="burger-menu">
+        <div class="burger-menu" onclick="toggleMenu()">
           <span></span>
           <span></span>
           <span></span>
@@ -786,41 +786,25 @@ and start your journey today.</textarea>
 
   <!-- Footer -->
   <footer style="margin-top: 4rem;">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-column">
-          <h3>StatusPay 247</h3>
-          <p>Your trusted platform for earning through WhatsApp status ads. Connect with us to start your earning journey today.</p>
+        <div class="copyright" style="background-color:#1F2937; color:white; padding:0;">
+            <p style="margin-top:1.5rem;">&copy; 2025 StatusPay 247. All rights reserved.</p>
+            <div class="footer-social" style="margin:1rem 0 0.5rem 0;">
+                <a href="https://x.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="X.com">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            <p class="disclaimer" style="color:#9CA3AF;">WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc. The services we provide involve direct WhatsApp status marketing using our network of users, and the use of the WhatsApp® logo or name is strictly for illustrative purposes. All rights to WhatsApp® remain the property of Meta Platforms, Inc.</p>
         </div>
-        <div class="footer-column">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="index.html#hero">Home</a></li>
-            <li><a href="index.html#what-is-statuspay">About</a></li>
-            <li><a href="index.html#how-it-works">How It Works</a></li>
-            <li><a href="index.html#why-choose-us">Why Choose Us</a></li>
-            <li><a href="index.html#contact">Contact</a></li>
-            <li><a href="poster.html">Join as Poster</a></li>
-            <li><a href="advertiser-terms.html">Advertisers</a></li>
-          </ul>
-        </div>
-        <div class="footer-column">
-          <h3>Connect With Us</h3>
-          <p>Follow us on social media for updates and tips.</p>
-          <div class="social-links">
-            <a href="https://www.facebook.com/statuspay247" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/statuspay247" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://twitter.com/statuspay247" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://wa.me/919744483058" target="_blank"><i class="fab fa-whatsapp"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="copyright">
-        <p>&copy; 2025 StatusPay 247. All rights reserved.</p>
-        <p class="disclaimer">WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc. The services we provide involve direct WhatsApp status marketing using our network of users, and the use of the WhatsApp® logo or name is strictly for illustrative purposes. All rights to WhatsApp® remain the property of Meta Platforms, Inc.</p>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
   <script>
     // Logout button logic
@@ -1327,7 +1311,7 @@ document.addEventListener("DOMContentLoaded", function() {
       "step3-desc": "23 മണിക്കൂറിന് ശേഷം, നിങ്ങളുടെ സ്റ്റാറ്റസിലെ കാഴ്ചകളുടെ എണ്ണം കാണിക്കുന്ന സ്ക്രീൻഷോട്ട് എടുക്കുക.<br><b>പരിശോധനയ്ക്കായി ഇവിടെ അപ്‌ലോഡ് ചെയ്യുക</b>",
       "step3-upload-btn": "സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യുക",
       "step3-views-note": "23 മണിക്കൂറിന് ശേഷം നിങ്ങളുടെ സ്റ്റാറ്റസ് കാണുന്നവരുടെ എണ്ണം വ്യക്തമായി കാണിക്കുന്ന സ്ക്രീൻഷോട്ട് ആണ് അപ്‌ലോഡ് ചെയ്യേണ്ടത്.",
-      "step3-process-note": "സ്ക്രീൻഷോട്ട് പരിശോധന ഒരു മാനുവൽ പ്രക്രിയയാണ്, 24 മണിക്കൂർ വരെ എടുക്കാം. നിങ്ങളുടെ സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്ത് കഴിഞ്ഞാൽ, ഞങ്ങളുടെ ടീം എത്രയും പെട്ടെന്ന് പരിശോധിച്ച് അംഗീകരിക്കുന്നതായിരിക്കും.",
+      "step3-process-note": "സ്ക്രീൻഷോട്ട് പരിശോധന ഒരു മാനുവൽ പ്രക്രിയയാണ്, 24 മണിക്കൂർ വരെ എടുക്കാം. നിങ്ങളുടെ സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്ത് കഴിഞ്ഞാൽ, ഞങ്ങളുടെ ടീം എത്രയും പെട്ടന്ന് പരിശോധിച്ച് അംഗീകരിക്കുന്നതായിരിക്കും.",
       "upload-success": "സ്ക്രീൻഷോട്ട് വിജയകരമായി അപ്‌ലോഡ് ചെയ്തു",
       "upload-failed": "അപ്‌ലോഡ് പരാജയപ്പെട്ടു",
       "select-file": "ഒരു ഫയൽ തിരഞ്ഞെടുക്കുക",
@@ -1604,6 +1588,17 @@ document.addEventListener("DOMContentLoaded", function() {
     } else {
       initLanguageButtons();
     }
+
+    // Add event listeners to language buttons
+    document.getElementById('btn-en').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default anchor behavior
+        setLanguage('en');
+    });
+
+    document.getElementById('btn-ml').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default anchor behavior
+        setLanguage('ml');
+    });
   </script>
 </body>
 </html>

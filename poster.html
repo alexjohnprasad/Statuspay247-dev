@@ -12,8 +12,8 @@
     <link rel="shortcut icon" href="assets/favicon.png">
     <link rel="stylesheet" href="css/styles-cleaned.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="js/main.js" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -24,7 +24,7 @@
                         <img src="assets/logo.png" alt="StatusPay 247 Logo">
                     </a>
                 </div>
-                <div class="burger-menu">
+                <div class="burger-menu" onclick="toggleMenu()">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -71,7 +71,7 @@
                     <div class="section-content">
                         <p>Fill out the form below to join StatusPay 247 as a poster and start earning by sharing WhatsApp status ads.</p>
                     </div>
-                    <form id="posterForm" class="form">
+                    <form id="posterForm" class="form" novalidate>
                         <div class="form-group">
                             <label for="name">Full Name</label>
                             <input type="text" id="name" placeholder="Enter your full name" required>
@@ -83,7 +83,8 @@
                                    placeholder="Enter your Gmail address" 
                                    required 
                                    pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" 
-                                   title="Please enter a valid Gmail address (example@gmail.com)">
+                                   title="Please enter a valid Gmail address (example@gmail.com)"
+                                   autocomplete="off">
                             <span id="email-error" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">Only Gmail addresses are allowed (example@gmail.com)</span>
                         </div>
                         <div class="form-group">
@@ -264,7 +265,7 @@
                         <div class="form-group">
                             <label for="password">Password</label>
                             <div class="password-input-container">
-                                <input type="password" id="password" placeholder="Create a strong password" required>
+                                <input type="password" id="password" placeholder="Create a strong password" required autocomplete="new-password">
                                 <span class="password-toggle" onclick="togglePasswordVisibility('password')">
                                     <i class="fas fa-eye"></i>
                                 </span>
@@ -273,7 +274,7 @@
                         <div class="form-group">
                             <label for="confirmPassword">Confirm Password</label>
                             <div class="password-input-container">
-                                <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                                <input type="password" id="confirmPassword" placeholder="Confirm your password" required autocomplete="new-password">
                                 <span class="password-toggle" onclick="togglePasswordVisibility('confirmPassword')">
                                     <i class="fas fa-eye"></i>
                                 </span>
@@ -358,7 +359,7 @@
                     <div class="section-content">
                         <p>WhatsApp സ്റ്റാറ്റസ് പരസ്യങ്ങൾ പങ്കുവെച്ച് വരുമാനം നേടാൻ StatusPay 247-ൽ പോസ്റ്ററായി ചേരാൻ താഴെയുള്ള ഫോം പൂരിപ്പിക്കുക.</p>
                     </div>
-                    <form id="posterForm-ml" class="form">
+                    <form id="posterForm-ml" class="form" novalidate>
                         <div class="form-group">
                             <label for="name-ml">പേര്</label>
                             <input type="text" id="name-ml" placeholder="നിങ്ങളുടെ മുഴുവൻ പേര് നൽകുക" required>
@@ -370,7 +371,8 @@
                                    placeholder="നിങ്ങളുടെ Gmail വിലാസം നൽകുക" 
                                    required 
                                    pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" 
-                                   title="ദയവായി ശരിയായ Gmail വിലാസം നൽകുക (example@gmail.com)">
+                                   title="ദയവായി ശരിയായ Gmail വിലാസം നൽകുക (example@gmail.com)"
+                                   autocomplete="off">
                             <span id="email-error-ml" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">Gmail വിലാസങ്ങൾ മാത്രം അനുവദനീയമാണ് (example@gmail.com)</span>
                         </div>
                         <div class="form-group">
@@ -551,7 +553,7 @@
                         <div class="form-group">
                             <label for="password-ml">പാസ്‌വേഡ്</label>
                             <div class="password-input-container">
-                                <input type="password" id="password-ml" placeholder="ശക്തമായ പാസ്‌വേഡ് സൃഷ്ടിക്കുക" required>
+                                <input type="password" id="password-ml" placeholder="ശക്തമായ പാസ്‌വേഡ് സൃഷ്ടിക്കുക" required autocomplete="new-password">
                                 <span class="password-toggle" onclick="togglePasswordVisibility('password-ml')">
                                     <i class="fas fa-eye"></i>
                                 </span>
@@ -560,7 +562,7 @@
                         <div class="form-group">
                             <label for="confirmPassword-ml">പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക</label>
                             <div class="password-input-container">
-                                <input type="password" id="confirmPassword-ml" placeholder="നിങ്ങളുടെ പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക" required>
+                                <input type="password" id="confirmPassword-ml" placeholder="നിങ്ങളുടെ പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക" required autocomplete="new-password">
                                 <span class="password-toggle" onclick="togglePasswordVisibility('confirmPassword-ml')">
                                     <i class="fas fa-eye"></i>
                                 </span>
@@ -615,39 +617,23 @@
     </main>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>StatusPay 247</h3>
-                    <p>Your trusted platform for earning through WhatsApp status ads. Connect with us to start your earning journey today.</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html#hero">Home</a></li>
-                        <li><a href="index.html#what-is-statuspay">About</a></li>
-                        <li><a href="index.html#how-it-works">How It Works</a></li>
-                        <li><a href="index.html#why-choose-us">Why Choose Us</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
-                        <li><a href="poster.html">Join as Poster</a></li>
-                        <li><a href="advertiser-terms.html">Advertisers</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Connect With Us</h3>
-                    <p>Follow us on social media for updates and tips.</p>
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/statuspay247" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com/statuspay247" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://twitter.com/statuspay247" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://wa.me/919744483058" target="_blank"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
+        <div class="copyright" style="background-color:#1F2937; color:white; padding:0;">
+            <p style="margin-top:1.5rem;">&copy; 2025 StatusPay 247. All rights reserved.</p>
+            <div class="footer-social" style="margin:1rem 0 0.5rem 0;">
+                <a href="https://x.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="X.com">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 StatusPay 247. All rights reserved.</p>
-                <p class="disclaimer">WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc. The services we provide involve direct WhatsApp status marketing using our network of users, and the use of the WhatsApp® logo or name is strictly for illustrative purposes. All rights to WhatsApp® remain the property of Meta Platforms, Inc.</p>
-            </div>
+            <p class="disclaimer" style="color:#9CA3AF;">WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc. The services we provide involve direct WhatsApp status marketing using our network of users, and the use of the WhatsApp® logo or name is strictly for illustrative purposes. All rights to WhatsApp® remain the property of Meta Platforms, Inc.</p>
         </div>
     </footer>
 
@@ -1146,6 +1132,17 @@
             // Malayalam
             document.getElementById('terms-accept-ml').addEventListener('change', updateSubmitButtonStateMl);
             document.getElementById('dob-ml').addEventListener('input', updateSubmitButtonStateMl);
+
+            // Add event listeners to language buttons
+            document.getElementById('btn-en').addEventListener('click', function(event) {
+                event.preventDefault();
+                setLanguage('en');
+            });
+
+            document.getElementById('btn-ml').addEventListener('click', function(event) {
+                event.preventDefault();
+                setLanguage('ml');
+            });
         });
 
         // --- Expose functions globally for inline event handlers ---

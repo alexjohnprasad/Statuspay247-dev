@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="assets/favicon.png">
     <link rel="stylesheet" href="css/styles-cleaned.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <header>
@@ -20,7 +20,7 @@
                         <img src="assets/logo.png" alt="StatusPay 247 Logo">
                     </a>
                 </div>
-                <div class="burger-menu">
+                <div class="burger-menu" onclick="toggleMenu()">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -34,6 +34,15 @@
             </nav>
         </div>
     </header>
+
+    <!-- Language selection: simple, minimal, one line, no extra styling -->
+    <div class="lang-select-bar">
+        <span class="lang-label">
+            Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:
+        </span>
+        <button type="button" id="btn-en" class="active">English</button>
+        <button type="button" id="btn-ml">മലയാളം</button>
+    </div>
 
     <main>
         <section class="login-section">
@@ -509,6 +518,55 @@
             document.getElementById('cors-warning').style.display = 'block';
             console.warn('You are running from file://. For login to work, serve this page from a local web server.');
         }
+
+        // --- Language Preference Tracking Across Pages ---
+        // Set language button state and persist selection
+        function setLanguage(lang) {
+            if (lang === 'ml') {
+                document.getElementById('btn-ml').classList.add('active');
+                document.getElementById('btn-en').classList.remove('active');
+                // Update content based on language (example)
+                document.querySelector('.login-header-modern h2').textContent = 'Sign In / സൈൻ ഇൻ';
+                document.querySelector('.login-form-modern label[for="phone"]').textContent = 'WhatsApp Number / WhatsApp നമ്പർ';
+                document.querySelector('.login-form-modern input[id="phone"]').placeholder = 'Enter your WhatsApp number / നിങ്ങളുടെ WhatsApp നമ്പർ നൽകുക';
+                document.querySelector('.login-form-modern label[for="password"]').textContent = 'Password / പാസ്‌വേഡ്';
+                document.querySelector('.login-form-modern input[id="password"]').placeholder = 'Enter your password / നിങ്ങളുടെ പാസ്‌വേഡ് നൽകുക';
+                document.querySelector('.login-btn-modern').textContent = 'Login / ലോഗിൻ';
+                document.querySelector('.login-footer-modern p:first-child a').textContent = 'Register here / ഇവിടെ രജിസ്റ്റർ ചെയ്യുക';
+                document.querySelector('.login-footer-modern p:last-child a').textContent = 'Forgot password? / പാസ്‌വേഡ് മറന്നോ?';
+            } else {
+                document.getElementById('btn-en').classList.add('active');
+                document.getElementById('btn-ml').classList.remove('active');
+                // Update content based on language (example)
+                document.querySelector('.login-header-modern h2').textContent = 'Sign In';
+                document.querySelector('.login-form-modern label[for="phone"]').textContent = 'WhatsApp Number';
+                document.querySelector('.login-form-modern input[id="phone"]').placeholder = 'Enter your WhatsApp number';
+                document.querySelector('.login-form-modern label[for="password"]').textContent = 'Password';
+                document.querySelector('.login-form-modern input[id="password"]').placeholder = 'Enter your password';
+                document.querySelector('.login-btn-modern').textContent = 'Login';
+                document.querySelector('.login-footer-modern p:first-child a').textContent = 'Register here';
+                document.querySelector('.login-footer-modern p:last-child a').textContent = 'Forgot password?';
+            }
+            localStorage.setItem('statuspay247_lang', lang);
+        }
+
+        // On load, check localStorage for language preference
+        var savedLang = localStorage.getItem('statuspay247_lang');
+        setLanguage(savedLang === 'ml' ? 'ml' : 'en');
+
+        // Add event listeners to language buttons
+        document.getElementById('btn-en').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+            setLanguage('en');
+        });
+
+        document.getElementById('btn-ml').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default anchor behavior
+            setLanguage('ml');
+        });
+
+        // Make togglePasswordVisibility globally accessible
+        window.togglePasswordVisibility = togglePasswordVisibility;
     </script>
 </body>
 </html>
