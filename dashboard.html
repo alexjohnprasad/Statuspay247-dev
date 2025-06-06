@@ -1312,7 +1312,7 @@ document.addEventListener("DOMContentLoaded", function() {
       "lang-label": "Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:",
       "btn-en": "English",
       "btn-ml": "മലയാളം",
-      
+
       // Onboarding section translations
       "onboarding-steps-heading": "StatusPay247-ൽ ചേരാൻ താഴെ പറയുന്ന ഘട്ടങ്ങൾ പൂർത്തിയാക്കുക:",
       "step1-title": "ഒന്നാം ഘട്ടം: സോഷ്യൽ മീഡിയയിൽ ഫോളോ ചെയ്യുക", 
@@ -1326,6 +1326,12 @@ document.addEventListener("DOMContentLoaded", function() {
       "step3-title": "മൂന്നാം ഘട്ടം: സ്റ്റാറ്റസ് സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യുക",
       "step3-desc": "23 മണിക്കൂറിന് ശേഷം, നിങ്ങളുടെ സ്റ്റാറ്റസിലെ കാഴ്ചകളുടെ എണ്ണം കാണിക്കുന്ന സ്ക്രീൻഷോട്ട് എടുക്കുക.<br><b>പരിശോധനയ്ക്കായി ഇവിടെ അപ്‌ലോഡ് ചെയ്യുക</b>",
       "step3-upload-btn": "സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യുക",
+      "step3-views-note": "23 മണിക്കൂറിന് ശേഷം നിങ്ങളുടെ സ്റ്റാറ്റസ് കാണുന്നവരുടെ എണ്ണം വ്യക്തമായി കാണിക്കുന്ന സ്ക്രീൻഷോട്ട് ആണ് അപ്‌ലോഡ് ചെയ്യേണ്ടത്.",
+      "step3-process-note": "സ്ക്രീൻഷോട്ട് പരിശോധന ഒരു മാനുവൽ പ്രക്രിയയാണ്, 24 മണിക്കൂർ വരെ എടുക്കാം. നിങ്ങളുടെ സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്ത് കഴിഞ്ഞാൽ, ഞങ്ങളുടെ ടീം എത്രയും പെട്ടെന്ന് പരിശോധിച്ച് അംഗീകരിക്കുന്നതായിരിക്കും.",
+      "upload-success": "സ്ക്രീൻഷോട്ട് വിജയകരമായി അപ്‌ലോഡ് ചെയ്തു",
+      "upload-failed": "അപ്‌ലോഡ് പരാജയപ്പെട്ടു",
+      "select-file": "ഒരു ഫയൽ തിരഞ്ഞെടുക്കുക",
+      "uploading": "അപ്‌ലോഡ് ചെയ്യുന്നു...",
 
       // Dashboard translations
       "title-dashboard": "ഡാഷ്ബോർഡ്",
@@ -1384,97 +1390,220 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // Translation helper
       function setText(id, text) {
-        var el = document.getElementById(id);
-        if (el) el.innerHTML = text;
+        const el = document.getElementById(id);
+        if (el) {
+          el.innerHTML = text;
+        }
       }
 
-      // Apply translations
-      setText("lang-label", lang === "ml" ? dashboardTranslations["lang-label"] : "Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:");
-      
-      // Step 1
-      var step1Title = document.querySelector('#onboardingScreen h2');
-      if (step1Title) step1Title.innerHTML = lang === "ml" ? dashboardTranslations["step1-title"] : "Step 1: Follow us on Social Media";
-      var step1Note = document.querySelector('#onboardingScreen .lang-step1-note');
-      if (step1Note) step1Note.innerHTML = lang === "ml" ? dashboardTranslations["step1-note"] : "Please follow our official pages and keep a screenshot for verification.";
-      // Step 2
-      var step2Title = document.querySelector('#onboardingScreen h3');
-      if (step2Title) step2Title.innerHTML = lang === "ml" ? `<i class="fas fa-tasks" style="color:#1e977e;margin-right:0.5em;"></i> ${dashboardTranslations["step2-title"]}` : `<i class="fas fa-tasks" style="color:#1e977e;margin-right:0.5em;"></i> Step 2: WhatsApp Status Task`;
-      var step2ImgNote = document.querySelector('#onboardingScreen .lang-step2-img-note');
-      if (step2ImgNote) step2ImgNote.innerHTML = lang === "ml" ? `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step2-img-note"]}` : `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> Download and post this image to your WhatsApp status.`;
-      var step2CaptionLabel = document.querySelector('#onboardingScreen label[for="onboardingAdText"]');
-      if (step2CaptionLabel) step2CaptionLabel.innerHTML = lang === "ml" ? dashboardTranslations["step2-caption-label"] : "Status Caption (copy & paste)";
-      var step2CaptionNote = document.querySelector('#onboardingScreen .lang-step2-caption-note');
-      if (step2CaptionNote) step2CaptionNote.innerHTML = lang === "ml" ? `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step2-caption-note"]}` : `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> Copy this caption and paste it with your status image.`;
-      var step2FinalNote = document.querySelector('#onboardingScreen .lang-step2-final-note');
-      if (step2FinalNote) step2FinalNote.innerHTML = lang === "ml" ? `<i class="fas fa-check-circle" style="color:#1e977e;margin-right:0.4em;"></i> ${dashboardTranslations["step2-final-note"]}` : `<i class="fas fa-check-circle" style="color:#1e977e;margin-right:0.4em;"></i> Post both the image and caption to your WhatsApp status for approval.`;
-      // Step 3
-      var step3Title = document.querySelector('#onboardingScreen h3[style*="fa-upload"]');
-      if (step3Title) step3Title.innerHTML = lang === "ml" ? `<i class="fas fa-upload" style="color:#1e977e;margin-right:0.5em;"></i> ${dashboardTranslations["step3-title"]}` : `<i class="fas fa-upload" style="color:#1e977e;margin-right:0.5em;"></i> Step 3: Upload Your Status Screenshot`;
-      var step3Desc = document.querySelector('#onboardingScreen .lang-step3-desc');
-      if (step3Desc) step3Desc.innerHTML = lang === "ml" ? dashboardTranslations["step3-desc"] : 'After 23 hours of posting, take a screenshot of your WhatsApp status showing the number of views your post received.<br><b>Upload that screenshot here for verification.</b>';
-      var step3Btn = document.querySelector('#onboardingScreenshotForm button[type="submit"]');
-      if (step3Btn) step3Btn.innerHTML = lang === "ml" ? `<i class="fas fa-upload"></i> ${dashboardTranslations["step3-upload-btn"]}` : `<i class="fas fa-upload"></i> Upload Screenshot`;
-      var step3FormNote = document.querySelector('#onboardingScreen .lang-step3-form-note');
-      if (step3FormNote) step3FormNote.innerHTML = lang === "ml" ? `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step3-form-note"]}` : `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> Make sure your screenshot clearly shows the number of views on your status after 23 hours.`;
-      var step3FormWait = document.querySelector('#onboardingScreen .lang-step3-form-wait');
-      if (step3FormWait) step3FormWait.innerHTML = lang === "ml" ? `<i class="fas fa-clock" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step3-form-wait"]}` : `<i class="fas fa-clock" style="color:#1e977e;margin-right:0.3em;"></i> <b>Note:</b> Screenshot verification is a manual process and may take up to <b>24 hours</b>. Once you upload your screenshot, just sit back and relax – our team will review and approve it as soon as possible!`;
+      // Apply translations to all elements (dashboard and onboarding)
+      if (lang === 'ml') {
+        // Malayalam translations
+        setText("lang-label", dashboardTranslations["lang-label"]);
 
-      // Dashboard section (example for wallet card)
-      var walletTitle = document.querySelector('.wallet-icon + .card-title');
-      if (walletTitle) walletTitle.textContent = lang === "ml" ? dashboardTranslations["Your Wallet"] : "Your Wallet";
-      var totalEarned = document.getElementById("totalEarned");
-      if (totalEarned) {
-        var label = totalEarned.closest('.wallet-detail').querySelector('.wallet-detail-label');
-        if (label) label.textContent = lang === "ml" ? dashboardTranslations["Total Earned"] : "Total Earned";
-      }
-      var paid = document.getElementById("paid");
-      if (paid) {
-        var label = paid.closest('.wallet-detail').querySelector('.wallet-detail-label');
-        if (label) label.textContent = lang === "ml" ? dashboardTranslations["Paid Out"] : "Paid Out";
-      }  var withdrawBtn = document.getElementById("withdrawBtn");
-      if (withdrawBtn) withdrawBtn.innerHTML = `<i id="withdrawLockIcon" class="fas fa-lock"></i> ${lang === "ml" ? dashboardTranslations["Withdraw"] : "Withdraw"}`;
-      var withdrawNote = document.querySelector('.withdraw-note');      if (withdrawNote) withdrawNote.innerHTML = `<i class="fas fa-info-circle"></i> ${lang === "ml" ? dashboardTranslations["You can only withdraw your amount after meeting the ₹500 threshold."] : "You can only withdraw your amount after meeting the ₹500 threshold."}`;      // Profile card      var profileTitle = document.querySelector('.profile-icon + .card-title');
-      if (profileTitle) profileTitle.textContent = lang === "ml" ? dashboardTranslations["Profile Information"] : "Profile Information";
-      var posterIdLabel = document.getElementById("posterId")?.closest('.info-item')?.querySelector('.info-label');
-      if (posterIdLabel) posterIdLabel.textContent = lang === "ml" ? dashboardTranslations["Poster ID"] : "Poster ID";
-      var phoneLabel = document.getElementById("phone")?.closest('.info-item')?.querySelector('.info-label');
-      if (phoneLabel) phoneLabel.textContent = lang === "ml" ? dashboardTranslations["Phone Number"] : "Phone Number";
-      var tasksLabel = document.getElementById("profileTasksCompleted")?.closest('.info-item')?.querySelector('.info-label');
-      if (tasksLabel) tasksLabel.textContent = lang === "ml" ? dashboardTranslations["Total Tasks Completed"] : "Total Tasks Completed";
-      var statusLabel = document.querySelector('.status-badge')?.closest('.info-item')?.querySelector('.info-label');
-      if (statusLabel) statusLabel.textContent = lang === "ml" ? dashboardTranslations["Status"] : "Status";
-      var statusBadge = document.querySelector('.status-badge');
-      if (statusBadge) statusBadge.textContent = lang === "ml" ? dashboardTranslations["Active"] : "Active";
+        // Onboarding screen translations
+        // Step 1
+        const onboardingStep1Title = document.querySelector('#onboardingScreen h2');
+        if (onboardingStep1Title) onboardingStep1Title.textContent = dashboardTranslations["onboarding-steps-heading"];
+        const onboardingStep1Card = document.querySelector('#onboardingScreen > div:nth-of-type(2)');
+        if (onboardingStep1Card) {
+          const h2 = onboardingStep1Card.querySelector('h2');
+          if (h2) h2.textContent = dashboardTranslations["step1-title"];
+          const note = onboardingStep1Card.querySelector('div[style*="font-size:1rem"]');
+          if (note) note.textContent = dashboardTranslations["step1-note"];
+          
+          // Translate all social media follow buttons
+          const followButtons = onboardingStep1Card.querySelectorAll('.btn');
+          followButtons.forEach(btn => {
+            if (btn.textContent.includes('Follow')) {
+              btn.textContent = 'ഫോളോ ചെയ്യുക';
+            }
+          });
+        }
 
-      // Group card
-      var groupTitle = document.querySelector('.stats-icon + .card-title');
-      if (groupTitle) groupTitle.textContent = lang === "ml" ? dashboardTranslations["Join Official Posters Group"] : "Join Official Posters Group";
-      var groupDesc = document.querySelector('.join-group-section p');
-      if (groupDesc) groupDesc.textContent = lang === "ml" ? dashboardTranslations["Connect with other posters, get updates, and support in our official WhatsApp group."] : "Connect with other posters, get updates, and support in our official WhatsApp group.";
-      var joinGroupBtn = document.querySelector('.join-group-btn');
-      if (joinGroupBtn) joinGroupBtn.innerHTML = `<i class="fab fa-whatsapp"></i> ${lang === "ml" ? dashboardTranslations["Join Group"] : "Join Group"}`;
-      var lastTaskLabel = document.getElementById("lastTask")?.closest('.info-item')?.querySelector('.info-label');
-      if (lastTaskLabel) lastTaskLabel.textContent = lang === "ml" ? dashboardTranslations["Last Task"] : "Last Task";
+        // Step 2
+        const onboardingStep2Card = document.querySelector('#onboardingScreen > div:nth-of-type(3)');
+        if (onboardingStep2Card) {
+          const h3 = onboardingStep2Card.querySelector('h3');
+          if (h3) h3.innerHTML = `<i class="fas fa-tasks" style="color:#1e977e;margin-right:0.5em;"></i> ${dashboardTranslations["step2-title"]}`;
+          const downloadBtn = onboardingStep2Card.querySelector('#downloadAdImageBtn');
+          if (downloadBtn) downloadBtn.innerHTML = `<i class="fas fa-download"></i> ${dashboardTranslations["step2-download"]}`;
+          const imgNote = onboardingStep2Card.querySelector('div[style*="font-size:0.93rem"]');
+          if (imgNote) imgNote.innerHTML = `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step2-img-note"]}`;
+          const captionLabel = onboardingStep2Card.querySelector('label[for="onboardingAdText"]');
+          if (captionLabel) captionLabel.textContent = dashboardTranslations["step2-caption-label"];
+          const captionNote = onboardingStep2Card.querySelector('div[style*="font-size:0.93rem"]:nth-of-type(2)');
+          if (captionNote) captionNote.innerHTML = `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step2-caption-note"]}`;
+          const finalNote = onboardingStep2Card.querySelector('div[style*="font-size:1rem"]');
+          if (finalNote) finalNote.innerHTML = `<i class="fas fa-check-circle" style="color:#1e977e;margin-right:0.4em;"></i> ${dashboardTranslations["step2-final-note"]}`;
+          // Translate the copy button text
+          const copyBtn = onboardingStep2Card.querySelector('#copyAdTextBtn');
+          if (copyBtn) copyBtn.innerHTML = '<i class="fas fa-copy"></i> പകർത്തുക';
+        }
 
-      // Screenshot upload card
-      var uploadCardTitle = document.querySelector('.dashboard-card .card-icon + .card-title');
-      if (uploadCardTitle) uploadCardTitle.textContent = lang === "ml" ? dashboardTranslations["Upload Task Screenshot"] : "Upload Task Screenshot";
+        // Step 3 
+        const onboardingStep3Card = document.querySelector('#onboardingScreen > div:nth-of-type(4)');
+        if (onboardingStep3Card) {
+          const h3 = onboardingStep3Card.querySelector('h3');
+          if (h3) h3.innerHTML = `<i class="fas fa-upload" style="color:#1e977e;margin-right:0.5em;"></i> ${dashboardTranslations["step3-title"]}`;
+          const desc = onboardingStep3Card.querySelector('div[style*="font-size:1rem"]');
+          if (desc) desc.innerHTML = dashboardTranslations["step3-desc"];
+          const uploadBtn = onboardingStep3Card.querySelector('button[type="submit"]');
+          if (uploadBtn) uploadBtn.innerHTML = `<i class="fas fa-upload"></i> ${dashboardTranslations["step3-upload-btn"]}`;
+          const viewsNote = onboardingStep3Card.querySelector('div[style*="font-size:0.93rem"]');
+          if (viewsNote) viewsNote.innerHTML = `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step3-views-note"]}`;
 
-      // Quick actions
-      var quickActions = document.querySelectorAll('.quick-actions .action-btn');
-      if (quickActions.length > 0) {
-        quickActions[0].innerHTML = `<i class="fab fa-whatsapp"></i> ${lang === "ml" ? dashboardTranslations["Contact Support"] : "Contact Support"}`;
-        quickActions[1].innerHTML = `<i class="fas fa-file-contract"></i> ${lang === "ml" ? dashboardTranslations["View Terms"] : "View Terms"}`;
+          // Find and replace the existing process note HTML in onboarding
+          const onboardingProcessNote = onboardingStep3Card.querySelector('div[style*="font-size:0.97rem"]');
+          if (onboardingProcessNote) {
+            if (lang === 'ml') {
+              onboardingProcessNote.innerHTML = `<i class="fas fa-clock" style="color:#1e977e;margin-right:0.3em;"></i>
+                   <b>കുറിപ്പ്:</b> സ്ക്രീൻഷോട്ട് പരിശോധന ഒരു മാനുവൽ പ്രക്രിയയാണ്, 24 മണിക്കൂർ വരെ എടുക്കാം. നിങ്ങളുടെ സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്ത് കഴിഞ്ഞാൽ, ഞങ്ങളുടെ ടീം എത്രയും പെട്ടന്ന് പരിശോധിച്ച് അംഗീകരിക്കുന്നതായിരിക്കും.`;
+            } else {
+              onboardingProcessNote.innerHTML = `<i class="fas fa-clock" style="color:#1e977e;margin-right:0.3em;"></i>
+                   <b>Note:</b> Screenshot verification is a manual process and may take up to <b>24 hours</b>. 
+                   Once you upload your screenshot, just sit back and relax – our team will review and approve it as soon as possible!`;
+            }
+          }
+
+          // Also update the dashboard upload section note
+          const dashboardUploadNote = document.querySelector('.dashboard-card:last-child .withdraw-note');
+          if (dashboardUploadNote) {
+            if (lang === 'ml') {
+              dashboardUploadNote.innerHTML = `<i class="fas fa-info-circle"></i> ₹500 തികയുമ്പോൾ മാത്രമേ പണം പിൻവലിക്കാൻ കഴിയൂ`;
+            } else {
+              dashboardUploadNote.innerHTML = `<i class="fas fa-info-circle"></i> You can only withdraw your amount after meeting the ₹500 threshold.`;
+            }
+          }
+        }
+        
+        // Translate dashboard buttons and status messages
+        const uploadBtn = document.getElementById('uploadBtn');
+        if (uploadBtn) uploadBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> അപ്‌ലോഡ് ചെയ്യുക';
+        
+        const uploadStatus = document.getElementById('uploadStatusMessage');
+        if (uploadStatus && uploadStatus.textContent.includes('Please select')) {
+          uploadStatus.textContent = 'ദയവായി ഒരു ഫയൽ തിരഞ്ഞെടുക്കുക';
+        }
+
+        const elementsToTranslate = [
+          { selector: '.dashboard-welcome h1', key: "welcome-back" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(1) .card-title', key: "Your Wallet" },
+          { selector: '.wallet-detail-label:nth-of-type(1)', key: "Total Earned" },
+          { selector: '.wallet-detail-label:nth-oftype(2)', key: "Paid Out" },
+          { selector: '#withdrawBtn', key: "Withdraw", isHTML: true },
+          { selector: '.withdraw-note', key: "threshold-note" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(2) .card-title', key: "Profile Information" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(1)', key: "Poster ID" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(2)', key: "Phone Number" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(3)', key: "Total Tasks Completed" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(4)', key: "Status" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(3) .card-title', key: "Join Official Posters Group" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(3) p', key: "group-description" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(3) .join-group-btn', key: "Join Group" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(3) .info-label', key: "Last Task" },
+          { selector: '.dashboard-card:last-child .card-title', key: "Upload Task Screenshot" },
+          { selector: '.quick-actions a:nth-child(1)', key: "Contact Support", isHTML: true },
+          { selector: '.quick-actions a:nth-child(2)', key: "View Terms", isHTML: true }
+        ];
+
+        elementsToTranslate.forEach(item => {
+          const el = document.querySelector(item.selector);
+          if (el) {
+            const translation = dashboardTranslations[item.key];
+            console.log(`Translating ${item.selector} (${item.key}) to: ${translation}`);
+            if (item.isHTML) {
+              el.innerHTML = translation;
+            } else {
+              el.textContent = translation;
+            }
+          } else {
+            console.warn(`Element not found for translation: ${item.selector}`);
+          }
+        });
+      } else {
+        console.log('Applying English translations');
+        // English translations (reset to default)
+        setText("lang-label", "Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:");
+        
+        const defaultTranslations = [
+          { selector: '.dashboard-welcome h1', text: "Welcome back" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(1) .card-title', text: "Your Wallet" },
+          { selector: '.wallet-detail-label:nth-of-type(1)', text: "Total Earned" },
+          { selector: '.wallet-detail-label:nth-oftype(2)', text: "Paid Out" },
+          { selector: '#withdrawBtn', text: '<i id="withdrawLockIcon" class="fas fa-lock"></i> Withdraw', isHTML: true },
+          { selector: '.withdraw-note', text: "You can only withdraw your amount after meeting the ₹500 threshold." },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(2) .card-title', text: "Profile Information" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(1)', text: "Poster ID" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(2)', text: "Phone Number" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(3)', text: "Total Tasks Completed" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(4)', text: "Status" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(3) .card-title', text: "Join Official Posters Group" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(3) p', text: "Connect with other posters, get updates, and support in our official WhatsApp group." },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(3) .join-group-btn', text: "Join Group" },
+          { selector: '.dashboard-grid .dashboard-card:nth-child(3) .info-label', text: "Last Task" },
+          { selector: '.dashboard-card:last-child .card-title', text: "Upload Task Screenshot" },
+          { selector: '.quick-actions a:nth-child(1)', text: '<i class="fab fa-whatsapp"></i> Contact Support', isHTML: true },
+          { selector: '.quick-actions a:nth-child(2)', text: '<i class="fas fa-file-contract"></i> View Terms', isHTML: true }
+        ];
+
+        defaultTranslations.forEach(item => {
+          const el = document.querySelector(item.selector);
+          if (el) {
+            console.log(`Resetting ${item.selector} to English: ${item.text}`);
+            if (item.isHTML) {
+              el.innerHTML = item.text;
+            } else {
+              el.textContent = item.text;
+            }
+          } else {
+            console.warn(`Element not found for reset: ${item.selector}`);
+          }
+        });
       }
     }
 
-    // On load, check localStorage for language preference
-    var savedLang = localStorage.getItem('statuspay247_lang');
-    setLanguage(savedLang === 'ml' ? 'ml' : 'en');
+    // Debug language switching
+    console.log('Initializing language buttons...');
+    
+    function initLanguageButtons() {
+      const savedLang = localStorage.getItem('statuspay247_lang') || 'en';
+      console.log('Saved language:', savedLang);
+      
+      // Initialize buttons first
+      const btnEn = document.getElementById('btn-en');
+      const btnMl = document.getElementById('btn-ml');
+      console.log('Found buttons:', {btnEn, btnMl});
 
-    // Language button event listeners
-    document.getElementById('btn-en').addEventListener('click', () => setLanguage('en'));
-    document.getElementById('btn-ml').addEventListener('click', () => setLanguage('ml'));
+      if (btnEn && btnMl) {
+        // Clear any existing listeners to prevent duplicates
+        btnEn.replaceWith(btnEn.cloneNode(true));
+        btnMl.replaceWith(btnMl.cloneNode(true));
+        
+        // Get fresh references after clone
+        const newBtnEn = document.getElementById('btn-en');
+        const newBtnMl = document.getElementById('btn-ml');
+
+        newBtnEn.addEventListener('click', function() {
+          console.log('English button clicked');
+          setLanguage('en');
+        });
+        newBtnMl.addEventListener('click', function() {
+          console.log('Malayalam button clicked');
+          setLanguage('ml'); 
+        });
+
+        // Set initial language and button states
+        setLanguage(savedLang);
+      }
+    }
+
+    // Initialize on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLanguageButtons);
+    } else {
+      initLanguageButtons();
+    }
   </script>
 </body>
 </html>
