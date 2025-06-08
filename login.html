@@ -10,6 +10,86 @@
     <link rel="stylesheet" href="css/styles-cleaned.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        .lang-select-bar {
+            width: 100%;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            padding: 0.5rem 0.5rem;
+            font-size: 1rem;
+            position: relative;
+            z-index: 900;
+            min-height: 38px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .lang-label {
+            font-size: 1rem;
+            color: #444;
+            margin-right: 0.5rem;
+            white-space: normal;
+            flex-shrink: 0;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .lang-select-bar button {
+            background: #fff;
+            color: #1E977E;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            padding: 0.25rem 1.1rem;
+            font-size: 1rem;
+            margin: 0 0.1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border 0.2s;
+            outline: none;
+            font-family: inherit;
+            font-weight: 600;
+            box-shadow: 0 1px 2px rgba(30,151,126,0.04);
+        }
+
+        .lang-select-bar button.active,
+        .lang-select-bar button:focus {
+            background: #1E977E;
+            color: #fff;
+            border: 1.5px solid #1E977E;
+        }
+
+        .lang-select-bar button:hover:not(.active) {
+            background: #e6f7f2;
+            color: #17314B;
+            border-color: #1E977E;
+        }
+        
+        @media (max-width: 600px) {
+            .lang-select-bar {
+                font-size: 0.97rem;
+                padding: 0.2rem 0.1rem;
+                gap: 0.2rem;
+                min-height: 0;
+            }
+            .lang-label {
+                font-size: 0.97rem;
+                margin: 0.2rem 0;
+                width: 100%;
+                flex-basis: 100%;
+                display: block;
+            }
+            .lang-select-bar button {
+                font-size: 0.97rem;
+                padding: 0.18rem 0.7rem;
+                min-width: 70px;
+                margin-bottom: 0.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -64,12 +144,12 @@
                         <form id="loginForm" class="login-form-modern">
                             <div class="form-group-modern">
                                 <label for="phone">WhatsApp Number</label>
-                                <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required>
+                                <input type="tel" id="phone" placeholder="Enter your WhatsApp number" required autocomplete="username">
                             </div>
                             <div class="form-group-modern">
                                 <label for="password">Password</label>
                                 <div class="password-input-container-modern">
-                                    <input type="password" id="password" placeholder="Enter your password" required>
+                                    <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
                                     <span class="password-toggle-modern" onclick="togglePasswordVisibility('password')">
                                         <i class="fas fa-eye"></i>
                                     </span>
@@ -135,23 +215,15 @@
             const errorElement = document.getElementById('login-error');
             const errorMessage = document.getElementById('error-message');
             const errorDetails = document.getElementById('error-details');
-            
             errorMessage.textContent = message;
-            
             if (details) {
                 errorDetails.textContent = details;
                 errorDetails.style.display = 'block';
             } else {
                 errorDetails.style.display = 'none';
             }
-            
             errorElement.style.display = 'block';
             document.getElementById('login-status').style.display = 'none';
-
-            // For debugging: also log to console
-            if (details) {
-                console.error('Login error details:', details);
-            }
         }
 
         // Function to show status message (modified: only show "Authenticating..." and "Logging in...")
@@ -217,27 +289,19 @@
         // Form submission handler with multiple fallback methods
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            const loginBtn = document.querySelector('.login-btn-modern'); // <-- updated selector
+            const loginBtn = document.querySelector('.login-btn-modern');
             loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
             loginBtn.disabled = true;
-
-            // Get form data
             const phone = document.getElementById('phone').value.replace(/[^0-9]/g, "").slice(-10);
             const password = document.getElementById('password').value;
-            
-            // Form validation
             if (!phone || !password) {
                 showError('Please fill in all fields');
                 loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> Login';
                 loginBtn.disabled = false;
                 return;
             }
-            
             try {
-                // Show status
                 showStatus('Authenticating...');
-                
-                // Hash the password
                 const hashedPassword = await hashPassword(password);
                 if (!hashedPassword) {
                     showError('Password hashing failed. Please use a modern browser.');
@@ -245,15 +309,7 @@
                     loginBtn.disabled = false;
                     return;
                 }
-                console.log('Attempting login with phone:', phone);
-                console.log('Password hash length:', hashedPassword.length);
-                
-                // Get the Apps Script URL
-                // const scriptId = 'AKfycbzJpQjiRG0i0lYoXReCQQxrAEe9YJDhWcIlhAgPLdZDHwY5wEyGC4oqyISyadvYgnCsKg';
-                // const apiUrl = 'https://script.google.com/macros/s/' + scriptId + '/exec';
                 const apiUrl = 'https://script.google.com/macros/s/AKfycbzraI_Ii_8bfSxaqYHmo2FhONUPcYxJuRhZghQueuvwZ4bQskpc40nqczAQYazramSRYw/exec';
-                
-                // First, test connectivity with a simple ping
                 try {
                     showStatus('Testing connection...');
                     const pingResponse = await fetch(apiUrl + '?test=ping', {
@@ -264,26 +320,9 @@
                             'Content-Type': 'text/plain'
                         }
                     });
-                    
-                    if (pingResponse.ok) {
-                        const pingText = await pingResponse.text();
-                        console.log('Ping test response:', pingText);
-                        if (pingText !== 'pong') {
-                            console.warn('Unexpected ping response:', pingText);
-                        }
-                    } else {
-                        console.warn('Ping test failed with status:', pingResponse.status);
-                    }
-                } catch (pingError) {
-                    console.warn('Ping test error:', pingError);
-                    // Continue anyway, the main login might still work
-                }
-                
-                // Try multiple login methods in sequence
+                } catch (pingError) {}
                 let loginResponse = null;
                 let errorMessages = [];
-                
-                // Method 1: Try direct fetch with JSON
                 showStatus('Trying direct fetch...');
                 try {
                     const fetchResponse = await fetch(apiUrl, {
@@ -299,28 +338,21 @@
                             'password': hashedPassword
                         })
                     });
-                    
                     if (fetchResponse.ok) {
                         loginResponse = await fetchResponse.json();
-                        console.log('Direct fetch successful:', loginResponse);
                     } else {
                         errorMessages.push('Fetch failed with status: ' + fetchResponse.status);
                         const text = await fetchResponse.text();
                         errorMessages.push('Fetch response: ' + text);
                     }
                 } catch (fetchError) {
-                    console.warn('Direct fetch error:', fetchError);
                     errorMessages.push('Fetch error: ' + fetchError.message);
                 }
-                
-                // Method 2: If direct fetch failed, try JSONP
                 if (!loginResponse) {
                     showStatus('Trying JSONP...');
                     try {
                         loginResponse = await new Promise((resolve, reject) => {
                             const callbackName = 'loginCallback_' + new Date().getTime();
-                            
-                            // Set a timeout
                             const timeoutId = setTimeout(function() {
                                 if (window[callbackName]) {
                                     delete window[callbackName];
@@ -329,61 +361,46 @@
                                     }
                                     reject(new Error('JSONP request timed out'));
                                 }
-                            }, 20000); // 20 second timeout
-                            
-                            // Create the callback function
+                            }, 20000);
                             window[callbackName] = function(response) {
                                 clearTimeout(timeoutId);
                                 if (document.getElementById('jsonp-script')) {
                                     document.body.removeChild(document.getElementById('jsonp-script'));
                                 }
                                 delete window[callbackName];
-                                
                                 if (response && response.success) {
                                     resolve(response);
                                 } else {
                                     reject(new Error(response ? response.message : 'Login failed'));
                                 }
                             };
-                            
-                            // Create and append the script tag
                             const script = document.createElement('script');
                             script.id = 'jsonp-script';
-                script.src = 'https://script.google.com/macros/s/AKfycbzraI_Ii_8bfSxaqYHmo2FhONUPcYxJuRhZghQueuvwZ4bQskpc40nqczAQYazramSRYw/exec' + 
-                            '?action=login' + 
-                            '&phone=' + encodeURIComponent(phone) + 
-                            '&password=' + encodeURIComponent(hashedPassword) + 
-                            '&callback=' + callbackName + 
-                            '&t=' + new Date().getTime();
+                            script.src = 'https://script.google.com/macros/s/AKfycbzraI_Ii_8bfSxaqYHmo2FhONUPcYxJuRhZghQueuvwZ4bQskpc40nqczAQYazramSRYw/exec' +
+                                '?action=login' +
+                                '&phone=' + encodeURIComponent(phone) +
+                                '&password=' + encodeURIComponent(hashedPassword) +
+                                '&callback=' + callbackName +
+                                '&t=' + new Date().getTime();
                             document.body.appendChild(script);
                         });
-                        
-                        console.log('JSONP successful:', loginResponse);
                     } catch (jsonpError) {
-                        console.warn('JSONP error:', jsonpError);
                         errorMessages.push('JSONP error: ' + jsonpError.message);
                     }
                 }
-                
-                // Method 3: If JSONP failed, try form submission in an iframe
                 if (!loginResponse) {
                     showStatus('Trying form submission...');
                     try {
                         loginResponse = await new Promise((resolve, reject) => {
-                            // Create a hidden iframe
                             const iframe = document.createElement('iframe');
                             iframe.style.display = 'none';
                             iframe.name = 'login-target-' + new Date().getTime();
                             document.body.appendChild(iframe);
-                            
-                            // Create a form that targets the iframe
                             const form = document.createElement('form');
                             form.style.display = 'none';
                             form.method = 'POST';
                             form.action = apiUrl;
                             form.target = iframe.name;
-                            
-                            // Add form fields
                             const addField = (name, value) => {
                                 const input = document.createElement('input');
                                 input.type = 'hidden';
@@ -391,41 +408,28 @@
                                 input.value = value;
                                 form.appendChild(input);
                             };
-                            
                             addField('action', 'login');
                             addField('phone', phone);
                             addField('password', hashedPassword);
-                            
                             document.body.appendChild(form);
-                            
-                            // Set a timeout
                             const timeoutId = setTimeout(function() {
                                 document.body.removeChild(iframe);
                                 document.body.removeChild(form);
                                 reject(new Error('Form submission timed out'));
                             }, 20000);
-                            
-                            // Listen for iframe load
                             iframe.onload = function() {
                                 try {
                                     clearTimeout(timeoutId);
-                                    
-                                    // Try to read the response from the iframe
-                                    // Note: This might fail due to same-origin policy
                                     const iframeContent = iframe.contentWindow.document.body.textContent;
                                     let response = null;
-                                    
                                     try {
                                         response = JSON.parse(iframeContent);
                                     } catch (parseError) {
-                                        console.warn('Failed to parse iframe response:', parseError);
                                         errorMessages.push('Iframe parse error: ' + parseError.message);
                                         errorMessages.push('Iframe content: ' + iframeContent);
                                     }
-                                    
                                     document.body.removeChild(iframe);
                                     document.body.removeChild(form);
-                                    
                                     if (response && response.success) {
                                         resolve(response);
                                     } else {
@@ -437,23 +441,15 @@
                                     reject(error);
                                 }
                             };
-                            
-                            // Submit the form
                             form.submit();
                         });
-                        
-                        console.log('Form submission successful:', loginResponse);
                     } catch (formError) {
-                        console.warn('Form submission error:', formError);
                         errorMessages.push('Form submission error: ' + formError.message);
                     }
                 }
-                
-                // If we have a successful login response, handle it
                 if (loginResponse && loginResponse.success) {
                     handleLoginSuccess(loginResponse, phone);
                 } else {
-                    // All methods failed
                     let userFriendlyMsg = 'Login failed. ';
                     if (!navigator.onLine) {
                         userFriendlyMsg += 'You appear to be offline. Please check your internet connection and try again.';
@@ -464,13 +460,10 @@
                     } else {
                         userFriendlyMsg += 'All login methods failed. Please try again later.';
                     }
-                    // Show all error messages in details for debugging
                     showError(userFriendlyMsg, errorMessages.join('\n'));
                     throw new Error(userFriendlyMsg + ' Details: ' + errorMessages.join(' | '));
                 }
-                
             } catch (error) {
-                // Show a friendly message for login errors
                 let msg = error && error.message ? error.message : 'Login failed due to an unknown error.';
                 if (
                     msg.includes('All login methods failed') ||
@@ -480,9 +473,7 @@
                     msg = 'Incorrect phone number or password. Please try again.';
                 }
                 showError(msg, '');
-                console.error('Login error:', error);
             } finally {
-                // Reset the login button
                 loginBtn.innerHTML = '<i class="fas fa-sign-in-alt" style="margin-right: 10px;"></i> Login';
                 loginBtn.disabled = false;
             }

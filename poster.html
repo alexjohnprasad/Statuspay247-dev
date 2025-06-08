@@ -14,6 +14,89 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="js/main.js" defer></script>
+    <style>
+        .lang-select-bar {
+            width: 100%;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+            font-size: 1rem;
+            position: relative;
+            z-index: 900;
+            min-height: 38px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .lang-label {
+            font-size: 1rem;
+            color: #444;
+            margin-right: 0.5rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .lang-select-bar button {
+            background: #fff;
+            color: #1E977E;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            padding: 0.25rem 1.1rem;
+            font-size: 1rem;
+            margin: 0 0.1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border 0.2s;
+            outline: none;
+            font-family: inherit;
+            font-weight: 600;
+            box-shadow: 0 1px 2px rgba(30,151,126,0.04);
+        }
+
+        .lang-select-bar button.active,
+        .lang-select-bar button:focus {
+            background: #1E977E;
+            color: #fff;
+            border: 1.5px solid #1E977E;
+        }
+
+        .lang-select-bar button:hover:not(.active) {
+            background: #e6f7f2;
+            color: #17314B;
+            border-color: #1E977E;
+        }
+        
+        @media (max-width: 600px) {
+            .lang-select-bar {
+                flex-wrap: wrap;
+                font-size: 0.97rem;
+                padding: 0.2rem 0.1rem;
+                gap: 0.2rem;
+                min-height: 0;
+                justify-content: center;
+                text-align: center;
+            }
+            .lang-label {
+                font-size: 0.97rem;
+                margin-right: 0.2rem;
+                white-space: normal;
+                margin-bottom: 0.2rem;
+                flex-basis: 100%;
+                text-align: center;
+            }
+            .lang-select-bar button {
+                font-size: 0.97rem;
+                padding: 0.18rem 0.7rem;
+                min-width: 70px;
+                margin-bottom: 0.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -642,7 +725,7 @@
             // City change handler
             function handleCityChange() {
                 const citySelect = document.getElementById("city");
-                const otherCityContainer = document.getElementById("otherCityContainer");
+                const otherCityContainer = document.getElementById("otherCity");
 
                 if (citySelect.value === "Other") {
                     otherCityContainer.style.display = "block";
@@ -655,7 +738,7 @@
 
             function handleDistrictChange() {
                 const districtSelect = document.getElementById("district");
-                const otherDistrictContainer = document.getElementById("otherDistrictContainer");
+                const otherDistrictContainer = document.getElementById("otherDistrict");
 
                 if (districtSelect.value === "Other") {
                     otherDistrictContainer.style.display = "block";
@@ -693,8 +776,6 @@
                 const submitBtn = document.getElementById("submit-btn");
                 const termsAccepted = document.getElementById("terms-accept").checked;
 
-                console.log("Age calculated:", age, "DOB:", dobInput.value);
-
                 if (age < 18) {
                     ageError.style.display = "block";
                     dobInput.setCustomValidity("You must be at least 18 years old to register.");
@@ -724,8 +805,6 @@
 
             // Set max attribute - this prevents selection of dates after this (younger than 18)
             dobInput.setAttribute('max', maxDate);
-
-            console.log("Max date set to:", maxDate, "(updates daily)");
 
             // Add event listener to prevent manual entry of invalid dates
             dobInput.addEventListener('input', function(e) {
@@ -1145,15 +1224,10 @@
             });
         });
 
-        // --- Expose functions globally for inline event handlers ---
         window.handleCityChange = handleCityChange;
         window.handleDistrictChange = handleDistrictChange;
         window.generateCaptcha = generateCaptcha;
         window.togglePasswordVisibility = togglePasswordVisibility;
-        // If you have ML versions, expose them too:
-        if (typeof handleCityChangeML === 'function') window.handleCityChangeML = handleCityChangeML;
-        if (typeof handleDistrictChangeML === 'function') window.handleDistrictChangeML = handleDistrictChangeML;
-        if (typeof generateCaptchaML === 'function') window.generateCaptchaML = generateCaptchaML;
     </script>
 </body>
 </html>

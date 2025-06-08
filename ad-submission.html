@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Submit your ad to StatusPay 247 for promotion through our network of posters">
+    <meta name="keywords" content="Advertise, StatusPay, WhatsApp, Status, Ads, Marketing">
+    <meta name="author" content="StatusPay 247">
+    <title>Client Ad Submission - StatusPay 247</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+    <link rel="shortcut icon" href="assets/favicon.png">
+    <link rel="stylesheet" href="css/styles-cleaned.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="js/main.js" defer></script>
+    <style>
+        .lang-select-bar {
+            width: 100%;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            padding: 0.5rem 0.5rem;
+            font-size: 1rem;
+            position: relative;
+            z-index: 900;
+            min-height: 38px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .lang-label {
+            font-size: 1rem;
+            color: #444;
+            margin-right: 0.5rem;
+            white-space: normal;
+            flex-shrink: 0;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .lang-select-bar button {
+            background: #fff;
+            color: #1E977E;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            padding: 0.25rem 1.1rem;
+            font-size: 1rem;
+            margin: 0 0.1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border 0.2s;
+            outline: none;
+            font-family: inherit;
+            font-weight: 600;
+            box-shadow: 0 1px 2px rgba(30,151,126,0.04);
+        }
+
+        .lang-select-bar button.active,
+        .lang-select-bar button:focus {
+            background: #1E977E;
+            color: #fff;
+            border: 1.5px solid #1E977E;
+        }
+
+        .lang-select-bar button:hover:not(.active) {
+            background: #e6f7f2;
+            color: #17314B;
+            border-color: #1E977E;
+        }
+        
+        @media (max-width: 600px) {
+            .lang-select-bar {
+                font-size: 0.97rem;
+                padding: 0.2rem 0.1rem;
+                gap: 0.2rem;
+                min-height: 0;
+            }
+            .lang-label {
+                font-size: 0.97rem;
+                margin: 0.2rem 0;
+                width: 100%;
+                flex-basis: 100%;
+                display: block;
+            }
+            .lang-select-bar button {
+                font-size: 0.97rem;
+                padding: 0.18rem 0.7rem;
+                min-width: 70px;
+                margin-bottom: 0.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <a href="/">
+                        <img src="assets/logo.png" alt="StatusPay 247 Logo">
+                    </a>
+                </div>
+                <div class="burger-menu" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul>
+                    <li><a href="index.html#hero">Home</a></li>
+                    <li><a href="poster.html">Join as Poster</a></li>
+                    <li><a href="advertise-with-us.html">Advertise With Us</a></li>
+                    <li><a href="login.html" class="btn btn-secondary">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Language selection -->
+    <div class="lang-select-bar">
+        <span class="lang-label">
+            Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:
+        </span>
+        <button type="button" id="btn-en" class="active">English</button>
+        <button type="button" id="btn-ml">മലയാളം</button>
+    </div>
+
+    <main>
+        <section id="client-ad-submission" class="section-light">
+            <div class="container">
+                <!-- English content (default visible) -->
+                <div id="client-content-en">
+                    <div class="section-title">
+                        <h2>Ad Submission</h2>
+                    </div>
+
+                    <div class="section-content">
+                        <p>Fill out the form below to submit your ad for promotion through our network of WhatsApp status posters.</p>
+                    </div>
+                    <form id="clientForm" class="form" novalidate>
+                        <div class="form-group">
+                            <label for="ad-title">Ad Title</label>
+                            <input type="text" id="ad-title" name="entry.712179523" placeholder="Enter your ad title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-description">Ad Description</label>
+                            <textarea id="ad-description" name="entry.349561765" placeholder="Describe your ad content" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="target-posters">Number of Posters to Share Your Ad</label>
+                            <input type="number" id="target-posters" name="entry.918010829" placeholder="How many people will post your ad (each has 100+ viewers)" min="1" required>
+                            <div id="views-estimate" class="views-estimate">Estimated views: <span id="total-views">0</span>+</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-date">Preferred Start Date</label>
+                            <input type="date" id="ad-date" name="entry.2087707272" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-name">Contact Name</label>
+                            <input type="text" id="contact-name" name="entry.1784175427" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp">WhatsApp Number</label>
+                            <input type="tel" 
+                                   id="whatsapp" 
+                                   name="entry.328126903"
+                                   placeholder="Enter your WhatsApp number (10 digits)" 
+                                   required 
+                                   pattern="^(\+91)?[6-9][0-9]{9}$"
+                                   title="Please enter a valid Indian mobile number">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" 
+                                   id="email" 
+                                   name="entry.1875667744"
+                                   placeholder="Enter your email address" 
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="media-link">Ad Media Link (Drive, Dropbox, etc.)</label>
+                            <input type="url" 
+                                   id="media-link" 
+                                   name="entry.356786298"
+                                   placeholder="Link to your ad media files" 
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Additional Notes or Suggestions</label>
+                            <textarea id="notes" name="entry.779422439" placeholder="You can mention any specific targeting (e.g., region, age group), preferred posting time, message tone, or anything else you want us to consider."></textarea>
+                        </div>
+
+                        <div class="form-group terms-checkbox">
+                            <label>
+                                <input type="checkbox" name="terms" required>
+                                I agree to the <a href="advertiser-terms.html" target="_blank">Advertiser Terms and Conditions</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn">Submit Ad</button>
+                    </form>
+                </div>
+
+                <!-- Malayalam content (hidden by default) -->
+                <div id="client-content-ml" style="display:none;">
+                    <div class="section-title">
+                        <h2>പരസ്യ സമർപ്പണം</h2>
+                    </div>
+
+                    <div class="section-content">
+                        <p>WhatsApp സ്റ്റാറ്റസ് പോസ്റ്റർമാരുടെ നെറ്റ്‌വർക്കിലൂടെ നിങ്ങളുടെ പരസ്യം പ്രചരിപ്പിക്കാൻ താഴെയുള്ള ഫോം പൂരിപ്പിക്കുക.</p>
+                    </div>
+                    <form id="clientForm-ml" class="form" novalidate>
+                        <div class="form-group">
+                            <label for="ad-title-ml">പരസ്യത്തിന്റെ തലക്കെട്ട്</label>
+                            <input type="text" id="ad-title-ml" name="entry.712179523" placeholder="പരസ്യത്തിന്റെ തലക്കെട്ട് നൽകുക" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-description-ml">പരസ്യ വിവരണം</label>
+                            <textarea id="ad-description-ml" name="entry.349561765" placeholder="പരസ്യത്തിന്റെ വിവരണം നൽകുക" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="target-posters-ml">നിങ്ങളുടെ പരസ്യം WhatsApp സ്റ്റാറ്റസായി പങ്കിടാൻ ആവശ്യമായ ആളുകളുടെ എണ്ണം</label>
+                            <input type="number" id="target-posters-ml" name="entry.918010829" placeholder="എത്ര ആളുകൾ നിങ്ങളുടെ പരസ്യം WhatsApp സ്റ്റാറ്റസായി പങ്കിടും (ഓരോരുത്തർക്കും 100+ കാഴ്ചക്കാർ)" min="1" required>
+                            <div id="views-estimate-ml" class="views-estimate">കണക്കാക്കിയ കാഴ്ചകൾ: <span id="total-views-ml">0</span>+</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ad-date-ml">ആരംഭ തീയതി</label>
+                            <input type="date" id="ad-date-ml" name="entry.2087707272" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-name-ml">ബന്ധപ്പെടാനുള്ള വ്യക്തിയുടെ പേര്</label>
+                            <input type="text" id="contact-name-ml" name="entry.1784175427" placeholder="നിങ്ങളുടെ പേര്" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp-ml">WhatsApp നമ്പർ</label>
+                            <input type="tel" 
+                                   id="whatsapp-ml" 
+                                   name="entry.328126903"
+                                   placeholder="നിങ്ങളുടെ WhatsApp നമ്പർ (10 അക്കങ്ങൾ)" 
+                                   required 
+                                   pattern="^(\+91)?[6-9][0-9]{9}$"
+                                   title="ദയവായി ശരിയായ ഇന്ത്യൻ മൊബൈൽ നമ്പർ നൽകുക">
+                        </div>
+                        <div class="form-group">
+                            <label for="email-ml">ഇമെയിൽ വിലാസം</label>
+                            <input type="email" 
+                                   id="email-ml" 
+                                   name="entry.1875667744"
+                                   placeholder="നിങ്ങളുടെ ഇമെയിൽ വിലാസം നൽകുക" 
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="media-link-ml">പരസ്യ മീഡിയ ലിങ്ക് (Drive, Dropbox, മറ്റുള്ളവ)</label>
+                            <input type="url" 
+                                   id="media-link-ml" 
+                                   name="entry.356786298"
+                                   placeholder="നിങ്ങളുടെ പരസ്യ മീഡിയ ഫയലുകളുടെ ലിങ്ക്" 
+                                   required>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes-ml">അധിക കുറിപ്പുകൾ അല്ലെങ്കിൽ നിർദ്ദേശങ്ങൾ</label>
+                            <textarea id="notes-ml" name="entry.779422439" placeholder="നിങ്ങൾക്ക് ആവശ്യമുള്ള ടാർഗെറ്റിംഗ് (പ്രദേശം, പ്രായക്കൂട്ടം), പോസ്റ്റിംഗ് സമയം, സന്ദേശത്തിന്റെ ടോൺ, അല്ലെങ്കിൽ മറ്റേതെങ്കിലും പ്രത്യേക നിർദ്ദേശങ്ങൾ ഇവിടെ രേഖപ്പെടുത്താം"></textarea>
+                        </div>
+
+                        <div class="form-group terms-checkbox">
+                            <label>
+                                <input type="checkbox" name="terms" required>
+                                ഞാൻ <a href="advertiser-terms.html" target="_blank">പരസ്യദാതാവിന്റെ നിബന്ധനകളും വ്യവസ്ഥകളും</a> വായിച്ച് അംഗീകരിക്കുന്നു
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn">പരസ്യം സമർപ്പിക്കുക</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="copyright" style="background-color:#1F2937; color:white; padding:0;">
+            <p style="margin-top:1.5rem;">&copy; 2025 StatusPay 247. All rights reserved.</p>
+            <div class="footer-social" style="margin:1rem 0 0.5rem 0;">
+                <a href="https://x.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="X.com">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+            <p class="disclaimer" style="color:#9CA3AF;">WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc.</p>
+        </div>
+    </footer>
+
+    <style>
+        .views-estimate {
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .terms-checkbox {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        .terms-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .terms-checkbox label {
+            font-size: 0.95em;
+            color: #495057;
+            vertical-align: middle;
+        }
+        .terms-checkbox a {
+            color: #3b82f6;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+        .terms-checkbox a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Views calculation functionality
+            function calculateViews() {
+                const posters = parseInt(document.getElementById('target-posters').value) || 0;
+                const postersMl = parseInt(document.getElementById('target-posters-ml').value) || 0;
+                const totalViews = posters * 100;
+                const totalViewsMl = postersMl * 100;
+                
+                document.getElementById('total-views').textContent = totalViews;
+                document.getElementById('total-views-ml').textContent = totalViewsMl;
+            }
+
+            // Add event listeners for views calculation
+            document.getElementById('target-posters').addEventListener('input', calculateViews);
+            document.getElementById('target-posters-ml').addEventListener('input', calculateViews);
+
+            // Initialize calculation
+            calculateViews();
+            // Language toggle functionality
+            function setLanguage(lang) {
+                if (lang === 'ml') {
+                    document.getElementById('client-content-en').style.display = 'none';
+                    document.getElementById('client-content-ml').style.display = 'block';
+                    document.getElementById('btn-ml').classList.add('active');
+                    document.getElementById('btn-en').classList.remove('active');
+                } else {
+                    document.getElementById('client-content-en').style.display = 'block';
+                    document.getElementById('client-content-ml').style.display = 'none';
+                    document.getElementById('btn-en').classList.add('active');
+                    document.getElementById('btn-ml').classList.remove('active');
+                }
+                localStorage.setItem('statuspay247_lang', lang);
+            }
+
+            // Initialize language from localStorage
+            var savedLang = localStorage.getItem('statuspay247_lang');
+            setLanguage(savedLang === 'ml' ? 'ml' : 'en');
+
+            // Add event listeners to language buttons
+            document.getElementById('btn-en').addEventListener('click', function(event) {
+                event.preventDefault();
+                setLanguage('en');
+            });
+
+            document.getElementById('btn-ml').addEventListener('click', function(event) {
+                event.preventDefault();
+                setLanguage('ml');
+            });
+
+            // Form submission handler for English form
+            document.getElementById("clientForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+                
+                // Validate form
+                if (!this.checkValidity()) {
+                    return;
+                }
+
+                // Submit to Google Form
+                const formData = new FormData(this);
+                submitToGoogleForm(formData);
+            });
+
+            // Form submission handler for Malayalam form
+            document.getElementById("clientForm-ml").addEventListener("submit", function(event) {
+                event.preventDefault();
+                
+                // Validate form
+                if (!this.checkValidity()) {
+                    return;
+                }
+
+                // Submit to Google Form
+                const formData = new FormData(this);
+                submitToGoogleForm(formData);
+            });
+
+            // Function to submit data to Google Form
+            function submitToGoogleForm(formData) {
+                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScNqDpIrOcZe5Ke_PauaKIbNvTp-TXxAwWistGTJKyvzf-VIw/formResponse";
+                
+                // Create a hidden iframe for submission
+                const iframe = document.createElement('iframe');
+                iframe.name = 'hidden_iframe';
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+
+                const tempForm = document.createElement('form');
+                tempForm.action = googleFormUrl;
+                tempForm.method = 'POST';
+                tempForm.target = 'hidden_iframe';
+                tempForm.style.display = 'none';
+
+                // Copy fields from FormData to the temp form
+                for (let [name, value] of formData.entries()) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = name;
+                    input.value = value;
+                    tempForm.appendChild(input);
+                }
+
+                document.body.appendChild(tempForm);
+
+                // Listen for iframe load to show success message
+                iframe.onload = () => {
+                    // Clear forms
+                    document.getElementById('clientForm').reset();
+                    document.getElementById('clientForm-ml').reset();
+                    
+                    setTimeout(() => {
+                        document.body.removeChild(iframe);
+                        document.body.removeChild(tempForm);
+                    }, 500);
+
+                    // Show success message
+                    alert("Ad submitted successfully! We'll contact you soon.");
+                };
+
+                tempForm.submit();
+            }
+        });
+
+        // Global function for menu toggle
+        function toggleMenu() {
+            const nav = document.querySelector('nav ul');
+            nav.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
