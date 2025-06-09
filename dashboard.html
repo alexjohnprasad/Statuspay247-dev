@@ -477,25 +477,28 @@
     </div>
   </header>
 
-  <!-- Language selection: simple, minimal, one line, no extra styling -->
-  <div class="lang-select-bar">
-    <span class="lang-label">
-      Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:
-    </span>
-    <button type="button" id="btn-en" class="active">English</button>
-    <button type="button" id="btn-ml">മലയാളം</button>
+
+  <!-- Language Selection Bar -->
+  <div class="lang-select-wrapper">
+    <div class="lang-select-bar">
+      <span class="lang-label">
+        Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:
+      </span>
+      <button type="button" id="btn-en" class="active">English</button>
+      <button type="button" id="btn-ml">മലയാളം</button>
+    </div>
   </div>
 
   <!-- Main Dashboard Content -->
   <main class="container">
     <!-- Redesigned Onboarding Screen -->
     <div id="onboardingScreen" style="display:none; text-align:center; padding:3rem;">
-      <div style="font-size:1.08rem;color:var(--text-light);margin-bottom:2rem;">
+      <div style="font-size:1.08rem;color:var(--text-light);margin-bottom:2rem;" data-translate="onboarding-instructions">
         To join StatusPay247, please complete <b>all the steps below</b>:
       </div>
       <!-- Social Media Follow Card -->
       <div style="background:var(--background-light);border-radius:14px;padding:2rem 1rem 1.5rem 1rem;max-width:500px;margin:0 auto 2rem auto;box-shadow:0 4px 16px rgba(0,0,0,0.07);">
-        <h2 style="color:var(--primary-color);margin-bottom:1.2rem;font-size:1.5rem;">
+        <h2 style="color:var(--primary-color);margin-bottom:1.2rem;font-size:1.5rem;" data-translate="step1-title">
           Step 1: Follow us on Social Media
         </h2>
         <div style="display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap;">
@@ -532,13 +535,13 @@
             </a>
           </div>
         </div>
-        <div style="font-size:1rem;color:var(--text-light);margin-top:0.5rem;">
+        <div style="font-size:1rem;color:var(--text-light);margin-top:0.5rem;" data-translate="follow-note">
           Please follow our official pages and keep a screenshot for verification.
         </div>
       </div>
       <!-- Download Image & Copy Text Card -->
       <div style="background:var(--background-light);border-radius:18px;padding:2.2rem 1.2rem 2rem 1.2rem;max-width:540px;margin:0 auto;box-shadow:0 6px 24px rgba(30,151,126,0.10);">
-        <h3 style="color:var(--primary-color);margin-bottom:1.3rem;font-size:1.25rem;letter-spacing:0.01em;">
+        <h3 style="color:var(--primary-color);margin-bottom:1.3rem;font-size:1.25rem;letter-spacing:0.01em;" data-translate="step2-title">
           <i class="fas fa-tasks" style="color:#1e977e;margin-right:0.5em;"></i>
           Step 2: WhatsApp Status Task
         </h3>
@@ -551,14 +554,14 @@
                style="margin-top:0.8rem;background:#1e977e;color:#fff;padding:0.45rem 1.1rem;font-size:1rem;border-radius:7px;box-shadow:0 2px 8px rgba(30,151,126,0.10);display:flex;align-items:center;gap:0.5em;">
               <i class="fas fa-download"></i> Download
             </a>
-            <div style="font-size:0.93rem;color:var(--text-light);margin-top:0.7rem;text-align:center;">
+            <div style="font-size:0.93rem;color:var(--text-light);margin-top:0.7rem;text-align:center;" data-translate="download-note">
               <i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i>
               Download and post this image to your WhatsApp status.
             </div>
           </div>
           <!-- Text with Copy Button -->
           <div style="width:100%;max-width:350px;display:flex;flex-direction:column;align-items:stretch;gap:0.5rem;">
-            <label for="onboardingAdText" style="font-weight:600;color:var(--secondary-color);margin-bottom:0.2rem;text-align:left;">
+            <label for="onboardingAdText" style="font-weight:600;color:var(--secondary-color);margin-bottom:0.2rem;text-align:left;" data-translate="status-caption">
               Status Caption (copy & paste)
             </label>
             <div style="display:flex;gap:0.5rem;">
@@ -577,24 +580,24 @@ and start your journey today.</textarea>
                 <i class="fas fa-copy"></i>
               </button>
             </div>
-            <div style="font-size:0.93rem;color:var(--text-light);margin-top:0.2rem;text-align:left;">
+            <div style="font-size:0.93rem;color:var(--text-light);margin-top:0.2rem;text-align:left;" data-translate="copy-note">
               <i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i>
               Copy this caption and paste it with your status image.
             </div>
           </div>
         </div>
-        <div style="font-size:1rem;color:var(--primary-color);margin-top:1.5rem;text-align:center;font-weight:600;">
+        <div style="font-size:1rem;color:var(--primary-color);margin-top:1.5rem;text-align:center;font-weight:600;" data-translate="post-note">
           <i class="fas fa-check-circle" style="color:#1e977e;margin-right:0.4em;"></i>
           Post both the image and caption to your WhatsApp status for approval.
         </div>
       </div>
       <!-- Step 3: Upload Screenshot Card -->
       <div style="background:var(--background-light);border-radius:18px;padding:2.2rem 1.2rem 2rem 1.2rem;max-width:540px;margin:2rem auto 0 auto;box-shadow:0 6px 24px rgba(30,151,126,0.10);">
-        <h3 style="color:var(--primary-color);margin-bottom:1.3rem;font-size:1.25rem;letter-spacing:0.01em;">
+        <h3 style="color:var(--primary-color);margin-bottom:1.3rem;font-size:1.25rem;letter-spacing:0.01em;" data-translate="step3-title">
           <i class="fas fa-upload" style="color:#1e977e;margin-right:0.5em;"></i>
           Step 3: Upload Your Status Screenshot
         </h3>
-        <div style="font-size:1rem;color:var(--text-light);margin-bottom:1.2rem;text-align:center;">
+        <div style="font-size:1rem;color:var(--text-light);margin-bottom:1.2rem;text-align:center;" data-translate="upload-instructions">
           After 23 hours of posting, take a screenshot of your WhatsApp status showing the number of views your post received.<br>
           <b>Upload that screenshot here for verification.</b>
         </div>
@@ -606,11 +609,11 @@ and start your journey today.</textarea>
           </button>
           <div id="onboardingScreenshotStatus" style="font-size:0.97rem;color:var(--primary-color);margin-top:0.5rem;"></div>
         </form>
-        <div style="font-size:0.93rem;color:var(--text-light);margin-top:1.2rem;text-align:center;">
+        <div style="font-size:0.93rem;color:var(--text-light);margin-top:1.2rem;text-align:center;" data-translate="upload-note">
           <i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i>
           Make sure your screenshot clearly shows the number of views on your status after 23 hours.
         </div>
-        <div style="font-size:0.97rem;color:var(--primary-color);margin-top:1.2rem;text-align:center;">
+        <div style="font-size:0.97rem;color:var(--primary-color);margin-top:1.2rem;text-align:center;" data-translate="verification-note">
           <i class="fas fa-clock" style="color:#1e977e;margin-right:0.3em;"></i>
           <b>Note:</b> Screenshot verification is a manual process and may take up to <b>24 hours</b>. Once you upload your screenshot, just sit back and relax – our team will review and approve it as soon as possible!
         </div>
@@ -657,7 +660,7 @@ and start your journey today.</textarea>
             <div class="card-icon wallet-icon">
               <i class="fas fa-wallet"></i>
             </div>
-            <h3 class="card-title">Your Wallet</h3>
+            <h3 class="card-title" data-translate="wallet-title">Your Wallet</h3>
           </div>
           
           <div class="wallet-balance">
@@ -671,11 +674,11 @@ and start your journey today.</textarea>
           
           <div class="wallet-details">
             <div class="wallet-detail">
-              <span class="wallet-detail-label">Total Earned</span>
+              <span class="wallet-detail-label" data-translate="total-earned">Total Earned</span>
               <span class="wallet-detail-value">₹<span id="totalEarned">0</span></span>
             </div>
             <div class="wallet-detail">
-              <span class="wallet-detail-label">Paid Out</span>
+              <span class="wallet-detail-label" data-translate="paid-out">Paid Out</span>
               <span class="wallet-detail-value">₹<span id="paid">0</span></span>
             </div>
           </div>
@@ -685,7 +688,7 @@ and start your journey today.</textarea>
               <i id="withdrawLockIcon" class="fas fa-lock"></i>
               Withdraw
             </button>
-            <div class="withdraw-note">
+            <div class="withdraw-note" data-translate="threshold-note">
               <i class="fas fa-info-circle"></i>
               You can only withdraw your amount after meeting the ₹500 threshold.
             </div>
@@ -698,7 +701,7 @@ and start your journey today.</textarea>
             <div class="card-icon profile-icon">
               <i class="fas fa-user"></i>
             </div>
-            <h3 class="card-title">Profile Information</h3>
+            <h3 class="card-title" data-translate="profile-title">Profile Information</h3>
           </div>
           
           <!-- Added username in bold below the profile title -->
@@ -706,11 +709,11 @@ and start your journey today.</textarea>
           
           <div class="profile-info">
             <div class="info-item">
-              <span class="info-label">Poster ID</span>
+              <span class="info-label" data-translate="poster-id">Poster ID</span>
               <span class="info-value" id="posterId">...</span>
             </div>
             <div class="info-item">
-              <span class="info-label">Phone Number</span>
+              <span class="info-label" data-translate="phone-number">Phone Number</span>
               <span class="info-value" id="phone">...</span>
             </div>
             <div class="info-item">
@@ -730,7 +733,7 @@ and start your journey today.</textarea>
             <div class="card-icon stats-icon">
               <i class="fas fa-users"></i>
             </div>
-            <h3 class="card-title">Join Official Posters Group</h3>
+            <h3 class="card-title" data-translate="group-title">Join Official Posters Group</h3>
           </div>
           <div class="join-group-section" style="text-align:center; margin-bottom:1.2rem;">
             <p style="margin-bottom:1.2rem; color:var(--text-light);">
@@ -753,7 +756,7 @@ and start your journey today.</textarea>
           <div class="card-icon" style="background: var(--primary-color);">
             <i class="fas fa-upload"></i>
           </div>
-          <h3 class="card-title">Upload Task Screenshot</h3>
+          <h3 class="card-title" data-translate="upload-title">Upload Task Screenshot</h3>
         </div>
         <div style="text-align:center;">
           <!-- Removed manual phone input field -->
@@ -769,11 +772,11 @@ and start your journey today.</textarea>
 
       <!-- Quick Actions -->
       <div class="quick-actions">
-        <a href="https://wa.me/919744483058" target="_blank" class="action-btn">
+        <a href="https://wa.me/919744483058" target="_blank" class="action-btn" data-translate="contact-support">
           <i class="fab fa-whatsapp"></i>
           Contact Support
         </a>
-        <a href="terms-and-conditions-for-posters.html" target="_blank" class="action-btn">
+        <a href="terms-and-conditions-for-posters.html" target="_blank" class="action-btn" data-translate="view-terms">
           <i class="fas fa-file-contract"></i>
           View Terms
         </a>
@@ -804,6 +807,107 @@ and start your journey today.</textarea>
     </footer>
 
   <script>
+    // Language switching logic
+    function setLanguage(lang) {
+      // Toggle active button state
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-ml').classList.toggle('active', lang === 'ml');
+      
+      // Save preference to localStorage
+      localStorage.setItem('statuspay247_lang', lang);
+      
+      // Update all elements with data-translate attribute
+      document.querySelectorAll('[data-translate]').forEach(el => {
+        const key = el.getAttribute('data-translate');
+        const translations = {
+          'wallet-title': { en: 'Your Wallet', ml: 'നിങ്ങളുടെ വോലറ്റ്' },
+          'total-earned': { en: 'Total Earned', ml: 'ആകെ നേടിയത്' },
+          'paid-out': { en: 'Paid Out', ml: 'കൈപ്പറ്റിയത്' },
+          'threshold-note': { en: 'You can only withdraw your amount after meeting the ₹500 threshold.', 
+                          ml: '₹500 ആകുമ്പോൾ മാത്രമേ പണം പിൻവലിക്കാൻ സാധിക്കൂ.' },
+          'profile-title': { en: 'Profile Information', ml: 'പ്രൊഫൈൽ വിവരങ്ങൾ' },
+          'poster-id': { en: 'Poster ID', ml: 'പോസ്റ്റർ നമ്പർ' },
+          'phone-number': { en: 'Phone Number', ml: 'ഫോൺ നമ്പർ' },
+          'group-title': { en: 'Join Official Posters Group', 
+                        ml: 'ഔദ്യോഗിക വാട്സ്ആപ്പ് ഗ്രൂപ്പിൽ ചേരൂ' },
+          'upload-title': { en: 'Upload Task Screenshot', 
+                         ml: 'സ്‌ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യൂ' },
+          'contact-support': { en: 'Contact Support', 
+                           ml: 'സഹായത്തിന് ബന്ധപ്പെടൂ' },
+          'view-terms': { en: 'View Terms', ml: 'നിബന്ധനകൾ' },
+          'onboarding-title': { en: 'Complete Onboarding', 
+                            ml: 'രജിസ്ട്രേഷൻ പൂർത്തിയാക്കൂ' },
+          'onboarding-instructions': { 
+            en: 'Please complete onboarding by uploading your screenshot.',
+            ml: 'നിങ്ങളുടെ വാട്സ്ആപ്പ് സ്റ്റാറ്റസിന്റെ സ്‌ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്ത് രജിസ്ട്രേഷൻ പൂർത്തിയാക്കൂ.'
+          },
+          'step1-title': { 
+            en: 'Step 1: Follow us on Social Media',
+            ml: 'ആദ്യപടി: ഞങ്ങളുടെ സോഷ്യൽ മീഡിയ അക്കൗണ്ടുകൾ ഫോളോ ചെയ്യൂ'
+          },
+          'step2-title': { 
+            en: 'Step 2: WhatsApp Status Task',
+            ml: 'രണ്ടാം പടി: വാട്സ്ആപ്പ് സ്റ്റാറ്റസ് പോസ്റ്റ് ചെയ്യൂ'
+          },
+          'step3-title': { 
+            en: 'Step 3: Upload Your Status Screenshot',
+            ml: 'മൂന്നാം പടി: സ്റ്റാറ്റസിന്റെ സ്‌ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യൂ'
+          },
+          'status-caption': { 
+            en: 'Status Caption (copy & paste)',
+            ml: 'സ്റ്റാറ്റസിനൊപ്പം ചേർക്കേണ്ട വാചകം (കോപ്പി ചെയ്യൂ)'
+          },
+          'upload-instructions': { 
+            en: 'After 23 hours of posting, take a screenshot of your WhatsApp status showing the number of views your post received.',
+            ml: 'സ്റ്റാറ്റസ് പോസ്റ്റ് ചെയ്ത് 23 മണിക്കൂർ കഴിഞ്ഞ്, എത്ര പേർ കണ്ടു എന്ന് കാണിക്കുന്ന സ്‌ക്രീൻഷോട്ട് എടുക്കൂ.'
+          },
+          'upload-note': { 
+            en: 'Make sure your screenshot clearly shows the number of views on your status after 23 hours.',
+            ml: 'സ്റ്റാറ്റസ് എത്ര പേർ കണ്ടു എന്നത് സ്‌ക്രീൻഷോട്ടിൽ വ്യക്തമായി കാണണം.'
+          },
+          'follow-note': { 
+            en: 'Please follow our official pages and keep a screenshot for verification.',
+            ml: 'ദയവായി ഞങ്ങളുടെ ഔദ്യോഗിക പേജുകൾ ഫോളോ ചെയ്ത് അതിന്റെ സ്‌ക്രീൻഷോട്ട് എടുത്തു വയ്ക്കൂ.'
+          },
+          'download-note': { 
+            en: 'Download and post this image to your WhatsApp status.',
+            ml: 'ഈ ചിത്രം ഡൗൺലോഡ് ചെയ്ത് നിങ്ങളുടെ വാട്സ്ആപ്പ് സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യൂ.'
+          },
+          'copy-note': { 
+            en: 'Copy this caption and paste it with your status image.',
+            ml: 'മുകളിലെ വാചകം കോപ്പി ചെയ്ത് സ്റ്റാറ്റസിനൊപ്പം ചേർക്കൂ.'
+          },
+          'post-note': { 
+            en: 'Post both the image and caption to your WhatsApp status for approval.',
+            ml: 'ചിത്രവും വാചകവും നിങ്ങളുടെ വാട്സ്ആപ്പ് സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യൂ.'
+          },
+          'verification-note': { 
+            en: 'Note: Screenshot verification is a manual process and may take up to 24 hours. Once you upload your screenshot, just sit back and relax – our team will review and approve it as soon as possible!',
+            ml: 'കുറിപ്പ്: സ്‌ക്രീൻഷോട്ട് പരിശോധിക്കാൻ 24 മണിക്കൂർ വരെ എടുത്തേക്കാം. നിങ്ങൾ അപ്‌ലോഡ് ചെയ്തുകഴിഞ്ഞാൽ, ഞങ്ങളുടെ ടീം എത്രയും പെട്ടെന്ന് അത് പരിശോധിച്ച് അംഗീകരിക്കുന്നതാണ്!'
+          }
+        };
+        
+        if (translations[key]) {
+          el.textContent = translations[key][lang];
+        }
+      });
+    }
+
+    // Initialize language on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedLang = localStorage.getItem('statuspay247_lang') || 'en';
+      setLanguage(savedLang);
+      
+      // Add event listeners to language buttons
+      document.getElementById('btn-en').addEventListener('click', function() {
+        setLanguage('en');
+      });
+      
+      document.getElementById('btn-ml').addEventListener('click', function() {
+        setLanguage('ml');
+      });
+    });
+
     // Logout button logic
     document.getElementById('logoutBtn').onclick = function() {
       localStorage.removeItem('user');
@@ -1251,307 +1355,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-    // --- Language Preference Tracking Across Pages ---
-    const dashboardTranslations = {
-      "lang-label": "Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:",
-      "btn-en": "English",
-      "btn-ml": "മലയാളം",
-
-      // Onboarding section translations
-      "onboarding-steps-heading": "StatusPay247-ൽ ചേരാൻ താഴെ പറയുന്ന ഘട്ടങ്ങൾ പൂർത്തിയാക്കുക:",
-      "step1-title": "ഒന്നാം ഘട്ടം: സോഷ്യൽ മീഡിയയിൽ ഫോളോ ചെയ്യുക", 
-      "step1-note": "ഞങ്ങളുടെ ഔദ്യോഗിക പേജുകൾ ഫോളോ ചെയ്ത് സ്ക്രീൻഷോട്ട് സൂക്ഷിക്കുക",
-      "step2-title": "രണ്ടാം ഘട്ടം: WhatsApp സ്റ്റാറ്റസ് പോസ്റ്റ് ചെയ്യുക",
-      "step2-download": "ഡൗൺലോഡ് ചെയ്യുക",
-      "step2-img-note": "താഴെയുള്ള ചിത്രം ഡൗൺലോഡ് ചെയ്ത് WhatsApp സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യുക",
-      "step2-caption-label": "സ്റ്റാറ്റസ് വിവരണം (പകർത്തുക)",
-      "step2-caption-note": "വിവരണം പകർത്തി ചിത്രത്തിനൊപ്പം ചേർക്കുക",
-      "step2-final-note": "ചിത്രവും വിവരണവും സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യുക",
-      "step3-title": "മൂന്നാം ഘട്ടം: സ്റ്റാറ്റസ് സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യുക",
-      "step3-desc": "23 മണിക്കൂറിന് ശേഷം, നിങ്ങളുടെ സ്റ്റാറ്റസിലെ കാഴ്ചകളുടെ എണ്ണം കാണിക്കുന്ന സ്ക്രീൻഷോട്ട് എടുക്കുക.<br><b>പരിശോധനയ്ക്കായി ഇവിടെ അപ്‌ലോഡ് ചെയ്യുക</b>",
-      "step3-upload-btn": "സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യുക",
-      "step3-views-note": "23 മണിക്കൂറിന് ശേഷം നിങ്ങളുടെ സ്റ്റാറ്റസ് കാണുന്നവരുടെ എണ്ണം വ്യക്തമായി കാണിക്കുന്ന സ്ക്രീൻഷോട്ട് ആണ് അപ്‌ലോഡ് ചെയ്യേണ്ടത്.",
-      "step3-process-note": "സ്ക്രീൻഷോട്ട് പരിശോധന ഒരു മാനുവൽ പ്രക്രിയയാണ്, 24 മണിക്കൂർ വരെ എടുക്കാം. നിങ്ങളുടെ സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്ത് കഴിഞ്ഞാൽ, ഞങ്ങളുടെ ടീം എത്രയും പെട്ടന്ന് പരിശോധിച്ച് അംഗീകരിക്കുന്നതായിരിക്കും.",
-      "upload-success": "സ്ക്രീൻഷോട്ട് വിജയകരമായി അപ്‌ലോഡ് ചെയ്തു",
-      "upload-failed": "അപ്‌ലോഡ് പരാജയപ്പെട്ടു",
-      "select-file": "ഒരു ഫയൽ തിരഞ്ഞെടുക്കുക",
-      "uploading": "അപ്‌ലോഡ് ചെയ്യുന്നു...",
-
-      // Dashboard translations
-      "title-dashboard": "ഡാഷ്ബോർഡ്",
-      "welcome-back": "വീണ്ടും സ്വാഗതം",
-      "Your Wallet": "എന്റെ വാലറ്റ്",
-      "Total Earned": "ആകെ വരുമാനം",
-      "Paid Out": "കൈപ്പറ്റിയ തുക",
-      "Withdraw": "പിൻവലിക്കുക",
-      "threshold-note": "₹500 തികയുമ്പോൾ മാത്രമേ പണം പിൻവലിക്കാൻ കഴിയൂ",
-      "Profile Information": "പ്രൊഫൈൽ വിവരങ്ങൾ",
-      "Poster ID": "പോസ്റ്റർ ഐഡി",
-      "Phone Number": "ഫോൺ നമ്പർ",
-      "Total Tasks Completed": "പൂർത്തിയാക്കിയ ജോലികൾ",
-      "Status": "നിലവിലെ സ്ഥിതി",
-      "Active": "സജീവം",
-      "Join Official Posters Group": "ഔദ്യോഗിക പോസ്റ്റർ ഗ്രൂപ്പിൽ ചേരുക",
-      "group-description": "മറ്റ് പോസ്റ്റർമാരുമായി ആശയവിനിമയം നടത്തി പുതിയ അപ്‌ഡേറ്റുകൾ നേടൂ",
-      "Join Group": "ഗ്രൂപ്പിൽ ചേരുക",
-      "Last Task": "അവസാന ജോലി",
-      "Upload Task Screenshot": "സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യുക",
-      "Contact Support": "സഹായത്തിന്",
-      "View Terms": "നിബന്ധനകൾ",
-      "Please select a file": "ഒരു ഫയൽ തിരഞ്ഞെടുക്കുക",
-      "Upload": "അപ്‌ലോഡ് ചെയ്യുക",
-      "File uploaded successfully": "ഫയൽ വിജയകരമായി അപ്‌ലോഡ് ചെയ്തു",
-      "Upload failed": "അപ്‌ലോഡ് പരാജയപ്പെട്ടു",
-      "Please login again": "വീണ്ടും ലോഗിൻ ചെയ്യുക",
-
-      // Add new translations for onboarding text
-      "onboarding-intro": "StatusPay247-ൽ ചേരുന്നതിന് ദയവായി താഴെയുള്ള എല്ലാ ഘട്ടങ്ങളും പൂർത്തിയാക്കുക:",
-      "follow-pages-note": "ഞങ്ങളുടെ ഔദ്യോഗിക പേജുകൾ ഫോളോ ചെയ്ത് പരിശോധനയ്ക്കായി സ്ക്രീൻഷോട്ട് സൂക്ഷിക്കുക.",
-      "download-image-note": "ഈ ചിത്രം ഡൗൺലോഡ് ചെയ്ത് നിങ്ങളുടെ WhatsApp സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യുക.",
-      "copy-caption-note": "ഈ വിവരണം പകർത്തി സ്റ്റാറ്റസ് ചിത്രത്തിനൊപ്പം ചേർക്കുക.",
-      "post-approval-note": "അംഗീകാരത്തിനായി ചിത്രവും വിവരണവും നിങ്ങളുടെ WhatsApp സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യുക.",
-      "step3-heading": "മൂന്നാം ഘട്ടം: സ്റ്റാറ്റസ് സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യുക",
-      "status-screenshot-note": "23 മണിക്കൂറിന് ശേഷം, നിങ്ങളുടെ സ്റ്റാറ്റസ് കാണുന്നവരുടെ എണ്ണം കാണിക്കുന്ന സ്ക്രീൻഷോട്ട് എടുക്കുക.",
-      "upload-verification-note": "പരിശോധനയ്ക്കായി സ്ക്രീൻഷോട്ട് ഇവിടെ അപ്‌ലോഡ് ചെയ്യുക.",
-      "views-note": "23 മണിക്കൂറിന് ശേഷം നിങ്ങളുടെ സ്റ്റാറ്റസ് കാണുന്നവരുടെ എണ്ണം വ്യക്തമായി കാണിക്കുന്ന സ്ക്രീൻഷോട്ട് ആണ് അപ്‌ലോഡ് ചെയ്യേണ്ടത്.",
-      "verification-process-note": "കുറിപ്പ്: സ്ക്രീൻഷോട്ട് പരിശോധിക്കുന്നത് മാനുവൽ പ്രക്രിയയാണ്, സാധാരണ 24 മണിക്കൂർ വരെ എടുക്കാം. സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്തു കഴിഞ്ഞാൽ, വിശ്രമിച്ചിരിക്കൂ - ഞങ്ങളുടെ ടീം എത്രയും വേഗം പരിശോധിച്ച് അംഗീകരിക്കും!"
-    };
-
-    function setLanguage(lang) {
-      try {
-        // Update body class and button states
-        if (lang === 'ml') {
-          document.body.classList.add('lang-ml');
-          document.body.classList.remove('lang-en');
-          const btnMl = document.getElementById('btn-ml');
-          const btnEn = document.getElementById('btn-en');
-          if (btnMl) btnMl.classList.add('active');
-          if (btnEn) btnEn.classList.remove('active');
-        } else {
-          document.body.classList.add('lang-en');
-          document.body.classList.remove('lang-ml');
-          const btnEn = document.getElementById('btn-en');
-          const btnMl = document.getElementById('btn-ml');
-          if (btnEn) btnEn.classList.add('active');
-          if (btnMl) btnMl.classList.remove('active');
-        }
-        localStorage.setItem('statuspay247_lang', lang);
-
-        // Translation helper
-        function setText(id, text) {
-          const el = document.getElementById(id);
-          if (el) {
-            el.innerHTML = text;
-          } else {
-            console.warn(`Element not found for translation: ${id}`);
-          }
-        }
-
-        // Apply translations to all elements (dashboard and onboarding)
-        if (lang === 'ml') {
-          // Malayalam translations
-          setText("lang-label", dashboardTranslations["lang-label"]);
-
-          // Onboarding screen translations
-          // Step 1
-          const onboardingStep1Title = document.querySelector('#onboardingScreen h2');
-          if (onboardingStep1Title) onboardingStep1Title.textContent = dashboardTranslations["onboarding-steps-heading"];
-          const onboardingStep1Card = document.querySelector('#onboardingScreen > div:nth-of-type(2)');
-          if (onboardingStep1Card) {
-            const h2 = onboardingStep1Card.querySelector('h2');
-            if (h2) h2.textContent = dashboardTranslations["step1-title"];
-            const note = onboardingStep1Card.querySelector('div[style*="font-size:1rem"]');
-            if (note) note.textContent = dashboardTranslations["step1-note"];
-
-            // Translate all social media follow buttons
-            const followButtons = onboardingStep1Card.querySelectorAll('.btn');
-            followButtons.forEach(btn => {
-              if (btn.textContent.includes('Follow')) {
-                btn.textContent = 'ഫോളോ ചെയ്യുക';
-              }
-            });
-          }
-
-          // Step 2
-          const onboardingStep2Card = document.querySelector('#onboardingScreen > div:nth-of-type(3)');
-          if (onboardingStep2Card) {
-            const h3 = onboardingStep2Card.querySelector('h3');
-            if (h3) h3.innerHTML = `<i class="fas fa-tasks" style="color:#1e977e;margin-right:0.5em;"></i> ${dashboardTranslations["step2-title"]}`;
-            const downloadBtn = onboardingStep2Card.querySelector('#downloadAdImageBtn');
-            if (downloadBtn) downloadBtn.innerHTML = `<i class="fas fa-download"></i> ${dashboardTranslations["step2-download"]}`;
-            const imgNote = onboardingStep2Card.querySelector('div[style*="font-size:0.93rem"]');
-            if (imgNote) imgNote.innerHTML = `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step2-img-note"]}`;
-            const captionLabel = onboardingStep2Card.querySelector('label[for="onboardingAdText"]');
-            if (captionLabel) captionLabel.textContent = dashboardTranslations["step2-caption-label"];
-            const captionNote = onboardingStep2Card.querySelector('div[style*="font-size:0.93rem"]:nth-of-type(2)');
-            if (captionNote) captionNote.innerHTML = `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step2-caption-note"]}`;
-            const finalNote = onboardingStep2Card.querySelector('div[style*="font-size:1rem"]');
-            if (finalNote) finalNote.innerHTML = `<i class="fas fa-check-circle" style="color:#1e977e;margin-right:0.4em;"></i> ${dashboardTranslations["step2-final-note"]}`;
-            // Translate the copy button text
-            const copyBtn = onboardingStep2Card.querySelector('#copyAdTextBtn');
-            if (copyBtn) copyBtn.innerHTML = '<i class="fas fa-copy"></i> പകർത്തുക';
-          }
-
-          // Step 3
-          const onboardingStep3Card = document.querySelector('#onboardingScreen > div:nth-of-type(4)');
-          if (onboardingStep3Card) {
-            const h3 = onboardingStep3Card.querySelector('h3');
-            if (h3) h3.innerHTML = `<i class="fas fa-upload" style="color:#1e977e;margin-right:0.5em;"></i> ${dashboardTranslations["step3-title"]}`;
-            const desc = onboardingStep3Card.querySelector('div[style*="font-size:1rem"]');
-            if (desc) desc.innerHTML = dashboardTranslations["step3-desc"];
-            const uploadBtn = onboardingStep3Card.querySelector('button[type="submit"]');
-            if (uploadBtn) uploadBtn.innerHTML = `<i class="fas fa-upload"></i> ${dashboardTranslations["step3-upload-btn"]}`;
-            const viewsNote = onboardingStep3Card.querySelector('div[style*="font-size:0.93rem"]');
-            if (viewsNote) viewsNote.innerHTML = `<i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i> ${dashboardTranslations["step3-views-note"]}`;
-
-            // Find and replace the existing process note HTML in onboarding
-            const onboardingProcessNote = onboardingStep3Card.querySelector('div[style*="font-size:0.97rem"]');
-            if (onboardingProcessNote) {
-              if (lang === 'ml') {
-                onboardingProcessNote.innerHTML = `<i class="fas fa-clock" style="color:#1e977e;margin-right:0.3em;"></i>
-                   <b>കുറിപ്പ്:</b> സ്ക്രീൻഷോട്ട് പരിശോധന ഒരു മാനുവൽ പ്രക്രിയയാണ്, 24 മണിക്കൂർ വരെ എടുക്കാം. നിങ്ങളുടെ സ്ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്ത് കഴിഞ്ഞാൽ, ഞങ്ങളുടെ ടീം എത്രയും പെട്ടന്ന് പരിശോധിച്ച് അംഗീകരിക്കുന്നതായിരിക്കും.`;
-              } else {
-                onboardingProcessNote.innerHTML = `<i class="fas fa-clock" style="color:#1e977e;margin-right:0.3em;"></i>
-                   <b>Note:</b> Screenshot verification is a manual process and may take up to <b>24 hours</b>. 
-                   Once you upload your screenshot, just sit back and relax – our team will review and approve it as soon as possible!`;
-              }
-            }
-
-            // Also update the dashboard upload section note
-            const dashboardUploadNote = document.querySelector('.dashboard-card:last-child .withdraw-note');
-            if (dashboardUploadNote) {
-              if (lang === 'ml') {
-                dashboardUploadNote.innerHTML = `<i class="fas fa-info-circle"></i> ₹500 തികയുമ്പോൾ മാത്രമേ പണം പിൻവലിക്കാൻ കഴിയൂ`;
-              } else {
-                dashboardUploadNote.innerHTML = `<i class="fas fa-info-circle"></i> You can only withdraw your amount after meeting the ₹500 threshold.`;
-              }
-            }
-          }
-
-          // Translate dashboard buttons and status messages
-          const uploadBtn = document.getElementById('uploadBtn');
-          if (uploadBtn) uploadBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> അപ്‌ലോഡ് ചെയ്യുക';
-
-          const uploadStatus = document.getElementById('uploadStatusMessage');
-          if (uploadStatus && uploadStatus.textContent.includes('Please select')) {
-            uploadStatus.textContent = 'ദയവായി ഒരു ഫയൽ തിരഞ്ഞെടുക്കുക';
-          }
-
-          const elementsToTranslate = [
-            { selector: '.dashboard-welcome h1', key: "welcome-back" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(1) .card-title', key: "Your Wallet" },
-            { selector: '.wallet-detail-label:nth-of-type(1)', key: "Total Earned" },
-            { selector: '.wallet-detail-label:nth-oftype(2)', key: "Paid Out" },
-            { selector: '#withdrawBtn', key: "Withdraw", isHTML: true },
-            { selector: '.withdraw-note', key: "threshold-note" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(2) .card-title', key: "Profile Information" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(1)', key: "Poster ID" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(2)', key: "Phone Number" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(3)', key: "Total Tasks Completed" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(4)', key: "Status" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(3) .card-title', key: "Join Official Posters Group" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(3) p', key: "group-description" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(3) .join-group-btn', key: "Join Group" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(3) .info-label', key: "Last Task" },
-            { selector: '.dashboard-card:last-child .card-title', key: "Upload Task Screenshot" },
-            { selector: '.quick-actions a:nth-child(1)', key: "Contact Support", isHTML: true },
-            { selector: '.quick-actions a:nth-child(2)', key: "View Terms", isHTML: true }
-          ];
-
-
-
-          elementsToTranslate.forEach(item => {
-            const el = document.querySelector(item.selector);
-            if (el) {
-              const translation = dashboardTranslations[item.key];
-              if (item.isHTML) {
-                el.innerHTML = translation;
-              } else {
-                el.textContent = translation;
-              }
-            } else {
-              console.warn(`Element not found for translation: ${item.selector}`);
-            }
-          });
-        } else {
-          // English translations (reset to default)
-          setText("lang-label", "Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:");
-          
-          const defaultTranslations = [
-            { selector: '.dashboard-welcome h1', text: "Welcome back" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(1) .card-title', text: "Your Wallet" },
-            { selector: '.wallet-detail-label:nth-of-type(1)', text: "Total Earned" },
-            { selector: '.wallet-detail-label:nth-oftype(2)', text: "Paid Out" },
-            { selector: '#withdrawBtn', text: '<i id="withdrawLockIcon" class="fas fa-lock"></i> Withdraw', isHTML: true },
-            { selector: '.withdraw-note', text: "You can only withdraw your amount after meeting the ₹500 threshold." },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(2) .card-title', text: "Profile Information" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(1)', text: "Poster ID" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(2)', text: "Phone Number" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(3)', text: "Total Tasks Completed" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(2) .info-label:nth-of-type(4)', text: "Status" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(3) .card-title', text: "Join Official Posters Group" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(3) p', text: "Connect with other posters, get updates, and support in our official WhatsApp group." },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(3) .join-group-btn', text: "Join Group" },
-            { selector: '.dashboard-grid .dashboard-card:nth-child(3) .info-label', text: "Last Task" },
-            { selector: '.dashboard-card:last-child .card-title', text: "Upload Task Screenshot" },
-            { selector: '.quick-actions a:nth-child(1)', text: '<i class="fab fa-whatsapp"></i> Contact Support', isHTML: true },
-            { selector: '.quick-actions a:nth-child(2)', text: '<i class="fas fa-file-contract"></i> View Terms', isHTML: true }
-          ];
-
-          defaultTranslations.forEach(item => {
-            const el = document.querySelector(item.selector);
-            if (el) {
-              if (item.isHTML) {
-                el.innerHTML = item.text;
-              } else {
-                el.textContent = item.text;
-              }
-            } else {
-              console.warn(`Element not found for reset: ${item.selector}`);
-            }
-          });
-        }
-      } catch (error) {
-        console.error("Error in setLanguage:", error);
-      }
-    }
-
-    function initLanguageButtons() {
-      try {
-        const savedLang = localStorage.getItem('statuspay247_lang') || 'en';
-        const btnEn = document.getElementById('btn-en');
-        const btnMl = document.getElementById('btn-ml');
-
-        if (btnEn && btnMl) {
-          // Remove all existing event listeners by replacing the nodes
-          const newBtnEn = btnEn.cloneNode(true);
-          const newBtnMl = btnMl.cloneNode(true);
-          btnEn.parentNode.replaceChild(newBtnEn, btnEn);
-          btnMl.parentNode.replaceChild(newBtnMl, btnMl);
-
-          newBtnEn.addEventListener('click', function(event) {
-            event.preventDefault();
-            setLanguage('en');
-          });
-          newBtnMl.addEventListener('click', function(event) {
-            event.preventDefault();
-            setLanguage('ml');
-          });
-
-          setLanguage(savedLang);
-        } else {
-          console.error("Language buttons not found.");
-        }
-      } catch (error) {
-        console.error("Error initializing language buttons:", error);
-      }
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initLanguageButtons);
-    } else {
-      initLanguageButtons();
-    }
   </script>
 </body>
 
