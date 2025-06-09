@@ -140,7 +140,14 @@
                     <div class="section-content">
                         <p>Fill out the form below to submit your ad for promotion through our network of WhatsApp status posters.</p>
                     </div>
-                    <form id="clientForm" class="form" novalidate>
+                    <form id="clientForm" 
+                          class="form" 
+                          novalidate
+                          data-google-form-url="https://docs.google.com/forms/d/e/1FAIpQLScNqDpIrOcZe5Ke_PauaKIbNvTp-TXxAwWistGTJKyvzf-VIw/formResponse">
+                        <div class="form-group honeypot">
+                            <label for="fax">Fax (leave empty)</label>
+                            <input type="text" id="fax" name="fax" autocomplete="off">
+                        </div>
                         <div class="form-group">
                             <label for="ad-title">Ad Title</label>
                             <input type="text" id="ad-title" name="entry.712179523" placeholder="Enter your ad title" required>
@@ -213,7 +220,14 @@
                     <div class="section-content">
                         <p>WhatsApp സ്റ്റാറ്റസ് പോസ്റ്റർമാരുടെ നെറ്റ്‌വർക്കിലൂടെ നിങ്ങളുടെ പരസ്യം പ്രചരിപ്പിക്കാൻ താഴെയുള്ള ഫോം പൂരിപ്പിക്കുക.</p>
                     </div>
-                    <form id="clientForm-ml" class="form" novalidate>
+                    <form id="clientForm-ml" 
+                          class="form" 
+                          novalidate
+                          data-google-form-url="https://docs.google.com/forms/d/e/1FAIpQLScNqDpIrOcZe5Ke_PauaKIbNvTp-TXxAwWistGTJKyvzf-VIw/formResponse">
+                        <div class="form-group honeypot">
+                            <label for="fax-ml">Fax (ഒഴിച്ചിടുക)</label>
+                            <input type="text" id="fax-ml" name="fax" autocomplete="off">
+                        </div>
                         <div class="form-group">
                             <label for="ad-title-ml">പരസ്യത്തിന്റെ തലക്കെട്ട്</label>
                             <input type="text" id="ad-title-ml" name="entry.712179523" placeholder="പരസ്യത്തിന്റെ തലക്കെട്ട് നൽകുക" required>
@@ -333,6 +347,50 @@
         .terms-checkbox a:hover {
             text-decoration: underline;
         }
+        /* Honeypot Styles */
+        .honeypot {
+            display: none;
+        }
+        /* Success Message Styles */
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            text-align: center;
+            font-size: 1.1em;
+            color: #333;
+            border: 1px solid #e2e8f0;
+        }
+        .success-message p {
+            margin-bottom: 15px;
+        }
+        .success-message button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .success-message button:hover {
+            background-color: #388E3C;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -387,35 +445,40 @@
             // Form submission handler for English form
             document.getElementById("clientForm").addEventListener("submit", function(event) {
                 event.preventDefault();
-                
-                // Validate form
-                if (!this.checkValidity()) {
-                    return;
-                }
-
-                // Submit to Google Form
-                const formData = new FormData(this);
-                submitToGoogleForm(formData);
+                submitForm(this);
             });
 
             // Form submission handler for Malayalam form
             document.getElementById("clientForm-ml").addEventListener("submit", function(event) {
                 event.preventDefault();
+                submitForm(this);
+            });
+
+            function submitForm(formElement) {
+                // Prevent spam submissions
+                const faxField = formElement.querySelector('[name="fax"]');
+                if (faxField && faxField.value) {
+                    console.log('Bot detected!');
+                    return;
+                }
                 
                 // Validate form
-                if (!this.checkValidity()) {
+                if (!formElement.checkValidity()) {
+                    // Display validation errors
+                    formElement.reportValidity();
                     return;
                 }
 
+                // Get Google Form URL from data attribute
+                const googleFormUrl = formElement.dataset.googleFormUrl;
+
                 // Submit to Google Form
-                const formData = new FormData(this);
-                submitToGoogleForm(formData);
-            });
+                const formData = new FormData(formElement);
+                submitToGoogleForm(formData, googleFormUrl, formElement);
+            }
 
             // Function to submit data to Google Form
-            function submitToGoogleForm(formData) {
-                const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScNqDpIrOcZe5Ke_PauaKIbNvTp-TXxAwWistGTJKyvzf-VIw/formResponse";
-                
+            function submitToGoogleForm(formData, googleFormUrl, formElement) {
                 // Create a hidden iframe for submission
                 const iframe = document.createElement('iframe');
                 iframe.name = 'hidden_iframe';
@@ -442,8 +505,7 @@
                 // Listen for iframe load to show success message
                 iframe.onload = () => {
                     // Clear forms
-                    document.getElementById('clientForm').reset();
-                    document.getElementById('clientForm-ml').reset();
+                    formElement.reset();
                     
                     setTimeout(() => {
                         document.body.removeChild(iframe);
@@ -451,11 +513,35 @@
                     }, 500);
 
                     // Show success message
-                    alert("Ad submitted successfully! We'll contact you soon.");
+                    showSuccessMessage();
                 };
 
                 tempForm.submit();
             }
+
+            function showSuccessMessage() {
+                // Create overlay
+                const overlay = document.createElement('div');
+                overlay.classList.add('overlay');
+                document.body.appendChild(overlay);
+
+                // Create success message
+                const successMessage = document.createElement('div');
+                successMessage.classList.add('success-message');
+                successMessage.innerHTML = `
+                    <p>Ad submitted successfully! We'll contact you soon.</p>
+                    <button onclick="closeSuccessMessage()">OK</button>
+                `;
+                document.body.appendChild(successMessage);
+            }
+
+            // Close success message
+            window.closeSuccessMessage = function() {
+                const successMessage = document.querySelector('.success-message');
+                const overlay = document.querySelector('.overlay');
+                document.body.removeChild(successMessage);
+                document.body.removeChild(overlay);
+            };
         });
 
         // Global function for menu toggle
