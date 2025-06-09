@@ -2079,6 +2079,7 @@ footer {
         grid-column: auto;
         align-items: center;
         text-align: center;
+        padding: 2rem 1rem;
     }
 }
 
@@ -2086,7 +2087,7 @@ footer {
 .advertisers-ref-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
     gap: 2rem;
     align-items: stretch;
     margin-bottom: 2rem;
@@ -2105,7 +2106,7 @@ footer {
     min-width: 0;
 }
 .advertiser-ref-intro {
-    grid-row: 1 / span 2;
+    grid-row: 1 / span 3;
     grid-column: 1 / 2;
     align-items: flex-start;
     text-align: left;
