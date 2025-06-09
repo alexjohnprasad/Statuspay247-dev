@@ -13,7 +13,7 @@
     <link rel="shortcut icon" href="assets/favicon.png">
     <link rel="stylesheet" href="css/styles-cleaned.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="js/main.js" defer></script>
 </head>
 <body>
@@ -21,24 +21,20 @@
         <div class="container">
             <nav>
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="/">
                         <img src="assets/logo.png" alt="StatusPay 247 Logo">
                     </a>
                 </div>
-                <div class="burger-menu">
+                <div class="burger-menu" onclick="toggleMenu()">
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
                 <ul>
                     <li><a href="index.html#hero">Home</a></li>
-                    <li><a href="index.html#what-is-statuspay">About</a></li>
-                    <li><a href="index.html#how-it-works">How It Works</a></li>
-                    <li><a href="index.html#why-choose-us">Why Choose Us</a></li>
-                    <li><a href="pricing.html">Pricing</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
                     <li><a href="poster.html">Join as Poster</a></li>
-                    <li><a href="advertiser-terms.html">Advertisers</a></li>
+                    <li><a href="advertise-with-us.html">Advertise With Us</a></li>
+                    <li><a href="login.html" class="btn btn-secondary">Login</a></li>
                 </ul>
             </nav>
         </div>
@@ -56,382 +52,587 @@
         </section>
 
         <!-- Why Choose Us Section -->
-        <section id="why-choose" class="section-light">
+        <section id="why-choose" style="background: #f9f9f9; padding: 80px 0;">
             <div class="container">
-                <div class="section-title">
-                    <h2>Why Choose StatusPay247?</h2>
+                <div style="text-align: center; margin-bottom: 50px;">
+                    <h2 style="font-size: 2.5rem; color: #333; margin-bottom: 20px;">Why Choose StatusPay247?</h2>
+                    <p style="color: #666; font-size: 1.1rem; max-width: 800px; margin: 0 auto 40px;">Get your ads seen by real people in their personal WhatsApp space. Our network of active users ensures your message reaches engaged audiences.</p>
                 </div>
-                <div class="section-content">
-                    <p>At StatusPay247, we've built a growing, vibrant community of everyday WhatsApp users — from students and homemakers to working professionals — all with one thing in common: they get a minimum of 100+ status views daily (with many receiving 200-300+ views!). This means every time your ad is posted, it's seen by real people in a personal space they trust.</p>
-                    <p>Think about it — WhatsApp status isn't like a billboard or a social media post that people scroll past. It's a peep into someone's real life — and your ad is placed right there, in a trusted, attention-rich space. That's powerful.</p>
-                    
-                    <div class="trust-grid">
-                        <div class="trust-card">
-                            <i class="fas fa-chart-line"></i>
-                            <h3>Industry Insights</h3>
-                            <ul>
-                                <li>WhatsApp has over 500 million daily status users in India alone</li>
-                                <li>70% of WhatsApp users check status updates daily</li>
-                                <li>Status views have higher engagement than traditional social media ads</li>
-                            </ul>
-                        </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 50px;">
+                    <!-- Key Stats -->
+                    <div style="text-align: center; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <i class="fas fa-users" style="font-size: 2.5rem; color: #4CAF50; margin-bottom: 20px;"></i>
+                        <h3 style="font-size: 1.5rem; color: #333; margin-bottom: 15px;">500+ Million</h3>
+                        <p style="color: #666;">Daily WhatsApp Status Users in India</p>
                     </div>
+
+                    <div style="text-align: center; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <i class="fas fa-eye" style="font-size: 2.5rem; color: #4CAF50; margin-bottom: 20px;"></i>
+                        <h3 style="font-size: 1.5rem; color: #333; margin-bottom: 15px;">70%</h3>
+                        <p style="color: #666;">Users Check Status Updates Daily</p>
+                    </div>
+
+                    <div style="text-align: center; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                        <i class="fas fa-chart-line" style="font-size: 2.5rem; color: #4CAF50; margin-bottom: 20px;"></i>
+                        <h3 style="font-size: 1.5rem; color: #333; margin-bottom: 15px;">100-300+</h3>
+                        <p style="color: #666;">Views Per Status Guaranteed</p>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <h3 style="color: #333; font-size: 1.8rem; margin-bottom: 20px;">Our Community</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">At StatusPay247, we've built a vibrant network of everyday WhatsApp users — from students and homemakers to working professionals. Each member of our community maintains active engagement with their audience, ensuring your message reaches real people who trust and value their updates.</p>
+                    <p style="color: #666; line-height: 1.6;">Unlike traditional social media where ads get lost in the noise, WhatsApp Status provides a personal, attention-rich space. When your ad appears in someone's status, it's viewed as part of their daily story — making it more impactful and memorable.</p>
                 </div>
             </div>
         </section>
 
         <!-- Pricing Section -->
-        <section id="pricing" class="section-dark">
+        <section id="pricing" style="background: #1a1a1a; padding: 60px 0;">
             <div class="container">
-                <div class="section-title">
-                    <h2>Transparent, Simple Pricing</h2>
-                    <p>Our pricing is ₹100 per poster, per day, offering full clarity and control over your campaign reach.</p>
+                <div style="text-align: center; margin-bottom: 50px;">
+                    <h2 style="color: #fff; font-size: 2.5rem; margin-bottom: 15px;">Simple Pricing Plans</h2>
+                    <p style="color: #888; font-size: 1.1rem;">Choose the plan that fits your needs</p>
                 </div>
                 
-                <div class="pricing-notice">
-                    <div class="trust-card">
-                        <i class="fas fa-info-circle"></i>
-                        <p><strong>Important:</strong> We guarantee a minimum of 100 views per poster, but many posters receive 200+, 300+, or even more views! The numbers below represent the minimum guaranteed views, while actual reach is often significantly higher.</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+                    <!-- Starter Plan -->
+                    <div style="background: rgba(255,255,255,0.05); border-radius: 10px; padding: 30px; position: relative;">
+                        <h3 style="color: #fff; font-size: 1.8rem; margin-bottom: 20px;">Starter</h3>
+                        <div style="font-size: 2.5rem; color: #4CAF50; margin: 20px 0;">
+                            <span style="font-size: 1.5rem;">₹</span>500<span style="font-size: 1rem; color: #888;">/day</span>
+                        </div>
+                        <p style="color: #888; margin-bottom: 20px;">5 Posters Daily</p>
+                        <ul style="list-style: none; padding: 0; margin: 20px 0;">
+                            <li style="color: #fff; margin: 10px 0;"><i class="fas fa-check" style="color: #4CAF50; margin-right: 10px;"></i> 500+ Views Daily</li>
+                            <li style="color: #fff; margin: 10px 0;"><i class="fas fa-check" style="color: #4CAF50; margin-right: 10px;"></i> 24-hour Status Duration</li>
+                            <li style="color: #fff; margin: 10px 0;"><i class="fas fa-check" style="color: #4CAF50; margin-right: 10px;"></i> Basic Support</li>
+                        </ul>
+                        <a href="https://wa.me/919744483058?text=Hi%2C%20I%27m%20interested%20in%20the%20Starter%20Plan%20%28%E2%82%B9500%2Fday%20-%205%20Posters%29.%20Please%20help%20me%20get%20started." target="_blank" style="display: block; background: #4CAF50; color: #fff; text-align: center; padding: 12px; border-radius: 5px; text-decoration: none; margin-top: 20px;">Get Started</a>
                     </div>
-                    <div class="trust-card volume-discount">
-                        <i class="fas fa-percentage"></i>
-                        <p><strong>Volume Discounts:</strong> Save with our monthly booking options on Growth and Premium plans. The Premium plan also offers weekly discounts. The longer your campaign runs with our higher-tier plans, the more cost-effective it becomes!</p>
+
+                    <!-- Growth Plan (Popular) -->
+                    <div style="background: rgba(255,255,255,0.08); border-radius: 10px; padding: 30px; position: relative; border: 2px solid #4CAF50;">
+                        <div style="position: absolute; top: -12px; right: 20px; background: #4CAF50; color: #fff; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem;">Most Popular</div>
+                        <h3 style="color: #fff; font-size: 1.8rem; margin-bottom: 20px;">Growth</h3>
+                        <div style="font-size: 2.5rem; color: #4CAF50; margin: 20px 0;">
+                            <span style="font-size: 1.5rem;">₹</span>1,000<span style="font-size: 1rem; color: #888;">/day</span>
+                        </div>
+                        <p style="color: #888; margin-bottom: 10px;">10 Posters Daily</p>
+                        <p style="color: #4CAF50; font-size: 0.9rem;">Monthly: ₹900/day (10% off)</p>
+                        <ul style="list-style: none; padding: 0; margin: 20px 0;">
+                            <li style="color: #fff; margin: 10px 0;"><i class="fas fa-check" style="color: #4CAF50; margin-right: 10px;"></i> 1,000+ Views Daily</li>
+                            <li style="color: #fff; margin: 10px 0;"><i class="fas fa-check" style="color: #4CAF50; margin-right: 10px;"></i> Priority Support</li>
+                            <li style="color: #fff; margin: 10px 0;"><i class="fas fa-check" style="color: #4CAF50; margin-right: 10px;"></i> Performance Reports</li>
+                        </ul>
+                        <a href="https://wa.me/919744483058?text=Hi%2C%20I%27m%20interested%20in%20the%20Growth%20Plan%20%28%E2%82%B91%2C000%2Fday%20-%2010%20Posters%29.%20Please%20help%20me%20get%20started." target="_blank" style="display: block; background: #4CAF50; color: #fff; text-align: center; padding: 12px; border-radius: 5px; text-decoration: none; margin-top: 20px;">Choose Growth</a>
+                    </div>
+
+                    <!-- Premium Plan -->
+                    <div style="background: rgba(255,255,255,0.05); border-radius: 10px; padding: 30px; position: relative;">
+                        <h3 style="color: #fff; font-size: 1.8rem; margin-bottom: 20px;">Premium</h3>
+                        <div style="font-size: 2.5rem; color: #4CAF50; margin: 20px 0;">
+                            <span style="font-size: 1.5rem;">₹</span>2,000<span style="font-size: 1rem; color: #888;">/day</span>
+                        </div>
+                        <p style="color: #888; margin-bottom: 10px;">20 Posters Daily</p>
+                        <p style="color: #4CAF50; font-size: 0.9rem;">Weekly: ₹1,900/day (5% off)</p>
+                        <p style="color: #4CAF50; font-size: 0.9rem;">Monthly: ₹1,800/day (10% off)</p>
+                        <ul style="list-style: none; padding: 0; margin: 20px 0;">
+                            <li style="color: #fff; margin: 10px 0;"><i class="fas fa-check" style="color: #4CAF50; margin-right: 10px;"></i> 2,000+ Views Daily</li>
+                            <li style="color: #fff; margin: 10px 0;"><i class="fas fa-check" style="color: #4CAF50; margin-right: 10px;"></i> VIP Support</li>
+                            <li style="color: #fff; margin: 10px 0;"><i class="fas fa-check" style="color: #4CAF50; margin-right: 10px;"></i> Custom Targeting</li>
+                            <li style="color: #fff; margin: 10px 0;"><i class="fas fa-check" style="color: #4CAF50; margin-right: 10px;"></i> Priority Posting</li>
+                        </ul>
+                        <a href="https://wa.me/919744483058?text=Hi%2C%20I%27m%20interested%20in%20the%20Premium%20Plan%20%28%E2%82%B92%2C000%2Fday%20-%2020%20Posters%29.%20Please%20help%20me%20get%20started." target="_blank" style="display: block; background: #4CAF50; color: #fff; text-align: center; padding: 12px; border-radius: 5px; text-decoration: none; margin-top: 20px;">Go Premium</a>
                     </div>
                 </div>
 
-                <div class="pricing-tiers">
-                    <div class="pricing-tier">
-                        <div class="tier-header">
-                            <h3>Starter</h3>
-                            <div class="price">₹500/day</div>
-                            <p class="price-description">5 Posters / Day</p>
-                        </div>
-                        <div class="tier-features">
-                            <ul>
-                                <li><i class="fas fa-check-circle"></i> Minimum 500 views</li>
-                                <li><i class="fas fa-check-circle"></i> Potentially much higher!</li>
-                                <li><i class="fas fa-check-circle"></i> 24-hour status duration</li>
-                                <li><i class="fas fa-info-circle"></i> No discounts available</li>
-                            </ul>
-                            <a href="https://wa.me/919744483058" class="btn">
-                                <i class="fab fa-whatsapp"></i> Get Started
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="pricing-tier popular">
-                        <div class="popular-badge">Most Popular</div>
-                        <div class="tier-header">
-                            <h3>Growth</h3>
-                            <div class="price">₹1,000/day</div>
-                            <p class="price-description">10 Posters / Day</p>
-                            <p class="discount-text">Monthly: ₹900/day (10% off)</p>
-                        </div>
-                        <div class="tier-features">
-                            <ul>
-                                <li><i class="fas fa-check-circle"></i> Minimum 1,000 views</li>
-                                <li><i class="fas fa-check-circle"></i> Potentially much higher!</li>
-                                <li><i class="fas fa-check-circle"></i> 24-hour status duration</li>
-                                <li><i class="fas fa-percentage"></i> 10% off on monthly bookings</li>
-                            </ul>
-                            <a href="https://wa.me/919744483058" class="btn">
-                                <i class="fab fa-whatsapp"></i> Get Started
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="pricing-tier">
-                        <div class="tier-header">
-                            <h3>Premium</h3>
-                            <div class="price">₹2,000/day</div>
-                            <p class="price-description">20 Posters / Day</p>
-                            <p class="discount-text">Weekly: ₹1,900/day (5% off)</p>
-                            <p class="discount-text">Monthly: ₹1,800/day (10% off)</p>
-                        </div>
-                        <div class="tier-features">
-                            <ul>
-                                <li><i class="fas fa-check-circle"></i> Minimum 2,000 views</li>
-                                <li><i class="fas fa-check-circle"></i> Potentially much higher!</li>
-                                <li><i class="fas fa-check-circle"></i> 24-hour status duration</li>
-                                <li><i class="fas fa-percentage"></i> 5% off on weekly bookings</li>
-                                <li><i class="fas fa-percentage"></i> 10% off on monthly bookings</li>
-                                <li><i class="fas fa-check-circle"></i> Priority support</li>
-                            </ul>
-                            <a href="https://wa.me/919744483058" class="btn">
-                                <i class="fab fa-whatsapp"></i> Get Started
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pricing-comparison">
-                    <h3>Plan Comparison</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Feature</th>
-                                <th>Starter</th>
-                                <th>Growth</th>
-                                <th>Premium</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Daily rate</td>
-                                <td>₹500</td>
-                                <td>₹1,000</td>
-                                <td>₹2,000</td>
-                            </tr>
-                            <tr>
-                                <td>Weekly rate (per day)</td>
-                                <td>₹500</td>
-                                <td>₹1,000</td>
-                                <td>₹1,900</td>
-                            </tr>
-                            <tr>
-                                <td>Monthly rate (per day)</td>
-                                <td>₹500</td>
-                                <td>₹900</td>
-                                <td>₹1,800</td>
-                            </tr>
-                            <tr>
-                                <td>Posters per day</td>
-                                <td>5</td>
-                                <td>10</td>
-                                <td>20</td>
-                            </tr>
-                            <tr>
-                                <td>Minimum views</td>
-                                <td>500</td>
-                                <td>1,000</td>
-                                <td>2,000</td>
-                            </tr>
-                            <tr>
-                                <td>Priority support</td>
-                                <td><i class="fas fa-times"></i></td>
-                                <td><i class="fas fa-times"></i></td>
-                                <td><i class="fas fa-check"></i></td>
-                            </tr>
-                            <tr>
-                                <td>Weekly discount</td>
-                                <td>0%</td>
-                                <td>0%</td>
-                                <td>5%</td>
-                            </tr>
-                            <tr>
-                                <td>Monthly discount</td>
-                                <td>0%</td>
-                                <td>10%</td>
-                                <td>10%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="custom-plans">
-                    <div class="trust-card featured">
-                        <i class="fas fa-cogs fa-2x"></i>
-                        <h3>Custom Plans Available</h3>
-                        <p>Need 30, 50, or 100+ Posters? We can scale your campaign based on your budget and reach goals. The more posters, the higher your exposure.</p>
-                        <a href="https://wa.me/919744483058" class="btn btn-secondary">Request Custom Plan</a>
-                    </div>
+                <!-- Custom Plan Box -->
+                <div style="background: rgba(255,255,255,0.05); border-radius: 10px; padding: 30px; text-align: center; margin-top: 40px;">
+                    <i class="fas fa-crown" style="font-size: 2rem; color: #4CAF50; margin-bottom: 15px;"></i>
+                    <h3 style="color: #fff; margin-bottom: 15px;">Need a Custom Plan?</h3>
+                    <p style="color: #888; margin-bottom: 20px;">Running a larger campaign? Contact us for special rates on 30+ posters per day</p>
+                    <a href="https://wa.me/919744483058?text=Hi%2C%20I%27m%20interested%20in%20a%20Custom%20Plan%20for%2030%2B%20posters.%20Please%20help%20me%20with%20the%20options." target="_blank" style="display: inline-block; background: transparent; border: 2px solid #4CAF50; color: #fff; padding: 12px 30px; border-radius: 5px; text-decoration: none;">Contact Us</a>
                 </div>
             </div>
         </section>
 
         <!-- Campaign Duration Section -->
-        <section id="duration" class="section-light">
+        <section id="duration" style="background: #f8f9fa; padding: 80px 0;">
             <div class="container">
-                <div class="section-title center">
-                    <h2>Campaign Duration Options</h2>
+                <div style="text-align: center; margin-bottom: 50px;">
+                    <h2 style="font-size: 2.5rem; color: #333; margin-bottom: 20px;">Flexible Campaign Durations</h2>
+                    <p style="color: #666; font-size: 1.1rem; max-width: 700px; margin: 0 auto 40px;">Choose the duration that best suits your marketing goals. Longer campaigns get better rates!</p>
                 </div>
-                <div class="duration-flex">
-                    <div class="duration-card elevation">
-                        <div class="icon-circle">
-                            <i class="fas fa-calendar-day"></i>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+                    <!-- Daily Option -->
+                    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                        <div style="width: 60px; height: 60px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <i class="fas fa-calendar-day" style="font-size: 24px; color: #4CAF50;"></i>
                         </div>
-                        <h3>Daily</h3>
-                        <p>Standard pricing (₹100/poster/day)</p>
+                        <h3 style="color: #333; font-size: 1.5rem; margin-bottom: 15px;">Daily Campaign</h3>
+                        <p style="color: #666; margin-bottom: 10px;">Perfect for event promotions and time-sensitive offers</p>
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 8px; margin: 15px 0;">
+                            <span style="color: #4CAF50; font-weight: bold;">₹100</span> per poster/day
+                        </div>
                     </div>
-                    <div class="duration-card elevation">
-                        <div class="icon-circle">
-                            <i class="fas fa-calendar-week"></i>
+
+                    <!-- Weekly Option -->
+                    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                        <div style="width: 60px; height: 60px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <i class="fas fa-calendar-week" style="font-size: 24px; color: #4CAF50;"></i>
                         </div>
-                        <h3>Weekly Campaign</h3>
-                        <p>7 consecutive days of posting</p>
-                        <p class="highlight">5% discount for Premium plan</p>
+                        <h3 style="color: #333; font-size: 1.5rem; margin-bottom: 15px;">Weekly Campaign</h3>
+                        <p style="color: #666; margin-bottom: 10px;">7 consecutive days of consistent exposure</p>
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 8px; margin: 15px 0;">
+                            <span style="color: #4CAF50; font-weight: bold;">5% OFF</span> on Premium Plan
+                        </div>
                     </div>
-                    <div class="duration-card elevation featured">
-                        <div class="icon-circle primary">
-                            <i class="fas fa-calendar-alt"></i>
+
+                    <!-- Monthly Option -->
+                    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,0.1); border: 2px solid #4CAF50; position: relative; transition: transform 0.3s ease;">
+                        <div style="position: absolute; top: -12px; right: 20px; background: #4CAF50; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem;">Best Value</div>
+                        <div style="width: 60px; height: 60px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <i class="fas fa-calendar-alt" style="font-size: 24px; color: #4CAF50;"></i>
                         </div>
-                        <h3>Monthly Campaign</h3>
-                        <p>30 consecutive days of posting</p>
-                        <p class="highlight">10% discount for monthly bookings</p>
+                        <h3 style="color: #333; font-size: 1.5rem; margin-bottom: 15px;">Monthly Campaign</h3>
+                        <p style="color: #666; margin-bottom: 10px;">30 days of maximum impact & best savings</p>
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 8px; margin: 15px 0;">
+                            <span style="color: #4CAF50; font-weight: bold;">10% OFF</span> on Growth & Premium Plans
+                        </div>
                     </div>
-                    <div class="duration-card elevation">
-                        <div class="icon-circle">
-                            <i class="fas fa-cogs"></i>
+
+                    <!-- Custom Option -->
+                    <div style="background: white; border-radius: 12px; padding: 30px; text-align: center; box-shadow: 0 3px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                        <div style="width: 60px; height: 60px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <i class="fas fa-cogs" style="font-size: 24px; color: #4CAF50;"></i>
                         </div>
-                        <h3>Custom Duration</h3>
-                        <p>Tailored to your specific marketing timeline</p>
+                        <h3 style="color: #333; font-size: 1.5rem; margin-bottom: 15px;">Custom Duration</h3>
+                        <p style="color: #666; margin-bottom: 10px;">Tailored to your specific timeline</p>
+                        <div style="background: #f8f9fa; padding: 10px; border-radius: 8px; margin: 15px 0;">
+                            <a href="https://wa.me/919744483058?text=Hi%2C%20I%27m%20interested%20in%20a%20custom%20duration%20campaign.%20Could%20you%20help%20me%20with%20the%20options%3F" target="_blank" style="color: #4CAF50; text-decoration: none; font-weight: bold;">Contact for Quote</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Benefits Section -->
-        <section id="benefits" class="section-dark">
+        <section id="benefits" style="background: #f8f9fa; padding: 80px 0;">
             <div class="container">
-                <div class="section-title center">
-                    <h2>What You Get</h2>
+                <div style="text-align: center; margin-bottom: 50px;">
+                    <h2 style="font-size: 2.5rem; color: #333; margin-bottom: 20px;">Everything You Get</h2>
+                    <p style="color: #666; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Every campaign includes these powerful features to maximize your ROI</p>
                 </div>
-                <div class="benefits-masonry">
-                    <div class="benefit-card">
-                        <i class="fas fa-users"></i>
-                        <h3>Real WhatsApp Users</h3>
-                        <p>Active daily engagement from real people</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    <!-- Benefit Cards with updated colors -->
+                    <div style="background: white; border-radius: 15px; padding: 30px; transition: transform 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                <i class="fas fa-users" style="font-size: 20px; color: #4CAF50;"></i>
+                            </div>
+                            <h3 style="color: #333; font-size: 1.3rem; margin: 0;">Real WhatsApp Users</h3>
+                        </div>
+                        <p style="color: #666; line-height: 1.6;">Connect with genuine, active users who regularly engage with WhatsApp status updates. No bots, no fake views.</p>
                     </div>
-                    <div class="benefit-card">
-                        <i class="fas fa-eye"></i>
-                        <h3>Guaranteed Visibility</h3>
-                        <p>Each poster has at least 100+ daily views (many get 200-300+)</p>
+
+                    <div style="background: white; border-radius: 15px; padding: 30px; transition: transform 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                <i class="fas fa-eye" style="font-size: 20px; color: #4CAF50;"></i>
+                            </div>
+                            <h3 style="color: #333; font-size: 1.3rem; margin: 0;">Guaranteed Views</h3>
+                        </div>
+                        <p style="color: #666; line-height: 1.6;">Each poster guarantees 100+ daily views, with many reaching 200-300+ views from their engaged audience.</p>
                     </div>
-                    <div class="benefit-card">
-                        <i class="fas fa-check-circle"></i>
-                        <h3>Manual Verification</h3>
-                        <p>Every status upload is manually verified</p>
+
+                    <div style="background: white; border-radius: 15px; padding: 30px; transition: transform 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                <i class="fas fa-check-circle" style="font-size: 20px; color: #4CAF50;"></i>
+                            </div>
+                            <h3 style="color: #333; font-size: 1.3rem; margin: 0;">Verified Posting</h3>
+                        </div>
+                        <p style="color: #666; line-height: 1.6;">Every status upload is manually verified and tracked to ensure maximum visibility and impact.</p>
                     </div>
-                    <div class="benefit-card">
-                        <i class="fas fa-sliders-h"></i>
-                        <h3>Flexible Campaigns</h3>
-                        <p>Custom sizes to suit your needs</p>
+
+                    <div style="background: white; border-radius: 15px; padding: 30px; transition: transform 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                <i class="fas fa-chart-line" style="font-size: 20px; color: #4CAF50;"></i>
+                            </div>
+                            <h3 style="color: #333; font-size: 1.3rem; margin: 0;">Performance Tracking</h3>
+                        </div>
+                        <p style="color: #666; line-height: 1.6;">Get detailed insights with viewership screenshots and campaign performance reports.</p>
                     </div>
-                    <div class="benefit-card">
-                        <i class="fas fa-heart"></i>
-                        <h3>Personal Touch</h3>
-                        <p>Posters share your ad in their personal space</p>
+
+                    <div style="background: white; border-radius: 15px; padding: 30px; transition: transform 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                <i class="fas fa-bullseye" style="font-size: 20px; color: #4CAF50;"></i>
+                            </div>
+                            <h3 style="color: #333; font-size: 1.3rem; margin: 0;">Targeted Reach</h3>
+                        </div>
+                        <p style="color: #666; line-height: 1.6;">Your ads reach relevant audiences through our network of demographically diverse posters.</p>
                     </div>
-                    <div class="benefit-card">
-                        <i class="fas fa-camera"></i>
-                        <h3>Proof of Posting</h3>
-                        <p>Viewership screenshots available upon request</p>
+
+                    <div style="background: white; border-radius: 15px; padding: 30px; transition: transform 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                <i class="fas fa-headset" style="font-size: 20px; color: #4CAF50;"></i>
+                            </div>
+                            <h3 style="color: #333; font-size: 1.3rem; margin: 0;">Dedicated Support</h3>
+                        </div>
+                        <p style="color: #666; line-height: 1.6;">Get assistance throughout your campaign with our responsive support team.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Value Proposition Section -->
-        <section id="value" class="section-light">
+        <section id="value" style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: 100px 0;">
             <div class="container">
-                <div class="section-title center">
-                    <h2>Why This Pricing Makes Sense</h2>
+                <div style="text-align: center; margin-bottom: 60px;">
+                    <h2 style="font-size: 2.8rem; color: #333; margin-bottom: 20px; font-weight: 700;">The Smart Choice for Advertisers</h2>
+                    <p style="color: #666; font-size: 1.2rem; max-width: 700px; margin: 0 auto;">Compare the value and impact of WhatsApp Status advertising against traditional channels</p>
                 </div>
-                <div class="value-flex">
-                    <div class="value-card">
-                        <h3><i class="fas fa-bullseye"></i> High Attention Zone</h3>
-                        <p>WhatsApp Status is not cluttered with ads — unlike Instagram or Facebook. It's personal, trusted, and less saturated. That makes every view more impactful.</p>
-                    </div>
-                    <div class="value-card">
-                        <h3><i class="fas fa-user-check"></i> Genuine Human Reach</h3>
-                        <p>No bots, no inflated impressions. Each viewer is a real human in the Poster's network.</p>
-                    </div>
-                    <div class="value-card">
-                        <h3><i class="fas fa-exchange-alt"></i> No Middlemen Wastage</h3>
-                        <p>Your ad is shared directly from us to the Poster to their audience. Simple, clear, traceable.</p>
-                    </div>
-                    <div class="value-card">
-                        <h3><i class="fas fa-rupee-sign"></i> Cost-Effective Compared to Alternatives:</h3>
-                        <ul class="comparison-list">
-                            <li><strong>WhatsApp Status Ads:</strong> ₹1/view (potential for much higher engagement)</li>
-                            <li><strong>Facebook Ads:</strong> ₹5-10/click (with no guarantee of engagement)</li>
-                            <li><strong>Google Ads:</strong> ₹20-50/click (with high competition)</li>
-                            <li><strong>Instagram Ads:</strong> ₹3-8/engagement (often reaching non-local audiences)</li>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 50px;">
+                    <!-- WhatsApp Status Benefits -->
+                    <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 2px solid #4CAF50;">
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <i class="fas fa-check-double" style="font-size: 24px; color: #4CAF50; margin-right: 15px;"></i>
+                            <h3 style="color: #333; font-size: 1.4rem; margin: 0;">StatusPay247 Ads</h3>
+                        </div>
+                        <p style="color: #666; margin-bottom: 20px; line-height: 1.6;">Premium WhatsApp Status Advertising with Verified Results</p>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <i class="fas fa-check-circle" style="color: #4CAF50; margin-right: 10px;"></i>
+                                <span style="color: #666;">Just ₹1/view with proof of posting</span>
+                            </li>
+                            <li style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <i class="fas fa-check-circle" style="color: #4CAF50; margin-right: 10px;"></i>
+                                <span style="color: #666;">Verified network of active posters</span>
+                            </li>
+                            <li style="display: flex; align-items: center; margin-bottom: 15px;">
+                                <i class="fas fa-check-circle" style="color: #4CAF50; margin-right: 10px;"></i>
+                                <span style="color: #666;">100% genuine engagement guarantee</span>
+                            </li>
                         </ul>
+                    </div>
+
+                    <!-- Traditional Advertising Comparison -->
+                    <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <h3 style="color: #333; font-size: 1.4rem; margin-bottom: 20px;">Traditional Digital Ads</h3>
+                        <div style="margin-bottom: 25px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                                <span style="color: #666;"><i class="fab fa-facebook" style="color: #4267B2; margin-right: 8px;"></i> Facebook Ads</span>
+                                <span style="color: #666;">₹5-10/click</span>
+                            </div>
+                            <div style="height: 6px; background: #f0f0f0; border-radius: 3px;">
+                                <div style="width: 40%; height: 100%; background: #4267B2; border-radius: 3px;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 25px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                                <span style="color: #666;"><i class="fab fa-google" style="color: #DB4437; margin-right: 8px;"></i> Google Ads</span>
+                                <span style="color: #666;">₹20-50/click</span>
+                            </div>
+                            <div style="height: 6px; background: #f0f0f0; border-radius: 3px;">
+                                <div style="width: 60%; height: 100%; background: #DB4437; border-radius: 3px;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 25px;">
+                            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+                                <span style="color: #666;"><i class="fab fa-instagram" style="color: #E1306C; margin-right: 8px;"></i> Instagram Ads</span>
+                                <span style="color: #666;">₹3-8/engagement</span>
+                            </div>
+                            <div style="height: 6px; background: #f0f0f0; border-radius: 3px;">
+                                <div style="width: 30%; height: 100%; background: #E1306C; border-radius: 3px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Advantages -->
+                    <div style="background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                        <h3 style="color: #333; font-size: 1.4rem; margin-bottom: 20px;">Our Advantages</h3>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 40px; height: 40px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                <i class="fas fa-bullseye" style="color: #4CAF50;"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: #333; margin: 0 0 5px 0;">Direct Impact</h4>
+                                <p style="color: #666; margin: 0;">Personal space, higher trust</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 40px; height: 40px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                <i class="fas fa-chart-line" style="color: #4CAF50;"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: #333; margin: 0 0 5px 0;">Guaranteed Results</h4>
+                                <p style="color: #666; margin: 0;">Verified views & engagement</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <div style="width: 40px; height: 40px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                                <i class="fas fa-wallet" style="color: #4CAF50;"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: #333; margin: 0 0 5px 0;">Cost Effective</h4>
+                                <p style="color: #666; margin: 0;">Better ROI than traditional ads</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- How It Works Section -->
-        <section id="process" class="section-dark">
+        <section id="process" style="background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%); padding: 100px 0; position: relative;">
             <div class="container">
-                <div class="section-title center">
-                    <h2>How It Works</h2>
+                <div style="text-align: center; margin-bottom: 60px;">
+                    <h2 style="font-size: 2.8rem; color: #333; margin-bottom: 20px; font-weight: 700;">How It Works</h2>
+                    <p style="color: #666; font-size: 1.2rem; max-width: 700px; margin: 0 auto;">Four simple steps to get your message in front of thousands</p>
                 </div>
-                <div class="process-timeline">
-                    <div class="process-step">
-                        <div class="step-number">1</div>
-                        <h3>Submit Your Ad Content</h3>
-                        <p>Send us your ad content or let us help create it</p>
+
+                <!-- Timeline Carousel -->
+                <div class="timeline-carousel" style="position: relative; margin: 0 auto; max-width: 100%; overflow: hidden;">
+                    <div id="timeline-scroll" style="display: flex; transition: transform 0.5s ease; width: 100%;">
+                        <style>
+                            .timeline-carousel {
+                                position: relative;
+                                padding: 20px 0;
+                            }
+                            #timeline-scroll {
+                                scroll-behavior: smooth;
+                                -webkit-overflow-scrolling: touch;
+                            }
+                            .timeline-slide {
+                                flex: 0 0 100%;
+                                max-width: 100%;
+                                padding: 0 15px;
+                                transition: all 0.3s ease;
+                            }
+                            @media (min-width: 768px) {
+                                .timeline-slide {
+                                    flex: 0 0 50%;
+                                    max-width: 50%;
+                                }
+                            }
+                            .timeline-navigation {
+                                display: flex;
+                                justify-content: center;
+                                gap: 10px;
+                                margin-top: 20px;
+                            }
+                            .timeline-dot {
+                                width: 10px;
+                                height: 10px;
+                                border-radius: 50%;
+                                background: #ddd;
+                                cursor: pointer;
+                                transition: background 0.3s ease;
+                            }
+                            .timeline-dot.active {
+                                background: #4CAF50;
+                            }
+                        </style>
+
+                        <!-- Step 1 -->
+                        <div class="timeline-slide">
+                            <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center;">
+                                <div style="width: 70px; height: 70px; background: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                    <i class="fas fa-upload" style="font-size: 30px; color: white;"></i>
+                                </div>
+                                <h3 style="color: #333; font-size: 1.4rem; margin-bottom: 15px;">Submit Content</h3>
+                                <p style="color: #666; line-height: 1.6;">Send us your ad content or let us create it for you</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="timeline-slide">
+                            <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center;">
+                                <div style="width: 70px; height: 70px; background: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                    <i class="fas fa-hand-pointer" style="font-size: 30px; color: white;"></i>
+                                </div>
+                                <h3 style="color: #333; font-size: 1.4rem; margin-bottom: 15px;">Select Plan</h3>
+                                <p style="color: #666; line-height: 1.6;">Choose your preferred plan & duration</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="timeline-slide">
+                            <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center;">
+                                <div style="width: 70px; height: 70px; background: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                    <i class="fas fa-wallet" style="font-size: 30px; color: white;"></i>
+                                </div>
+                                <h3 style="color: #333; font-size: 1.4rem; margin-bottom: 15px;">Make Payment</h3>
+                                <p style="color: #666; line-height: 1.6;">Secure payment processing</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="timeline-slide">
+                            <div style="background: white; border-radius: 15px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center;">
+                                <div style="width: 70px; height: 70px; background: #4CAF50; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                    <i class="fas fa-rocket" style="font-size: 30px; color: white;"></i>
+                                </div>
+                                <h3 style="color: #333; font-size: 1.4rem; margin-bottom: 15px;">Go Live</h3>
+                                <p style="color: #666; line-height: 1.6;">Your campaign starts within 24-48 hours</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="process-step">
-                        <div class="step-number">2</div>
-                        <h3>Select Number of Posters</h3>
-                        <p>Choose from standard plans or request a custom package</p>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">3</div>
-                        <h3>Choose Campaign Duration</h3>
-                        <p>1 day, 1 week, 1 month, or custom duration</p>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">4</div>
-                        <h3>Make the Payment</h3>
-                        <p>Payment must be made in advance</p>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">5</div>
-                        <h3>We Distribute & Monitor</h3>
-                        <p>We handle the distribution to our verified posters</p>
-                    </div>
-                    <div class="process-step">
-                        <div class="step-number">6</div>
-                        <h3>Receive Status Reports</h3>
-                        <p>Get performance reports upon request</p>
+
+                    <!-- Navigation Dots -->
+                    <div class="timeline-navigation">
+                        <div class="timeline-dot active" onclick="goToSlide(0)"></div>
+                        <div class="timeline-dot" onclick="goToSlide(1)"></div>
+                        <div class="timeline-dot" onclick="goToSlide(2)"></div>
+                        <div class="timeline-dot" onclick="goToSlide(3)"></div>
                     </div>
                 </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const container = document.getElementById('timeline-scroll');
+                        const slides = document.querySelectorAll('.timeline-slide');
+                        const dots = document.querySelectorAll('.timeline-dot');
+                        let currentSlide = 0;
+                        let autoScrollInterval;
+
+                        function updateSlide(index) {
+                            const offset = slides[index].offsetLeft;
+                            container.style.transform = `translateX(-${offset}px)`;
+                            
+                            // Update dots
+                            dots.forEach(dot => dot.classList.remove('active'));
+                            dots[index].classList.add('active');
+                            
+                            currentSlide = index;
+                        }
+
+                        function nextSlide() {
+                            currentSlide = (currentSlide + 1) % slides.length;
+                            updateSlide(currentSlide);
+                        }
+
+                        window.goToSlide = function(index) {
+                            updateSlide(index);
+                            resetAutoScroll();
+                        };
+
+                        function startAutoScroll() {
+                            autoScrollInterval = setInterval(nextSlide, 3000);
+                        }
+
+                        function resetAutoScroll() {
+                            clearInterval(autoScrollInterval);
+                            startAutoScroll();
+                        }
+
+                        // Initialize auto-scroll
+                        startAutoScroll();
+
+                        // Touch events
+                        let touchStartX = 0;
+                        container.addEventListener('touchstart', e => {
+                            touchStartX = e.touches[0].clientX;
+                            clearInterval(autoScrollInterval);
+                        });
+
+                        container.addEventListener('touchend', e => {
+                            const touchEndX = e.changedTouches[0].clientX;
+                            const diff = touchStartX - touchEndX;
+
+                            if (Math.abs(diff) > 50) {
+                                if (diff > 0 && currentSlide < slides.length - 1) {
+                                    goToSlide(currentSlide + 1);
+                                } else if (diff < 0 && currentSlide > 0) {
+                                    goToSlide(currentSlide - 1);
+                                }
+                            }
+                            startAutoScroll();
+                        });
+                    });
+                </script>
             </div>
         </section>
 
         <!-- Use Cases Section -->
-        <section id="use-cases" class="section-light">
+        <section id="use-cases" style="background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%); padding: 80px 0;">
             <div class="container">
-                <div class="section-title center">
-                    <h2>Build Your Brand Where It Matters</h2>
+                <div style="text-align: center; margin-bottom: 60px;">
+                    <h2 style="font-size: 2.8rem; color: #333; margin-bottom: 20px; font-weight: 700;">Build Your Brand Where It Matters</h2>
+                    <p style="color: #666; font-size: 1.2rem; max-width: 700px; margin: 0 auto;">Perfect for businesses of all sizes looking to expand their reach</p>
                 </div>
-                <div class="use-cases-flex">
-                    <div class="use-case-card">
-                        <i class="fas fa-store"></i>
-                        <h3>Local Businesses</h3>
-                        <p>Reach nearby customers effectively</p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+                    <!-- Local Business Card -->
+                    <div style="background: white; border-radius: 15px; padding: 30px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                        <div style="width: 70px; height: 70px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <i class="fas fa-store" style="font-size: 28px; color: #4CAF50;"></i>
+                        </div>
+                        <h3 style="color: #333; font-size: 1.5rem; margin-bottom: 15px;">Local Businesses</h3>
+                        <p style="color: #666; line-height: 1.6;">Connect with nearby customers and build a strong local presence</p>
+                        <div style="margin-top: 20px;">
+                            <a href="https://wa.me/919744483058" style="color: #4CAF50; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                Learn More <i class="fas fa-arrow-right" style="font-size: 14px;"></i>
+                            </a>
+                        </div>
                     </div>
-                    <div class="use-case-card">
-                        <i class="fas fa-calendar-check"></i>
-                        <h3>Event Promotions</h3>
-                        <p>Get immediate attention for your events</p>
+
+                    <!-- Event Promotions Card -->
+                    <div style="background: white; border-radius: 15px; padding: 30px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                        <div style="width: 70px; height: 70px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <i class="fas fa-calendar-check" style="font-size: 28px; color: #4CAF50;"></i>
+                        </div>
+                        <h3 style="color: #333; font-size: 1.5rem; margin-bottom: 15px;">Event Promotions</h3>
+                        <p style="color: #666; line-height: 1.6;">Drive attendance with targeted event marketing campaigns</p>
+                        <div style="margin-top: 20px;">
+                            <a href="https://wa.me/919744483058" style="color: #4CAF50; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                Learn More <i class="fas fa-arrow-right" style="font-size: 14px;"></i>
+                            </a>
+                        </div>
                     </div>
-                    <div class="use-case-card">
-                        <i class="fas fa-box-open"></i>
-                        <h3>Product Launches</h3>
-                        <p>Create quick awareness for new products</p>
+
+                    <!-- Product Launch Card -->
+                    <div style="background: white; border-radius: 15px; padding: 30px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                        <div style="width: 70px; height: 70px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <i class="fas fa-box-open" style="font-size: 28px; color: #4CAF50;"></i>
+                        </div>
+                        <h3 style="color: #333; font-size: 1.5rem; margin-bottom: 15px;">Product Launches</h3>
+                        <p style="color: #666; line-height: 1.6;">Create buzz around your new products and services</p>
+                        <div style="margin-top: 20px;">
+                            <a href="https://wa.me/919744483058" style="color: #4CAF50; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                Learn More <i class="fas fa-arrow-right" style="font-size: 14px;"></i>
+                            </a>
+                        </div>
                     </div>
-                    <div class="use-case-card">
-                        <i class="fas fa-concierge-bell"></i>
-                        <h3>Service Providers</h3>
-                        <p>Get trusted recommendations</p>
-                    </div>
-                    <div class="use-case-card">
-                        <i class="fas fa-tags"></i>
-                        <h3>Special Offers</h3>
-                        <p>Promote time-limited deals</p>
+
+                    <!-- Service Providers Card -->
+                    <div style="background: white; border-radius: 15px; padding: 30px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+                        <div style="width: 70px; height: 70px; background: #f0f7f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <i class="fas fa-concierge-bell" style="font-size: 28px; color: #4CAF50;"></i>
+                        </div>
+                        <h3 style="color: #333; font-size: 1.5rem; margin-bottom: 15px;">Service Providers</h3>
+                        <p style="color: #666; line-height: 1.6;">Build trust through personal recommendations</p>
+                        <div style="margin-top: 20px;">
+                            <a href="https://wa.me/919744483058" style="color: #4CAF50; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                                Learn More <i class="fas fa-arrow-right" style="font-size: 14px;"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="cta-section centered">
-                    <a href="https://wa.me/919744483058" class="btn btn-whatsapp">
-                        <i class="fab fa-whatsapp"></i> Contact Us Now
+
+                <div style="text-align: center; margin-top: 50px;">
+                    <a href="https://wa.me/919744483058" class="btn-whatsapp" style="display: inline-flex; align-items: center; gap: 10px; background: #4CAF50; color: white; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; box-shadow: 0 4px 15px rgba(76,175,80,0.2);">
+                        <i class="fab fa-whatsapp" style="font-size: 20px;"></i>
+                        Start Your Campaign
                     </a>
-                    <a href="advertiser-terms.html" class="btn btn-secondary">Book Your Campaign</a>
                 </div>
             </div>
         </section>
@@ -487,36 +688,79 @@
     </main>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>StatusPay 247</h3>
-                    <p>Your trusted platform for WhatsApp status advertising. Connect with us to start your campaign today.</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html#hero">Home</a></li>
-                        <li><a href="index.html#what-is-statuspay">About Us</a></li>
-                        <li><a href="pricing.html">Pricing</a></li>
-                        <li><a href="index.html#how-it-works">How It Works</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Connect With Us</h3>
-                    <div class="social-links">
-                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
+        <div class="copyright" style="background-color:#1F2937; color:white; padding:0;">
+            <p style="margin-top:1.5rem;">&copy; 2025 StatusPay 247. All rights reserved.</p>
+            <div class="footer-social" style="margin:1rem 0 0.5rem 0;">
+                <a href="https://x.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="X.com">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 StatusPay 247. All rights reserved.</p>
-            </div>
+            <p class="disclaimer" style="color:#9CA3AF;">WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc. The services we provide involve direct WhatsApp status marketing using our network of users, and the use of the WhatsApp® logo or name is strictly for illustrative purposes. All rights to WhatsApp® remain the property of Meta Platforms, Inc.</p>
         </div>
     </footer>
+
+    <script>
+        // Auto-scroll functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const timeline = document.getElementById('timeline-scroll');
+            let scrollInterval;
+            const speed = 1; // Pixels per frame
+            let isPaused = false;
+
+            function startAutoScroll() {
+                if (window.innerWidth <= 768 && !isPaused) {
+                    scrollInterval = setInterval(() => {
+                        timeline.scrollLeft += speed;
+                        
+                        // Reset scroll position when reached end
+                        if (timeline.scrollLeft >= timeline.scrollWidth - timeline.clientWidth) {
+                            timeline.scrollLeft = 0;
+                        }
+                    }, 30);
+                }
+            }
+
+            function stopAutoScroll() {
+                clearInterval(scrollInterval);
+            }
+
+            // Start scrolling
+            startAutoScroll();
+
+            // Pause on interaction
+            ['touchstart', 'mouseenter'].forEach(evt => 
+                timeline.addEventListener(evt, () => {
+                    isPaused = true;
+                    stopAutoScroll();
+                })
+            );
+
+            // Resume after interaction
+            ['touchend', 'mouseleave'].forEach(evt => 
+                timeline.addEventListener(evt, () => {
+                    isPaused = false;
+                    setTimeout(startAutoScroll, 2000);
+                })
+            );
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth <= 768) {
+                    startAutoScroll();
+                } else {
+                    stopAutoScroll();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

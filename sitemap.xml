@@ -2,31 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://statuspay247.com/</loc>
-    <lastmod>2025-05-04</lastmod>
+    <lastmod>2025-06-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://statuspay247.com/poster.html</loc>
-    <lastmod>2025-05-04</lastmod>
+    <lastmod>2025-06-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://statuspay247.com/advertisers.html</loc>
-    <lastmod>2025-05-04</lastmod>
+    <loc>https://statuspay247.com/ad-submission.html</loc>
+    <lastmod>2025-06-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statuspay247.com/advertise-with-us.html</loc>
+    <lastmod>2025-06-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statuspay247.com/dashboard.html</loc>
+    <lastmod>2025-06-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statuspay247.com/login.html</loc>
+    <lastmod>2025-06-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://statuspay247.com/pricing.html</loc>
+    <lastmod>2025-06-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://statuspay247.com/terms-and-conditions-for-posters.html</loc>
-    <lastmod>2025-05-04</lastmod>
+    <lastmod>2025-06-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://statuspay247.com/advertiser-terms.html</loc>
-    <lastmod>2025-05-04</lastmod>
+    <lastmod>2025-06-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
