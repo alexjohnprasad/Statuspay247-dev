@@ -96,6 +96,26 @@
                 margin-bottom: 0.2rem;
             }
         }
+
+        .password-input-container {
+            position: relative;
+            width: 100%;
+        }
+        
+        .password-input-container input {
+            width: 100%;
+            padding-right: 40px;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
@@ -790,7 +810,8 @@
             }
 
             // Set the max date to exactly 18 years ago and update it daily
-            const dobInput = document.getElementById('dob');
+            const dobInputEn = document.getElementById('dob');
+            const dobInputMl = document.getElementById('dob-ml');
             const today = new Date();
 
             // Calculate date 18 years ago from today
@@ -804,10 +825,21 @@
             const maxDate = `${minYear}-${formattedMonth}-${formattedDay}`;
 
             // Set max attribute - this prevents selection of dates after this (younger than 18)
-            dobInput.setAttribute('max', maxDate);
+            dobInputEn.setAttribute('max', maxDate);
+            dobInputMl.setAttribute('max', maxDate);
 
             // Add event listener to prevent manual entry of invalid dates
-            dobInput.addEventListener('input', function(e) {
+            dobInputEn.addEventListener('input', function(e) {
+                const selectedDate = new Date(this.value);
+                const minDate = new Date(minYear, minMonth, minDay);
+
+                if (selectedDate > minDate) {
+                    this.value = maxDate;
+                    alert("You must be at least 18 years old to register.");
+                }
+            });
+
+            dobInputMl.addEventListener('input', function(e) {
                 const selectedDate = new Date(this.value);
                 const minDate = new Date(minYear, minMonth, minDay);
 
@@ -845,19 +877,21 @@
                 }
             });
 
-            // Password visibility toggle function
-            function togglePasswordVisibility(inputId) {
-                const passwordInput = document.getElementById(inputId);
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-
-                // Toggle the eye icon
-                const toggleIcon = document.querySelector('#' + inputId + ' + .password-toggle i');
-                if (toggleIcon) {
-                    toggleIcon.classList.toggle('fa-eye');
-                    toggleIcon.classList.toggle('fa-eye-slash');
+            // Updated password visibility toggle function
+            window.togglePasswordVisibility = function(inputId) {
+                const input = document.getElementById(inputId);
+                if (!input) return;
+                
+                // Toggle input type
+                input.type = input.type === 'password' ? 'text' : 'password';
+                
+                // Toggle icon
+                const icon = input.parentElement.querySelector('.password-toggle i');
+                if (icon) {
+                    icon.classList.toggle('fa-eye');
+                    icon.classList.toggle('fa-eye-slash');
                 }
-            }
+            };
 
             // Utility: hash a string with SHA-256 and return hex
             async function hashPassword(password) {
@@ -1228,6 +1262,7 @@
         window.handleDistrictChange = handleDistrictChange;
         window.generateCaptcha = generateCaptcha;
         window.togglePasswordVisibility = togglePasswordVisibility;
+        window.generateCaptchaML = generateCaptchaML;
     </script>
 </body>
 </html>
