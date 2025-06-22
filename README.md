@@ -1,1 +1,1 @@
-#  dev.Statuspay247.com
+#  www.Statuspay247.com

@@ -19,7 +19,7 @@
             <nav>
                 <div class="logo">
                     <a href="/">
-                        <img src="assets/logo.png" alt="StatusPay 247 Logo">
+                        <img src="assets/logo.png" alt="StatusPay247 Logo">
                     </a>
                 </div>
                 <div class="burger-menu" onclick="toggleMenu()">
@@ -48,45 +48,238 @@
 
     <main>
         <!-- Hero Section -->
-        <section id="hero" style="background: white; color: var(--text-color); padding: 100px 0 70px; position: relative; overflow: hidden;">
-            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); opacity: 0.4;"></div>
+        <section id="hero" class="modern-hero">
+            <div class="hero-background">
+                <div class="hero-pattern"></div>
+                <div class="gradient-overlay"></div>
+            </div>
             <div class="container">
-                <div class="hero-content" style="position: relative; z-index: 2; text-align: center;">
-                    <div class="hero-text" style="max-width: 800px; margin: 0 auto;">
-                        <h1 style="font-size: 2.8rem; margin-bottom: 20px; font-weight: 800; color: var(--text-color);">Reach Thousands on WhatsApp — Even If You Don't Have an Ad Yet.</h1>
-                        <p style="font-size: 1.2rem; margin-bottom: 30px; color: var(--text-light);">Promote your business through verified WhatsApp users who post your ads as their status. Need help with your creatives? We design, build, and market it all for you.</p>
-                        <div class="hero-buttons" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
-                            <a href="ad-submission.html" class="btn" style="background-color: var(--primary-color); color: white; font-weight: 700; padding: 14px 28px; border-radius: 8px;">Start Advertising Now</a>
-                            <a href="#contact" class="btn" style="background: var(--secondary-color); color: white; font-weight: 700; padding: 14px 28px; border-radius: 8px;">Need Ad Design Help?</a>
+                <div class="hero-flex-container">
+                    <div class="hero-text-content">
+                        <span class="hero-badge">WhatsApp Marketing Platform</span>
+                        <h1 data-translate="hero_title">Turn WhatsApp Status into Your Most Powerful Marketing Channel</h1>
+                        <p data-translate="hero_desc">Get your ads seen by thousands of real people through trusted WhatsApp status updates. No bots, no fake views - just genuine engagement.</p>
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-label">Active Businesses</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">10K+</span>
+                                <span class="stat-label">Daily Views</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">98%</span>
+                                <span class="stat-label">View Rate</span>
+                            </div>
                         </div>
-                        <p style="font-size: 0.95rem; margin-top: 25px; color: var(--text-light);"><i class="fas fa-check-circle" style="color: var(--primary-color);"></i> No bots. No influencers. Just real users with real views.</p>
+                        <div class="hero-buttons">
+                            <a href="ad-submission.html" class="btn" data-translate="start_advertising" style="background-color: var(--primary-color); color: white; font-weight: 700; padding: 14px 28px; border-radius: 8px;">
+                                <i class="fas fa-rocket"></i> Start Advertising Now
+                            </a>
+                            <a href="https://wa.me/919744483058?text=Hello%20StatusPay247%20team,%20I%20need%20help%20with%20designing%20my%20ad.%20Could%20you%20please%20assist%20with%20creative%20services?" 
+                               target="_blank" 
+                               class="btn" 
+                               data-translate="need_design" 
+                               style="background: var(--secondary-color); color: white; font-weight: 700; padding: 14px 28px; border-radius: 8px;">
+                                <i class="fab fa-whatsapp"></i> Need Ad Design Help?
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-image-content">
+                        <img src="assets/MARKETING HERO.png" alt="WhatsApp Status Marketing" class="hero-image">
+                        <div class="floating-card card-1">
+                            <i class="fas fa-eye"></i>
+                            <span>Real Views</span>
+                        </div>
+                        <div class="floating-card card-2">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Verified users</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <style>
+            .modern-hero {
+                position: relative;
+                padding: 120px 0 80px;
+                background: #f8fafc;
+                overflow: hidden;
+            }
+
+            .hero-background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            .hero-pattern {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0.03;
+                background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            }
+
+            .gradient-overlay {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.03) 0%, rgba(var(--secondary-rgb), 0.03) 100%);
+            }
+
+            .hero-flex-container {
+                display: flex;
+                align-items: center;
+                gap: 60px;
+                position: relative;
+                z-index: 2;
+            }
+
+            .hero-text-content {
+                flex: 1;
+                max-width: 600px;
+            }
+
+            .hero-badge {
+                display: inline-block;
+                padding: 8px 16px;
+                background: var(--primary-color);
+                color: white;
+                border-radius: 50px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                margin-bottom: 24px;
+            }
+
+            .hero-stats {
+                display: flex;
+                gap: 32px;
+                margin: 32px 0;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+                font-weight: 800;
+                color: var(--primary-color);
+            }
+
+            .stat-label {
+                font-size: 0.9rem;
+                color: var(--text-light);
+            }
+
+            .hero-image-content {
+                flex: 1;
+                position: relative;
+            }
+
+            .hero-image {
+                width: 100%;
+                height: auto;
+                animation: float 6s ease-in-out infinite;
+            }
+
+            .floating-card {
+                position: absolute;
+                background: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .floating-card i {
+                color: var(--primary-color);
+                font-size: 1.2rem;
+            }
+
+            .card-1 {
+                top: 20%;
+                left: -10%;
+                animation: float 5s ease-in-out infinite;
+            }
+
+            .card-2 {
+                bottom: 20%;
+                right: -10%;
+                animation: float 5s ease-in-out infinite;
+                animation-delay: 1s;
+            }
+
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-20px); }
+                100% { transform: translateY(0px); }
+            }
+
+            @media (max-width: 1024px) {
+                .hero-flex-container {
+                    flex-direction: column;
+                    text-align: center;
+                }
+
+                .hero-stats {
+                    justify-content: center;
+                }
+
+                .hero-buttons {
+                    justify-content: center;
+                }
+
+                .floating-card {
+                    display: none;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .modern-hero {
+                    padding: 80px 0 60px;
+                }
+
+                .hero-text-content h1 {
+                    font-size: 2.4rem;
+                }
+
+                .hero-stats {
+                    flex-wrap: wrap;
+                }
+
+                .stat-item {
+                    flex: 1;
+                    min-width: 120px;
+                }
+            }
+        </style>
+
         <!-- Process Section -->
         <section id="process" class="section-light">
             <div class="container">
                 <div class="section-title">
-                    <h2>How Our WhatsApp Advertising Works</h2>
+                    <h2 data-translate="how_it_works_title">How Our WhatsApp Advertising Works</h2>
                 </div>
-                <p class="section-content" style="text-align: center; max-width: 700px; margin: 0 auto 40px;">Three Simple Steps</p>
+                <p class="section-content" style="text-align: center; max-width: 700px; margin: 0 auto 40px;" data-translate="three_simple_steps">Three Simple Steps</p>
                 <div class="features-grid" style="margin-top: 40px;">
                     <div class="feature-card" style="text-align: center;">
                         <div style="width: 70px; height: 70px; background: var(--primary-color); color: white; font-size: 2rem; font-weight: 800; border-radius: 50%; margin: 0 auto 25px; display: flex; align-items: center; justify-content: center;">1</div>
-                        <h3><i class="fas fa-upload"></i> Submit Your Ad or Request Creative Help</h3>
-                        <p>Upload your existing ad material (image/video/text), or let us create it for you.</p>
+                        <h3><i class="fas fa-upload"></i> <span data-translate="step1_title">Submit Your Ad or Request Creative Help</span></h3>
+                        <p data-translate="step1_desc">Upload your existing ad material (image/video/text), or let us create it for you.</p>
                     </div>
                     <div class="feature-card" style="text-align: center;">
                         <div style="width: 70px; height: 70px; background: var(--primary-color); color: white; font-size: 2rem; font-weight: 800; border-radius: 50%; margin: 0 auto 25px; display: flex; align-items: center; justify-content: center;">2</div>
-                        <h3><i class="fas fa-users"></i> Choose Your Audience Size</h3>
-                        <p>Select how many posters you'd like to promote your ad.</p>
+                        <h3><i class="fas fa-users"></i> <span data-translate="step2_title">Choose Your Audience Size</span></h3>
+                        <p data-translate="step2_desc">Select how many posters you'd like to promote your ad.</p>
                     </div>
                     <div class="feature-card" style="text-align: center;">
                         <div style="width: 70px; height: 70px; background: var(--primary-color); color: white; font-size: 2rem, font-weight: 800; border-radius: 50%; margin: 0 auto 25px; display: flex; align-items: center; justify-content: center;">3</div>
-                        <h3><i class="fas fa-chart-line"></i> Track and Grow</h3>
-                        <p>Your ad is shared by real users. You can request screenshots, view reports, and track performance.</p>
+                        <h3><i class="fas fa-chart-line"></i> <span data-translate="step3_title">Track and Grow</span></h3>
+                        <p data-translate="step3_desc">Your ad is shared by real users. You can request screenshots, view reports, and track performance.</p>
                     </div>
                 </div>
             </div>
@@ -96,17 +289,17 @@
         <section id="no-ad" class="section-light" style="background:#232323;">
             <div class="container">
                 <div class="section-title">
-                    <h2 style="color:#fff;">Need an Ad Designed? We’re a Full-Service Digital Agency Too.</h2>
+                    <h2 style="color:#fff;" data-translate="need_ad_title">Need an Ad Designed? We’re a Full-Service Digital Agency Too.</h2>
                 </div>
-                <p class="section-content" style="text-align: center; max-width: 700px; margin: 0 auto 40px; color: #fff;">Don’t have an ad ready? No time to design? No problem. At StatusPay247, we offer professional digital marketing services that make your brand look sharp and perform even better.</p>
+                <p class="section-content" style="text-align: center; max-width: 700px; margin: 0 auto 40px; color: #fff;" data-translate="need_ad_desc">Don’t have an ad ready? No time to design? No problem. At StatusPay247, we offer professional digital marketing services that make your brand look sharp and perform even better.</p>
                 <div class="advertisers-ref-grid">
                     <!-- Intro Card -->
                     <div class="advertiser-ref-card advertiser-ref-intro">
-                        <h3 style="font-size:2.3rem;font-weight:800;color:#fff;margin-bottom:1.2rem;">Let us handle the creatives</h3>
+                        <h3 style="font-size:2.3rem;font-weight:800;color:#fff;margin-bottom:1.2rem;" data-translate="handle_creatives">Let us handle the creatives</h3>
                         <p style="color:#bdbdbd;font-size:1.13rem;max-width:600px;margin:0 auto 2rem auto;">
                             Don't have an ad ready? No time to design? No problem. At StatusPay247, we offer professional digital marketing services that make your brand look sharp and perform even better.
                         </p>
-                        <a href="#contact" class="btn-ref-outline">
+                        <a href="#contact" class="btn-ref-outline" data-translate="request_quote">
                             Request a Digital Marketing Quote
                         </a>
                     </div>
@@ -115,43 +308,43 @@
                         <div class="service-ref-icon">
                             <i class="fas fa-desktop"></i>
                         </div>
-                        <div class="service-ref-title">Website Design & Development</div>
-                        <div class="service-ref-desc">From fast landing pages to full business websites — responsive, modern, and SEO-ready.</div>
+                        <div class="service-ref-title" data-translate="web_design_title">Website Design & Development</div>
+                        <div class="service-ref-desc" data-translate="web_design_desc">From fast landing pages to full business websites — responsive, modern, and SEO-ready.</div>
                     </div>
                     <div class="advertiser-ref-card">
                         <div class="service-ref-icon">
                             <i class="fas fa-mobile-alt"></i>
                         </div>
-                        <div class="service-ref-title">Social Media Content Creation</div>
-                        <div class="service-ref-desc">We design stunning reels, carousels, story posts, and banner graphics tailored for Instagram, Facebook & more.</div>
+                        <div class="service-ref-title" data-translate="social_media_title">Social Media Content Creation</div>
+                        <div class="service-ref-desc" data-translate="social_media_desc">We design stunning reels, carousels, story posts, and banner graphics tailored for Instagram, Facebook & more.</div>
                     </div>
                     <div class="advertiser-ref-card">
                         <div class="service-ref-icon">
                             <i class="fas fa-video"></i>
                         </div>
-                        <div class="service-ref-title">Video Editing & Animations</div>
-                        <div class="service-ref-desc">Get eye-catching promo videos, motion graphics, animated text, reels, and intros for your brand.</div>
+                        <div class="service-ref-title" data-translate="video_title">Video Editing & Animations</div>
+                        <div class="service-ref-desc" data-translate="video_desc">Get eye-catching promo videos, motion graphics, animated text, reels, and intros for your brand.</div>
                     </div>
                     <div class="advertiser-ref-card">
                         <div class="service-ref-icon">
                             <i class="fas fa-search"></i>
                         </div>
-                        <div class="service-ref-title">Search Engine Optimization (SEO)</div>
-                        <div class="service-ref-desc">Improve your Google ranking with optimized content, keywords, and clean site structure.</div>
+                        <div class="service-ref-title" data-translate="seo_title">Search Engine Optimization (SEO)</div>
+                        <div class="service-ref-desc" data-translate="seo_desc">Improve your Google ranking with optimized content, keywords, and clean site structure.</div>
                     </div>
                     <div class="advertiser-ref-card">
                         <div class="service-ref-icon">
                             <i class="fas fa-palette"></i>
                         </div>
-                        <div class="service-ref-title">Branding & Graphic Design</div>
-                        <div class="service-ref-desc">Custom logos, business cards, brochures, posters — everything to build a standout brand identity.</div>
+                        <div class="service-ref-title" data-translate="branding_title">Branding & Graphic Design</div>
+                        <div class="service-ref-desc" data-translate="branding_desc">Custom logos, business cards, brochures, posters — everything to build a standout brand identity.</div>
                     </div>
                     <div class="advertiser-ref-card">
                         <div class="service-ref-icon">
                             <i class="fas fa-pencil-alt"></i>
                         </div>
-                        <div class="service-ref-title">Content Writing & Captions</div>
-                        <div class="service-ref-desc">Professional ad copy, social media captions, blogs, and product descriptions that convert.</div>
+                        <div class="service-ref-title" data-translate="content_title">Content Writing & Captions</div>
+                        <div class="service-ref-desc" data-translate="content_desc">Professional ad copy, social media captions, blogs, and product descriptions that convert.</div>
                     </div>
                 </div>
             </div>
@@ -161,29 +354,29 @@
         <section id="why-choose-us" class="section-light">
             <div class="container">
                 <div class="section-title">
-                    <h2>Why Choose StatusPay247?</h2>
+                    <h2 data-translate="why_choose_title">Why Choose StatusPay247?</h2>
                 </div>
-                <p class="section-content" style="text-align: center; color: var(--text-light); max-width: 700px; margin: 0 auto 40px;">Here’s why businesses across India trust us to reach their target audience</p>
+                <p class="section-content" style="text-align: center; color: var(--text-light); max-width: 700px; margin: 0 auto 40px;" data-translate="why_choose_desc">Here’s why businesses across India trust us to reach their target audience</p>
                 <div class="trust-grid">
                     <div class="trust-card">
                         <i class="fas fa-user-check" style="color: var(--primary-color);"></i>
-                        <h3>Verified Network</h3>
-                        <p style="font-size: 1rem;">Reach real people through our thoroughly verified status posters.</p>
+                        <h3 data-translate="verified_network_title">Verified Network</h3>
+                        <p style="font-size: 1rem;" data-translate="verified_network_desc">Reach real people through our thoroughly verified status posters.</p>
                     </div>
                     <div class="trust-card">
                         <i class="fas fa-eye" style="color: var(--primary-color);"></i>
-                        <h3>Guaranteed Views</h3>
-                        <p style="font-size: 1rem;">Ensure high engagement with a minimum of 100+ views per status.</p>
+                        <h3 data-translate="guaranteed_views_title">Guaranteed Views</h3>
+                        <p style="font-size: 1rem;" data-translate="guaranteed_views_desc">Ensure high engagement with a minimum of 100+ views per status.</p>
                     </div>
                     <div class="trust-card">
                         <i class="fas fa-bullseye" style="color: var(--primary-color);"></i>
-                        <h3>Targeted Reach</h3>
-                        <p style="font-size: 1rem;">Focus on your ideal customers with precise demographic targeting.</p>
+                        <h3 data-translate="targeted_reach_title">Targeted Reach</h3>
+                        <p style="font-size: 1rem;" data-translate="targeted_reach_desc">Focus on your ideal customers with precise demographic targeting.</p>
                     </div>
                     <div class="trust-card">
                         <i class="fas fa-chart-line" style="color: var(--primary-color);"></i>
-                        <h3>Performance Tracking</h3>
-                        <p style="font-size: 1rem;">Get clear insights with real-time views and engagement metrics.</p>
+                        <h3 data-translate="performance_title">Performance Tracking</h3>
+                        <p style="font-size: 1rem;" data-translate="performance_desc">Get clear insights with real-time views and engagement metrics.</p>
                     </div>
                 </div>
             </div>
@@ -194,25 +387,25 @@
             <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('data:image/svg+xml,%3Csvg width='84' height='48' viewBox='0 0 84 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h12v6H0V0zm28 8h12v6H28V8zm14-8h12v6H42V0zm14 0h12v6H56V0zm0 8h12v6H56V8zM42 8h12v6H42V8zm0 16h12v6H42v-6zm14-8h12v6H56v-6zm14 0h12v6H70v-6zm0-16h12v6H70V0zM28 32h12v6H28v-6zM14 16h12v6H14v-6zM0 24h12v6H0v-6zm0 8h12v6H0v-6zm14 0h12v6H14v-6zm14 8h12v6H28v-6zm-14 0h12v6H14v-6zm28 0h12v6H42v-6zm14-8h12v6H56v-6zm0-8h12v6H56v-6zm14 8h12v6H70v-6zm0 8h12v6H70v-6zM14 0h12v6H14V0zM0 8h12v6H0V8z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E'); opacity: 0.3;"></div>
             <div class="container" style="position: relative; z-index: 2;">
                 <div class="section-title">
-                    <h2 style="color: white;">Ready to Grow Your Business?</h2>
+                    <h2 style="color: white;" data-translate="ready_to_grow">Ready to Grow Your Business?</h2>
                 </div>
-                <p class="section-content" style="text-align: center; color: rgba(255, 255, 255, 0.9); max-width: 700px; margin: 0 auto 40px;">Join 500+ businesses already achieving impressive results with our WhatsApp status advertising</p>
+                <p class="section-content" style="text-align: center; color: rgba(255, 255, 255, 0.9); max-width: 700px; margin: 0 auto 40px;" data-translate="join_businesses">Join 500+ businesses already achieving impressive results with our WhatsApp status advertising</p>
                 
                 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 20px;">
                     <div class="feature-card" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); text-align: center;">
                         <i class="fas fa-rocket" style="font-size: 3rem; color: white; margin-bottom: 20px;"></i>
-                        <h3 style="color: white;">Launch a Campaign</h3>
-                        <p style="color: rgba(255, 255, 255, 0.9);">Start advertising your business on WhatsApp status immediately</p>
-                        <a href="ad-submission.html" class="btn" style="background: white; color: var(--secondary-color); margin-top: 20px; display: inline-block;">
+                        <h3 style="color: white;" data-translate="launch_campaign">Launch a Campaign</h3>
+                        <p style="color: rgba(255, 255, 255, 0.9);" data-translate="launch_desc">Start advertising your business on WhatsApp status immediately</p>
+                        <a href="ad-submission.html" class="btn" style="background: white; color: var(--secondary-color); margin-top: 20px; display: inline-block;" data-translate="get_started">
                             Get Started <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                     
                     <div class="feature-card" style="background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); text-align: center;">
                         <i class="fas fa-comments" style="font-size: 3rem; color: white; margin-bottom: 20px;"></i>
-                        <h3 style="color: white;">Speak with an Expert</h3>
-                        <p style="color: rgba(255, 255, 255, 0.9);">Get a free consultation and custom campaign strategy</p>
-                        <a href="ad-submission.html" class="btn" style="background: white; color: var(--secondary-color); margin-top: 20px; display: inline-block;">
+                        <h3 style="color: white;" data-translate="speak_expert">Speak with an Expert</h3>
+                        <p style="color: rgba(255, 255, 255, 0.9);" data-translate="consult_desc">Get a free consultation and custom campaign strategy</p>
+                        <a href="ad-submission.html" class="btn" style="background: white; color: var(--secondary-color); margin-top: 20px; display: inline-block;" data-translate="book_consultation">
                             Book Consultation <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -274,7 +467,7 @@
                     <p>Email: <a href="mailto:support@statuspay247.com">support@statuspay247.com</a></p>
                     <p>Phone: +91 9744483058</p>
                     <div class="hero-buttons">
-                        <a href="https://wa.me/919744483058?text=Hello%20StatusPay247%20team,%20I'm%20interested%20in%20advertising%20with%20you.%20Could%20you%20please%20share%20more%20details?" target="_blank" class="btn btn-whatsapp">
+                        <a href="https://wa.me/919744483058?text=Hello%20StatusPay247%20team,%20I'm%20interested%20in%20advertising%20with%20you.%20Could%20you%20please%20share%20more%20details?" target="_blank" class="btn btn-whatsapp" data-translate="chat_with_us">
                             <i class="fab fa-whatsapp"></i> Chat with Us
                         </a>
                     </div>
@@ -285,7 +478,7 @@
 
     <footer>
         <div class="copyright" style="background-color:#1F2937; color:white; padding:0;">
-            <p style="margin-top:1.5rem;">&copy; 2025 StatusPay 247. All rights reserved.</p>
+            <p style="margin-top:1.5rem;">&copy; 2025 StatusPay247. All rights reserved.</p>
             <div class="footer-social" style="margin:1rem 0 0.5rem 0;">
                 <a href="https://x.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="X.com">
                     <i class="fa-brands fa-x-twitter"></i>
@@ -306,6 +499,119 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Language translations
+            const translations = {
+                en: {
+                    hero_title: "Reach Thousands on WhatsApp — Even If You Don't Have an Ad Yet.",
+                    hero_desc: "Promote your business through verified WhatsApp users who post your ads as their status. Need help with your creatives? We design, build, and market it all for you.",
+                    start_advertising: "Start Advertising Now",
+                    need_design: "Need Ad Design Help?",
+                    real_users: "No bots. No influencers. Just real users with real views.",
+
+                    // Process Section
+                    how_it_works_title: "How Our WhatsApp Advertising Works",
+                    three_simple_steps: "Three Simple Steps",
+                    step1_title: "Submit Your Ad or Request Creative Help",
+                    step1_desc: "Upload your existing ad material (image/video/text), or let us create it for you.",
+                    step2_title: "Choose Your Audience Size",
+                    step2_desc: "Select how many posters you'd like to promote your ad.",
+                    step3_title: "Track and Grow",
+                    step3_desc: "Your ad is shared by real users. You can request screenshots, view reports, and track performance.",
+
+                    // No Ad Section
+                    need_ad_title: "Need an Ad Designed? We're a Full-Service Digital Agency Too.",
+                    need_ad_desc: "Don't have an ad ready? No time to design? No problem. At StatusPay247, we offer professional digital marketing services that make your brand look sharp and perform even better.",
+                    handle_creatives: "Let us handle the creatives",
+                    request_quote: "Request a Digital Marketing Quote",
+
+                    // Service Cards
+                    web_design_title: "Website Design & Development",
+                    web_design_desc: "From fast landing pages to full business websites — responsive, modern, and SEO-ready.",
+                    social_media_title: "Social Media Content Creation",
+                    social_media_desc: "We design stunning reels, carousels, story posts, and banner graphics tailored for Instagram, Facebook & more.",
+                    video_title: "Video Editing & Animations",
+                    video_desc: "Get eye-catching promo videos, motion graphics, animated text, reels, and intros for your brand.",
+                    seo_title: "Search Engine Optimization (SEO)",
+                    seo_desc: "Improve your Google ranking with optimized content, keywords, and clean site structure.",
+                    branding_title: "Branding & Graphic Design",
+                    branding_desc: "Custom logos, business cards, brochures, posters — everything to build a standout brand identity.",
+                    content_title: "Content Writing & Captions",
+                    content_desc: "Professional ad copy, social media captions, blogs, and product descriptions that convert.",
+
+                    // Why Choose Us Section
+                    why_choose_title: "Why Choose StatusPay247?",
+                    why_choose_desc: "Here's why businesses across India trust us to reach their target audience",
+                    verified_network_title: "Verified Network",
+                    verified_network_desc: "Reach real people through our thoroughly verified status posters.",
+                    guaranteed_views_title: "Guaranteed Views",
+                    guaranteed_views_desc: "Ensure high engagement with a minimum of 100+ views per status.",
+                    targeted_reach_title: "Targeted Reach",
+                    targeted_reach_desc: "Focus on your ideal customers with precise demographic targeting.",
+                    performance_title: "Performance Tracking",
+                    performance_desc: "Get clear insights with real-time views and engagement metrics.",
+
+                    // Get Started Section
+                    ready_to_grow: "Ready to Grow Your Business?",
+                    join_businesses: "Join 500+ businesses already achieving impressive results with our WhatsApp status advertising",
+                    launch_campaign: "Launch a Campaign",
+                    launch_desc: "Start advertising your business on WhatsApp status immediately",
+                    speak_expert: "Speak with an Expert",
+                    consult_desc: "Get a free consultation and custom campaign strategy",
+                    get_started: "Get Started",
+                    book_consultation: "Book Consultation",
+
+                    // Contact Section
+                    contact_us: "Contact Us",
+                    ready_expand: "Ready to expand your business with WhatsApp marketing?",
+                    chat_with_us: "Chat with Us"
+                },
+                ml: {
+                    // Hero Section - More friendly tone
+                    hero_title: "വാട്സ്ആപ്പിലൂടെ ആയിരങ്ങളിലേക്ക് - പരസ്യം ഇല്ലെങ്കിലും പ്രശ്നമില്ല!",
+                    hero_desc: "വിശ്വസനീയരായ വാട്സ്ആപ്പ് ഉപയോക്താക്കൾ വഴി നിങ്ങളുടെ പരസ്യം സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യാം. ക്രിയേറ്റീവ് ഉണ്ടാക്കണോ? ഞങ്ങൾ നിങ്ങൾക്കായി എല്ലാം ചെയ്തു തരാം!",
+                    start_advertising: "ഇപ്പോൾ തന്നെ തുടങ്ങാം",
+                    need_design: "പരസ്യം ഡിസൈൻ ചെയ്യണോ?",
+                    real_users: "ബോട്ടുകളോ ഇൻഫ്ലുവൻസർമാരോ അല്ല, പക്ഷേ യഥാർത്ഥ ഉപയോക്താക്കൾ!",
+
+                    // Process Section - More conversational
+                    how_it_works_title: "എങ്ങനെയാണ് ഞങ്ങളുടെ വാട്സ്ആപ്പ് പരസ്യം പ്രവർത്തിക്കുന്നത്?",
+                    three_simple_steps: "മൂന്ന് എളുപ്പ ഘട്ടങ്ങൾ മാത്രം",
+                    step1_title: "പരസ്യം അപ്‌ലോഡ് ചെയ്യൂ, അല്ലെങ്കിൽ ഞങ്ങൾ സഹായിക്കാം",
+                    step1_desc: "നിങ്ങളുടെ പരസ്യം റെഡിയാണോ? അപ്‌ലോഡ് ചെയ്യൂ. അല്ലെങ്കിൽ ഞങ്ങൾ ഉണ്ടാക്കി തരാം.",
+                    step2_title: "എത്ര പേരിലേക്ക് എത്തണം?",
+                    step2_desc: "നിങ്ങളുടെ പരസ്യം എത്ര പേർ പോസ്റ്റ് ചെയ്യണമെന്ന് തീരുമാനിക്കൂ.",
+                    step3_title: "ഫലം കാണൂ, വളർച്ച നേടൂ",
+                    step3_desc: "യഥാർത്ഥ ആളുകൾ നിങ്ങളുടെ പരസ്യം കാണും. സ്ക്രീൻഷോട്ടും റിപ്പോർട്ടും വഴി ഫലം അറിയാം.",
+
+                    // Service Section - More engaging tone
+                    need_ad_title: "പരസ്യം ഉണ്ടാക്കണോ? ഞങ്ങൾ പൂർണ്ണ ഡിജിറ്റൽ സേവനം നൽകുന്നു",
+                    need_ad_desc: "പരസ്യം റെഡിയല്ലേ? സമയമില്ലേ? വിഷമിക്കേണ്ട! StatusPay247-ൽ നിങ്ങളുടെ ബ്രാൻഡിന് മികച്ച ഡിജിറ്റൽ മാർക്കറ്റിംഗ് സേവനങ്ങൾ ലഭ്യമാണ്.",
+
+                    // Why Choose Us - More persuasive
+                    why_choose_title: "എന്തുകൊണ്ട് StatusPay247?",
+                    why_choose_desc: "ഇന്ത്യയിലെ നൂറുകണക്കിന് ബിസിനസുകൾ ഞങ്ങളെ വിശ്വസിക്കുന്നു. കാരണം...",
+                    verified_network_title: "തികച്ചും വിശ്വസനീയം",
+                    verified_network_desc: "100% സ്ഥിരീകരിച്ച യഥാർത്ഥ ഉപയോക്താക്കൾ മാത്രം",
+
+                    // Contact Section - More welcoming
+                    contact_us: "ഞങ്ങളുമായി ബന്ധപ്പെടൂ",
+                    ready_expand: "നിങ്ങളുടെ ബിസിനസ് വളർത്താൻ തയ്യാറാണോ? ഞങ്ങൾ സഹായിക്കാം!",
+                    chat_with_us: "ഇപ്പോൾ ചാറ്റ് ചെയ്യൂ"
+
+                    // ...rest of the translations with similar natural tone...
+                }
+            };
+
+            function updateContent(lang) {
+                // Update text content for each element with data-translate attribute
+                document.querySelectorAll('[data-translate]').forEach(element => {
+                    const key = element.getAttribute('data-translate');
+                    if (translations[lang][key]) {
+                        element.textContent = translations[lang][key];
+                    }
+                });
+            }
+
             // Language toggle functionality
             var btnEn = document.getElementById('btn-en');
             var btnMl = document.getElementById('btn-ml');
@@ -319,6 +625,7 @@
                     btnMl.classList.remove('active');
                 }
                 localStorage.setItem('statuspay247_lang', lang);
+                updateContent(lang);
             }
 
             // On load, check localStorage for language preference
@@ -333,6 +640,20 @@
             btnMl.addEventListener('click', function(event) {
                 event.preventDefault();
                 setLanguage('ml');
+            });
+
+            // Smooth scroll functionality for anchor links
+            document.querySelectorAll('a.smooth-scroll').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
             });
         });
     </script>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - StatusPay 247</title>
+    <title>Login - StatusPay247</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="apple-touch-icon" href="assets/favicon.png">
     <link rel="shortcut icon" href="assets/favicon.png">
@@ -89,15 +89,67 @@
                 margin-bottom: 0.2rem;
             }
         }
+
+        /* Modal styles */
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+        }
+        .close {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .modal button {
+            background: #1E977E;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #passwordResetStatus {
+            margin-top: 10px;
+            padding: 10px;
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <!-- Add this block -->
+    <div id="cors-warning" style="display:none;color:red;text-align:center;padding:10px;">
+        <strong>Warning:</strong> For login and password reset to work, please open this page from a web server (not file://).
+    </div>
+
     <header>
         <div class="container">
             <nav>
                 <div class="logo">
                     <a href="/">
-                        <img src="assets/logo.png" alt="StatusPay 247 Logo">
+                        <img src="assets/logo.png" alt="StatusPay247 Logo">
                     </a>
                 </div>
                 <div class="burger-menu" onclick="toggleMenu()">
@@ -130,7 +182,7 @@
                 <div class="login-form-side login-form-side--centered">
                     <div class="login-card-modern">
                         <div class="login-header-modern">
-                            <img src="assets/logo.png" alt="StatusPay 247 Logo">
+                            <img src="assets/logo.png" alt="StatusPay247 Logo">
                             <h2>Sign In</h2>
                         </div>
                         <div id="login-status" class="login-status-modern" style="display: none;">
@@ -162,9 +214,7 @@
                         <div class="login-footer-modern">
                             <p>Don't have an account? <a href="poster.html">Register here</a></p>
                             <p>
-                                <a href="https://wa.me/919744483058?text=Hi%20StatusPay247%2C%20I%20forgot%20my%20password%20and%20need%20help%20to%20change%20it." target="_blank" rel="noopener">
-                                    Forgot password?
-                                </a>
+                                <a href="#" onclick="showForgotPasswordModal(); return false;">Forgot password?</a>
                             </p>
                         </div>
                     </div>
@@ -173,9 +223,35 @@
         </section>
     </main>
 
+    <!-- Forgot Password Modal -->
+    <div id="forgotPasswordModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeForgotPasswordModal()">&times;</span>
+            <div id="step1">
+                <h3>Forgot Password</h3>
+                <p>Enter your WhatsApp number to receive a reset code via email.</p>
+                <input type="tel" id="forgotPhoneNumber" placeholder="Enter WhatsApp number">
+                <button onclick="requestResetCode()">Send Reset Code</button>
+            </div>
+            <div id="step2" style="display: none;">
+                <h3>Enter Reset Code</h3>
+                <p>Please check your email for the reset code.</p>
+                <input type="text" id="resetCode" placeholder="Enter reset code">
+                <button onclick="verifyResetCode()">Verify Code</button>
+            </div>
+            <div id="step3" style="display: none;">
+                <h3>Set New Password</h3>
+                <input type="password" id="newPassword" placeholder="Enter new password">
+                <input type="password" id="confirmPassword" placeholder="Confirm new password">
+                <button onclick="resetPassword()">Reset Password</button>
+            </div>
+            <div id="passwordResetStatus"></div>
+        </div>
+    </div>
+
     <footer>
         <div class="copyright" style="background-color:#1F2937; color:white; padding:0;">
-            <p style="margin-top:1.5rem;">&copy; 2025 StatusPay 247. All rights reserved.</p>
+            <p style="margin-top:1.5rem;">&copy; 2025 StatusPay247. All rights reserved.</p>
             <div class="footer-social" style="margin:1rem 0 0.5rem 0;">
                 <a href="https://x.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="X.com">
                     <i class="fa-brands fa-x-twitter"></i>
@@ -479,6 +555,20 @@
             }
         });
 
+        // Add these helpers inside <script>:
+        function showModalError(message) {
+            const status = document.getElementById('passwordResetStatus');
+            status.style.display = 'block';
+            status.style.color = 'red';
+            status.textContent = message;
+        }
+        function showModalStatus(message) {
+            const status = document.getElementById('passwordResetStatus');
+            status.style.display = 'block';
+            status.style.color = 'green';
+            status.textContent = message;
+        }
+
         // Check for registration data on page load
         document.addEventListener('DOMContentLoaded', function() {
             const registrationData = localStorage.getItem('registrationData');
@@ -558,6 +648,144 @@
 
         // Make togglePasswordVisibility globally accessible
         window.togglePasswordVisibility = togglePasswordVisibility;
+
+        // Show/hide forgot password modal
+        function showForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').style.display = 'block';
+        }
+
+        function closeForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').style.display = 'none';
+            // Reset modal fields
+            document.getElementById('forgotPhoneNumber').value = '';
+            document.getElementById('resetCode').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+            document.getElementById('passwordResetStatus').style.display = 'none';
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step3').style.display = 'none';
+        }
+
+        // Request password reset code
+        async function requestResetCode() {
+            const phoneNumber = document.getElementById('forgotPhoneNumber').value.trim();
+            if (!phoneNumber) {
+                showModalError('Please enter your WhatsApp number');
+                return;
+            }
+            showModalStatus('Sending reset code...');
+            try {
+                const apiUrl = 'https://script.google.com/macros/s/AKfycbzNzqTLXjhQVQ4E6HS1WDRvPn7g82gQBV3u7MughtIZypoeMua_HQsd5zTS0hng4gTgDw/exec';
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        'action': 'requestResetCode',
+                        'phone': phoneNumber
+                    })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    document.getElementById('step1').style.display = 'none';
+                    document.getElementById('step2').style.display = 'block';
+                    showModalStatus('Reset code sent! Please check your email.');
+                    // Save phone for next steps
+                    window._forgotPhone = phoneNumber;
+                } else {
+                    showModalError(result.message || 'Failed to send reset code');
+                }
+            } catch (error) {
+                showModalError('Error sending reset code: ' + error.message);
+            }
+        }
+
+        // Verify reset code
+        async function verifyResetCode() {
+            const code = document.getElementById('resetCode').value.trim();
+            const phoneNumber = window._forgotPhone || document.getElementById('forgotPhoneNumber').value.trim();
+            if (!code) {
+                showModalError('Please enter the reset code');
+                return;
+            }
+            showModalStatus('Verifying reset code...');
+            try {
+                const apiUrl = 'https://script.google.com/macros/s/AKfycbzNzqTLXjhQVQ4E6HS1WDRvPn7g82gQBV3u7MughtIZypoeMua_HQsd5zTS0hng4gTgDw/exec';
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        'action': 'verifyResetCode',
+                        'code': code,
+                        'phone': phoneNumber
+                    })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    document.getElementById('step2').style.display = 'none';
+                    document.getElementById('step3').style.display = 'block';
+                    showModalStatus('Reset code verified! Please set a new password.');
+                    window._forgotCode = code;
+                } else {
+                    showModalError(result.message || 'Failed to verify reset code');
+                }
+            } catch (error) {
+                showModalError('Error verifying reset code: ' + error.message);
+            }
+        }
+
+        // Reset password
+        async function resetPassword() {
+            const newPassword = document.getElementById('newPassword').value.trim();
+            const confirmPassword = document.getElementById('confirmPassword').value.trim();
+            const phoneNumber = window._forgotPhone || document.getElementById('forgotPhoneNumber').value.trim();
+            const code = window._forgotCode || document.getElementById('resetCode').value.trim();
+            if (!newPassword || !confirmPassword) {
+                showModalError('Please enter and confirm your new password');
+                return;
+            }
+            if (newPassword !== confirmPassword) {
+                showModalError('Passwords do not match');
+                return;
+            }
+            showModalStatus('Resetting password...');
+            try {
+                const apiUrl = 'https://script.google.com/macros/s/AKfycbzNzqTLXjhQVQ4E6HS1WDRvPn7g82gQBV3u7MughtIZypoeMua_HQsd5zTS0hng4gTgDw/exec';
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        'action': 'resetPassword',
+                        'phone': phoneNumber,
+                        'code': code,
+                        'password': await hashPassword(newPassword)
+                    })
+                });
+                const result = await response.json();
+                if (result.success) {
+                    showModalStatus('Password reset successful! You can now log in with your new password.');
+                    setTimeout(() => {
+                        closeForgotPasswordModal();
+                    }, 3000);
+                } else {
+                    showModalError(result.message || 'Failed to reset password');
+                }
+            } catch (error) {
+                showModalError('Error resetting password: ' + error.message);
+            }
+        }
     </script>
 </body>
 </html>

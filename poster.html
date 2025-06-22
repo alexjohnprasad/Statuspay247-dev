@@ -116,6 +116,32 @@
             color: #666;
             z-index: 10;
         }
+
+        .form-group label:after {
+            content: " *";
+            color: #dc3545;
+        }
+        
+        /* Exception for radio group labels that already have asterisk */
+        .radio-group label:after {
+            content: none;
+        }
+        
+        /* Exception for optional fields if any */
+        .form-group label.optional:after {
+            content: none;
+        }
+        
+        /* Style for required field validation */
+        input:required:invalid,
+        select:required:invalid {
+            border-color: #dc3545;
+        }
+        
+        input:required:valid,
+        select:required:valid {
+            border-color: #28a745;
+        }
     </style>
 </head>
 <body>
@@ -188,7 +214,7 @@
                                    pattern="[a-zA-Z0-9._%+-]+@gmail\.com$" 
                                    title="Please enter a valid Gmail address (example@gmail.com)"
                                    autocomplete="off">
-                            <span id="email-error" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">Only Gmail addresses are allowed (example@gmail.com)</span>
+                            <span id="email-error" class="error-message"></span>
                         </div>
                         <div class="form-group">
                             <label>Gender</label>
@@ -215,7 +241,7 @@
                                    required 
                                    pattern="^(\+91)?[6-9][0-9]{9}$"
                                    title="Please enter a valid Indian mobile number">
-                            <span id="phone-error" class="error-message" style="display:none; color:red; font-size:0.9rem; margin-top:5px;">Only Indian WhatsApp numbers are allowed</span>
+                            <span id="phone-error" class="error-message"></span>
                         </div>
                         <div class="form-group">
                             <label for="street">Street Address</label>
@@ -223,7 +249,7 @@
                         </div>
                         <div class="form-group">
                             <label for="city">City / Town</label>
-                            <select id="city" required onchange="handleCityChange()">
+                            <select id="city" required>
                                 <option value="">Select City / Town</option>
                                 <option value="Thiruvananthapuram">Thiruvananthapuram</option>
                                 <option value="Kozhikode">Kozhikode</option>
@@ -321,12 +347,12 @@
                                 <option value="Other">Other (not listed)</option>
                             </select>
                             <div id="otherCityContainer" style="display: none; margin-top: 8px;">
-                                <input type="text" id="otherCity" placeholder="Please specify your city/town" />
+                                <input type="text" id="otherCity" placeholder="Please specify your city/town" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="district">District</label>
-                            <select id="district" required onchange="handleDistrictChange()">
+                            <select id="district" required>
                                 <option value="">Select District</option>
                                 <option value="Alappuzha">Alappuzha</option>
                                 <option value="Ernakulam">Ernakulam</option>
@@ -345,7 +371,7 @@
                                 <option value="Other">Other (not listed)</option>
                             </select>
                             <div id="otherDistrictContainer" style="display: none; margin-top: 8px;">
-                                <input type="text" id="otherDistrict" placeholder="Please specify your district" />
+                                <input type="text" id="otherDistrict" placeholder="Please specify your district" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -511,7 +537,7 @@
                         </div>
                         <div class="form-group">
                             <label for="city-ml">നഗരം / പട്ടണം</label>
-                            <select id="city-ml" required onchange="handleCityChangeML()">
+                            <select id="city-ml" required>
                                 <option value="">നഗരം / പട്ടണം തിരഞ്ഞെടുക്കുക</option>
                                 <option value="Thiruvananthapuram">തിരുവനന്തപുരം</option>
                                 <option value="Kozhikode">കോഴിക്കോട്</option>
@@ -614,7 +640,7 @@
                         </div>
                         <div class="form-group">
                             <label for="district-ml">ജില്ല</label>
-                            <select id="district-ml" required onchange="handleDistrictChangeML()">
+                            <select id="district-ml" required>
                                 <option value="">ജില്ല തിരഞ്ഞെടുക്കുക</option>
                                 <option value="Alappuzha">ആലപ്പുഴ</option>
                                 <option value="Ernakulam">എറണാകുളം</option>

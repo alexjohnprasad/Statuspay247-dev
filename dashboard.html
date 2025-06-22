@@ -12,104 +12,289 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <script src="js/main.js" defer></script>
-  <style>
-    /* Dashboard-specific styles using the provided color scheme */
+  <style>    /* Dashboard-specific styles using site's color theme */
     .dashboard-header {
       background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       color: white;
-      padding: 3rem 0;
-      margin-bottom: 3rem;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      border-radius: 0 0 20px 20px;
     }
     
     .dashboard-welcome {
-      text-align: center;
+      text-align: left;
+      padding: 0 2rem;
     }
     
     .dashboard-welcome h1 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       margin-bottom: 0.5rem;
-      font-weight: 700;
+      font-weight: 600;
       color: white;
     }
     
     .dashboard-welcome p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      color: rgba(255, 255, 255, 0.9);
+      font-size: 1rem;
+      opacity: 0.8;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 0;
+    }
+    
+    .dashboard-tabs {
+      display: flex;
+      gap: 2rem;
+      margin: 1.5rem 0 0 2rem;
+    }
+    
+    .tab-item {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .tab-item.active {
+      color: white;
+      border-bottom-color: var(--accent-color);
     }
     
     .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 2rem;
-      margin-bottom: 3rem;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
     }
     
-    .dashboard-card {
-      background: var(--background-color);
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-color);
+    .main-content {
+      display: grid;
+      gap: 1.5rem;
+    }
+    
+    .sidebar-content {
+      display: grid;
+      gap: 1.5rem;
+    }
+      .dashboard-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      border: 1px solid #f1f5f9;
       transition: all 0.3s ease;
+      position: relative;
     }
     
     .dashboard-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+      .balance-card {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .balance-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -30%;
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      z-index: 1;
+    }
+    
+    .balance-card::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -20%;
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      z-index: 1;
     }
     
     .card-header {
       display: flex;
       align-items: center;
-      margin-bottom: 1.5rem;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-light);
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .balance-card .card-title {
+      color: rgba(255, 255, 255, 0.9);
     }
     
     .card-icon {
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 1rem;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
+      background: rgba(30, 151, 126, 0.1);
+      color: var(--primary-color);
+    }
+    
+    .balance-card .card-icon {
+      background: rgba(255, 255, 255, 0.2);
       color: white;
     }
     
-    .wallet-icon {
-      background: var(--primary-color);
-    }
-    
-    .profile-icon {
-      background: var(--secondary-color);
-    }
-    
-    .stats-icon {
-      background: var(--accent-color);
-    }
-    
-    .card-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--text-color);
-      margin: 0;
-    }
-    
     .wallet-balance {
-      font-size: 3rem;
-      font-weight: 800;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0.5rem 0 1rem 0;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .balance-card .wallet-balance {
+      color: white;
+    }
+      .card-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .balance-card .card-subtitle {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 0.75rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary:hover {
+      background: var(--secondary-color);
+      transform: translateY(-1px);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-light);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .balance-card .btn-secondary {
+      color: white;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--background-light);
+      border-color: var(--primary-color);
       color: var(--primary-color);
-      margin: 1rem 0;
+    }
+    
+    .balance-card .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+      .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    
+    .stat-card {
+      background: var(--background-light);
+      border-radius: 12px;
+      padding: 1rem;
       text-align: center;
+      border: 1px solid var(--border-color);
+    }
+    
+    .balance-card .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .stat-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-color);
+      margin-bottom: 0.25rem;
+    }
+    
+    .balance-card .stat-value {
+      color: white;
+    }
+    
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
+    }
+    
+    .balance-card .stat-label {
+      color: rgba(255, 255, 255, 0.8);
     }
     
     .progress-container {
       background: var(--background-dark);
       border-radius: 25px;
-      height: 12px;
-      margin: 1.5rem 0;
+      height: 8px;
+      margin: 1rem 0;
       overflow: hidden;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .balance-card .progress-container {
+      background: rgba(255, 255, 255, 0.2);
     }
     
     .progress-bar {
@@ -117,50 +302,29 @@
       background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
       border-radius: 25px;
       transition: width 0.8s ease;
-      position: relative;
+    }
+    
+    .balance-card .progress-bar {
+      background: linear-gradient(90deg, var(--accent-color), #fbbf24);
     }
     
     .progress-label {
-      text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.75rem;
       color: var(--text-light);
       margin-top: 0.5rem;
+      position: relative;
+      z-index: 2;
     }
     
-    .wallet-details {
+    .balance-card .progress-label {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .info-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-top: 1.5rem;
+      gap: 0.75rem;
     }
-    
-    .wallet-detail {
-      text-align: center;
-      padding: 1rem;
-      background: var(--background-light);
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
-    }
-    
-    .wallet-detail-label {
-      display: block;
-      font-size: 0.9rem;
-      color: var(--text-light);
-      margin-bottom: 0.5rem;
-    }
-    
-    .wallet-detail-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-    
-    .profile-info {
-      display: grid;
-      gap: 1rem;
-    }
-    
-    .info-item {
+      .info-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -173,40 +337,154 @@
     }
     
     .info-label {
-      font-weight: 600;
+      font-size: 0.85rem;
+      font-weight: 500;
       color: var(--text-light);
     }
     
     .info-value {
+      font-size: 0.85rem;
       color: var(--text-color);
-      font-weight: 500;
-    }
-    
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      font-weight: 600;
+    }    .task-item {
+      display: flex;
+      align-items: center;
       gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-color);
     }
     
-    .stat-item {
-      text-align: center;
-      padding: 1rem;
-      background: var(--background-light);
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
+    .task-item:last-child {
+      border-bottom: none;
     }
     
-    .stat-number {
-      font-size: 2rem;
+    .task-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    
+    .task-icon.available {
+      background: rgba(30, 151, 126, 0.1);
+      color: var(--primary-color);
+    }
+    
+    .task-icon.completed {
+      background: rgba(244, 179, 80, 0.1);
+      color: var(--accent-color);
+    }
+    
+    .task-icon.pending {
+      background: rgba(23, 49, 75, 0.1);
+      color: var(--secondary-color);
+    }
+    
+    .task-details {
+      flex: 1;
+    }
+    
+    .task-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-color);
+      margin-bottom: 0.25rem;
+    }
+    
+    .task-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-bottom: 0.25rem;
+    }
+    
+    .task-requirements {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      font-style: italic;
+    }
+    
+    .task-reward {
+      font-size: 1rem;
       font-weight: 700;
       color: var(--primary-color);
-      display: block;
+      text-align: right;
+      margin-bottom: 0.25rem;
     }
     
-    .stat-label {
+    .task-status {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-align: right;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .task-status.available {
+      color: var(--primary-color);
+    }
+    
+    .task-status.completed {
+      color: var(--accent-color);
+    }
+    
+    .task-status.pending {
+      color: var(--secondary-color);
+    }
+    
+    .task-action-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .task-action-btn:hover {
+      background: var(--secondary-color);
+      transform: translateY(-1px);
+    }
+    
+    .task-action-btn.completed {
+      background: var(--accent-color);
+      cursor: not-allowed;
+    }
+    
+    .task-action-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .join-group-btn {
+      background: #25d366;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
       font-size: 0.9rem;
-      color: var(--text-light);
-      margin-top: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+    
+    .join-group-btn:hover {
+      background: #128c7e;
+      transform: translateY(-1px);
     }
     
     .loading-spinner {
@@ -298,35 +576,281 @@
       border-radius: 20px;
       font-size: 0.9rem;
     }
-    
-    @media (max-width: 768px) {
-      .dashboard-welcome h1 {
-        font-size: 2rem;
+      @media (max-width: 768px) {      /* Mobile responsive adjustments for new design */
+      .dashboard-header {
+        padding: 1.5rem 0;
+        margin-bottom: 1.5rem;
       }
       
-      .wallet-balance {
-        font-size: 2.5rem;
+      .dashboard-welcome {
+        padding: 0 1rem;
+      }
+      
+      .dashboard-welcome h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
+      }
+      
+      .dashboard-welcome p {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      
+      .dashboard-tabs {
+        margin: 1rem 0 0 1rem;
+        gap: 1.5rem;
       }
       
       .dashboard-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
       }
       
-      .wallet-details {
-        grid-template-columns: 1fr;
+      .main-content,
+      .sidebar-content {
+        gap: 1rem;
       }
       
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .dashboard-card {
+        padding: 1.2rem;
+        border-radius: 12px;
+      }
+      
+      .card-header {
+        margin-bottom: 1rem;
+      }
+      
+      .card-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
+      }
+      
+      .card-title {
+        font-size: 0.8rem;
+      }
+      
+      .wallet-balance {
+        font-size: 2rem;
+        margin: 0.8rem 0;
+      }
+      
+      .card-subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 0.8rem;
+      }
+      
+      .action-buttons {
+        gap: 0.5rem;
+      }
+      
+      .btn-primary,
+      .btn-secondary {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+      
+      .stats-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.8rem;
+        margin-top: 1rem;
+      }
+      
+      .stat-card {
+        padding: 0.8rem;
+      }
+      
+      .stat-value {
+        font-size: 1.1rem;
+      }
+      
+      .stat-label {
+        font-size: 0.7rem;
+      }
+      
+      .progress-container {
+        margin: 0.8rem 0;
+        height: 6px;
+      }
+      
+      .progress-label {
+        font-size: 0.7rem;
+        margin-top: 0.3rem;
+      }
+      
+      .info-grid {
+        gap: 0.5rem;
+      }
+      
+      .info-item {
+        padding: 0.5rem 0;
+      }
+      
+      .info-label,
+      .info-value {
+        font-size: 0.8rem;
+      }
+        .task-item {
+        padding: 0.8rem 0;
+        gap: 0.8rem;
+      }
+      
+      .task-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+      }
+      
+      .task-title {
+        font-size: 0.85rem;
+      }
+      
+      .task-subtitle {
+        font-size: 0.7rem;
+      }
+      
+      .task-requirements {
+        font-size: 0.65rem;
+      }
+      
+      .task-reward {
+        font-size: 0.9rem;
+      }
+      
+      .task-status {
+        font-size: 0.7rem;
+      }
+      
+      .task-action-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.7rem;
+      }
+      
+      .join-group-section p {
+        margin-bottom: 0.8rem;
+        font-size: 0.8rem;
+      }
+      
+      .join-group-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.8rem;
       }
       
       .quick-actions {
         grid-template-columns: 1fr;
+        gap: 0.8rem;
+        margin-top: 1.5rem;
       }
-    }
-
-    /* Custom styles for wallet withdraw button */
+      
+      .action-btn {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
+      }
+      
+      /* Onboarding mobile optimizations */
+      #onboardingScreen {
+        padding: 1.5rem 0.5rem !important;
+      }
+      
+      #onboardingScreen > div:first-child {
+        font-size: 1rem !important;
+        margin-bottom: 1.2rem !important;
+      }
+      
+      #onboardingScreen .dashboard-card,
+      #onboardingScreen > div[style*="background"] {
+        padding: 1.2rem 0.8rem 1rem 0.8rem !important;
+        margin-bottom: 1.2rem !important;
+        max-width: 100% !important;
+      }
+      
+      #onboardingScreen h2 {
+        font-size: 1.2rem !important;
+        margin-bottom: 0.8rem !important;
+      }
+      
+      #onboardingScreen h3 {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.8rem !important;
+      }
+      
+      #onboardingScreen img {
+        max-width: 180px !important;
+      }
+      
+      #onboardingScreen .btn {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.9rem !important;
+        margin: 0.5rem 0.2rem !important;
+      }
+      
+      #onboardingScreen textarea {
+        min-height: 80px !important;
+        font-size: 0.9rem !important;
+        padding: 0.6rem 0.8rem !important;
+      }
+      
+      #onboardingScreen input[type="file"] {
+        padding: 0.5rem 0.8rem !important;
+        font-size: 0.9rem !important;
+      }
+      
+      #onboardingScreen > div[style*="display:flex"] {
+        gap: 1rem !important;
+        margin-bottom: 1rem !important;
+      }
+      
+      #onboardingScreen .social-follow-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      
+      /* Upload section mobile */
+      .dashboard-card[style*="max-width:600px"] {
+        margin: 1.5rem auto !important;
+        padding: 1.2rem !important;
+      }
+      
+      #uploadFile {
+        margin-bottom: 0.8rem !important;
+        padding: 0.5rem !important;
+        font-size: 0.9rem !important;
+      }
+      
+      #uploadBtn {
+        padding: 0.6rem 1.2rem !important;
+        font-size: 0.9rem !important;
+        min-width: 140px !important;
+      }
+      
+      #uploadStatusMessage {
+        margin-top: 0.8rem !important;
+        font-size: 0.9rem !important;
+      }
+      
+      /* Footer spacing */
+      footer {
+        margin-top: 2rem !important;
+      }
+      
+      footer .copyright {
+        padding: 1rem 0 !important;
+      }
+      
+      footer p {
+        margin: 0.5rem 0 !important;
+        font-size: 0.9rem !important;
+      }
+      
+      footer .disclaimer {
+        font-size: 0.8rem !important;
+        margin: 0.5rem 1rem !important;
+      }
+    }    /* Custom styles for wallet withdraw button */
     .wallet-withdraw-btn {
       background: var(--primary-color);
       color: white;
@@ -336,22 +860,35 @@
       font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
-      transition: background 0.3s ease;
-      display: inline-block;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
       text-align: center;
       min-width: 180px;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .wallet-withdraw-btn:hover:not(:disabled) {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
     }
     
     .wallet-withdraw-btn:disabled {
       background: #ccc;
       cursor: not-allowed;
+      transform: none;
     }
 
     .withdraw-note {
       text-align: center;
       font-size: 0.9rem;
-      color: var(--text-light);
-      margin-top: 0.5rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-top: 0.8rem;
+      position: relative;
+      z-index: 2;
     }
 
     /* Updated Language selection bar styles */
@@ -453,7 +990,7 @@
       <nav>
         <div class="logo">
           <a href="/">
-            <img src="assets/logo.png" alt="StatusPay 247 Logo" id="logo-img">
+            <img src="assets/logo.png" alt="StatusPay247 Logo" id="logo-img">
           </a>
         </div>
         <div class="burger-menu" onclick="toggleMenu()">
@@ -463,12 +1000,8 @@
         </div>
         <ul>
           <li><a href="index.html#hero">Home</a></li>
-          <li><a href="index.html#what-is-statuspay">About</a></li>
-          <li><a href="index.html#how-it-works">How It Works</a></li>
-          <li><a href="index.html#why-choose-us">Why Choose Us</a></li>
-          <li><a href="index.html#contact">Contact</a></li>
           <li><a href="poster.html">Join as Poster</a></li>
-          <li><a href="advertiser-terms.html">Advertisers</a></li>
+          <li><a href="advertise-with-us.html">Advertise With Us</a></li>
           <li><button id="logoutBtn" class="logout-btn btn btn-secondary">
               <i class="fas fa-sign-out-alt"></i>Logout
             </button></li>
@@ -548,8 +1081,8 @@
         <div style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;">
           <!-- Image with Download Button -->
           <div style="display:flex;flex-direction:column;align-items:center;">
-            <img id="onboardingAdImage" src="assets/onboarding-ad.jpg" alt="Onboarding Ad" style="max-width:240px;border-radius:12px;box-shadow:0 2px 12px rgba(30,151,126,0.08);border:2px solid #e5e7eb;">
-            <a id="downloadAdImageBtn" href="assets/onboarding-ad.jpg" download="StatusPay247-Ad.jpg"
+            <img id="onboardingAdImage" src="assets/onboarding-ad.png" alt="Onboarding Ad" style="max-width:240px;border-radius:12px;box-shadow:0 2px 12px rgba(30,151,126,0.08);border:2px solid #e5e7eb;">
+            <a id="downloadAdImageBtn" href="assets/onboarding-ad.png" download="StatusPay247-Ad.jpg"
                class="btn"
                style="margin-top:0.8rem;background:#1e977e;color:#fff;padding:0.45rem 1.1rem;font-size:1rem;border-radius:7px;box-shadow:0 2px 8px rgba(30,151,126,0.10);display:flex;align-items:center;gap:0.5em;">
               <i class="fas fa-download"></i> Download
@@ -567,14 +1100,9 @@
             <div style="display:flex;gap:0.5rem;">
               <textarea id="onboardingAdText" readonly
                 style="flex:1;width:100%;min-height:110px;padding:0.85rem 1.1rem;border-radius:8px;border:1.5px solid var(--border-color);font-size:1.05rem;background:#f9fafb;color:var(--text-color);resize:none;box-shadow:0 1px 4px rgba(30,151,126,0.04);transition:border-color 0.2s;">
-Get paid for what you already do — *posting WhatsApp Status updates.*
-
-StatusPay247 connects real users with real advertisers.
-
-*No gimmicks, no false promises* — just simple earning from home.
-
-Register at StatusPay247.com
-and start your journey today.</textarea>
+Promote your business through real WhatsApp users.
+Get genuine reach and visibility with verified status shares.
+📩 DM to advertise or visit statuspay247.com</textarea>
               <button id="copyAdTextBtn" class="btn" title="Copy text"
                 style="align-self:flex-start;margin-top:0.2rem;background:#17314b;color:#fff;font-size:1.1rem;border-radius:7px;padding:0.7rem 1rem;min-width:44px;display:flex;align-items:center;justify-content:center;">
                 <i class="fas fa-copy"></i>
@@ -648,125 +1176,191 @@ and start your journey today.</textarea>
         ❌ Failed to load your dashboard data.<br>
         <span id="errorDetails">Please try refreshing the page.</span>
       </p>
-    </div>
-
-    <!-- Dashboard Content -->
+    </div>    <!-- Dashboard Content -->
     <div id="dashboardContent" style="display: none;">
-      <!-- Dashboard Grid -->
-      <div class="dashboard-grid">
-        <!-- Wallet Card -->
-        <div class="dashboard-card">
-          <div class="card-header">
-            <div class="card-icon wallet-icon">
-              <i class="fas fa-wallet"></i>
-            </div>
-            <h3 class="card-title" data-translate="wallet-title">Your Wallet</h3>
-          </div>
-          
-          <div class="wallet-balance">
-            ₹<span id="balance">0</span>
-          </div>
-          
-          <div class="progress-container">
-            <div class="progress-bar" id="walletBar" style="width: 0%"></div>
-          </div>
-          <div class="progress-label" id="walletBarLabel">0% of ₹500 threshold</div>
-          
-          <div class="wallet-details">
-            <div class="wallet-detail">
-              <span class="wallet-detail-label" data-translate="total-earned">Total Earned</span>
-              <span class="wallet-detail-value">₹<span id="totalEarned">0</span></span>
-            </div>
-            <div class="wallet-detail">
-              <span class="wallet-detail-label" data-translate="paid-out">Paid Out</span>
-              <span class="wallet-detail-value">₹<span id="paid">0</span></span>
-            </div>
-          </div>
-          <!-- Withdraw Button with lock/unlock icon -->
-          <div style="text-align:center; margin-top:1.5rem;">
-            <button id="withdrawBtn" class="btn wallet-withdraw-btn" style="min-width:180px;" disabled>
-              <i id="withdrawLockIcon" class="fas fa-lock"></i>
-              Withdraw
-            </button>
-            <div class="withdraw-note" data-translate="threshold-note">
-              <i class="fas fa-info-circle"></i>
-              You can only withdraw your amount after meeting the ₹500 threshold.
-            </div>
-          </div>
+      <!-- Dashboard Header with Tabs -->
+      <div class="dashboard-header">
+        <div class="dashboard-welcome">
+          <h1>Welcome back, <span id="userNameHeader">User</span>!</h1>
+          <p>Here's what's happening with your earnings today.</p>
         </div>
-
-        <!-- Profile Card -->
-        <div class="dashboard-card">
-          <div class="card-header">
-            <div class="card-icon profile-icon">
-              <i class="fas fa-user"></i>
-            </div>
-            <h3 class="card-title" data-translate="profile-title">Profile Information</h3>
-          </div>
-          
-          <!-- Added username in bold below the profile title -->
-          <div style="text-align: center; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem;" id="userName">...</div>
-          
-          <div class="profile-info">
-            <div class="info-item">
-              <span class="info-label" data-translate="poster-id">Poster ID</span>
-              <span class="info-value" id="posterId">...</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label" data-translate="phone-number">Phone Number</span>
-              <span class="info-value" id="phone">...</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">Total Tasks Completed</span>
-              <span class="info-value" id="profileTasksCompleted">0</span>
-            </div>
-            <div class="info-item">
-              <span class="info-label">Status</span>
-              <span class="info-value status-badge">Active</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Statistics Card (Replaced) -->
-        <div class="dashboard-card">
-          <div class="card-header">
-            <div class="card-icon stats-icon">
-              <i class="fas fa-users"></i>
-            </div>
-            <h3 class="card-title" data-translate="group-title">Join Official Posters Group</h3>
-          </div>
-          <div class="join-group-section" style="text-align:center; margin-bottom:1.2rem;">
-            <p style="margin-bottom:1.2rem; color:var(--text-light);">
-              Connect with other posters, get updates, and support in our official WhatsApp group.
-            </p>
-            <a href="https://chat.whatsapp.com/HEIxYpyYJQ9J0dydC7nSfH" target="_blank" class="btn join-group-btn">
-              <i class="fab fa-whatsapp"></i> Join Group
-            </a>
-          </div>
-          <div class="info-item" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
-            <span class="info-label">Last Task</span>
-            <span class="info-value" id="lastTask">...</span>
-          </div>
+        <div class="dashboard-tabs">
+          <div class="tab-item active">Overview</div>
+          <div class="tab-item">Transactions</div>
+          <div class="tab-item">Analytics</div>
         </div>
       </div>
 
-      <!-- Screenshot Upload Card -->
-      <div class="dashboard-card" style="max-width:600px; margin:2rem auto;">
-        <div class="card-header">
-          <div class="card-icon" style="background: var(--primary-color);">
-            <i class="fas fa-upload"></i>
+      <!-- Dashboard Grid -->
+      <div class="dashboard-grid">
+        <div class="main-content">          <!-- Balance Card -->
+          <div class="dashboard-card balance-card">
+            <div class="card-header">
+              <h3 class="card-title" data-translate="wallet-title">Total Balance</h3>
+              <div class="card-icon">
+                <i class="fas fa-wallet"></i>
+              </div>
+            </div>
+            
+            <div class="wallet-balance">
+              ₹<span id="balance">0</span>
+            </div>
+            
+            <!-- Withdrawal Button -->
+            <div style="text-align: center; margin: 1.5rem 0; position: relative; z-index: 2;">
+              <button id="withdrawBtn" class="wallet-withdraw-btn" disabled>
+                <i id="withdrawLockIcon" class="fas fa-lock"></i>
+                Withdraw
+              </button>
+              <div class="withdraw-note" data-translate="threshold-note">
+                <i class="fas fa-info-circle"></i>
+                You can only withdraw your amount after meeting the ₹500 threshold.
+              </div>
+            </div>
+            
+            <div class="stats-row">
+              <div class="stat-card">
+                <div class="stat-value">₹<span id="totalEarned">0</span></div>
+                <div class="stat-label" data-translate="total-earned">Total Earned</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">₹<span id="paid">0</span></div>
+                <div class="stat-label" data-translate="paid-out">Paid Out</div>
+              </div>
+            </div>
+            
+            <div class="progress-container">
+              <div class="progress-bar" id="walletBar" style="width: 0%"></div>
+            </div>
+            <div class="progress-label" id="walletBarLabel">0% of ₹500 threshold</div>
+          </div><!-- Available Tasks -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <h3 class="card-title">Available Tasks</h3>
+              <button class="btn-secondary">
+                <i class="fas fa-refresh"></i>
+                Refresh
+              </button>
+            </div>
+            
+            <div class="task-item">
+              <div class="task-icon available">
+                <i class="fab fa-whatsapp"></i>
+              </div>
+              <div class="task-details">
+                <div class="task-title">WhatsApp Status Share</div>
+                <div class="task-subtitle">Share promotional content on your WhatsApp status</div>
+                <div class="task-requirements">• Must stay active for 24 hours • Minimum 50 views required</div>
+              </div>
+              <div style="text-align: right;">
+                <div class="task-reward">₹15-25</div>
+                <div class="task-status available">Available</div>
+                <button class="task-action-btn">Start Task</button>
+              </div>
+            </div>
+            
+            <div class="task-item">
+              <div class="task-icon completed">
+                <i class="fas fa-share"></i>
+              </div>
+              <div class="task-details">
+                <div class="task-title">Social Media Follow</div>
+                <div class="task-subtitle">Follow our official social media accounts</div>
+                <div class="task-requirements">• Follow all 4 platforms • Take screenshots for verification</div>
+              </div>
+              <div style="text-align: right;">
+                <div class="task-reward">₹10</div>
+                <div class="task-status completed">Completed</div>
+                <button class="task-action-btn completed" disabled>✓ Done</button>
+              </div>
+            </div>
+            
+            <div class="task-item">
+              <div class="task-icon pending">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="task-details">
+                <div class="task-title">Referral Program</div>
+                <div class="task-subtitle">Invite friends to join StatusPay247</div>
+                <div class="task-requirements">• Share your referral link • Friend must complete onboarding</div>
+              </div>
+              <div style="text-align: right;">
+                <div class="task-reward">₹50</div>
+                <div class="task-status pending">Per Referral</div>
+                <button class="task-action-btn">Get Link</button>
+              </div>
+            </div>
           </div>
-          <h3 class="card-title" data-translate="upload-title">Upload Task Screenshot</h3>
         </div>
-        <div style="text-align:center;">
-          <!-- Removed manual phone input field -->
-          <input type="file" id="uploadFile" accept="image/*" style="margin-bottom:1rem;" required>
-          <br>
-          <button type="button" id="uploadBtn" class="btn" style="min-width:160px;">
-            <i class="fas fa-cloud-upload-alt"></i> Upload Screenshot
-          </button>
-          <div id="uploadStatusMessage" style="margin-top:1rem; font-size:0.98rem; color:var(--primary-color);"></div>
-          <div id="dashboardScreenshotLinks" style="font-size:0.93rem;color:var(--secondary-color);margin-top:1.2rem;text-align:left;max-width:420px;word-break:break-all;"></div>
+
+        <div class="sidebar-content">
+          <!-- Profile Card -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <h3 class="card-title" data-translate="profile-title">Profile Information</h3>
+              <div class="card-icon">
+                <i class="fas fa-user"></i>
+              </div>
+            </div>
+            
+            <div style="text-align: center; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem;" id="userName">...</div>
+            
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label" data-translate="poster-id">Poster ID</span>
+                <span class="info-value" id="posterId">...</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label" data-translate="phone-number">Phone Number</span>
+                <span class="info-value" id="phone">...</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Tasks Completed</span>
+                <span class="info-value" id="profileTasksCompleted">0</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Status</span>
+                <span class="info-value status-badge">Active</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- WhatsApp Group Card -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <h3 class="card-title" data-translate="group-title">Join Official Group</h3>
+              <div class="card-icon" style="background: #25d366; color: white;">
+                <i class="fab fa-whatsapp"></i>
+              </div>
+            </div>
+            
+            <div class="join-group-section" style="text-align:center; margin-bottom:1.2rem;">
+              <p style="margin-bottom:1.2rem; color:#64748b; font-size: 0.9rem;">
+                Connect with other posters, get updates, and support.
+              </p>
+              <a href="https://chat.whatsapp.com/HEIxYpyYJQ9J0dydC7nSfH" target="_blank" class="join-group-btn">
+                <i class="fab fa-whatsapp"></i> Join Group
+              </a>
+            </div>
+          </div>
+
+          <!-- Upload Screenshot Card -->
+          <div class="dashboard-card">
+            <div class="card-header">
+              <h3 class="card-title" data-translate="upload-title">Upload Screenshot</h3>
+              <div class="card-icon" style="background: #1e977e; color: white;">
+                <i class="fas fa-upload"></i>
+              </div>
+            </div>
+            
+            <div style="text-align:center;">
+              <input type="file" id="uploadFile" accept="image/*" style="margin-bottom:1rem; width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.85rem;" required>
+              <button type="button" id="uploadBtn" class="btn-primary" style="width: 100%;">
+                <i class="fas fa-cloud-upload-alt"></i> Upload
+              </button>
+              <div id="uploadStatusMessage" style="margin-top:1rem; font-size:0.85rem; color:#1e977e;"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -787,7 +1381,7 @@ and start your journey today.</textarea>
   <!-- Footer -->
   <footer style="margin-top: 4rem;">
         <div class="copyright" style="background-color:#1F2937; color:white; padding:0;">
-            <p style="margin-top:1.5rem;">&copy; 2025 StatusPay 247. All rights reserved.</p>
+            <p style="margin-top:1.5rem;">&copy; 2025 StatusPay247. All rights reserved.</p>
             <div class="footer-social" style="margin:1rem 0 0.5rem 0;">
                 <a href="https://x.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="X.com">
                     <i class="fa-brands fa-x-twitter"></i>
@@ -871,11 +1465,11 @@ and start your journey today.</textarea>
           },
           'download-note': { 
             en: 'Download and post this image to your WhatsApp status.',
-            ml: 'ഈ ചിത്രം ഡൗൺലോഡ് ചെയ്ത് നിങ്ങളുടെ വാട്സ്ആപ്പ് സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യൂ.'
+            ml: 'ഈ ചിത്രം ഡൗൺലോഡ് ചെയ്യുക  .'
           },
           'copy-note': { 
             en: 'Copy this caption and paste it with your status image.',
-            ml: 'മുകളിലെ വാചകം കോപ്പി ചെയ്ത് സ്റ്റാറ്റസിനൊപ്പം ചേർക്കൂ.'
+            ml: 'മുകളിലെ വാചകം കോപ്പി ചെയ്ത് ചിത്രത്തോടൊപ്പം സ്റ്റാറ്റസിൽ ചേര്ക്കു .'
           },
           'post-note': { 
             en: 'Post both the image and caption to your WhatsApp status for approval.',
@@ -1075,7 +1669,7 @@ and start your journey today.</textarea>
                 const el = document.getElementById(id);
                 if (el) el.textContent = value;
               };
-              setText("userName", (user && user.name) ? user.name : "...");
+              setText("userNameHeader", (user && user.name) ? user.name : "User");
               // If dashboard is empty (no earnings yet), show a friendly message in the dashboard
               if (
                 (!data.name || data.name.trim() === "") &&
@@ -1112,15 +1706,33 @@ and start your journey today.</textarea>
               setText("posterId", data.posterId || "...");
               setText("phone", data.phone || "...");
               setText("profileTasksCompleted", data.tasksCompleted !== undefined ? data.tasksCompleted : 0);
-              setText("lastTask", data.lastTask || "...");
-              // Update wallet bar
+              setText("lastTask", data.lastTask || "...");              // Update wallet bar and withdrawal button
               const walletBar = document.getElementById("walletBar");
               const walletBarLabel = document.getElementById("walletBarLabel");
+              const withdrawBtn = document.getElementById("withdrawBtn");
+              const withdrawIcon = document.getElementById("withdrawLockIcon");
+              
               if (walletBar && walletBarLabel) {
                 const threshold = 500;
-                const progress = Math.min((Number(data.balance) / threshold) * 100, 100);
+                const balance = Number(data.balance) || 0;
+                const progress = Math.min((balance / threshold) * 100, 100);
                 walletBar.style.width = progress + "%";
                 walletBarLabel.textContent = `${progress.toFixed(0)}% of ₹${threshold} threshold`;
+                
+                // Update withdrawal button state
+                if (withdrawBtn && withdrawIcon) {
+                  if (balance >= threshold) {
+                    withdrawBtn.disabled = false;
+                    withdrawBtn.style.background = "var(--primary-color)";
+                    withdrawIcon.className = "fas fa-unlock";
+                    withdrawBtn.innerHTML = '<i class="fas fa-unlock"></i> Withdraw';
+                  } else {
+                    withdrawBtn.disabled = true;
+                    withdrawBtn.style.background = "#ccc";
+                    withdrawIcon.className = "fas fa-lock";
+                    withdrawBtn.innerHTML = '<i class="fas fa-lock"></i> Withdraw';
+                  }
+                }
               }
               document.getElementById("dashboardContent").style.display = "block";
               document.getElementById("loading").style.display = "none";
