@@ -957,26 +957,143 @@
         border-color: #1E977E;
     }
     
-    @media (max-width: 600px) {
-        .lang-select-bar {
-            font-size: 0.97rem;
-            padding: 0.2rem 0.1rem;
-            gap: 0.2rem;
-            min-height: 0;
-        }
-        .lang-label {
-            font-size: 0.97rem;
-            margin: 0.2rem 0;
-            width: 100%;
-            flex-basis: 100%;
-            display: block;
-        }
-        .lang-select-bar button {
-            font-size: 0.97rem;
-            padding: 0.18rem 0.7rem;
-            min-width: 70px;
-            margin-bottom: 0.2rem;
-        }
+    /* Completed Task Upload Styles */
+    #completedTaskUploadSection {
+      padding: 0;
+    }
+    
+    #adSelectionStep label,
+    #screenshotUploadStep label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #374151;
+      font-size: 0.9rem;
+    }
+    
+    #completedAdSelect {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      background: white;
+      color: #374151;
+      transition: border-color 0.2s;
+    }
+    
+    #completedAdSelect:focus {
+      outline: none;
+      border-color: #1e977e;
+      box-shadow: 0 0 0 3px rgba(30, 151, 126, 0.1);
+    }
+    
+    #completedAdSelect option:disabled {
+      color: #9ca3af;
+      font-style: italic;
+    }
+    
+    #completedTaskFile {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      background: white;
+      transition: border-color 0.2s;
+    }
+    
+    #completedTaskFile:focus {
+      outline: none;
+      border-color: #1e977e;
+      box-shadow: 0 0 0 3px rgba(30, 151, 126, 0.1);
+    }
+    
+    #completedTaskUploadBtn {
+      background: #1e977e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      flex: 1;
+    }
+    
+    #completedTaskUploadBtn:hover:not(:disabled) {
+      background: #16815c;
+      transform: translateY(-1px);
+    }
+    
+    #completedTaskUploadBtn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    #completedTaskCancelBtn {
+      background: #6b7280;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    #completedTaskCancelBtn:hover {
+      background: #4b5563;
+      transform: translateY(-1px);
+    }
+    
+    #adSelectionStatus,
+    #completedTaskUploadStatus {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      margin-top: 0.5rem;
+    }
+    
+    .completed-task-instructions {
+      margin-top: 1rem;
+      padding: 0.8rem;
+      background: #f8fafc;
+      border-radius: 8px;
+      border-left: 3px solid #1e977e;
+    }
+    
+    .completed-task-instructions p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: #64748b;
+      line-height: 1.4;
+    }
+    
+    @media (max-width: 768px) {
+      #completedTaskUploadSection {
+        padding: 0;
+      }
+      
+      #completedAdSelect,
+      #completedTaskFile {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+      }
+      
+      #completedTaskUploadBtn,
+      #completedTaskCancelBtn {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+      }
     }
 
     /* ...existing styles... */
@@ -1291,23 +1408,54 @@ Get genuine reach and visibility with verified status shares.
                 <i class="fab fa-whatsapp"></i> Join Group
               </a>
             </div>
-          </div>
-
-          <!-- Upload Screenshot Card -->
+          </div>          <!-- Completed Task Screenshot Upload Card -->
           <div class="dashboard-card">
             <div class="card-header">
-              <h3 class="card-title" data-translate="upload-title">Upload Screenshot</h3>
+              <h3 class="card-title" data-translate="completed-upload-title">Upload Completed Task</h3>
               <div class="card-icon" style="background: #1e977e; color: white;">
-                <i class="fas fa-upload"></i>
+                <i class="fas fa-camera"></i>
               </div>
             </div>
             
-            <div style="text-align:center;">
-              <input type="file" id="uploadFile" accept="image/*" style="margin-bottom:1rem; width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.85rem;" required>
-              <button type="button" id="uploadBtn" class="btn-primary" style="width: 100%;">
-                <i class="fas fa-cloud-upload-alt"></i> Upload
-              </button>
-              <div id="uploadStatusMessage" style="margin-top:1rem; font-size:0.85rem; color:#1e977e;"></div>
+            <div id="completedTaskUploadSection">
+              <!-- Step 1: Select Ad ID -->
+              <div id="adSelectionStep" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; font-size: 0.9rem;" data-translate="select-ad-label">
+                  Select Completed Task:
+                </label>
+                <select id="completedAdSelect" style="width: 100%; padding: 0.6rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.85rem; background: white;">
+                  <option value="" data-translate="loading-tasks">Loading available tasks...</option>
+                </select>
+                <div id="adSelectionStatus" style="margin-top: 0.5rem; font-size: 0.8rem; color: #6b7280;"></div>
+              </div>
+
+              <!-- Step 2: Upload Screenshot -->
+              <div id="screenshotUploadStep" style="display: none;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; font-size: 0.9rem;" data-translate="upload-screenshot-label">
+                  Upload Screenshot:
+                </label>
+                <input type="file" id="completedTaskFile" accept="image/*" style="margin-bottom: 1rem; width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.85rem;" required>
+                
+                <div style="display: flex; gap: 0.5rem;">
+                  <button type="button" id="completedTaskUploadBtn" class="btn-primary" style="flex: 1; padding: 0.6rem;">
+                    <i class="fas fa-cloud-upload-alt"></i> <span data-translate="upload-btn">Upload</span>
+                  </button>
+                  <button type="button" id="completedTaskCancelBtn" class="btn-secondary" style="padding: 0.6rem;">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Status Messages -->
+              <div id="completedTaskUploadStatus" style="margin-top: 1rem; font-size: 0.85rem; min-height: 1.2rem;"></div>
+              
+              <!-- Instructions -->
+              <div style="margin-top: 1rem; padding: 0.8rem; background: #f8fafc; border-radius: 8px; border-left: 3px solid #1e977e;">
+                <p style="margin: 0; font-size: 0.8rem; color: #64748b; line-height: 1.4;" data-translate="completed-task-instructions">
+                  <i class="fas fa-info-circle" style="color: #1e977e; margin-right: 0.3rem;"></i>
+                  Select a completed task and upload your status screenshot showing the view count after 23 hours.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -1372,9 +1520,22 @@ Get genuine reach and visibility with verified status shares.
           'poster-id': { en: 'Poster ID', ml: 'പോസ്റ്റർ നമ്പർ' },
           'phone-number': { en: 'Phone Number', ml: 'ഫോൺ നമ്പർ' },
           'group-title': { en: 'Join Official Posters Group', 
-                        ml: 'ഔദ്യോഗിക വാട്സ്ആപ്പ് ഗ്രൂപ്പിൽ ചേരൂ' },
-          'upload-title': { en: 'Upload Task Screenshot', 
+                        ml: 'ഔദ്യോഗിക വാട്സ്ആപ്പ് ഗ്രൂപ്പിൽ ചേരൂ' },          'upload-title': { en: 'Upload Task Screenshot', 
                          ml: 'സ്‌ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യൂ' },
+          'completed-upload-title': { en: 'Upload Completed Task', 
+                         ml: 'പൂർത്തിയായ ടാസ്ക് അപ്‌ലോഡ് ചെയ്യൂ' },
+          'select-ad-label': { en: 'Select Completed Task:', 
+                         ml: 'പൂർത്തിയായ ടാസ്ക് തിരഞ്ഞെടുക്കൂ:' },
+          'loading-tasks': { en: 'Loading available tasks...', 
+                         ml: 'ലഭ്യമായ ടാസ്കുകൾ ലോഡ് ചെയ്യുന്നു...' },
+          'upload-screenshot-label': { en: 'Upload Screenshot:', 
+                         ml: 'സ്‌ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യൂ:' },
+          'upload-btn': { en: 'Upload', 
+                         ml: 'അപ്‌ലോഡ് ചെയ്യൂ' },
+          'completed-task-instructions': { 
+            en: 'Select a completed task and upload your status screenshot showing the view count after 23 hours.',
+            ml: 'പൂർത്തിയായ ടാസ്ക് തിരഞ്ഞെടുത്ത് 23 മണിക്കൂർ കഴിഞ്ഞുള്ള വ്യൂ കൗണ്ട് കാണിക്കുന്ന സ്‌ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യൂ.'
+          },
           'contact-support': { en: 'Contact Support', 
                            ml: 'സഹായത്തിന് ബന്ധപ്പെടൂ' },
           'view-terms': { en: 'View Terms', ml: 'നിബന്ധനകൾ' },
@@ -2006,11 +2167,26 @@ async function loadAvailableTasks() {
         const t = parseTask(task);
         if (seen.has(t.adId)) return false;
         seen.add(t.adId);
-        return true;
-      });
+        return true;      });
       tasksContainer.innerHTML = uniqueTasks.map(renderTaskCard).join('');
+      
+      // Also update completed task upload dropdown if it exists
+      if (document.getElementById("completedAdSelect")) {
+        updateCompletedTaskDropdown(uniqueTasks);
+      }
     } else {
       tasksContainer.innerHTML = '<div style="padding:2em;text-align:center;">No available tasks right now.</div>';
+      
+      // Clear completed task dropdown if no tasks
+      if (document.getElementById("completedAdSelect")) {
+        const adSelect = document.getElementById("completedAdSelect");
+        const statusDiv = document.getElementById("adSelectionStatus");
+        adSelect.innerHTML = '<option value="">No completed tasks available</option>';
+        if (statusDiv) {
+          statusDiv.textContent = "No tasks available for screenshot upload.";
+          statusDiv.style.color = "#6b7280";
+        }
+      }
     }
   } catch (e) {
     console.error("Error loading tasks:", e);
@@ -2497,6 +2673,378 @@ style.innerHTML = `
   }
 `;
 document.head.appendChild(style);
+
+// Completed Task Upload Functionality
+const COMPLETED_TASK_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6JrpzSalucWumTZadh7xVk7vnIuG_7-WYsBnL29t8q1eMlpihtsOJDLgNMkJv6zrG/exec";
+
+// Store available tasks data globally
+let availableTasksData = [];
+
+// Initialize completed task upload when page loads
+document.addEventListener("DOMContentLoaded", function() {
+  initializeCompletedTaskUpload();
+});
+
+async function initializeCompletedTaskUpload() {
+  try {
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const phone = user.phone;
+    
+    if (!phone) {
+      console.warn("No phone number found for completed task upload");
+      return;
+    }
+    
+    // Load available tasks and populate completed task dropdown
+    await loadAvailableTasksForUpload();
+    setupCompletedTaskEventListeners();
+  } catch (error) {
+    console.error("Error initializing completed task upload:", error);
+  }
+}
+
+async function loadAvailableTasksForUpload() {
+  const adSelect = document.getElementById("completedAdSelect");
+  const statusDiv = document.getElementById("adSelectionStatus");
+  
+  if (!adSelect) return;
+  
+  try {
+    // Show loading state
+    adSelect.innerHTML = '<option value="">Loading available tasks...</option>';
+    
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const phone = user.phone;
+    
+    if (!phone) {
+      throw new Error("Please log in to view tasks");
+    }
+    
+    // Fetch available tasks from the same API used by main dashboard
+    const resp = await fetch('https://script.google.com/macros/s/AKfycbwbXM1XFhg0k1H2VAnbPScR3h5z6pa_Wx9eLCLfez1iIHvDqnmctVFFAqkGFnXzHFun/exec?action=getTasks&phone=' + encodeURIComponent(phone));
+    const result = await resp.json();
+    
+    if (result.success && result.tasks && result.tasks.length > 0) {
+      // Store the tasks data globally
+      availableTasksData = result.tasks;
+      
+      // Remove duplicates by adId (keep first occurrence)
+      const seen = new Set();
+      const uniqueTasks = result.tasks.filter(task => {
+        const t = parseTask(task);
+        if (seen.has(t.adId)) return false;
+        seen.add(t.adId);
+        return true;
+      });
+      
+      if (uniqueTasks.length === 0) {
+        adSelect.innerHTML = '<option value="">No completed tasks available</option>';
+        statusDiv.textContent = "No tasks available for screenshot upload.";
+        statusDiv.style.color = "#6b7280";
+      } else {
+        let optionsHTML = '<option value="">Select a completed task...</option>';
+        
+        uniqueTasks.forEach(task => {
+          const t = parseTask(task);
+          // For completed tasks, we assume all tasks in the API are available for screenshot upload
+          optionsHTML += `<option value="${t.adId}">${t.adId}${t.title ? ` - ${t.title}` : ''}</option>`;
+        });
+        
+        adSelect.innerHTML = optionsHTML;
+        statusDiv.textContent = `${uniqueTasks.length} task(s) available for screenshot upload.`;
+        statusDiv.style.color = "#1e977e";
+      }
+    } else {
+      adSelect.innerHTML = '<option value="">No completed tasks available</option>';
+      statusDiv.textContent = "No tasks available for screenshot upload.";
+      statusDiv.style.color = "#6b7280";
+    }
+  } catch (error) {
+    console.error("Error loading available tasks for upload:", error);
+    adSelect.innerHTML = '<option value="">Error loading tasks</option>';
+    statusDiv.textContent = "Failed to load available tasks. Please try again.";
+    statusDiv.style.color = "#ef4444";
+  }
+}
+
+function setupCompletedTaskEventListeners() {
+  const adSelect = document.getElementById("completedAdSelect");
+  const uploadStep = document.getElementById("screenshotUploadStep");
+  const uploadBtn = document.getElementById("completedTaskUploadBtn");
+  const cancelBtn = document.getElementById("completedTaskCancelBtn");
+  const fileInput = document.getElementById("completedTaskFile");
+  
+  // Handle Ad ID selection
+  if (adSelect) {
+    adSelect.addEventListener("change", function() {
+      if (this.value && !this.selectedOptions[0].disabled) {
+        uploadStep.style.display = "block";
+      } else {
+        uploadStep.style.display = "none";
+        fileInput.value = "";
+      }
+    });
+  }
+  
+  // Handle upload button
+  if (uploadBtn) {
+    uploadBtn.addEventListener("click", handleCompletedTaskUpload);
+  }
+  
+  // Handle cancel button
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", function() {
+      const adSelect = document.getElementById("completedAdSelect");
+      const uploadStep = document.getElementById("screenshotUploadStep");
+      const fileInput = document.getElementById("completedTaskFile");
+      
+      adSelect.value = "";
+      uploadStep.style.display = "none";
+      fileInput.value = "";
+      updateCompletedTaskStatus("", "");
+    });
+  }
+}
+
+async function handleCompletedTaskUpload() {
+  const adSelect = document.getElementById("completedAdSelect");
+  const fileInput = document.getElementById("completedTaskFile");
+  const uploadBtn = document.getElementById("completedTaskUploadBtn");
+  
+  const selectedAdId = adSelect.value;
+  const file = fileInput.files[0];
+  
+  if (!selectedAdId) {
+    updateCompletedTaskStatus("Please select a completed task.", "error");
+    return;
+  }
+  
+  if (!file) {
+    updateCompletedTaskStatus("Please select a screenshot file.", "error");
+    return;
+  }
+  
+  // Validate file type
+  if (!file.type.startsWith('image/')) {
+    updateCompletedTaskStatus("Please select a valid image file.", "error");
+    return;
+  }
+  
+  // Validate file size (10MB)
+  if (file.size > 10 * 1024 * 1024) {
+    updateCompletedTaskStatus("File too large. Maximum size is 10MB.", "error");
+    return;
+  }
+  
+  try {
+    // Show uploading state
+    const originalText = uploadBtn.innerHTML;
+    uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+    uploadBtn.disabled = true;
+    
+    updateCompletedTaskStatus("Uploading screenshot...", "info");
+    
+    // Get user phone
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const phone = user.phone;
+    
+    if (!phone) {
+      throw new Error("Please log in to upload screenshots.");
+    }    // Convert file to base64
+    const base64Data = await fileToBase64(file);
+    
+    try {
+      // Try direct POST first
+      const response = await fetch(COMPLETED_TASK_SCRIPT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: new URLSearchParams({
+          phone: phone,
+          adId: selectedAdId,
+          base64Data: base64Data,
+          contentType: file.type
+        })
+      });
+      
+      const result = await response.json();
+      handleUploadResult(result);
+      
+    } catch (fetchError) {
+      console.log("Direct fetch failed, trying JSONP approach:", fetchError);
+      
+      // Fallback to JSONP approach for CORS issues
+      await uploadViaJSONP(phone, selectedAdId, base64Data, file.type);
+    }
+  } catch (error) {
+    console.error("Upload error:", error);
+    updateCompletedTaskStatus(`Upload failed: ${error.message}`, "error");
+  } finally {
+    // Reset button
+    uploadBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> <span data-translate="upload-btn">Upload</span>';
+    uploadBtn.disabled = false;
+  }
+}
+
+async function uploadViaJSONP(phone, adId, base64Data, contentType) {
+  return new Promise((resolve, reject) => {
+    const callbackName = 'completedTaskUploadCallback_' + Date.now();
+    
+    // Create callback function
+    window[callbackName] = function(result) {
+      handleUploadResult(result);
+      
+      // Cleanup
+      delete window[callbackName];
+      const script = document.getElementById(callbackName);
+      if (script && script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+      
+      if (result.success) {
+        resolve(result);
+      } else {
+        reject(new Error(result.message || 'Upload failed'));
+      }
+    };
+    
+    // Create script tag for JSONP
+    const script = document.createElement('script');
+    script.id = callbackName;
+    
+    // Build URL with parameters
+    const params = new URLSearchParams({
+      phone: phone,
+      adId: adId,
+      base64Data: base64Data,
+      contentType: contentType,
+      callback: callbackName
+    });
+    
+    script.src = `${COMPLETED_TASK_SCRIPT_URL}?${params.toString()}`;
+    
+    // Handle script load errors
+    script.onerror = function() {
+      delete window[callbackName];
+      updateCompletedTaskStatus("Upload failed: Network error", "error");
+      reject(new Error('Network error'));
+    };
+    
+    // Add script to document
+    document.head.appendChild(script);
+    
+    // Timeout after 30 seconds
+    setTimeout(() => {
+      if (window[callbackName]) {
+        delete window[callbackName];
+        if (script && script.parentNode) {
+          script.parentNode.removeChild(script);
+        }
+        updateCompletedTaskStatus("Upload failed: Request timeout", "error");
+        reject(new Error('Request timeout'));
+      }
+    }, 30000);
+  });
+}
+
+function handleUploadResult(result) {
+  if (result.success) {
+    updateCompletedTaskStatus("Screenshot uploaded successfully!", "success");
+    
+    // Reset form
+    const adSelect = document.getElementById("completedAdSelect");
+    const fileInput = document.getElementById("completedTaskFile");
+    
+    adSelect.value = "";
+    document.getElementById("screenshotUploadStep").style.display = "none";
+    fileInput.value = "";
+    
+    // Reload available Ad IDs to reflect the upload
+    setTimeout(() => {
+      loadAvailableTasksForUpload();
+    }, 1000);
+    
+  } else if (result.alreadyUploaded) {
+    updateCompletedTaskStatus("You have already uploaded a screenshot for this task. Please wait for verification.", "warning");  } else {
+    throw new Error(result.message || "Upload failed");
+  }
+}
+
+function updateCompletedTaskStatus(message, type) {
+  const statusDiv = document.getElementById("completedTaskUploadStatus");
+  if (!statusDiv) return;
+  
+  statusDiv.textContent = message;
+  
+  // Set color based on type
+  switch (type) {
+    case "success":
+      statusDiv.style.color = "#1e977e";
+      break;
+    case "error":
+      statusDiv.style.color = "#ef4444";
+      break;
+    case "warning":
+      statusDiv.style.color = "#f59e0b";
+      break;
+    case "info":
+      statusDiv.style.color = "#3b82f6";
+      break;
+    default:
+      statusDiv.style.color = "#6b7280";
+  }
+  
+  // Clear message after 5 seconds for non-error messages
+  if (type !== "error") {
+    setTimeout(() => {
+      statusDiv.textContent = "";
+    }, 5000);
+  }
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64 = reader.result.split(',')[1]; // Remove data:image/...;base64, prefix
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+// Helper function to update completed task dropdown when main tasks are refreshed
+function updateCompletedTaskDropdown(tasks) {
+  const adSelect = document.getElementById("completedAdSelect");
+  const statusDiv = document.getElementById("adSelectionStatus");
+  
+  if (!adSelect) return;
+  
+  if (tasks && tasks.length > 0) {
+    let optionsHTML = '<option value="">Select a completed task...</option>';
+    
+    tasks.forEach(task => {
+      const t = parseTask(task);
+      optionsHTML += `<option value="${t.adId}">${t.adId}${t.title ? ` - ${t.title}` : ''}</option>`;
+    });
+    
+    adSelect.innerHTML = optionsHTML;
+    if (statusDiv) {
+      statusDiv.textContent = `${tasks.length} task(s) available for screenshot upload.`;
+      statusDiv.style.color = "#1e977e";
+    }
+  } else {
+    adSelect.innerHTML = '<option value="">No completed tasks available</option>';
+    if (statusDiv) {
+      statusDiv.textContent = "No tasks available for screenshot upload.";
+      statusDiv.style.color = "#6b7280";
+    }
+  }
+}
+
+// ...existing code...
   </script>
 </body>
 </html>
