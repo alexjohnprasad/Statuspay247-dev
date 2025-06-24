@@ -1237,58 +1237,14 @@ Get genuine reach and visibility with verified status shares.
           <div class="dashboard-card">
             <div class="card-header">
               <h3 class="card-title">Available Tasks</h3>
-              <button class="btn-secondary">
+              <button class="refresh-tasks-btn btn-secondary">
                 <i class="fas fa-refresh"></i>
                 Refresh
               </button>
             </div>
             
-            <div class="task-item">
-              <div class="task-icon available">
-                <i class="fab fa-whatsapp"></i>
-              </div>
-              <div class="task-details">
-                <div class="task-title">WhatsApp Status Share</div>
-                <div class="task-subtitle">Share promotional content on your WhatsApp status</div>
-                <div class="task-requirements">• Must stay active for 24 hours • Minimum 50 views required</div>
-              </div>
-              <div style="text-align: right;">
-                <div class="task-reward">₹15-25</div>
-                <div class="task-status available">Available</div>
-                <button class="task-action-btn">Start Task</button>
-              </div>
-            </div>
-            
-            <div class="task-item">
-              <div class="task-icon completed">
-                <i class="fas fa-share"></i>
-              </div>
-              <div class="task-details">
-                <div class="task-title">Social Media Follow</div>
-                <div class="task-subtitle">Follow our official social media accounts</div>
-                <div class="task-requirements">• Follow all 4 platforms • Take screenshots for verification</div>
-              </div>
-              <div style="text-align: right;">
-                <div class="task-reward">₹10</div>
-                <div class="task-status completed">Completed</div>
-                <button class="task-action-btn completed" disabled>✓ Done</button>
-              </div>
-            </div>
-            
-            <div class="task-item">
-              <div class="task-icon pending">
-                <i class="fas fa-users"></i>
-              </div>
-              <div class="task-details">
-                <div class="task-title">Referral Program</div>
-                <div class="task-subtitle">Invite friends to join StatusPay247</div>
-                <div class="task-requirements">• Share your referral link • Friend must complete onboarding</div>
-              </div>
-              <div style="text-align: right;">
-                <div class="task-reward">₹50</div>
-                <div class="task-status pending">Per Referral</div>
-                <button class="task-action-btn">Get Link</button>
-              </div>
+            <div class="available-tasks-container">
+              <!-- Tasks will be dynamically inserted here by JS -->
             </div>
           </div>
         </div>
@@ -1967,7 +1923,336 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
+// Helper: Parse task string if needed
+function parseTask(task) {
+  // If mediaType is empty and caption contains '|||', parse it
+  if ((!task.mediaType || !task.mediaType.trim()) && typeof task.caption === "string" && task.caption.includes("|||")) {
+    const parts = task.caption.split("|||").map(s => s.trim());
+    // [adId, title, caption, mediaType, mediaUrl]
+    return {
+      adId: parts[0] || task.adId || "",
+      title: parts[1] || "",
+      caption: parts[2] || "",
+      mediaType: (parts[3] || "").trim(),
+      mediaUrl: (parts[4] || "").trim(),
+      rowNumber: task.rowNumber
+    };
+  }
+  // Already parsed
+  return {
+    adId: task.adId,
+    title: task.title || "",
+    caption: task.caption,
+    mediaType: task.mediaType,
+    mediaUrl: task.mediaUrl,
+    rowNumber: task.rowNumber
+  };
+}
+
+function renderTaskCard(task) {
+  const t = parseTask(task);
+  let html = '';
+  // Redesigned task card UI
+  if (t.mediaType === "Image") {
+    html = `
+      <div class="task-item redesigned-task-card">
+        <div class="task-media">
+          <img src="${t.mediaUrl}" alt="Task Image" class="task-media-img">
+        </div>
+        <div class="task-main">
+          <div class="task-header">
+            <div class="task-title">${t.title ? t.title : "Image Task"} <span class="task-id">#${t.adId}</span></div>
+            <div class="task-type-badge image">Image</div>
+          </div>
+          <div class="task-caption">${t.caption}</div>
+          <div class="task-actions">
+            <a href="${t.mediaUrl}" download class="btn-primary task-download-btn"><i class="fas fa-download"></i> Download</a>
+            <button class="btn-secondary task-copy-btn" type="button" onclick="navigator.clipboard.writeText(\`${t.caption.replace(/`/g,"\\`")}\`);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy Caption',1200);"><i class="fas fa-copy"></i> Copy Caption</button>
+          </div>
+        </div>
+        <div class="task-side">
+          <button class="task-action-btn" type="button" onclick="markTaskAsPosted('${t.adId}',${t.rowNumber},this)">Mark as Posted</button>
+        </div>
+      </div>
+    `;
+  } else if (t.mediaType === "Video") {
+    html = `
+      <div class="task-item redesigned-task-card">
+        <div class="task-media">
+          <video src="${t.mediaUrl}" controls class="task-media-video"></video>
+        </div>
+        <div class="task-main">
+          <div class="task-header">
+            <div class="task-title">${t.title ? t.title : "Video Task"} <span class="task-id">#${t.adId}</span></div>
+            <div class="task-type-badge video">Video</div>
+          </div>
+          <div class="task-caption">${t.caption}</div>
+          <div class="task-actions">
+            <a href="${t.mediaUrl}" download class="btn-primary task-download-btn"><i class="fas fa-download"></i> Download</a>
+            <button class="btn-secondary task-copy-btn" type="button" onclick="navigator.clipboard.writeText(\`${t.caption.replace(/`/g,"\\`")}\`);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy Caption',1200);"><i class="fas fa-copy"></i> Copy Caption</button>
+          </div>
+        </div>
+        <div class="task-side">
+          <button class="task-action-btn" type="button" onclick="markTaskAsPosted('${t.adId}',${t.rowNumber},this)">Mark as Posted</button>
+        </div>
+      </div>
+    `;
+  } else if (t.mediaType === "Text" || (!t.mediaType && t.caption)) {
+    html = `
+      <div class="task-item redesigned-task-card">
+        <div class="task-media text">
+          <i class="fas fa-align-left"></i>
+        </div>
+        <div class="task-main">
+          <div class="task-header">
+            <div class="task-title">${t.title ? t.title : "Text Task"} <span class="task-id">#${t.adId}</span></div>
+            <div class="task-type-badge text">Text</div>
+          </div>
+          <div class="task-caption">${t.caption}</div>
+          <div class="task-actions">
+            <button class="btn-secondary task-copy-btn" type="button" onclick="navigator.clipboard.writeText(\`${t.caption.replace(/`/g,"\\`")}\`);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy Text',1200);"><i class="fas fa-copy"></i> Copy Text</button>
+          </div>
+        </div>
+        <div class="task-side">
+          <button class="task-action-btn" type="button" onclick="markTaskAsPosted('${t.adId}',${t.rowNumber},this)">Mark as Posted</button>
+        </div>
+      </div>
+    `;
+  }
+  return html;
+}
+
+// Add redesigned task card CSS
+const style = document.createElement('style');
+style.innerHTML = `
+  .redesigned-task-card {
+    display: flex;
+    align-items: stretch;
+    gap: 1.5rem;
+    background: #f9fafb;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(30,151,126,0.07);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.2rem;
+    border: 1.5px solid #e5e7eb;
+    transition: box-shadow 0.2s, border 0.2s;
+  }
+  .redesigned-task-card:hover {
+    box-shadow: 0 6px 24px rgba(30,151,126,0.13);
+    border-color: var(--primary-color);
+  }
+  .redesigned-task-card .task-media {
+    flex: 0 0 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;
+    max-width: 120px;
+  }
+  .redesigned-task-card .task-media-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1.5px solid #e5e7eb;
+    box-shadow: 0 1px 6px rgba(30,151,126,0.08);
+  }
+  .redesigned-task-card .task-media-video {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    background: #eee;
+    border: 1.5px solid #e5e7eb;
+  }
+  .redesigned-task-card .task-media.text {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    background: #e6f7f2;
+    border-radius: 10px;
+    width: 80px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .redesigned-task-card .task-main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+  .redesigned-task-card .task-header {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+  .redesigned-task-card .task-title {
+    font-size: 1.08rem;
+    font-weight: 700;
+    color: #17314b;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .redesigned-task-card .task-id {
+    font-size: 0.92rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-left: 0.5em;
+  }
+  .redesigned-task-card .task-type-badge {
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.18em 0.8em;
+    margin-left: 0.5em;
+    background: #e6f7f2;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+  }
+  .redesigned-task-card .task-type-badge.video {
+    background: #e0f2fe;
+    color: #2563eb;
+    border-color: #2563eb;
+  }
+  .redesigned-task-card .task-type-badge.text {
+    background: #f3e8ff;
+    color: #9333ea;
+    border-color: #9333ea;
+  }
+  .redesigned-task-card .task-caption {
+    font-size: 0.98rem;
+    color: #334155;
+    margin-bottom: 0.7rem;
+    margin-top: 0.2rem;
+    word-break: break-word;
+  }
+  .redesigned-task-card .task-actions {
+    display: flex;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.2rem;
+  }
+  .redesigned-task-card .task-download-btn {
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 7px;
+    padding: 0.45rem 1.1rem;
+    font-size: 0.97rem;
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    box-shadow: 0 1px 4px rgba(30,151,126,0.07);
+    transition: background 0.2s;
+  }
+  .redesigned-task-card .task-download-btn:hover {
+    background: var(--secondary-color);
+  }
+  .redesigned-task-card .task-copy-btn {
+    background: #fff;
+    color: var(--primary-color);
+    border: 1.5px solid var(--primary-color);
+    border-radius: 7px;
+    padding: 0.45rem 1.1rem;
+    font-size: 0.97rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    transition: background 0.2s, color 0.2s;
+  }
+  .redesigned-task-card .task-copy-btn:hover {
+    background: #e6f7f2;
+    color: #17314b;
+  }
+  .redesigned-task-card .task-side {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-width: 140px;
+    margin-left: 1.2rem;
+  }
+  .redesigned-task-card .task-action-btn {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(30,151,126,0.08);
+    transition: background 0.2s, transform 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .redesigned-task-card .task-action-btn:hover:not(:disabled) {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+  }
+  .redesigned-task-card .task-action-btn.completed {
+    background: var(--accent-color);
+    cursor: not-allowed;
+  }
+  @media (max-width: 900px) {
+    .redesigned-task-card {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .redesigned-task-card .task-side {
+      margin-left: 0;
+      justify-content: flex-start;
+      min-width: 0;
+      margin-top: 0.7rem;
+    }
+    .redesigned-task-card .task-media,
+    .redesigned-task-card .task-media-img,
+    .redesigned-task-card .task-media-video {
+      width: 80px;
+      height: 80px;
+      min-width: 60px;
+      max-width: 90px;
+    }
+  }
+`;
+document.head.appendChild(style);
+
+// Load tasks immediately
+document.addEventListener("DOMContentLoaded", async function() {
+  const tasksContainer = document.querySelector('.available-tasks-container');
+  if (tasksContainer) {
+    tasksContainer.innerHTML = '<div style="padding:2em;text-align:center;"><i class="fas fa-spinner fa-spin"></i> Loading tasks...</div>';
+    try {
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+      const phone = user.phone;
+      const resp = await fetch('https://script.google.com/macros/s/AKfycbwbXM1XFhg0k1H2VAnbPScR3h5z6pa_Wx9eLCLfez1iIHvDqnmctVFFAqkGFnXzHFun/exec?action=getTasks&phone=' + encodeURIComponent(phone));
+      const result = await resp.json();
+      if (result.success && result.tasks && result.tasks.length > 0) {
+        // Remove duplicates by adId (keep first occurrence)
+        const seen = new Set();
+        const uniqueTasks = result.tasks.filter(task => {
+          const t = parseTask(task);
+          if (seen.has(t.adId)) return false;
+          seen.add(t.adId);
+          return true;
+        });
+        tasksContainer.innerHTML = uniqueTasks.map(renderTaskCard).join('');
+      } else {
+        tasksContainer.innerHTML = '<div style="padding:2em;text-align:center;">No available tasks right now.</div>';
+      }
+    } catch (e) {
+      console.error("Error loading tasks:", e);
+      tasksContainer.innerHTML = '<div style="padding:2em;text-align:center;color:#e74c3c;">Failed to load tasks.</div>';
+    }
+  }
+});
   </script>
 </body>
-
 </html>

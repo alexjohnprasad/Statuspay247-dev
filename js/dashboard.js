@@ -1,74 +1,99 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Check authentication
-    if (!checkAuth()) {
-        window.location.href = 'login.html';
-        return;
+/**
+ * Fetches and displays assigned tasks for the logged in user
+ */
+async function refreshTasks() {
+  const refreshBtn = document.querySelector('.refresh-tasks-btn');
+  const tasksContainer = document.querySelector('.available-tasks-container');
+  
+  try {
+    // Show loading state
+    refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing';
+    refreshBtn.disabled = true;
+    tasksContainer.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p>Loading tasks...</p></div>';
+
+    // Get user phone from secure storage
+    let user;
+    try {
+      const secureStorage = await import('./secureStorage.js');
+      user = await secureStorage.default.getItem('user');
+      if (!user?.phone) throw new Error('User phone not found');
+      console.log('User data loaded:', user.phone);
+    } catch (error) {
+      console.error('Secure storage error:', error);
+      throw new Error('Failed to load user data');
     }
 
-    // Initialize dashboard
-    initDashboard();
-});
-
-function checkAuth() {
-    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
-    const loginTime = new Date(localStorage.getItem('loginTime'));
-    const now = new Date();
-    
-    // Session expires after 24 hours
-    if (now - loginTime > 24 * 60 * 60 * 1000) {
-        localStorage.clear();
-        return false;
+    // Fetch tasks from AppScript
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbywl4LxL8sUD0WkZypEixDDIAQisCObavoSmt79qBKXOuYYYuRVePKnnv1NTL_hC2ZazA/exec';
+    let response, result;
+    try {
+      response = await fetch(`${SCRIPT_URL}?phone=${user.phone}`);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      
+      result = await response.json();
+      if (!result.success) throw new Error(result.message || 'Failed to load tasks');
+      console.log('Tasks loaded successfully:', result.tasks.length);
+    } catch (error) {
+      console.error('API request failed:', error);
+      throw new Error('Network error - please try again later');
     }
+
+    // Display tasks
+    if (result.tasks.length === 0) {
+      tasksContainer.innerHTML = '<div class="no-tasks">No tasks available at this time</div>';
+      return;
+    }
+
+    tasksContainer.innerHTML = result.tasks.map(task => `
+      <div class="task-item">
+        <div class="task-icon available">
+          <i class="fab fa-whatsapp"></i>
+        </div>
+        <div class="task-details">
+          <div class="task-title">${task.adId}</div>
+          <div class="task-subtitle">${task.caption}</div>
+          ${task.mediaType === 'image' ? 
+            `<img src="${task.mediaUrl}" class="task-media-preview">` : ''}
+        </div>
+        <div class="task-actions">
+          <a href="${task.whatsappLink}" target="_blank" class="task-action-btn">
+            <i class="fab fa-whatsapp"></i> Start Task
+          </a>
+        </div>
+      </div>
+    `).join('');
     
-    return isLoggedIn;
+  } catch (error) {
+    tasksContainer.innerHTML = `
+      <div class="error-container">
+        <div class="error-icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <p>${error.message}</p>
+      </div>
+    `;
+    console.error('Task refresh failed:', error);
+  } finally {
+    refreshBtn.innerHTML = '<i class="fas fa-refresh"></i> Refresh';
+    refreshBtn.disabled = false;
+  }
 }
 
-function initDashboard() {
-    const user = JSON.parse(localStorage.getItem('user')) || {};
-    
-    // Update user info
-    document.getElementById('userName').textContent = user.name || 'User';
-    document.getElementById('userPhone').textContent = user.phone || '';
-    
-    // Load dashboard data
-    loadDashboardData();
-    
-    // Setup event listeners
-    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-    document.getElementById('menuToggle').addEventListener('click', toggleSidebar);
-    document.getElementById('taskFilter').addEventListener('change', filterTasks);
-}
-
-function loadDashboardData() {
-    // Fetch dashboard data from your API
-    // For now using mock data
-    updateDashboard({
-        balance: 1500.00,
-        todayEarnings: 300.00,
-        tasksCompleted: 5,
-        totalTasks: 10,
-        tasks: [
-            {
-                id: 1,
-                title: 'Post Status',
-                payment: 50.00,
-                deadline: '2h',
-                status: 'pending'
-            }
-        ]
-    });
-}
-
-function updateDashboard(data) {
-    document.getElementById('availableBalance').textContent = data.balance.toFixed(2);
-    document.getElementById('todayEarnings').textContent = data.todayEarnings.toFixed(2);
-    document.getElementById('tasksCompleted').textContent = data.tasksCompleted;
-    document.getElementById('totalTasks').textContent = data.totalTasks;
-    
-    renderTasks(data.tasks);
-}
-
-function handleLogout() {
-    localStorage.clear();
+// Initialize dashboard
+document.addEventListener('DOMContentLoaded', async () => {
+  // Check authentication via secure storage
+  const secureStorage = await import('./secureStorage.js');
+  const user = await secureStorage.default.getItem('user');
+  
+  if (!user) {
     window.location.href = 'login.html';
-}
+    return;
+  }
+
+  // Initialize task refresh
+  const refreshBtn = document.querySelector('.refresh-tasks-btn');
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', refreshTasks);
+  }
+
+  // Load initial tasks
+  await refreshTasks();
+});
