@@ -2882,6 +2882,7 @@ async function handleCompletedTaskScreenshotUpload(file, phone, adId, statusCall
     const timestamp = getTimestampString();
     const filename = `completed_task_${adId}_${phone.slice(-10)}_${timestamp}.${file.name.split('.').pop() || 'png'}`;
 
+    // Use the same approach as the working onboarding upload but with additional parameters
     const response = await fetch(COMPLETED_TASK_SCRIPT_URL, {
       method: "POST",
       headers: {
@@ -2895,6 +2896,10 @@ async function handleCompletedTaskScreenshotUpload(file, phone, adId, statusCall
         filename: filename
       })
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
 
     const result = await response.json();
 
