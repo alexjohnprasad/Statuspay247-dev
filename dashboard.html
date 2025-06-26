@@ -2675,7 +2675,7 @@ style.innerHTML = `
 document.head.appendChild(style);
 
 // Completed Task Upload Functionality
-const COMPLETED_TASK_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6JrpzSalucWumTZadh7xVk7vnIuG_7-WYsBnL29t8q1eMlpihtsOJDLgNMkJv6zrG/exec";
+const COMPLETED_TASK_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxykW-vc-C5e63OltZCeHv3TZWEnqar__WQvaNQHGYp2Xz4IOgCZbeI0p1YZjzc_DM_/exec";
 
 // Store available tasks data globally
 let availableTasksData = [];
@@ -2830,9 +2830,10 @@ async function handleCompletedTaskUpload() {
     return;
   }
   
-  // Validate file size (10MB)
-  if (file.size > 10 * 1024 * 1024) {
-    updateCompletedTaskStatus("File too large. Maximum size is 10MB.", "error");
+  // Validate file size (5MB limit like the working onboarding upload)
+  if (file.size > 5 * 1024 * 1024) {
+    const fileSizeMB = (file.size / 1024 / 1024).toFixed(1);
+    updateCompletedTaskStatus(`File too large (${fileSizeMB}MB). Maximum size is 5MB. Please compress your image.`, "error");
     return;
   }
   
@@ -2850,33 +2851,11 @@ async function handleCompletedTaskUpload() {
     
     if (!phone) {
       throw new Error("Please log in to upload screenshots.");
-    }    // Convert file to base64
-    const base64Data = await fileToBase64(file);
-    
-    try {
-      // Try direct POST first
-      const response = await fetch(COMPLETED_TASK_SCRIPT_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: new URLSearchParams({
-          phone: phone,
-          adId: selectedAdId,
-          base64Data: base64Data,
-          contentType: file.type
-        })
-      });
-      
-      const result = await response.json();
-      handleUploadResult(result);
-      
-    } catch (fetchError) {
-      console.log("Direct fetch failed, trying JSONP approach:", fetchError);
-      
-      // Fallback to JSONP approach for CORS issues
-      await uploadViaJSONP(phone, selectedAdId, base64Data, file.type);
     }
+
+    // Use the same upload method as the working onboarding upload
+    await handleCompletedTaskScreenshotUpload(file, phone, selectedAdId, updateCompletedTaskStatus);
+    
   } catch (error) {
     console.error("Upload error:", error);
     updateCompletedTaskStatus(`Upload failed: ${error.message}`, "error");
@@ -2887,87 +2866,65 @@ async function handleCompletedTaskUpload() {
   }
 }
 
-async function uploadViaJSONP(phone, adId, base64Data, contentType) {
-  return new Promise((resolve, reject) => {
-    const callbackName = 'completedTaskUploadCallback_' + Date.now();
-    
-    // Create callback function
-    window[callbackName] = function(result) {
-      handleUploadResult(result);
-      
-      // Cleanup
-      delete window[callbackName];
-      const script = document.getElementById(callbackName);
-      if (script && script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-      
-      if (result.success) {
-        resolve(result);
-      } else {
-        reject(new Error(result.message || 'Upload failed'));
-      }
-    };
-    
-    // Create script tag for JSONP
-    const script = document.createElement('script');
-    script.id = callbackName;
-    
-    // Build URL with parameters
-    const params = new URLSearchParams({
-      phone: phone,
-      adId: adId,
-      base64Data: base64Data,
-      contentType: contentType,
-      callback: callbackName
-    });
-    
-    script.src = `${COMPLETED_TASK_SCRIPT_URL}?${params.toString()}`;
-    
-    // Handle script load errors
-    script.onerror = function() {
-      delete window[callbackName];
-      updateCompletedTaskStatus("Upload failed: Network error", "error");
-      reject(new Error('Network error'));
-    };
-    
-    // Add script to document
-    document.head.appendChild(script);
-    
-    // Timeout after 30 seconds
-    setTimeout(() => {
-      if (window[callbackName]) {
-        delete window[callbackName];
-        if (script && script.parentNode) {
-          script.parentNode.removeChild(script);
-        }
-        updateCompletedTaskStatus("Upload failed: Request timeout", "error");
-        reject(new Error('Request timeout'));
-      }
-    }, 30000);
-  });
-}
+// New function based on the working handleScreenshotUpload but for completed tasks
+async function handleCompletedTaskScreenshotUpload(file, phone, adId, statusCallback) {
+  try {
+    if (!file) throw new Error("Please select a screenshot to upload.");
+    if (!["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
+      throw new Error("Only JPG, PNG, or GIF images are allowed.");
+    }
+    if (file.size > 5 * 1024 * 1024) throw new Error("File size exceeds 5MB limit.");
 
-function handleUploadResult(result) {
-  if (result.success) {
-    updateCompletedTaskStatus("Screenshot uploaded successfully!", "success");
-    
-    // Reset form
-    const adSelect = document.getElementById("completedAdSelect");
-    const fileInput = document.getElementById("completedTaskFile");
-    
-    adSelect.value = "";
-    document.getElementById("screenshotUploadStep").style.display = "none";
-    fileInput.value = "";
-    
-    // Reload available Ad IDs to reflect the upload
-    setTimeout(() => {
-      loadAvailableTasksForUpload();
-    }, 1000);
-    
-  } else if (result.alreadyUploaded) {
-    updateCompletedTaskStatus("You have already uploaded a screenshot for this task. Please wait for verification.", "warning");  } else {
-    throw new Error(result.message || "Upload failed");
+    statusCallback("Uploading screenshot...", "info");
+
+    const base64Data = await readFileAsBase64(file);
+    const base64Content = base64Data.split(',')[1];
+    const timestamp = getTimestampString();
+    const filename = `completed_task_${adId}_${phone.slice(-10)}_${timestamp}.${file.name.split('.').pop() || 'png'}`;
+
+    const response = await fetch(COMPLETED_TASK_SCRIPT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: new URLSearchParams({
+        phone: phone,
+        adId: adId,
+        base64Data: base64Content,
+        contentType: file.type,
+        filename: filename
+      })
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      statusCallback("Screenshot uploaded successfully!", "success");
+      
+      // Reset form
+      const adSelect = document.getElementById("completedAdSelect");
+      const fileInput = document.getElementById("completedTaskFile");
+      
+      if (adSelect) adSelect.value = "";
+      const uploadStep = document.getElementById("screenshotUploadStep");
+      if (uploadStep) uploadStep.style.display = "none";
+      if (fileInput) fileInput.value = "";
+      
+      // Reload available Ad IDs to reflect the upload
+      setTimeout(() => {
+        loadAvailableTasksForUpload();
+      }, 1000);
+      
+    } else if (result.alreadyUploaded) {
+      statusCallback("You have already uploaded a screenshot for this task. Please wait for verification.", "warning");
+    } else {
+      throw new Error(result.message || "Upload failed");
+    }
+
+    return result;
+  } catch (err) {
+    statusCallback(err.message || "Upload failed", "error");
+    throw err;
   }
 }
 
@@ -3001,18 +2958,6 @@ function updateCompletedTaskStatus(message, type) {
       statusDiv.textContent = "";
     }, 5000);
   }
-}
-
-function fileToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result.split(',')[1]; // Remove data:image/...;base64, prefix
-      resolve(base64);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
 }
 
 // Helper function to update completed task dropdown when main tasks are refreshed
