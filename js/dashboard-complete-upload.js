@@ -219,8 +219,9 @@ async function handleCompletedTaskScreenshotUpload(
     if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
       throw new Error('Only JPG, PNG, or GIF images are allowed.');
     }
-    if (file.size > 5 * 1024 * 1024)
+    if (file.size > 5 * 1024 * 1024) {
       throw new Error('File size exceeds 5MB limit.');
+    }
 
     statusCallback('Uploading screenshot...', 'info');
 
@@ -231,7 +232,6 @@ async function handleCompletedTaskScreenshotUpload(
       file.name.split('.').pop() || 'png'
     }`;
 
-    // Use the same approach as the working onboarding upload but with additional parameters
     const response = await fetch(COMPLETED_TASK_SCRIPT_URL, {
       method: 'POST',
       headers: {
@@ -242,13 +242,8 @@ async function handleCompletedTaskScreenshotUpload(
         adId: adId,
         base64Data: base64Content,
         contentType: file.type,
-        filename: filename,
       }),
     });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
 
     const result = await response.json();
 
@@ -256,23 +251,12 @@ async function handleCompletedTaskScreenshotUpload(
       statusCallback('Screenshot uploaded successfully!', 'success');
 
       // Reset form
-      const adSelect = document.getElementById('completedAdSelect');
-      const fileInput = document.getElementById('completedTaskFile');
+      document.getElementById('completedAdSelect').value = '';
+      document.getElementById('screenshotUploadStep').style.display = 'none';
+      document.getElementById('completedTaskFile').value = '';
 
-      if (adSelect) adSelect.value = '';
-      const uploadStep = document.getElementById('screenshotUploadStep');
-      if (uploadStep) uploadStep.style.display = 'none';
-      if (fileInput) fileInput.value = '';
-
-      // Reload available Ad IDs to reflect the upload
-      setTimeout(() => {
-        loadAvailableTasksForUpload();
-      }, 1000);
-    } else if (result.alreadyUploaded) {
-      statusCallback(
-        'You have already uploaded a screenshot for this task. Please wait for verification.',
-        'warning'
-      );
+      // Reload available tasks
+      setTimeout(loadAvailableTasksForUpload, 1000);
     } else {
       throw new Error(result.message || 'Upload failed');
     }

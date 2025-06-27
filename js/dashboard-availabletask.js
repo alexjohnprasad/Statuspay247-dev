@@ -266,9 +266,11 @@ async function markTaskAsPosted(adId, rowNumber, buttonElement) {
 
 // Helper: Parse task string if needed
 function parseTask(task) {
-  // If mediaType is empty and caption contains '|||', parse it
+  // If mediaType is empty/invalid and caption contains '|||', parse it
   if (
-    (!task.mediaType || !task.mediaType.trim()) &&
+    (!task.mediaType ||
+      typeof task.mediaType !== 'string' ||
+      !task.mediaType.trim()) &&
     typeof task.caption === 'string' &&
     task.caption.includes('|||')
   ) {
@@ -288,7 +290,7 @@ function parseTask(task) {
     adId: task.adId,
     title: task.title || '',
     caption: task.caption,
-    mediaType: task.mediaType,
+    mediaType: typeof task.mediaType === 'string' ? task.mediaType.trim() : '',
     mediaUrl: task.mediaUrl,
     rowNumber: task.rowNumber,
   };
