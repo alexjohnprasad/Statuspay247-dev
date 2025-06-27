@@ -1,3000 +1,1001 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>StatusPay247 Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="apple-touch-icon" href="assets/favicon.png" />
+    <link rel="shortcut icon" href="assets/favicon.png" />
+    <link rel="stylesheet" href="css/styles-cleaned.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <script src="js/main.js" defer></script>
+    <script src="js/dashboard-availabletask.js"></script>
+    <script src="js/dashboard-complete-upload.js"></script>
+    <script src="js/dashboard-onboard-upload.js"></script>
+    <script src="js/dashboard-onboard.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <title>StatusPay247 Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="apple-touch-icon" href="assets/favicon.png">
-  <link rel="shortcut icon" href="assets/favicon.png">
-  <link rel="stylesheet" href="css/styles-cleaned.css">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <script src="js/main.js" defer></script>
-  <style>    /* Dashboard-specific styles using site's color theme */
-    .dashboard-header {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: white;
-      padding: 2rem 0;
-      margin-bottom: 2rem;
-      border-radius: 0 0 20px 20px;
-    }
-    
-    .dashboard-welcome {
-      text-align: left;
-      padding: 0 2rem;
-    }
-    
-    .dashboard-welcome h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: white;
-    }
-    
-    .dashboard-welcome p {
-      font-size: 1rem;
-      opacity: 0.8;
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 0;
-    }
-    
-    .dashboard-tabs {
-      display: flex;
-      gap: 2rem;
-      margin: 1.5rem 0 0 2rem;
-    }
-    
-    .tab-item {
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 0.9rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid transparent;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .tab-item.active {
-      color: white;
-      border-bottom-color: var(--accent-color);
-    }
-    
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    
-    .main-content {
-      display: grid;
-      gap: 1.5rem;
-    }
-    
-    .sidebar-content {
-      display: grid;
-      gap: 1.5rem;
-    }
-      .dashboard-card {
-      background: white;
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-      border: 1px solid #f1f5f9;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-    
-    .dashboard-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    }
-      .balance-card {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-      color: white;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .balance-card::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -30%;
-      width: 100px;
-      height: 100px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      z-index: 1;
-    }
-    
-    .balance-card::after {
-      content: '';
-      position: absolute;
-      bottom: -30%;
-      left: -20%;
-      width: 80px;
-      height: 80px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 50%;
-      z-index: 1;
-    }
-    
-    .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .card-title {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text-light);
-      margin: 0;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    .balance-card .card-title {
-      color: rgba(255, 255, 255, 0.9);
-    }
-    
-    .card-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      background: rgba(30, 151, 126, 0.1);
-      color: var(--primary-color);
-    }
-    
-    .balance-card .card-icon {
-      background: rgba(255, 255, 255, 0.2);
-      color: white;
-    }
-    
-    .wallet-balance {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin: 0.5rem 0 1rem 0;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .balance-card .wallet-balance {
-      color: white;
-    }
-      .card-subtitle {
-      font-size: 0.85rem;
-      color: var(--text-light);
-      margin-bottom: 1rem;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .balance-card .card-subtitle {
-      color: rgba(255, 255, 255, 0.8);
-    }
-    
-    .action-buttons {
-      display: flex;
-      gap: 0.75rem;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .btn-primary {
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.6rem 1.2rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .btn-primary:hover {
-      background: var(--secondary-color);
-      transform: translateY(-1px);
-    }
-    
-    .btn-secondary {
-      background: transparent;
-      color: var(--text-light);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 0.6rem 1.2rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .balance-card .btn-secondary {
-      color: white;
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-    
-    .btn-secondary:hover {
-      background: var(--background-light);
-      border-color: var(--primary-color);
-      color: var(--primary-color);
-    }
-    
-    .balance-card .btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-      .stats-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-    
-    .stat-card {
-      background: var(--background-light);
-      border-radius: 12px;
-      padding: 1rem;
-      text-align: center;
-      border: 1px solid var(--border-color);
-    }
-    
-    .balance-card .stat-card {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    .stat-value {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text-color);
-      margin-bottom: 0.25rem;
-    }
-    
-    .balance-card .stat-value {
-      color: white;
-    }
-    
-    .stat-label {
-      font-size: 0.75rem;
-      color: var(--text-light);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 500;
-    }
-    
-    .balance-card .stat-label {
-      color: rgba(255, 255, 255, 0.8);
-    }
-    
-    .progress-container {
-      background: var(--background-dark);
-      border-radius: 25px;
-      height: 8px;
-      margin: 1rem 0;
-      overflow: hidden;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .balance-card .progress-container {
-      background: rgba(255, 255, 255, 0.2);
-    }
-    
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-      border-radius: 25px;
-      transition: width 0.8s ease;
-    }
-    
-    .balance-card .progress-bar {
-      background: linear-gradient(90deg, var(--accent-color), #fbbf24);
-    }
-    
-    .progress-label {
-      font-size: 0.75rem;
-      color: var(--text-light);
-      margin-top: 0.5rem;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .balance-card .progress-label {
-      color: rgba(255, 255, 255, 0.8);
-    }
-    
-    .info-grid {
-      display: grid;
-      gap: 0.75rem;
-    }
-      .info-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-    
-    .info-item:last-child {
-      border-bottom: none;
-    }
-    
-    .info-label {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-light);
-    }
-    
-    .info-value {
-      font-size: 0.85rem;
-      color: var(--text-color);
-      font-weight: 600;
-    }    .task-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-    
-    .task-item:last-child {
-      border-bottom: none;
-    }
-    
-    .task-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      flex-shrink: 0;
-    }
-    
-    .task-icon.available {
-      background: rgba(30, 151, 126, 0.1);
-      color: var(--primary-color);
-    }
-    
-    .task-icon.completed {
-      background: rgba(244, 179, 80, 0.1);
-      color: var(--accent-color);
-    }
-    
-    .task-icon.pending {
-      background: rgba(23, 49, 75, 0.1);
-      color: var(--secondary-color);
-    }
-    
-    .task-details {
-      flex: 1;
-    }
-    
-    .task-title {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text-color);
-      margin-bottom: 0.25rem;
-    }
-    
-    .task-subtitle {
-      font-size: 0.8rem;
-      color: var(--text-light);
-      margin-bottom: 0.25rem;
-    }
-    
-    .task-requirements {
-      font-size: 0.75rem;
-      color: var(--text-light);
-      font-style: italic;
-    }
-    
-    .task-reward {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      text-align: right;
-      margin-bottom: 0.25rem;
-    }
-    
-    .task-status {
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-align: right;
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    .task-status.available {
-      color: var(--primary-color);
-    }
-    
-    .task-status.completed {
-      color: var(--accent-color);
-    }
-    
-    .task-status.pending {
-      color: var(--secondary-color);
-    }
-    
-    .task-action-btn {
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    .task-action-btn:hover {
-      background: var(--secondary-color);
-      transform: translateY(-1px);
-    }
-    
-    .task-action-btn.completed {
-      background: var(--accent-color);
-      cursor: not-allowed;
-    }
-    
-    .task-action-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-    
-    .join-group-btn {
-      background: #25d366;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem 1.5rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-decoration: none;
-    }
-    
-    .join-group-btn:hover {
-      background: #128c7e;
-      transform: translateY(-1px);
-    }
-    
-    .loading-spinner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem;
-      text-align: center;
-    }
-    
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 4px solid var(--background-dark);
-      border-top: 4px solid var(--primary-color);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 1rem;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    .loading-spinner h3 {
-      color: var(--text-color);
-      margin-bottom: 0.5rem;
-    }
-    
-    .loading-spinner p {
-      color: var(--text-light);
-    }
-    
-    .error-container {
-      text-align: center;
-      padding: 3rem;
-      color: #e74c3c;
-    }
-    
-    .error-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-    
-    .error-container h3 {
-      color: var(--text-color);
-      margin-bottom: 1rem;
-    }
-    
-    .quick-actions {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    
-    .action-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem 1.5rem;
-      background: var(--background-color);
-      border: 2px solid var(--primary-color);
-      color: var(--primary-color);
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    
-    .action-btn:hover {
-      background: var(--primary-color);
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-    }
-    
-    .action-btn i {
-      margin-right: 0.5rem;
-    }
-    
-    .status-badge {
-      color: var(--primary-color);
-      font-weight: 600;
-      background: rgba(30, 151, 126, 0.1);
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.9rem;
-    }
-      @media (max-width: 768px) {      /* Mobile responsive adjustments for new design */
-      .dashboard-header {
-        padding: 1.5rem 0;
-        margin-bottom: 1.5rem;
-      }
-      
-      .dashboard-welcome {
-        padding: 0 1rem;
-      }
-      
-      .dashboard-welcome h1 {
-        font-size: 1.8rem;
-        margin-bottom: 0.3rem;
-      }
-      
-      .dashboard-welcome p {
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
-      }
-      
-      .dashboard-tabs {
-        margin: 1rem 0 0 1rem;
-        gap: 1.5rem;
-      }
-      
-      .dashboard-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-      }
-      
-      .main-content,
-      .sidebar-content {
-        gap: 1rem;
-      }
-      
-      .dashboard-card {
-        padding: 1.2rem;
-        border-radius: 12px;
-      }
-      
-      .card-header {
-        margin-bottom: 1rem;
-      }
-      
-      .card-icon {
-        width: 35px;
-        height: 35px;
-        font-size: 1.1rem;
-      }
-      
-      .card-title {
-        font-size: 0.8rem;
-      }
-      
-      .wallet-balance {
-        font-size: 2rem;
-        margin: 0.8rem 0;
-      }
-      
-      .card-subtitle {
-        font-size: 0.8rem;
-        margin-bottom: 0.8rem;
-      }
-      
-      .action-buttons {
-        gap: 0.5rem;
-      }
-      
-      .btn-primary,
-      .btn-secondary {
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
-      }
-      
-      .stats-row {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.8rem;
-        margin-top: 1rem;
-      }
-      
-      .stat-card {
-        padding: 0.8rem;
-      }
-      
-      .stat-value {
-        font-size: 1.1rem;
-      }
-      
-      .stat-label {
-        font-size: 0.7rem;
-      }
-      
-      .progress-container {
-        margin: 0.8rem 0;
-        height: 6px;
-      }
-      
-      .progress-label {
-        font-size: 0.7rem;
-        margin-top: 0.3rem;
-      }
-      
-      .info-grid {
-        gap: 0.5rem;
-      }
-      
-      .info-item {
-        padding: 0.5rem 0;
-      }
-      
-      .info-label,
-      .info-value {
-        font-size: 0.8rem;
-      }
-        .task-item {
-        padding: 0.8rem 0;
-        gap: 0.8rem;
-      }
-      
-      .task-icon {
-        width: 35px;
-        height: 35px;
-        font-size: 0.9rem;
-      }
-      
-      .task-title {
-        font-size: 0.85rem;
-      }
-      
-      .task-subtitle {
-        font-size: 0.7rem;
-      }
-      
-      .task-requirements {
-        font-size: 0.65rem;
-      }
-      
-      .task-reward {
-        font-size: 0.9rem;
-      }
-      
-      .task-status {
-        font-size: 0.7rem;
-      }
-      
-      .task-action-btn {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.7rem;
-      }
-      
-      .join-group-section p {
-        margin-bottom: 0.8rem;
-        font-size: 0.8rem;
-      }
-      
-      .join-group-btn {
-        padding: 0.6rem 1.2rem;
-        font-size: 0.8rem;
-      }
-      
-      .quick-actions {
-        grid-template-columns: 1fr;
-        gap: 0.8rem;
-        margin-top: 1.5rem;
-      }
-      
-      .action-btn {
-        padding: 0.8rem 1.2rem;
-        font-size: 0.9rem;
-      }
-      
-      /* Onboarding mobile optimizations */
-      #onboardingScreen {
-        padding: 1.5rem 0.5rem !important;
-      }
-      
-      #onboardingScreen > div:first-child {
-        font-size: 1rem !important;
-        margin-bottom: 1.2rem !important;
-      }
-      
-      #onboardingScreen .dashboard-card,
-      #onboardingScreen > div[style*="background"] {
-        padding: 1.2rem 0.8rem 1rem 0.8rem !important;
-        margin-bottom: 1.2rem !important;
-        max-width: 100% !important;
-      }
-      
-      #onboardingScreen h2 {
-        font-size: 1.2rem !important;
-        margin-bottom: 0.8rem !important;
-      }
-      
-      #onboardingScreen h3 {
-        font-size: 1.1rem !important;
-        margin-bottom: 0.8rem !important;
-      }
-      
-      #onboardingScreen img {
-        max-width: 180px !important;
-      }
-      
-      #onboardingScreen .btn {
-        padding: 0.5rem 1rem !important;
-        font-size: 0.9rem !important;
-        margin: 0.5rem 0.2rem !important;
-      }
-      
-      #onboardingScreen textarea {
-        min-height: 80px !important;
-        font-size: 0.9rem !important;
-        padding: 0.6rem 0.8rem !important;
-      }
-      
-      #onboardingScreen input[type="file"] {
-        padding: 0.5rem 0.8rem !important;
-        font-size: 0.9rem !important;
-      }
-      
-      #onboardingScreen > div[style*="display:flex"] {
-        gap: 1rem !important;
-        margin-bottom: 1rem !important;
-      }
-      
-      #onboardingScreen .social-follow-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
-      }
-      
-      /* Upload section mobile */
-      .dashboard-card[style*="max-width:600px"] {
-        margin: 1.5rem auto !important;
-        padding: 1.2rem !important;
-      }
-      
-      #uploadFile {
-        margin-bottom: 0.8rem !important;
-        padding: 0.5rem !important;
-        font-size: 0.9rem !important;
-      }
-      
-      #uploadBtn {
-        padding: 0.6rem 1.2rem !important;
-        font-size: 0.9rem !important;
-        min-width: 140px !important;
-      }
-      
-      #uploadStatusMessage {
-        margin-top: 0.8rem !important;
-        font-size: 0.9rem !important;
-      }
-      
-      /* Footer spacing */
-      footer {
-        margin-top: 2rem !important;
-      }
-      
-      footer .copyright {
-        padding: 1rem 0 !important;
-      }
-      
-      footer p {
-        margin: 0.5rem 0 !important;
-        font-size: 0.9rem !important;
-      }
-      
-      footer .disclaimer {
-        font-size: 0.8rem !important;
-        margin: 0.5rem 1rem !important;
-      }
-    }    /* Custom styles for wallet withdraw button */
-    .wallet-withdraw-btn {
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      text-align: center;
-      min-width: 180px;
-      justify-content: center;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .wallet-withdraw-btn:hover:not(:disabled) {
-      background: var(--secondary-color);
-      transform: translateY(-2px);
-    }
-    
-    .wallet-withdraw-btn:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .withdraw-note {
-      text-align: center;
-      font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.8);
-      margin-top: 0.8rem;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* Updated Language selection bar styles */
-    .lang-select-wrapper {
-      width: 100%;
-      background: var(--background-light);
-      border-bottom: 1px solid var(--border-color);
-      margin: 0 0 2rem 0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
-    
-    .lang-select-bar {
-        width: 100%;
-        background: #f8f9fa;
-        border-bottom: 1px solid #e5e7eb;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.03);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.7rem;
-        padding: 0.5rem 0.5rem;
-        font-size: 1rem;
-        position: relative;
-        z-index: 900;
-        min-height: 38px;
-        flex-wrap: wrap;
-        text-align: center;
-    }
-
-    .lang-label {
-        font-size: 1rem;
-        color: #444;
-        margin-right: 0.5rem;
-        white-space: normal;
-        flex-shrink: 0;
-        text-align: center;
-        line-height: 1.4;
-    }
-
-    .lang-select-bar button {
-        background: #fff;
-        color: #1E977E;
-        border: 1px solid #d1d5db;
-        border-radius: 5px;
-        padding: 0.25rem 1.1rem;
-        font-size: 1rem;
-        margin: 0 0.1rem;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s, border 0.2s;
-        outline: none;
-        font-family: inherit;
-        font-weight: 600;
-        box-shadow: 0 1px 2px rgba(30,151,126,0.04);
-    }
-
-    .lang-select-bar button.active,
-    .lang-select-bar button:focus {
-        background: #1E977E;
-        color: #fff;
-        border: 1.5px solid #1E977E;
-    }
-
-    .lang-select-bar button:hover:not(.active) {
-        background: #e6f7f2;
-        color: #17314B;
-        border-color: #1E977E;
-    }
-    
-    /* Completed Task Upload Styles */
-    #completedTaskUploadSection {
-      padding: 0;
-    }
-    
-    #adSelectionStep label,
-    #screenshotUploadStep label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: #374151;
-      font-size: 0.9rem;
-    }
-    
-    #completedAdSelect {
-      width: 100%;
-      padding: 0.6rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      background: white;
-      color: #374151;
-      transition: border-color 0.2s;
-    }
-    
-    #completedAdSelect:focus {
-      outline: none;
-      border-color: #1e977e;
-      box-shadow: 0 0 0 3px rgba(30, 151, 126, 0.1);
-    }
-    
-    #completedAdSelect option:disabled {
-      color: #9ca3af;
-      font-style: italic;
-    }
-    
-    #completedTaskFile {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      background: white;
-      transition: border-color 0.2s;
-    }
-    
-    #completedTaskFile:focus {
-      outline: none;
-      border-color: #1e977e;
-      box-shadow: 0 0 0 3px rgba(30, 151, 126, 0.1);
-    }
-    
-    #completedTaskUploadBtn {
-      background: #1e977e;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.6rem 1rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.3rem;
-      flex: 1;
-    }
-    
-    #completedTaskUploadBtn:hover:not(:disabled) {
-      background: #16815c;
-      transform: translateY(-1px);
-    }
-    
-    #completedTaskUploadBtn:disabled {
-      background: #9ca3af;
-      cursor: not-allowed;
-      transform: none;
-    }
-    
-    #completedTaskCancelBtn {
-      background: #6b7280;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.6rem;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    #completedTaskCancelBtn:hover {
-      background: #4b5563;
-      transform: translateY(-1px);
-    }
-    
-    #adSelectionStatus,
-    #completedTaskUploadStatus {
-      font-size: 0.8rem;
-      line-height: 1.4;
-      margin-top: 0.5rem;
-    }
-    
-    .completed-task-instructions {
-      margin-top: 1rem;
-      padding: 0.8rem;
-      background: #f8fafc;
-      border-radius: 8px;
-      border-left: 3px solid #1e977e;
-    }
-    
-    .completed-task-instructions p {
-      margin: 0;
-      font-size: 0.8rem;
-      color: #64748b;
-      line-height: 1.4;
-    }
-    
-    @media (max-width: 768px) {
-      #completedTaskUploadSection {
-        padding: 0;
-      }
-      
-      #completedAdSelect,
-      #completedTaskFile {
-        font-size: 0.8rem;
-        padding: 0.5rem;
-      }
-      
-      #completedTaskUploadBtn,
-      #completedTaskCancelBtn {
-        font-size: 0.8rem;
-        padding: 0.5rem;
-      }
-    }
-
-    /* ...existing styles... */
-  </style>
-</head>
-
-<body>
-  <!-- Header -->
-  <header>
-    <div class="container">
-      <nav>
-        <div class="logo">
-          <a href="/">
-            <img src="assets/logo.png" alt="StatusPay247 Logo" id="logo-img">
-          </a>
-        </div>
-        <div class="burger-menu" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <ul>
-          <li><a href="index.html#hero">Home</a></li>
-          <li><a href="poster.html">Join as Poster</a></li>
-          <li><a href="advertise-with-us.html">Advertise With Us</a></li>
-          <li><button id="logoutBtn" class="logout-btn btn btn-secondary">
-              <i class="fas fa-sign-out-alt"></i>Logout
-            </button></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-
-  <!-- Language Selection Bar -->
-  <div class="lang-select-wrapper">
-    <div class="lang-select-bar">
-      <span class="lang-label">
-        Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:
-      </span>
-      <button type="button" id="btn-en" class="active">English</button>
-      <button type="button" id="btn-ml">മലയാളം</button>
-    </div>
-  </div>
-
-  <!-- Main Dashboard Content -->
-  <main class="container">
-    <!-- Redesigned Onboarding Screen -->
-    <div id="onboardingScreen" style="display:none; text-align:center; padding:3rem;">
-      <div style="font-size:1.08rem;color:var(--text-light);margin-bottom:2rem;" data-translate="onboarding-instructions">
-        To join StatusPay247, please complete <b>all the steps below</b>:
-      </div>
-      <!-- Social Media Follow Card -->
-      <div style="background:var(--background-light);border-radius:14px;padding:2rem 1rem 1.5rem 1rem;max-width:500px;margin:0 auto 2rem auto;box-shadow:0 4px 16px rgba(0,0,0,0.07);">
-        <h2 style="color:var(--primary-color);margin-bottom:1.2rem;font-size:1.5rem;" data-translate="step1-title">
-          Step 1: Follow us on Social Media
-        </h2>
-        <div style="display:flex;justify-content:center;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap;">
-          <div style="display:flex;flex-direction:column;align-items:center;">
-            <a href="https://x.com/statuspay247" target="_blank" style="color:#000; margin:0 0.5em; font-size:2.5em;" aria-label="X.com">
-              <i class="fa-brands fa-x-twitter"></i>
-            </a>
-            <a href="https://x.com/statuspay247" target="_blank" class="btn" style="background:#000;color:#fff;padding:0.5rem 1.2rem;font-size:1rem;border-radius:6px;margin-bottom:0.2rem;">
-              Follow
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <nav>
+          <div class="logo">
+            <a href="/">
+              <img
+                src="assets/logo.png"
+                alt="StatusPay247 Logo"
+                id="logo-img"
+              />
             </a>
           </div>
-          <div style="display:flex;flex-direction:column;align-items:center;">
-            <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" style="color:#1877f3; margin:0 0.5em; font-size:2.5em;" aria-label="Facebook">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" class="btn" style="background:#1877f3;color:#fff;padding:0.5rem 1.2rem;font-size:1rem;border-radius:6px;margin-bottom:0.2rem;">
-              Follow
-            </a>
+          <div class="burger-menu" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
           </div>
-          <div style="display:flex;flex-direction:column;align-items:center;">
-            <a href="https://www.instagram.com/statuspay247" target="_blank" style="color:#e4405f; margin:0 0.5em; font-size:2.5em;" aria-label="Instagram">
-              <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.instagram.com/statuspay247" target="_blank" class="btn" style="background:#e4405f;color:#fff;padding:0.5rem 1.2rem;font-size:1rem;border-radius:6px;margin-bottom:0.2rem;">
-              Follow
-            </a>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:center;">
-            <a href="https://www.linkedin.com/company/statuspay247" target="_blank" style="color:#0077b5; margin:0 0.5em; font-size:2.5em;" aria-label="LinkedIn">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="https://www.linkedin.com/company/statuspay247" target="_blank" class="btn" style="background:#0077b5;color:#fff;padding:0.5rem 1.2rem;font-size:1rem;border-radius:6px;margin-bottom:0.2rem;">
-              Follow
-            </a>
-          </div>
-        </div>
-        <div style="font-size:1rem;color:var(--text-light);margin-top:0.5rem;" data-translate="follow-note">
-          Please follow our official pages and keep a screenshot for verification.
-        </div>
-      </div>
-      <!-- Download Image & Copy Text Card -->
-      <div style="background:var(--background-light);border-radius:18px;padding:2.2rem 1.2rem 2rem 1.2rem;max-width:540px;margin:0 auto;box-shadow:0 6px 24px rgba(30,151,126,0.10);">
-        <h3 style="color:var(--primary-color);margin-bottom:1.3rem;font-size:1.25rem;letter-spacing:0.01em;" data-translate="step2-title">
-          <i class="fas fa-tasks" style="color:#1e977e;margin-right:0.5em;"></i>
-          Step 2: WhatsApp Status Task
-        </h3>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;">
-          <!-- Image with Download Button -->
-          <div style="display:flex;flex-direction:column;align-items:center;">
-            <img id="onboardingAdImage" src="assets/onboarding-ad.png" alt="Onboarding Ad" style="max-width:240px;border-radius:12px;box-shadow:0 2px 12px rgba(30,151,126,0.08);border:2px solid #e5e7eb;">
-            <a id="downloadAdImageBtn" href="assets/onboarding-ad.png" download="StatusPay247-Ad.jpg"
-               class="btn"
-               style="margin-top:0.8rem;background:#1e977e;color:#fff;padding:0.45rem 1.1rem;font-size:1rem;border-radius:7px;box-shadow:0 2px 8px rgba(30,151,126,0.10);display:flex;align-items:center;gap:0.5em;">
-              <i class="fas fa-download"></i> Download
-            </a>
-            <div style="font-size:0.93rem;color:var(--text-light);margin-top:0.7rem;text-align:center;" data-translate="download-note">
-              <i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i>
-              Download and post this image to your WhatsApp status.
-            </div>
-          </div>
-          <!-- Text with Copy Button -->
-          <div style="width:100%;max-width:350px;display:flex;flex-direction:column;align-items:stretch;gap:0.5rem;">
-            <label for="onboardingAdText" style="font-weight:600;color:var(--secondary-color);margin-bottom:0.2rem;text-align:left;" data-translate="status-caption">
-              Status Caption (copy & paste)
-            </label>
-            <div style="display:flex;gap:0.5rem;">
-              <textarea id="onboardingAdText" readonly
-                style="flex:1;width:100%;min-height:110px;padding:0.85rem 1.1rem;border-radius:8px;border:1.5px solid var(--border-color);font-size:1.05rem;background:#f9fafb;color:var(--text-color);resize:none;box-shadow:0 1px 4px rgba(30,151,126,0.04);transition:border-color 0.2s;">
-Promote your business through real WhatsApp users.
-Get genuine reach and visibility with verified status shares.
-📩 DM to advertise or visit statuspay247.com</textarea>
-              <button id="copyAdTextBtn" class="btn" title="Copy text"
-                style="align-self:flex-start;margin-top:0.2rem;background:#17314b;color:#fff;font-size:1.1rem;border-radius:7px;padding:0.7rem 1rem;min-width:44px;display:flex;align-items:center;justify-content:center;">
-                <i class="fas fa-copy"></i>
+          <ul>
+            <li><a href="index.html#hero">Home</a></li>
+            <li><a href="poster.html">Join as Poster</a></li>
+            <li><a href="advertise-with-us.html">Advertise With Us</a></li>
+            <li>
+              <button id="logoutBtn" class="logout-btn btn btn-secondary">
+                <i class="fas fa-sign-out-alt"></i>Logout
               </button>
-            </div>
-            <div style="font-size:0.93rem;color:var(--text-light);margin-top:0.2rem;text-align:left;" data-translate="copy-note">
-              <i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i>
-              Copy this caption and paste it with your status image.
-            </div>
-          </div>
-        </div>
-        <div style="font-size:1rem;color:var(--primary-color);margin-top:1.5rem;text-align:center;font-weight:600;" data-translate="post-note">
-          <i class="fas fa-check-circle" style="color:#1e977e;margin-right:0.4em;"></i>
-          Post both the image and caption to your WhatsApp status for approval.
-        </div>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <!-- Step 3: Upload Screenshot Card -->
-      <div style="background:var(--background-light);border-radius:18px;padding:2.2rem 1.2rem 2rem 1.2rem;max-width:540px;margin:2rem auto 0 auto;box-shadow:0 6px 24px rgba(30,151,126,0.10);">
-        <h3 style="color:var(--primary-color);margin-bottom:1.3rem;font-size:1.25rem;letter-spacing:0.01em;" data-translate="step3-title">
-          <i class="fas fa-upload" style="color:#1e977e;margin-right:0.5em;"></i>
-          Step 3: Upload Your Status Screenshot
-        </h3>
-        <div style="font-size:1rem;color:var(--text-light);margin-bottom:1.2rem;text-align:center;" data-translate="upload-instructions">
-          After 23 hours of posting, take a screenshot of your WhatsApp status showing the number of views your post received.<br>
-          <b>Upload that screenshot here for verification.</b>
-        </div>
-        <form id="onboardingScreenshotForm" style="display:flex;flex-direction:column;align-items:center;gap:1rem;">
-          <input type="file" id="onboardingScreenshotFile" accept="image/jpeg,image/png,image/gif" required
-            style="padding:0.7rem 1rem;border-radius:7px;border:1.5px solid var(--border-color);background:#f9fafb;color:var(--text-color);font-size:1rem;width:100%;max-width:320px;">
-          <button type="submit" class="btn" style="background:#1e977e;color:#fff;font-size:1rem;border-radius:7px;padding:0.7rem 2.2rem;">
-            <i class="fas fa-upload"></i> Upload Screenshot
-          </button>
-          <div id="onboardingScreenshotStatus" style="font-size:0.97rem;color:var(--primary-color);margin-top:0.5rem;"></div>
-        </form>
-        <div style="font-size:0.93rem;color:var(--text-light);margin-top:1.2rem;text-align:center;" data-translate="upload-note">
-          <i class="fas fa-info-circle" style="color:#1e977e;margin-right:0.3em;"></i>
-          Make sure your screenshot clearly shows the number of views on your status after 23 hours.
-        </div>
-        <div style="font-size:0.97rem;color:var(--primary-color);margin-top:1.2rem;text-align:center;" data-translate="verification-note">
-          <i class="fas fa-clock" style="color:#1e977e;margin-right:0.3em;"></i>
-          <b>Note:</b> Screenshot verification is a manual process and may take up to <b>24 hours</b>. Once you upload your screenshot, just sit back and relax – our team will review and approve it as soon as possible!
-        </div>
+    </header>
+
+    <!-- Language Selection Bar -->
+    <div class="lang-select-wrapper">
+      <div class="lang-select-bar">
+        <span class="lang-label">
+          Choose your language / നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക:
+        </span>
+        <button type="button" id="btn-en" class="active">English</button>
+        <button type="button" id="btn-ml">മലയാളം</button>
       </div>
     </div>
 
-    <!-- Waiting Screen -->
-    <div id="waitingScreen" style="display:none; text-align:center; padding:3rem;">
-      <div style="font-size:2.5rem; color:var(--accent-color); margin-bottom:1rem;">
-        <i class="fas fa-hourglass-half"></i>
-      </div>
-      <h2>Verification Pending</h2>
-      <p style="font-size:1.1rem; color:var(--text-light);">
-        Your screenshot has been submitted. Our team will review it shortly.
-      </p>
-    </div>
-
-    <!-- Loading State -->
-    <div id="loading" class="loading-spinner">
-      <div class="spinner"></div>
-      <h3 id="loadingMessage">Loading your dashboard...</h3>
-      <p id="loadingSubMessage">Please wait while we fetch your latest data. This will take approximately 30 seconds.</p>
-    </div>
-
-    <!-- Error State -->
-    <div id="error" class="error-container" style="display: none;">
-      <div class="error-icon">
-        <i class="fas fa-exclamation-triangle"></i>
-      </div>
-      <h3>Unable to load dashboard</h3>
-      <p>
-        ❌ Failed to load your dashboard data.<br>
-        <span id="errorDetails">Please try refreshing the page.</span>
-      </p>
-    </div>    <!-- Dashboard Content -->    <div id="dashboardContent" style="display: none;">
-      <!-- Dashboard Grid -->
-      <div class="dashboard-grid">
-        <div class="main-content">          <!-- Balance Card -->
-          <div class="dashboard-card balance-card">
-            <div class="card-header">
-              <h3 class="card-title" data-translate="wallet-title">Total Balance</h3>
-              <div class="card-icon">
-                <i class="fas fa-wallet"></i>
-              </div>
-            </div>
-            
-            <div class="wallet-balance">
-              ₹<span id="balance">0</span>
-            </div>
-            
-            <!-- Withdrawal Button -->
-            <div style="text-align: center; margin: 1.5rem 0; position: relative; z-index: 2;">
-              <button id="withdrawBtn" class="wallet-withdraw-btn" disabled>
-                <i id="withdrawLockIcon" class="fas fa-lock"></i>
-                Withdraw
-              </button>
-              <div class="withdraw-note" data-translate="threshold-note">
-                <i class="fas fa-info-circle"></i>
-                You can only withdraw your amount after meeting the ₹500 threshold.
-              </div>
-            </div>
-            
-            <div class="stats-row">
-              <div class="stat-card">
-                <div class="stat-value">₹<span id="totalEarned">0</span></div>
-                <div class="stat-label" data-translate="total-earned">Total Earned</div>
-              </div>
-              <div class="stat-card">
-                <div class="stat-value">₹<span id="paid">0</span></div>
-                <div class="stat-label" data-translate="paid-out">Paid Out</div>
-              </div>
-            </div>
-            
-            <div class="progress-container">
-              <div class="progress-bar" id="walletBar" style="width: 0%"></div>
-            </div>
-            <div class="progress-label" id="walletBarLabel">0% of ₹500 threshold</div>
-          </div><!-- Available Tasks -->
-          <div class="dashboard-card">
-            <div class="card-header">
-              <h3 class="card-title">Available Tasks</h3>
-              <button class="refresh-tasks-btn btn-secondary">
-                <i class="fas fa-refresh"></i>
-                Refresh
-              </button>
-            </div>
-              <div class="available-tasks-container">
-              <!-- Tasks will be dynamically inserted here by JS -->
-            </div>
-              <!-- Recent Completed Tasks Section -->
-            <div id="lastTaskSection" style="margin-top:1.2rem;">
-              <div style="font-size:1.01rem;font-weight:700;color:#17314b;margin-bottom:0.8rem;display:flex;align-items:center;gap:0.5em;">
-                <i class="fas fa-history" style="color:var(--primary-color);"></i>
-                Recent Completed Tasks
-              </div>
-              <div id="lastTaskDisplay" style="display:flex;flex-direction:column;gap:0.5rem;"></div>
-            </div>
-          </div>
+    <!-- Main Dashboard Content -->
+    <main class="container">
+      <!-- Redesigned Onboarding Screen -->
+      <div
+        id="onboardingScreen"
+        style="display: none; text-align: center; padding: 3rem"
+      >
+        <div
+          style="
+            font-size: 1.08rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+          "
+          data-translate="onboarding-instructions"
+        >
+          To join StatusPay247, please complete <b>all the steps below</b>:
         </div>
-
-        <div class="sidebar-content">
-          <!-- Profile Card -->
-          <div class="dashboard-card">
-            <div class="card-header">
-              <h3 class="card-title" data-translate="profile-title">Profile Information</h3>
-              <div class="card-icon">
-                <i class="fas fa-user"></i>
-              </div>
-            </div>
-            
-            <div style="text-align: center; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem;" id="userName">...</div>
-            
-            <div class="info-grid">
-              <div class="info-item">
-                <span class="info-label" data-translate="poster-id">Poster ID</span>
-                <span class="info-value" id="posterId">...</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label" data-translate="phone-number">Phone Number</span>
-                <span class="info-value" id="phone">...</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Tasks Completed</span>
-                <span class="info-value" id="profileTasksCompleted">0</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Status</span>
-                <span class="info-value status-badge">Active</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- WhatsApp Group Card -->
-          <div class="dashboard-card">
-            <div class="card-header">
-              <h3 class="card-title" data-translate="group-title">Join Official Group</h3>
-              <div class="card-icon" style="background: #25d366; color: white;">
-                <i class="fab fa-whatsapp"></i>
-              </div>
-            </div>
-            
-            <div class="join-group-section" style="text-align:center; margin-bottom:1.2rem;">
-              <p style="margin-bottom:1.2rem; color:#64748b; font-size: 0.9rem;">
-                Connect with other posters, get updates, and support.
-              </p>
-              <a href="https://chat.whatsapp.com/HEIxYpyYJQ9J0dydC7nSfH" target="_blank" class="join-group-btn">
-                <i class="fab fa-whatsapp"></i> Join Group
+        <!-- Social Media Follow Card -->
+        <div
+          style="
+            background: var(--background-light);
+            border-radius: 14px;
+            padding: 2rem 1rem 1.5rem 1rem;
+            max-width: 500px;
+            margin: 0 auto 2rem auto;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+          "
+        >
+          <h2
+            style="
+              color: var(--primary-color);
+              margin-bottom: 1.2rem;
+              font-size: 1.5rem;
+            "
+            data-translate="step1-title"
+          >
+            Step 1: Follow us on Social Media
+          </h2>
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              gap: 2rem;
+              margin-bottom: 1.5rem;
+              flex-wrap: wrap;
+            "
+          >
+            <div
+              style="display: flex; flex-direction: column; align-items: center"
+            >
+              <a
+                href="https://x.com/statuspay247"
+                target="_blank"
+                style="color: #000; margin: 0 0.5em; font-size: 2.5em"
+                aria-label="X.com"
+              >
+                <i class="fa-brands fa-x-twitter"></i>
+              </a>
+              <a
+                href="https://x.com/statuspay247"
+                target="_blank"
+                class="btn"
+                style="
+                  background: #000;
+                  color: #fff;
+                  padding: 0.5rem 1.2rem;
+                  font-size: 1rem;
+                  border-radius: 6px;
+                  margin-bottom: 0.2rem;
+                "
+              >
+                Follow
               </a>
             </div>
-          </div>          <!-- Completed Task Screenshot Upload Card -->
-          <div class="dashboard-card">
-            <div class="card-header">
-              <h3 class="card-title" data-translate="completed-upload-title">Upload Completed Task</h3>
-              <div class="card-icon" style="background: #1e977e; color: white;">
-                <i class="fas fa-camera"></i>
+            <div
+              style="display: flex; flex-direction: column; align-items: center"
+            >
+              <a
+                href="https://www.facebook.com/profile.php?id=61576782695560"
+                target="_blank"
+                style="color: #1877f3; margin: 0 0.5em; font-size: 2.5em"
+                aria-label="Facebook"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=61576782695560"
+                target="_blank"
+                class="btn"
+                style="
+                  background: #1877f3;
+                  color: #fff;
+                  padding: 0.5rem 1.2rem;
+                  font-size: 1rem;
+                  border-radius: 6px;
+                  margin-bottom: 0.2rem;
+                "
+              >
+                Follow
+              </a>
+            </div>
+            <div
+              style="display: flex; flex-direction: column; align-items: center"
+            >
+              <a
+                href="https://www.instagram.com/statuspay247"
+                target="_blank"
+                style="color: #e4405f; margin: 0 0.5em; font-size: 2.5em"
+                aria-label="Instagram"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/statuspay247"
+                target="_blank"
+                class="btn"
+                style="
+                  background: #e4405f;
+                  color: #fff;
+                  padding: 0.5rem 1.2rem;
+                  font-size: 1rem;
+                  border-radius: 6px;
+                  margin-bottom: 0.2rem;
+                "
+              >
+                Follow
+              </a>
+            </div>
+            <div
+              style="display: flex; flex-direction: column; align-items: center"
+            >
+              <a
+                href="https://www.linkedin.com/company/statuspay247"
+                target="_blank"
+                style="color: #0077b5; margin: 0 0.5em; font-size: 2.5em"
+                aria-label="LinkedIn"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a
+                href="https://www.linkedin.com/company/statuspay247"
+                target="_blank"
+                class="btn"
+                style="
+                  background: #0077b5;
+                  color: #fff;
+                  padding: 0.5rem 1.2rem;
+                  font-size: 1rem;
+                  border-radius: 6px;
+                  margin-bottom: 0.2rem;
+                "
+              >
+                Follow
+              </a>
+            </div>
+          </div>
+          <div
+            style="
+              font-size: 1rem;
+              color: var(--text-light);
+              margin-top: 0.5rem;
+            "
+            data-translate="follow-note"
+          >
+            Please follow our official pages and keep a screenshot for
+            verification.
+          </div>
+        </div>
+        <!-- Download Image & Copy Text Card -->
+        <div
+          style="
+            background: var(--background-light);
+            border-radius: 18px;
+            padding: 2.2rem 1.2rem 2rem 1.2rem;
+            max-width: 540px;
+            margin: 0 auto;
+            box-shadow: 0 6px 24px rgba(30, 151, 126, 0.1);
+          "
+        >
+          <h3
+            style="
+              color: var(--primary-color);
+              margin-bottom: 1.3rem;
+              font-size: 1.25rem;
+              letter-spacing: 0.01em;
+            "
+            data-translate="step2-title"
+          >
+            <i
+              class="fas fa-tasks"
+              style="color: #1e977e; margin-right: 0.5em"
+            ></i>
+            Step 2: WhatsApp Status Task
+          </h3>
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 1.5rem;
+            "
+          >
+            <!-- Image with Download Button -->
+            <div
+              style="display: flex; flex-direction: column; align-items: center"
+            >
+              <img
+                id="onboardingAdImage"
+                src="assets/onboarding-ad.png"
+                alt="Onboarding Ad"
+                style="
+                  max-width: 240px;
+                  border-radius: 12px;
+                  box-shadow: 0 2px 12px rgba(30, 151, 126, 0.08);
+                  border: 2px solid #e5e7eb;
+                "
+              />
+              <a
+                id="downloadAdImageBtn"
+                href="assets/onboarding-ad.png"
+                download="StatusPay247-Ad.jpg"
+                class="btn"
+                style="
+                  margin-top: 0.8rem;
+                  background: #1e977e;
+                  color: #fff;
+                  padding: 0.45rem 1.1rem;
+                  font-size: 1rem;
+                  border-radius: 7px;
+                  box-shadow: 0 2px 8px rgba(30, 151, 126, 0.1);
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5em;
+                "
+              >
+                <i class="fas fa-download"></i> Download
+              </a>
+              <div
+                style="
+                  font-size: 0.93rem;
+                  color: var(--text-light);
+                  margin-top: 0.7rem;
+                  text-align: center;
+                "
+                data-translate="download-note"
+              >
+                <i
+                  class="fas fa-info-circle"
+                  style="color: #1e977e; margin-right: 0.3em"
+                ></i>
+                Download and post this image to your WhatsApp status.
               </div>
             </div>
-            
-            <div id="completedTaskUploadSection">
-              <!-- Step 1: Select Ad ID -->
-              <div id="adSelectionStep" style="margin-bottom: 1rem;">
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; font-size: 0.9rem;" data-translate="select-ad-label">
-                  Select Completed Task:
-                </label>
-                <select id="completedAdSelect" style="width: 100%; padding: 0.6rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.85rem; background: white;">
-                  <option value="" data-translate="loading-tasks">Loading available tasks...</option>
-                </select>
-                <div id="adSelectionStatus" style="margin-top: 0.5rem; font-size: 0.8rem; color: #6b7280;"></div>
+            <!-- Text with Copy Button -->
+            <div
+              style="
+                width: 100%;
+                max-width: 350px;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+              "
+            >
+              <label
+                for="onboardingAdText"
+                style="
+                  font-weight: 600;
+                  color: var(--secondary-color);
+                  margin-bottom: 0.2rem;
+                  text-align: left;
+                "
+                data-translate="status-caption"
+              >
+                Status Caption (copy & paste)
+              </label>
+              <div style="display: flex; gap: 0.5rem">
+                <textarea
+                  id="onboardingAdText"
+                  readonly
+                  style="
+                    flex: 1;
+                    width: 100%;
+                    min-height: 110px;
+                    padding: 0.85rem 1.1rem;
+                    border-radius: 8px;
+                    border: 1.5px solid var(--border-color);
+                    font-size: 1.05rem;
+                    background: #f9fafb;
+                    color: var(--text-color);
+                    resize: none;
+                    box-shadow: 0 1px 4px rgba(30, 151, 126, 0.04);
+                    transition: border-color 0.2s;
+                  "
+                >
+Promote your business through real WhatsApp users.
+Get genuine reach and visibility with verified status shares.
+📩 DM to advertise or visit statuspay247.com</textarea
+                >
+                <button
+                  id="copyAdTextBtn"
+                  class="btn"
+                  title="Copy text"
+                  style="
+                    align-self: flex-start;
+                    margin-top: 0.2rem;
+                    background: #17314b;
+                    color: #fff;
+                    font-size: 1.1rem;
+                    border-radius: 7px;
+                    padding: 0.7rem 1rem;
+                    min-width: 44px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+                  <i class="fas fa-copy"></i>
+                </button>
               </div>
+              <div
+                style="
+                  font-size: 0.93rem;
+                  color: var(--text-light);
+                  margin-top: 0.2rem;
+                  text-align: left;
+                "
+                data-translate="copy-note"
+              >
+                <i
+                  class="fas fa-info-circle"
+                  style="color: #1e977e; margin-right: 0.3em"
+                ></i>
+                Copy this caption and paste it with your status image.
+              </div>
+            </div>
+          </div>
+          <div
+            style="
+              font-size: 1rem;
+              color: var(--primary-color);
+              margin-top: 1.5rem;
+              text-align: center;
+              font-weight: 600;
+            "
+            data-translate="post-note"
+          >
+            <i
+              class="fas fa-check-circle"
+              style="color: #1e977e; margin-right: 0.4em"
+            ></i>
+            Post both the image and caption to your WhatsApp status for
+            approval.
+          </div>
+        </div>
+        <!-- Step 3: Upload Screenshot Card -->
+        <div
+          style="
+            background: var(--background-light);
+            border-radius: 18px;
+            padding: 2.2rem 1.2rem 2rem 1.2rem;
+            max-width: 540px;
+            margin: 2rem auto 0 auto;
+            box-shadow: 0 6px 24px rgba(30, 151, 126, 0.1);
+          "
+        >
+          <h3
+            style="
+              color: var(--primary-color);
+              margin-bottom: 1.3rem;
+              font-size: 1.25rem;
+              letter-spacing: 0.01em;
+            "
+            data-translate="step3-title"
+          >
+            <i
+              class="fas fa-upload"
+              style="color: #1e977e; margin-right: 0.5em"
+            ></i>
+            Step 3: Upload Your Status Screenshot
+          </h3>
+          <div
+            style="
+              font-size: 1rem;
+              color: var(--text-light);
+              margin-bottom: 1.2rem;
+              text-align: center;
+            "
+            data-translate="upload-instructions"
+          >
+            After 23 hours of posting, take a screenshot of your WhatsApp status
+            showing the number of views your post received.<br />
+            <b>Upload that screenshot here for verification.</b>
+          </div>
+          <form
+            id="onboardingScreenshotForm"
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 1rem;
+            "
+          >
+            <input
+              type="file"
+              id="onboardingScreenshotFile"
+              accept="image/jpeg,image/png,image/gif"
+              required
+              style="
+                padding: 0.7rem 1rem;
+                border-radius: 7px;
+                border: 1.5px solid var(--border-color);
+                background: #f9fafb;
+                color: var(--text-color);
+                font-size: 1rem;
+                width: 100%;
+                max-width: 320px;
+              "
+            />
+            <button
+              type="submit"
+              class="btn"
+              style="
+                background: #1e977e;
+                color: #fff;
+                font-size: 1rem;
+                border-radius: 7px;
+                padding: 0.7rem 2.2rem;
+              "
+            >
+              <i class="fas fa-upload"></i> Upload Screenshot
+            </button>
+            <div
+              id="onboardingScreenshotStatus"
+              style="
+                font-size: 0.97rem;
+                color: var(--primary-color);
+                margin-top: 0.5rem;
+              "
+            ></div>
+          </form>
+          <div
+            style="
+              font-size: 0.93rem;
+              color: var(--text-light);
+              margin-top: 1.2rem;
+              text-align: center;
+            "
+            data-translate="upload-note"
+          >
+            <i
+              class="fas fa-info-circle"
+              style="color: #1e977e; margin-right: 0.3em"
+            ></i>
+            Make sure your screenshot clearly shows the number of views on your
+            status after 23 hours.
+          </div>
+          <div
+            style="
+              font-size: 0.97rem;
+              color: var(--primary-color);
+              margin-top: 1.2rem;
+              text-align: center;
+            "
+            data-translate="verification-note"
+          >
+            <i
+              class="fas fa-clock"
+              style="color: #1e977e; margin-right: 0.3em"
+            ></i>
+            <b>Note:</b> Screenshot verification is a manual process and may
+            take up to <b>24 hours</b>. Once you upload your screenshot, just
+            sit back and relax – our team will review and approve it as soon as
+            possible!
+          </div>
+        </div>
+      </div>
 
-              <!-- Step 2: Upload Screenshot -->
-              <div id="screenshotUploadStep" style="display: none;">
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; font-size: 0.9rem;" data-translate="upload-screenshot-label">
-                  Upload Screenshot:
-                </label>
-                <input type="file" id="completedTaskFile" accept="image/*" style="margin-bottom: 1rem; width: 100%; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.85rem;" required>
-                
-                <div style="display: flex; gap: 0.5rem;">
-                  <button type="button" id="completedTaskUploadBtn" class="btn-primary" style="flex: 1; padding: 0.6rem;">
-                    <i class="fas fa-cloud-upload-alt"></i> <span data-translate="upload-btn">Upload</span>
-                  </button>
-                  <button type="button" id="completedTaskCancelBtn" class="btn-secondary" style="padding: 0.6rem;">
-                    <i class="fas fa-times"></i>
-                  </button>
+      <!-- Waiting Screen -->
+      <div
+        id="waitingScreen"
+        style="display: none; text-align: center; padding: 3rem"
+      >
+        <div
+          style="
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+          "
+        >
+          <i class="fas fa-hourglass-half"></i>
+        </div>
+        <h2>Verification Pending</h2>
+        <p style="font-size: 1.1rem; color: var(--text-light)">
+          Your screenshot has been submitted. Our team will review it shortly.
+        </p>
+      </div>
+
+      <!-- Loading State -->
+      <div id="loading" class="loading-spinner">
+        <div class="spinner"></div>
+        <h3 id="loadingMessage">Loading your dashboard...</h3>
+        <p id="loadingSubMessage">
+          Please wait while we fetch your latest data. This will take
+          approximately 30 seconds.
+        </p>
+      </div>
+
+      <!-- Error State -->
+      <div id="error" class="error-container" style="display: none">
+        <div class="error-icon">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h3>Unable to load dashboard</h3>
+        <p>
+          ❌ Failed to load your dashboard data.<br />
+          <span id="errorDetails">Please try refreshing the page.</span>
+        </p>
+      </div>
+      <!-- Dashboard Content -->
+      <div id="dashboardContent" style="display: none">
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+          <div class="main-content">
+            <!-- Balance Card -->
+            <div class="dashboard-card balance-card">
+              <div class="card-header">
+                <h3 class="card-title" data-translate="wallet-title">
+                  Total Balance
+                </h3>
+                <div class="card-icon">
+                  <i class="fas fa-wallet"></i>
                 </div>
               </div>
 
-              <!-- Status Messages -->
-              <div id="completedTaskUploadStatus" style="margin-top: 1rem; font-size: 0.85rem; min-height: 1.2rem;"></div>
-              
-              <!-- Instructions -->
-              <div style="margin-top: 1rem; padding: 0.8rem; background: #f8fafc; border-radius: 8px; border-left: 3px solid #1e977e;">
-                <p style="margin: 0; font-size: 0.8rem; color: #64748b; line-height: 1.4;" data-translate="completed-task-instructions">
-                  <i class="fas fa-info-circle" style="color: #1e977e; margin-right: 0.3rem;"></i>
-                  Select a completed task and upload your status screenshot showing the view count after 23 hours.
+              <div class="wallet-balance">₹<span id="balance">0</span></div>
+
+              <!-- Withdrawal Button -->
+              <div
+                style="
+                  text-align: center;
+                  margin: 1.5rem 0;
+                  position: relative;
+                  z-index: 2;
+                "
+              >
+                <button id="withdrawBtn" class="wallet-withdraw-btn" disabled>
+                  <i id="withdrawLockIcon" class="fas fa-lock"></i>
+                  Withdraw
+                </button>
+                <div class="withdraw-note" data-translate="threshold-note">
+                  <i class="fas fa-info-circle"></i>
+                  You can only withdraw your amount after meeting the ₹500
+                  threshold.
+                </div>
+              </div>
+
+              <div class="stats-row">
+                <div class="stat-card">
+                  <div class="stat-value">₹<span id="totalEarned">0</span></div>
+                  <div class="stat-label" data-translate="total-earned">
+                    Total Earned
+                  </div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-value">₹<span id="paid">0</span></div>
+                  <div class="stat-label" data-translate="paid-out">
+                    Paid Out
+                  </div>
+                </div>
+              </div>
+
+              <div class="progress-container">
+                <div
+                  class="progress-bar"
+                  id="walletBar"
+                  style="width: 0%"
+                ></div>
+              </div>
+              <div class="progress-label" id="walletBarLabel">
+                0% of ₹500 threshold
+              </div>
+            </div>
+            <!-- Available Tasks -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title">Available Tasks</h3>
+                <button class="refresh-tasks-btn btn-secondary">
+                  <i class="fas fa-refresh"></i>
+                  Refresh
+                </button>
+              </div>
+              <div class="available-tasks-container">
+                <!-- Tasks will be dynamically inserted here by JS -->
+              </div>
+              <!-- Recent Completed Tasks Section -->
+              <div id="lastTaskSection" style="margin-top: 1.2rem">
+                <div
+                  style="
+                    font-size: 1.01rem;
+                    font-weight: 700;
+                    color: #17314b;
+                    margin-bottom: 0.8rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5em;
+                  "
+                >
+                  <i
+                    class="fas fa-history"
+                    style="color: var(--primary-color)"
+                  ></i>
+                  Recent Completed Tasks
+                </div>
+                <div
+                  id="lastTaskDisplay"
+                  style="display: flex; flex-direction: column; gap: 0.5rem"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-content">
+            <!-- Profile Card -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title" data-translate="profile-title">
+                  Profile Information
+                </h3>
+                <div class="card-icon">
+                  <i class="fas fa-user"></i>
+                </div>
+              </div>
+
+              <div
+                style="
+                  text-align: center;
+                  font-weight: bold;
+                  font-size: 1.2rem;
+                  margin-bottom: 1rem;
+                "
+                id="userName"
+              >
+                ...
+              </div>
+
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="info-label" data-translate="poster-id"
+                    >Poster ID</span
+                  >
+                  <span class="info-value" id="posterId">...</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label" data-translate="phone-number"
+                    >Phone Number</span
+                  >
+                  <span class="info-value" id="phone">...</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Tasks Completed</span>
+                  <span class="info-value" id="profileTasksCompleted">0</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Status</span>
+                  <span class="info-value status-badge">Active</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- WhatsApp Group Card -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title" data-translate="group-title">
+                  Join Official Group
+                </h3>
+                <div
+                  class="card-icon"
+                  style="background: #25d366; color: white"
+                >
+                  <i class="fab fa-whatsapp"></i>
+                </div>
+              </div>
+
+              <div
+                class="join-group-section"
+                style="text-align: center; margin-bottom: 1.2rem"
+              >
+                <p
+                  style="
+                    margin-bottom: 1.2rem;
+                    color: #64748b;
+                    font-size: 0.9rem;
+                  "
+                >
+                  Connect with other posters, get updates, and support.
                 </p>
+                <a
+                  href="https://chat.whatsapp.com/HEIxYpyYJQ9J0dydC7nSfH"
+                  target="_blank"
+                  class="join-group-btn"
+                >
+                  <i class="fab fa-whatsapp"></i> Join Group
+                </a>
+              </div>
+            </div>
+            <!-- Completed Task Screenshot Upload Card -->
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title" data-translate="completed-upload-title">
+                  Upload Completed Task
+                </h3>
+                <div
+                  class="card-icon"
+                  style="background: #1e977e; color: white"
+                >
+                  <i class="fas fa-camera"></i>
+                </div>
+              </div>
+
+              <div id="completedTaskUploadSection">
+                <!-- Step 1: Select Ad ID -->
+                <div id="adSelectionStep" style="margin-bottom: 1rem">
+                  <label
+                    style="
+                      display: block;
+                      margin-bottom: 0.5rem;
+                      font-weight: 600;
+                      color: #374151;
+                      font-size: 0.9rem;
+                    "
+                    data-translate="select-ad-label"
+                  >
+                    Select Completed Task:
+                  </label>
+                  <select
+                    id="completedAdSelect"
+                    style="
+                      width: 100%;
+                      padding: 0.6rem;
+                      border: 1px solid #e2e8f0;
+                      border-radius: 8px;
+                      font-size: 0.85rem;
+                      background: white;
+                    "
+                  >
+                    <option value="" data-translate="loading-tasks">
+                      Loading available tasks...
+                    </option>
+                  </select>
+                  <div
+                    id="adSelectionStatus"
+                    style="
+                      margin-top: 0.5rem;
+                      font-size: 0.8rem;
+                      color: #6b7280;
+                    "
+                  ></div>
+                </div>
+
+                <!-- Step 2: Upload Screenshot -->
+                <div id="screenshotUploadStep" style="display: none">
+                  <label
+                    style="
+                      display: block;
+                      margin-bottom: 0.5rem;
+                      font-weight: 600;
+                      color: #374151;
+                      font-size: 0.9rem;
+                    "
+                    data-translate="upload-screenshot-label"
+                  >
+                    Upload Screenshot:
+                  </label>
+                  <input
+                    type="file"
+                    id="completedTaskFile"
+                    accept="image/*"
+                    style="
+                      margin-bottom: 1rem;
+                      width: 100%;
+                      padding: 0.5rem;
+                      border: 1px solid #e2e8f0;
+                      border-radius: 8px;
+                      font-size: 0.85rem;
+                    "
+                    required
+                  />
+
+                  <div style="display: flex; gap: 0.5rem">
+                    <button
+                      type="button"
+                      id="completedTaskUploadBtn"
+                      class="btn-primary"
+                      style="flex: 1; padding: 0.6rem"
+                    >
+                      <i class="fas fa-cloud-upload-alt"></i>
+                      <span data-translate="upload-btn">Upload</span>
+                    </button>
+                    <button
+                      type="button"
+                      id="completedTaskCancelBtn"
+                      class="btn-secondary"
+                      style="padding: 0.6rem"
+                    >
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Status Messages -->
+                <div
+                  id="completedTaskUploadStatus"
+                  style="
+                    margin-top: 1rem;
+                    font-size: 0.85rem;
+                    min-height: 1.2rem;
+                  "
+                ></div>
+
+                <!-- Instructions -->
+                <div
+                  style="
+                    margin-top: 1rem;
+                    padding: 0.8rem;
+                    background: #f8fafc;
+                    border-radius: 8px;
+                    border-left: 3px solid #1e977e;
+                  "
+                >
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 0.8rem;
+                      color: #64748b;
+                      line-height: 1.4;
+                    "
+                    data-translate="completed-task-instructions"
+                  >
+                    <i
+                      class="fas fa-info-circle"
+                      style="color: #1e977e; margin-right: 0.3rem"
+                    ></i>
+                    Select a completed task and upload your status screenshot
+                    showing the view count after 23 hours.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Quick Actions -->
-      <div class="quick-actions">
-        <a href="https://wa.me/919744483058" target="_blank" class="action-btn" data-translate="contact-support">
-          <i class="fab fa-whatsapp"></i>
-          Contact Support
-        </a>
-        <a href="terms-and-conditions-for-posters.html" target="_blank" class="action-btn" data-translate="view-terms">
-          <i class="fas fa-file-contract"></i>
-          View Terms
-        </a>
-      </div>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer style="margin-top: 4rem;">
-        <div class="copyright" style="background-color:#1F2937; color:white; padding:0;">
-            <p style="margin-top:1.5rem;">&copy; 2025 StatusPay247. All rights reserved.</p>
-            <div class="footer-social" style="margin:1rem 0 0.5rem 0;">
-                <a href="https://x.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="X.com">
-                    <i class="fa-brands fa-x-twitter"></i>
-                </a>
-                <a href="https://www.facebook.com/profile.php?id=61576782695560" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://www.instagram.com/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.linkedin.com/company/statuspay247" target="_blank" style="color:#fff; margin:0 0.5em; font-size:1.3em;" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-            </div>
-            <p class="disclaimer" style="color:#9CA3AF;">WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc. The services we provide involve direct WhatsApp status marketing using our network of users, and the use of the WhatsApp® logo or name is strictly for illustrative purposes. All rights to WhatsApp® remain the property of Meta Platforms, Inc.</p>
-        </div>
-    </footer>
-
-  <script>
-    // Language switching logic
-    function setLanguage(lang) {
-      // Toggle active button state
-      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-      document.getElementById('btn-ml').classList.toggle('active', lang === 'ml');
-      
-      // Save preference to localStorage
-      localStorage.setItem('statuspay247_lang', lang);
-      
-      // Update all elements with data-translate attribute
-      document.querySelectorAll('[data-translate]').forEach(el => {
-        const key = el.getAttribute('data-translate');
-        const translations = {
-          'wallet-title': { en: 'Your Wallet', ml: 'നിങ്ങളുടെ വോലറ്റ്' },
-          'total-earned': { en: 'Total Earned', ml: 'ആകെ നേടിയത്' },
-          'paid-out': { en: 'Paid Out', ml: 'കൈപ്പറ്റിയത്' },
-          'threshold-note': { en: 'You can only withdraw your amount after meeting the ₹500 threshold.', 
-                          ml: '₹500 ആകുമ്പോൾ മാത്രമേ പണം പിൻവലിക്കാൻ സാധിക്കൂ.' },
-          'profile-title': { en: 'Profile Information', ml: 'പ്രൊഫൈൽ വിവരങ്ങൾ' },
-          'poster-id': { en: 'Poster ID', ml: 'പോസ്റ്റർ നമ്പർ' },
-          'phone-number': { en: 'Phone Number', ml: 'ഫോൺ നമ്പർ' },
-          'group-title': { en: 'Join Official Posters Group', 
-                        ml: 'ഔദ്യോഗിക വാട്സ്ആപ്പ് ഗ്രൂപ്പിൽ ചേരൂ' },          'upload-title': { en: 'Upload Task Screenshot', 
-                         ml: 'സ്‌ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യൂ' },
-          'completed-upload-title': { en: 'Upload Completed Task', 
-                         ml: 'പൂർത്തിയായ ടാസ്ക് അപ്‌ലോഡ് ചെയ്യൂ' },
-          'select-ad-label': { en: 'Select Completed Task:', 
-                         ml: 'പൂർത്തിയായ ടാസ്ക് തിരഞ്ഞെടുക്കൂ:' },
-          'loading-tasks': { en: 'Loading available tasks...', 
-                         ml: 'ലഭ്യമായ ടാസ്കുകൾ ലോഡ് ചെയ്യുന്നു...' },
-          'upload-screenshot-label': { en: 'Upload Screenshot:', 
-                         ml: 'സ്‌ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യൂ:' },
-          'upload-btn': { en: 'Upload', 
-                         ml: 'അപ്‌ലോഡ് ചെയ്യൂ' },
-          'completed-task-instructions': { 
-            en: 'Select a completed task and upload your status screenshot showing the view count after 23 hours.',
-            ml: 'പൂർത്തിയായ ടാസ്ക് തിരഞ്ഞെടുത്ത് 23 മണിക്കൂർ കഴിഞ്ഞുള്ള വ്യൂ കൗണ്ട് കാണിക്കുന്ന സ്‌ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യൂ.'
-          },
-          'contact-support': { en: 'Contact Support', 
-                           ml: 'സഹായത്തിന് ബന്ധപ്പെടൂ' },
-          'view-terms': { en: 'View Terms', ml: 'നിബന്ധനകൾ' },
-          'onboarding-title': { en: 'Complete Onboarding', 
-                            ml: 'രജിസ്ട്രേഷൻ പൂർത്തിയാക്കൂ' },
-          'onboarding-instructions': { 
-            en: 'Please complete onboarding by uploading your screenshot.',
-            ml: 'നിങ്ങളുടെ വാട്സ്ആപ്പ് സ്റ്റാറ്റസിന്റെ സ്‌ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്ത് രജിസ്ട്രേഷൻ പൂർത്തിയാക്കൂ.'
-          },
-          'step1-title': { 
-            en: 'Step 1: Follow us on Social Media',
-            ml: 'ആദ്യപടി: ഞങ്ങളുടെ സോഷ്യൽ മീഡിയ അക്കൗണ്ടുകൾ ഫോളോ ചെയ്യൂ'
-          },
-          'step2-title': { 
-            en: 'Step 2: WhatsApp Status Task',
-            ml: 'രണ്ടാം പടി: വാട്സ്ആപ്പ് സ്റ്റാറ്റസ് പോസ്റ്റ് ചെയ്യൂ'
-          },
-          'step3-title': { 
-            en: 'Step 3: Upload Your Status Screenshot',
-            ml: 'മൂന്നാം പടി: സ്റ്റാറ്റസിന്റെ സ്‌ക്രീൻഷോട്ട് അപ്‌ലോഡ് ചെയ്യൂ'
-          },
-          'status-caption': { 
-            en: 'Status Caption (copy & paste)',
-            ml: 'സ്റ്റാറ്റസിനൊപ്പം ചേർക്കേണ്ട വാചകം (കോപ്പി ചെയ്യൂ)'
-          },
-          'upload-instructions': { 
-            en: 'After 23 hours of posting, take a screenshot of your WhatsApp status showing the number of views your post received.',
-            ml: 'സ്റ്റാറ്റസ് പോസ്റ്റ് ചെയ്ത് 23 മണിക്കൂർ കഴിഞ്ഞ്, എത്ര പേർ കണ്ടു എന്ന് കാണിക്കുന്ന സ്‌ക്രീൻഷോട്ട് എടുക്കൂ.'
-          },
-          'upload-note': { 
-            en: 'Make sure your screenshot clearly shows the number of views on your status after 23 hours.',
-            ml: 'സ്റ്റാറ്റസ് എത്ര പേർ കണ്ടു എന്നത് സ്‌ക്രീൻഷോട്ടിൽ വ്യക്തമായി കാണണം.'
-          },
-          'follow-note': { 
-            en: 'Please follow our official pages and keep a screenshot for verification.',
-            ml: 'ദയവായി ഞങ്ങളുടെ ഔദ്യോഗിക പേജുകൾ ഫോളോ ചെയ്ത് അതിന്റെ സ്‌ക്രീൻഷോട്ട് എടുത്തു വയ്ക്കൂ.'
-          },
-          'download-note': { 
-            en: 'Download and post this image to your WhatsApp status.',
-            ml: 'ഈ ചിത്രം ഡൗൺലോഡ് ചെയ്യുക  .'
-          },
-          'copy-note': { 
-            en: 'Copy this caption and paste it with your status image.',
-            ml: 'മുകളിലെ വാചകം കോപ്പി ചെയ്ത് ചിത്രത്തോടൊപ്പം സ്റ്റാറ്റസിൽ ചേര്ക്കു .'
-          },
-          'post-note': { 
-            en: 'Post both the image and caption to your WhatsApp status for approval.',
-            ml: 'ചിത്രവും വാചകവും നിങ്ങളുടെ വാട്സ്ആപ്പ് സ്റ്റാറ്റസിൽ പോസ്റ്റ് ചെയ്യൂ.'
-          },
-          'verification-note': { 
-            en: 'Note: Screenshot verification is a manual process and may take up to 24 hours. Once you upload your screenshot, just sit back and relax – our team will review and approve it as soon as possible!',
-            ml: 'കുറിപ്പ്: സ്‌ക്രീൻഷോട്ട് പരിശോധിക്കാൻ 24 മണിക്കൂർ വരെ എടുത്തേക്കാം. നിങ്ങൾ അപ്‌ലോഡ് ചെയ്തുകഴിഞ്ഞാൽ, ഞങ്ങളുടെ ടീം എത്രയും പെട്ടെന്ന് അത് പരിശോധിച്ച് അംഗീകരിക്കുന്നതാണ്!'
-          }
-        };
-        
-        if (translations[key]) {
-          el.textContent = translations[key][lang];
-        }
-      });
-    }
-
-    // Initialize language on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      const savedLang = localStorage.getItem('statuspay247_lang') || 'en';
-      setLanguage(savedLang);
-      
-      // Add event listeners to language buttons
-      document.getElementById('btn-en').addEventListener('click', function() {
-        setLanguage('en');
-      });
-      
-      document.getElementById('btn-ml').addEventListener('click', function() {
-        setLanguage('ml');
-      });
-    });
-
-    // Logout button logic
-    document.getElementById('logoutBtn').onclick = function() {
-      localStorage.removeItem('user');
-      localStorage.removeItem('loggedIn');
-      localStorage.removeItem('loginTime');
-      localStorage.removeItem('userPhone');
-      window.location.href = 'login.html';
-    };
-
-    function showOnboardingScreen(message) {
-      document.getElementById("loading").style.display = "none";
-      document.getElementById("dashboardContent").style.display = "none";
-      document.getElementById("error").style.display = "none";
-      let onboarding = document.getElementById("onboardingScreen");
-      var user = JSON.parse(localStorage.getItem("user"));
-      var name = user && user.name ? user.name : "...";
-      var onboardingUserName = document.getElementById("onboardingUserName");
-      if (onboardingUserName) onboardingUserName.textContent = name;
-      if (!onboarding) {
-        onboarding = document.createElement("div");
-        onboarding.id = "onboardingScreen";
-        onboarding.style.textAlign = "center";
-        onboarding.style.padding = "3rem";
-        onboarding.innerHTML = `
-          <div style="font-size:2.5rem; color:var(--primary-color); margin-bottom:1rem;">
-            <i class="fas fa-user-plus"></i>
-          </div>
-          <h2>Complete Onboarding</h2>
-          <p style="font-size:1.1rem; color:var(--text-light); margin-bottom:2rem;">${message || "Please complete onboarding by uploading your screenshot."}</p>
-          <a href="#uploadSection" class="btn" style="font-size:1.1rem;">
-            <i class="fas fa-upload"></i> Upload Screenshot
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <a
+            href="https://wa.me/919744483058"
+            target="_blank"
+            class="action-btn"
+            data-translate="contact-support"
+          >
+            <i class="fab fa-whatsapp"></i>
+            Contact Support
           </a>
-        `;
-        document.querySelector("main.container").prepend(onboarding);
-      } else {
-        onboarding.style.display = "block";
-      }
-      onboarding.scrollIntoView({ behavior: "smooth" });
-    }
-
-    function hideSpecialScreens() {
-      let onboarding = document.getElementById("onboardingScreen");
-      if (onboarding) onboarding.style.display = "none";
-      let waiting = document.getElementById("waitingScreen");
-      if (waiting) waiting.style.display = "none";
-    }
-
-    function checkOnboardingStatus(phone, callback) {
-      const cbName = 'onboardingStatusCb_' + Date.now();
-      window[cbName] = function(result) {
-        callback(result);
-        // Remove script tag after callback
-        const script = document.getElementById(cbName);
-        if (script) script.remove();
-        delete window[cbName];
-      };
-      // Use a variable for the script URL
-      const scriptURL = "https://script.google.com/macros/s/AKfycbzBHaOZQjCMHy94swo86M_Hb_mFodqt-c5hepUy89RglCGeUbbv_5yf1E8tf3Ebhycd/exec";
-      const url = `${scriptURL}?action=onboardingStatus&phone=${encodeURIComponent(phone)}&callback=${cbName}`;
-      const script = document.createElement('script');
-      script.src = url;
-      script.id = cbName;
-      document.head.appendChild(script);
-    }
-
-    // New: Step-by-step dashboard loader
-    async function loadDashboardSequence(token) {
-      hideSpecialScreens();
-      const loadingDiv = document.getElementById("loading");
-      if (loadingDiv) {
-        loadingDiv.style.display = "block";
-        const user = JSON.parse(localStorage.getItem("user"));
-        const userName = user && user.name ? user.name : "User";
-        const h3 = loadingDiv.querySelector("#loadingMessage");
-        const p = loadingDiv.querySelector("#loadingSubMessage");
-        if (h3) h3.textContent = `Loading your dashboard, ${userName}...`;
-        if (p) p.textContent = "Please wait while we fetch your latest data. This will take approximately 30 seconds.";
-      }
-
-      // Verify token
-      let phone = null;
-      try {
-        const cbName = "verifyTokenCb_" + Date.now();
-        // Use a variable for the script URL
-        const verifyScriptURL = "https://script.google.com/macros/s/AKfycbzBHaOZQjCMHy94swo86M_Hb_mFodqt-c5hepUy89RglCGeUbbv_5yf1E8tf3Ebhycd/exec";
-        const verifyUrl = `${verifyScriptURL}?action=verifyToken&token=${encodeURIComponent(token)}&callback=${cbName}`;
-        phone = await new Promise((resolve, reject) => {
-          window[cbName] = function(result) {
-            if (result === "EXPIRED" || (result && !result.success)) {
-              // Redirect to login page if token is expired or invalid
-              window.location.href = "login.html";
-              return;
-            }
-            if (result && result.success && result.phone) {
-              resolve(result.phone);
-            } else {
-              reject(result && result.message ? result.message : "Token verification failed");
-            }
-            delete window[cbName];
-            const script = document.getElementById(cbName);
-            if (script) script.remove();
-          };
-          const script = document.createElement("script");
-          script.src = verifyUrl;
-          script.id = cbName;
-          document.body.appendChild(script);
-        });
-      } catch (err) {
-        // Redirect to login page if an error occurs
-        window.location.href = "login.html";
-        return;
-      }
-
-      // 2. Check eligibility
-      let eligible = false;
-      try {
-        // Use a variable for the script URL
-        const eligibleScriptURL = "https://script.google.com/macros/s/AKfycbzBHaOZQjCMHy94swo86M_Hb_mFodqt-c5hepUy89RglCGeUbbv_5yf1E8tf3Ebhycd/exec";
-        const eligibleUrl = `${eligibleScriptURL}?action=checkEligibility&phone=${encodeURIComponent(phone)}&callback=checkEligibleCb_${Date.now()}`;
-        eligible = await new Promise((resolve, reject) => {
-          const cbName = "checkEligibleCb_" + Date.now();
-          window[cbName] = function(result) {
-            if (result && result.success) {
-              resolve(result.eligible === true);
-            } else {
-              reject(result && result.message ? result.message : "Eligibility check failed");
-            }
-            delete window[cbName];
-            const script = document.getElementById(cbName);
-            if (script) script.remove();
-          };
-          const script = document.createElement("script");
-          script.src = eligibleUrl.replace(/callback=[^&]+/, "callback=" + cbName);
-          script.id = cbName;
-          document.body.appendChild(script);
-        });
-      } catch (err) {
-        if (loadingDiv) loadingDiv.style.display = "none";
-        document.getElementById("dashboardContent").style.display = "none";
-        document.getElementById("error").style.display = "block";
-        const errorP = document.querySelector("#error p");
-        if (errorP) errorP.textContent = "Failed to check eligibility. Please try again.";
-        return;
-      }
-
-      // 3. Get dashboard data or show onboarding
-      if (!eligible) {
-        showOnboardingScreen("Please complete onboarding by uploading your screenshot.");
-        if (loadingDiv) loadingDiv.style.display = "none";
-        return;
-      }
-
-      try {
-        const dashboardScriptURL = "https://script.google.com/macros/s/AKfycbzBHaOZQjCMHy94swo86M_Hb_mFodqt-c5hepUy89RglCGeUbbv_5yf1E8tf3Ebhycd/exec";
-        const dashboardUrl = `${dashboardScriptURL}?action=getDashboardData&phone=${encodeURIComponent(phone)}&callback=getDashboardCb_${Date.now()}`;
-        await new Promise((resolve, reject) => {
-          const cbName = "getDashboardCb_" + Date.now();
-          window[cbName] = function(result) {
-            try {
-              if (!result.success || !result.data) throw new Error(result.message || "Unknown error");
-              const data = result.data;
-              // --- Print last assigned task details for debugging ---
-              if (data.lastTask !== undefined) {
-                console.log("Last assigned task details:", data.lastTask);
-              } else {
-                console.log("No lastTask field in dashboard data:", data);
-              }
-              // ...existing code...
-              const user = JSON.parse(localStorage.getItem("user"));
-              const setText = (id, value) => {
-                const el = document.getElementById(id);
-                if (el) el.textContent = value;
-              };
-              setText("userNameHeader", (user && user.name) ? user.name : "User");
-              // If dashboard is empty (no earnings yet), show a friendly message in the dashboard
-              if (
-                (!data.name || data.name.trim() === "") &&
-                (!data.totalEarned || data.totalEarned === "0") &&
-                (!data.balance || data.balance === "0")
-              ) {
-                document.getElementById("dashboardContent").style.display = "block";
-                document.getElementById("loading").style.display = "none";
-                const dashboardWelcome = document.querySelector(".dashboard-welcome p");
-                if (dashboardWelcome) {
-                  dashboardWelcome.textContent = result.message || "No earnings yet. Complete your first task to see your dashboard.";
-                }
-                setText("balance", "0.00");
-                setText("totalEarned", "0.00");
-                setText("paid", "0.00");
-                setText("posterId", "...");
-                if (walletBar && walletBarLabel) {
-                  walletBar.style.width = "0%";
-                  walletBarLabel.textContent = "0% of ₹500 threshold";
-                }
-                resolve();
-                return;
-              }
-              // Defensive: Only update elements if they exist
-              setText("balance", data.balance !== undefined ? Number(data.balance).toFixed(2) : "0.00");
-              setText("totalEarned", data.totalEarned !== undefined ? Number(data.totalEarned).toFixed(2) : "0.00");
-              setText("paid", data.paid !== undefined ? Number(data.paid).toFixed(2) : "0.00");
-              setText("posterId", data.posterId || "...");
-              setText("phone", data.phone || "...");
-              setText("profileTasksCompleted", data.tasksCompleted !== undefined ? data.tasksCompleted : 0);
-              setText("lastTask", data.lastTask || "...");              // Update wallet bar and withdrawal button
-              const walletBar = document.getElementById("walletBar");
-              const walletBarLabel = document.getElementById("walletBarLabel");
-              const withdrawBtn = document.getElementById("withdrawBtn");
-              const withdrawIcon = document.getElementById("withdrawLockIcon");
-              
-              if (walletBar && walletBarLabel) {
-                const threshold = 500;
-                const balance = Number(data.balance) || 0;
-                const progress = Math.min((balance / threshold) * 100, 100);
-                walletBar.style.width = progress + "%";
-                walletBarLabel.textContent = `${progress.toFixed(0)}% of ₹${threshold} threshold`;
-                
-                // Update withdrawal button state
-                if (withdrawBtn && withdrawIcon) {
-                  if (balance >= threshold) {
-                    withdrawBtn.disabled = false;
-                    withdrawBtn.style.background = "var(--primary-color)";
-                    withdrawIcon.className = "fas fa-unlock";
-                    withdrawBtn.innerHTML = '<i class="fas fa-unlock"></i> Withdraw';
-                  } else {
-                    withdrawBtn.disabled = true;
-                    withdrawBtn.style.background = "#ccc";
-                    withdrawIcon.className = "fas fa-lock";
-                    withdrawBtn.innerHTML = '<i class="fas fa-lock"></i> Withdraw';
-                  }
-                }
-              }
-              document.getElementById("dashboardContent").style.display = "block";
-              document.getElementById("loading").style.display = "none";
-                // After fetching dashboard data and before resolve();
-              setText("lastTask", data.lastTask || "...");
-              // Parse and display recent completed tasks
-              const lastTaskDisplay = document.getElementById("lastTaskDisplay");
-              if (lastTaskDisplay) {
-                let formattedHTML = "";
-                if (data.lastTask && typeof data.lastTask === "string" && data.lastTask.trim()) {
-                  // Handle multiple tasks format: "1. AD001 - Niva Daily (2025-06-24), 2. AD005 - (2025-06-24), 3. AD004 - food (2025-06-24)"
-                  if (data.lastTask.includes(",") && data.lastTask.includes(".")) {
-                    // Split by comma and parse each task
-                    const tasks = data.lastTask.split(",").map(task => task.trim());
-                    const taskItems = tasks.map(task => {
-                      // Parse pattern: "1. AD001 - Niva Daily (2025-06-24)"
-                      const match = task.match(/^(\d+)\.\s*([A-Z0-9]+)\s*-\s*(.*?)\s*\((.*?)\)$/);
-                      if (match) {
-                        const order = match[1];
-                        const adId = match[2];
-                        const name = match[3] || "Untitled";
-                        const date = match[4];
-                        return `
-                          <div style="font-size:0.93rem;color:#334155;background:#f3f4f6;padding:0.6em 0.9em;border-radius:8px;border-left:3px solid var(--primary-color);display:flex;justify-content:space-between;align-items:center;">
-                            <div>
-                              <span style="font-weight:600;color:var(--primary-color);margin-right:0.5em;">${order}.</span>
-                              <span style="font-weight:600;color:#1f2937;">${adId}</span>
-                              ${name ? `<span style="margin-left:0.5em;color:#6b7280;">- ${name}</span>` : ''}
-                            </div>
-                            <span style="color:#9ca3af;font-size:0.85rem;">${date}</span>
-                          </div>
-                        `;
-                      }
-                      return null;
-                    }).filter(Boolean);
-                    
-                    if (taskItems.length > 0) {
-                      formattedHTML = taskItems.join("");
-                    } else {
-                      formattedHTML = `<div style="font-size:0.93rem;color:#6b7280;background:#f3f4f6;padding:0.6em 0.9em;border-radius:8px;text-align:center;">No recent tasks found</div>`;
-                    }
-                  } else {
-                    // Handle single task format: "1. dummy (2025-06-23)"
-                    const match = data.lastTask.match(/^(\d+)\.\s*(.*?)\s*\((.*?)\)$/);
-                    if (match) {
-                      const order = match[1];
-                      const name = match[2];
-                      const date = match[3];
-                      formattedHTML = `
-                        <div style="font-size:0.93rem;color:#334155;background:#f3f4f6;padding:0.6em 0.9em;border-radius:8px;border-left:3px solid var(--primary-color);display:flex;justify-content:space-between;align-items:center;">
-                          <div>
-                            <span style="font-weight:600;color:var(--primary-color);margin-right:0.5em;">${order}.</span>
-                            <span style="font-weight:600;color:#1f2937;">${name}</span>
-                          </div>
-                          <span style="color:#9ca3af;font-size:0.85rem;">${date}</span>
-                        </div>
-                      `;
-                    } else {
-                      formattedHTML = `<div style="font-size:0.93rem;color:#6b7280;background:#f3f4f6;padding:0.6em 0.9em;border-radius:8px;text-align:center;">${data.lastTask}</div>`;
-                    }
-                  }
-                } else {
-                  formattedHTML = `<div style="font-size:0.93rem;color:#6b7280;background:#f3f4f6;padding:0.6em 0.9em;border-radius:8px;text-align:center;">No recent tasks found</div>`;
-                }
-                lastTaskDisplay.innerHTML = formattedHTML;
-              }
-              
-              resolve();
-            } catch (error) {
-              document.getElementById("dashboardContent").style.display = "none";
-              document.getElementById("loading").style.display = "none";
-              document.getElementById("error").style.display = "block";
-              var errorP = document.querySelector("#error p");
-              if (errorP) errorP.textContent = "Failed to load dashboard data. Please try again later.";
-              reject(error);
-            }
-        delete window[cbName];
-        const script = document.getElementById(cbName);
-        if (script) script.remove();
-      };
-      const script = document.createElement("script");
-      script.src = dashboardUrl.replace(/callback=[^&]+/, "callback=" + cbName);
-      script.id = cbName;
-      document.body.appendChild(script);
-    });
-  } catch (err) {
-    document.getElementById("dashboardContent").style.display = "none";
-    document.getElementById("loading").style.display = "none";
-    document.getElementById("error").style.display = "block";
-    var errorP = document.querySelector("#error p");
-    if (errorP) errorP.textContent = "Failed to load dashboard data. Please try again later.";
-    return;
-  }
-}
-
-// Initial load: use the new sequence loader
-document.addEventListener("DOMContentLoaded", function() {
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  // Always set the user's name in the welcome header immediately
-  const userNameEl = document.getElementById("userName");
-   if (userNameEl && user && user.name) {
-    userNameEl.textContent = user.name;
-  }
-
-  if (user && user.token) {
-    loadDashboardSequence(user.token);
-  } else {
-    document.getElementById("loading").style.display = "none";
-    document.getElementById("error").style.display = "block";
-    var errorP = document.querySelector("#error p");
-    if (errorP) {
-      errorP.textContent = "Failed to load dashboard data. Please try again later.";
-    }
-  }
-});
-
-// Onboarding copy button logic
-document.addEventListener("DOMContentLoaded", function() {
-  var copyBtn = document.getElementById("copyAdTextBtn");
-  var adText = document.getElementById("onboardingAdText");
-  if (copyBtn && adText) {
-    copyBtn.onclick = function() {
-      adText.select();
-      adText.setSelectionRange(0, 99999); // For mobile
-      document.execCommand("copy");
-      copyBtn.textContent = "Copied!";
-      setTimeout(function() {
-        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Text';
-      }, 1500);
-    };
-  }
-});
-
-// Updated onboarding screenshot upload logic (using iframe like dashboard)
-document.addEventListener("DOMContentLoaded", function() {
-  var form = document.getElementById("onboardingScreenshotForm");
-  var fileInput = document.getElementById("onboardingScreenshotFile");
-  var statusDiv = document.getElementById("onboardingScreenshotStatus");
-
-  if (form && fileInput && statusDiv) {
-    form.addEventListener("submit", async function(e) {
-      e.preventDefault();
-
-      statusDiv.style.color = "var(--primary-color)";
-      statusDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Reading file...';
-
-      if (!fileInput.files.length) {
-        statusDiv.textContent = "Please select a screenshot to upload.";
-        statusDiv.style.color = "#e74c3c";
-        return;
-      }
-      var file = fileInput.files[0];
-      var allowedTypes = ["image/jpeg", "image/png", "image/gif"];
-      if (allowedTypes.indexOf(file.type) === -1) {
-        statusDiv.textContent = "Only JPG, PNG, or GIF images are allowed.";
-        statusDiv.style.color = "#e74c3c";
-        return;
-      }
-      if (file.size > 5 * 1024 * 1024) {
-        statusDiv.textContent = "File size exceeds 5MB limit.";
-        statusDiv.style.color = "#e74c3c";
-        return;
-      }
-
-      // Always get phone from localStorage at submit time
-      var user = null;
-      try {
-        user = JSON.parse(localStorage.getItem("user"));
-      } catch (err) {
-        user = null;
-      }
-      var phone = user && user.phone ? user.phone : "";
-      if (!phone) {
-        statusDiv.textContent = "Could not determine your phone number. Please log in again.";
-        statusDiv.style.color = "#e74c3c";
-        return;
-      }
-
-      try {
-        // Use the same handleScreenshotUpload function as dashboard
-        await handleScreenshotUpload(file, phone, statusDiv);
-      } catch (err) {
-        // Error already handled in handleScreenshotUpload
-      }
-    });
-  }
-});
-
-function readFileAsBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = () => reject(new Error('Failed to read file'));
-    reader.readAsDataURL(file);
-  });
-}
-
-function getTimestampString() {
-  const now = new Date();
-  const yyyy = now.getFullYear();
-  const mm = String(now.getMonth() + 1).padStart(2, '0');
-  const dd = String(now.getDate()).padStart(2, '0');
-  const hh = String(now.getHours()).padStart(2, '0');
-  const min = String(now.getMinutes()).padStart(2, '0');
-  const ss = String(now.getSeconds()).padStart(2, '0');
-  return `${yyyy}${mm}${dd}T${hh}${min}${ss}`;
-}
-
-// Screenshot upload handler
-async function handleScreenshotUpload(file, phone, statusElement) {
-  try {
-    if (!file) throw new Error("Please select a screenshot to upload.");
-    if (!["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
-      throw new Error("Only JPG, PNG, or GIF images are allowed.");
-    }
-    if (file.size > 5 * 1024 * 1024) throw new Error("File size exceeds 5MB limit.");
-
-    statusElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
-    statusElement.style.color = "var(--primary-color)";
-
-    const base64Data = await readFileAsBase64(file);
-    const base64Content = base64Data.split(',')[1];
-    const timestamp = getTimestampString();
-    const filename = `${phone.slice(-10)}_${timestamp}.${file.name.split('.').pop() || 'png'}`;
-
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxp23JcJ69LiuJ0ks0M7Z0YLU-OPDpfVWQqDwLCtN2AjDCWhx_mwP52-GnOSfpq764SPQ/exec';
-
-    const response = await fetch(SCRIPT_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: new URLSearchParams({
-        phone: phone,
-        base64Data: base64Content,
-        contentType: file.type,
-        filename: filename
-      })
-    });
-
-    const result = await response.json();
-
-    if (result.success) {
-      statusElement.innerHTML = '<i class="fas fa-check-circle"></i> Screenshot uploaded successfully!';
-      statusElement.style.color = "var(--primary-color)";
-    } else {
-      throw new Error(result.message || "Upload failed");
-    }
-
-    return result;
-  } catch (err) {
-    statusElement.textContent = err.message || "Upload failed";
-    statusElement.style.color = "#e74c3c";
-    throw err;
-  }
-}
-
-// Add event listener for dashboard upload button
-document.addEventListener("DOMContentLoaded", function() {
-  const uploadBtn = document.getElementById("uploadBtn");
-  const fileInput = document.getElementById("uploadFile");
-  const statusDiv = document.getElementById("uploadStatusMessage");
-
-  if (uploadBtn && fileInput) {
-    uploadBtn.addEventListener("click", async function() {
-      if (!fileInput.files.length) {
-        if (statusDiv) {
-          statusDiv.textContent = "Please select a file first";
-          statusDiv.style.color = "#e74c3c";
-        }
-        return;
-      }
-
-      // Get user phone from localStorage
-      const user = JSON.parse(localStorage.getItem("user") || "{}");
-      const phone = user.phone;
-
-      if (!phone) {
-        if (statusDiv) {
-          statusDiv.textContent = "Please log in again";
-          statusDiv.style.color = "#e74c3c";
-        }
-        return;
-      }
-
-      try {
-        await handleScreenshotUpload(fileInput.files[0], phone, statusDiv);
-      } catch (err) {
-        if (statusDiv) {
-          statusDiv.textContent = err.message || "Upload failed";
-          statusDiv.style.color = "#e74c3c";
-        }
-      }
-    });
-  }
-});
-
-// Function to load/refresh available tasks
-async function loadAvailableTasks() {
-  const tasksContainer = document.querySelector('.available-tasks-container');
-  if (!tasksContainer) return;
-  
-  tasksContainer.innerHTML = '<div style="padding:2em;text-align:center;"><i class="fas fa-spinner fa-spin"></i> Loading tasks...</div>';
-  
-  try {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    const phone = user.phone;
-    
-    if (!phone) {
-      tasksContainer.innerHTML = '<div style="padding:2em;text-align:center;color:#e74c3c;">Please log in to view tasks.</div>';
-      return;
-    }
-    
-    const resp = await fetch('https://script.google.com/macros/s/AKfycbwbXM1XFhg0k1H2VAnbPScR3h5z6pa_Wx9eLCLfez1iIHvDqnmctVFFAqkGFnXzHFun/exec?action=getTasks&phone=' + encodeURIComponent(phone));
-    const result = await resp.json();
-    
-    if (result.success && result.tasks && result.tasks.length > 0) {
-      // Remove duplicates by adId (keep first occurrence)
-      const seen = new Set();
-      const uniqueTasks = result.tasks.filter(task => {
-        const t = parseTask(task);
-        if (seen.has(t.adId)) return false;
-        seen.add(t.adId);
-        return true;      });
-      tasksContainer.innerHTML = uniqueTasks.map(renderTaskCard).join('');
-      
-      // Also update completed task upload dropdown if it exists
-      if (document.getElementById("completedAdSelect")) {
-        updateCompletedTaskDropdown(uniqueTasks);
-      }
-    } else {
-      tasksContainer.innerHTML = '<div style="padding:2em;text-align:center;">No available tasks right now.</div>';
-      
-      // Clear completed task dropdown if no tasks
-      if (document.getElementById("completedAdSelect")) {
-        const adSelect = document.getElementById("completedAdSelect");
-        const statusDiv = document.getElementById("adSelectionStatus");
-        adSelect.innerHTML = '<option value="">No completed tasks available</option>';
-        if (statusDiv) {
-          statusDiv.textContent = "No tasks available for screenshot upload.";
-          statusDiv.style.color = "#6b7280";
-        }
-      }
-    }
-  } catch (e) {
-    console.error("Error loading tasks:", e);
-    tasksContainer.innerHTML = '<div style="padding:2em;text-align:center;color:#e74c3c;">Failed to load tasks. Please try again.</div>';
-  }
-}
-
-// Load tasks immediately on page load
-document.addEventListener("DOMContentLoaded", async function() {
-  await loadAvailableTasks();
-  
-  // Add event listener for refresh button
-  const refreshBtn = document.querySelector('.refresh-tasks-btn');
-  if (refreshBtn) {
-    refreshBtn.addEventListener('click', async function() {
-      // Show loading state on button
-      const originalHTML = this.innerHTML;
-      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
-      this.disabled = true;
-      
-      try {
-        await loadAvailableTasks();
-        
-        // Show success feedback briefly
-        this.innerHTML = '<i class="fas fa-check"></i> Refreshed';
-        setTimeout(() => {
-          this.innerHTML = originalHTML;
-          this.disabled = false;
-        }, 1000);
-      } catch (error) {
-        // Show error feedback briefly
-        this.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
-        setTimeout(() => {
-          this.innerHTML = originalHTML;
-          this.disabled = false;
-        }, 2000);
-      }
-    });
-  }
-});
-
-// Helper function to download media files
-async function downloadMedia(url, filename, adId) {
-  try {
-    // Show loading state
-    const downloadBtn = document.querySelector(`[data-download-id="${adId}"]`);
-    if (downloadBtn) {
-      const originalText = downloadBtn.innerHTML;
-      downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Downloading...';
-      downloadBtn.disabled = true;
-      
-      // Fetch the file
-      const response = await fetch(url);
-      if (!response.ok) throw new Error('Failed to fetch file');
-      
-      const blob = await response.blob();
-      
-      // Determine file extension from URL or content type
-      let extension = '';
-      const urlExtension = url.split('.').pop().split('?')[0].toLowerCase();
-      if (['jpg', 'jpeg', 'png', 'gif', 'webp', 'mp4', 'webm', 'mov', 'avi'].includes(urlExtension)) {
-        extension = '.' + urlExtension;
-      } else {
-        // Fallback to content type
-        const contentType = response.headers.get('content-type');
-        if (contentType) {
-          if (contentType.includes('image/jpeg')) extension = '.jpg';
-          else if (contentType.includes('image/png')) extension = '.png';
-          else if (contentType.includes('image/gif')) extension = '.gif';
-          else if (contentType.includes('image/webp')) extension = '.webp';
-          else if (contentType.includes('video/mp4')) extension = '.mp4';
-          else if (contentType.includes('video/webm')) extension = '.webm';
-          else if (contentType.includes('video/quicktime')) extension = '.mov';
-        }
-      }
-      
-      // Create download
-      const downloadUrl = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = downloadUrl;
-      a.download = filename + extension;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(downloadUrl);
-      
-      // Reset button
-      downloadBtn.innerHTML = originalText;
-      downloadBtn.disabled = false;
-      
-      // Show success message briefly
-      downloadBtn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
-      setTimeout(() => {
-        downloadBtn.innerHTML = originalText;
-      }, 2000);
-      
-    }
-  } catch (error) {
-    console.error('Download failed:', error);
-    
-    // Reset button and show error
-    const downloadBtn = document.querySelector(`[data-download-id="${adId}"]`);
-    if (downloadBtn) {
-      downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download';
-      downloadBtn.disabled = false;
-      
-      // Show error briefly
-      downloadBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Failed';
-      setTimeout(() => {
-        downloadBtn.innerHTML = '<i class="fas fa-download"></i> Download';
-      }, 2000);
-    }
-    
-    // Fallback: try opening in new tab
-    try {
-      window.open(url, '_blank');
-    } catch (fallbackError) {
-      alert('Download failed. Please try right-clicking the download button and selecting "Save link as..."');
-    }
-  }
-}
-
-// Function to mark a task as posted
-async function markTaskAsPosted(adId, rowNumber, buttonElement) {
-  try {
-    // Show loading state on button
-    const originalHTML = buttonElement.innerHTML;
-    buttonElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Marking...';
-    buttonElement.disabled = true;
-    
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    const phone = user.phone;
-    
-    if (!phone) {
-      throw new Error("Please log in to mark tasks.");
-    }
-    
-    // Make API call to mark task as posted
-    const response = await fetch(`https://script.google.com/macros/s/AKfycbwbXM1XFhg0k1H2VAnbPScR3h5z6pa_Wx9eLCLfez1iIHvDqnmctVFFAqkGFnXzHFun/exec?action=markTaskPosted&phone=${encodeURIComponent(phone)}&adId=${encodeURIComponent(adId)}&rowNumber=${encodeURIComponent(rowNumber)}`);
-    
-    const result = await response.json();
-    
-    if (result.success) {
-      // Show success feedback
-      buttonElement.innerHTML = '<i class="fas fa-check"></i> Posted!';
-      buttonElement.style.background = '#27ae60';
-      
-      // Remove the task card from the UI after a short delay
-      setTimeout(() => {
-        const taskCard = buttonElement.closest('.task-item');
-        if (taskCard) {
-          taskCard.style.transition = 'opacity 0.3s ease';
-          taskCard.style.opacity = '0';
-          setTimeout(() => {
-            taskCard.remove();
-            
-            // Check if there are any tasks left
-            const tasksContainer = document.querySelector('.available-tasks-container');
-            const remainingTasks = tasksContainer.querySelectorAll('.task-item');
-            if (remainingTasks.length === 0) {
-              tasksContainer.innerHTML = '<div style="padding:2em;text-align:center;">No available tasks right now.</div>';
-            }
-          }, 300);
-        }
-      }, 1500);
-      
-    } else {
-      throw new Error(result.message || "Failed to mark task as posted");
-    }
-    
-  } catch (error) {
-    console.error("Error marking task as posted:", error);
-    
-    // Show error feedback
-    buttonElement.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error';
-    buttonElement.style.background = '#e74c3c';
-    
-    // Reset button after delay
-    setTimeout(() => {
-      buttonElement.innerHTML = 'Mark as Posted';
-      buttonElement.style.background = '';
-      buttonElement.disabled = false;
-    }, 2000);
-  }
-}
-
-// Helper: Parse task string if needed
-function parseTask(task) {
-  // If mediaType is empty and caption contains '|||', parse it
-  if ((!task.mediaType || !task.mediaType.trim()) && typeof task.caption === "string" && task.caption.includes("|||")) {
-    const parts = task.caption.split("|||").map(s => s.trim());
-    // [adId, title, caption, mediaType, mediaUrl]
-    return {
-      adId: parts[0] || task.adId || "",
-      title: parts[1] || "",
-      caption: parts[2] || "",
-      mediaType: (parts[3] || "").trim(),
-      mediaUrl: (parts[4] || "").trim(),
-      rowNumber: task.rowNumber
-    };
-  }
-  // Already parsed
-  return {
-    adId: task.adId,
-    title: task.title || "",
-    caption: task.caption,
-    mediaType: task.mediaType,
-    mediaUrl: task.mediaUrl,
-    rowNumber: task.rowNumber
-  };
-}
-
-function renderTaskCard(task) {
-  const t = parseTask(task);
-  let html = '';
-  // Redesigned task card UI
-  if (t.mediaType === "Image") {
-    html = `
-      <div class="task-item redesigned-task-card">
-        <div class="task-media">
-          <img src="${t.mediaUrl}" alt="Task Image" class="task-media-img" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNmM2Y0ZjYiLz48cGF0aCBkPSJNNTAgNDBhMTAgMTAgMCAxIDAgMCAyMCAxMCAxMCAwIDAgMCAwLTIweiIgZmlsbD0iIzljYTNhZiIvPjwvc3ZnPg==';">
-        </div>
-        <div class="task-main">
-          <div class="task-header">
-            <div class="task-title">${t.title ? t.title : "Image Task"} <span class="task-id">#${t.adId}</span></div>
-            <div class="task-type-badge image">Image</div>
-          </div>
-          <div class="task-caption">${t.caption}</div>
-          <div class="task-actions">
-            <button class="btn-primary task-download-btn" data-download-id="${t.adId}" type="button" onclick="downloadMedia('${t.mediaUrl}', '${t.adId}_image', '${t.adId}')"><i class="fas fa-download"></i> Download</button>
-            <button class="btn-secondary task-copy-btn" type="button" onclick="navigator.clipboard.writeText(\`${t.caption.replace(/`/g,"\\`")}\`);this.textContent='Copied!';setTimeout(()=>this.innerHTML='<i class=\\'fas fa-copy\\'></i> Copy Caption',1200);"><i class="fas fa-copy"></i> Copy Caption</button>
-          </div>
-        </div>
-        <div class="task-side">
-          <button class="task-action-btn" type="button" onclick="markTaskAsPosted('${t.adId}',${t.rowNumber},this)">Mark as Posted</button>
+          <a
+            href="terms-and-conditions-for-posters.html"
+            target="_blank"
+            class="action-btn"
+            data-translate="view-terms"
+          >
+            <i class="fas fa-file-contract"></i>
+            View Terms
+          </a>
         </div>
       </div>
-    `;
-  } else if (t.mediaType === "Video") {
-    html = `
-      <div class="task-item redesigned-task-card">
-        <div class="task-media">
-          <video src="${t.mediaUrl}" controls class="task-media-video" preload="metadata"></video>
+    </main>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem">
+      <div
+        class="copyright"
+        style="background-color: #1f2937; color: white; padding: 0"
+      >
+        <p style="margin-top: 1.5rem">
+          &copy; 2025 StatusPay247. All rights reserved.
+        </p>
+        <div class="footer-social" style="margin: 1rem 0 0.5rem 0">
+          <a
+            href="https://x.com/statuspay247"
+            target="_blank"
+            style="color: #fff; margin: 0 0.5em; font-size: 1.3em"
+            aria-label="X.com"
+          >
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+          <a
+            href="https://www.facebook.com/profile.php?id=61576782695560"
+            target="_blank"
+            style="color: #fff; margin: 0 0.5em; font-size: 1.3em"
+            aria-label="Facebook"
+          >
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a
+            href="https://www.instagram.com/statuspay247"
+            target="_blank"
+            style="color: #fff; margin: 0 0.5em; font-size: 1.3em"
+            aria-label="Instagram"
+          >
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a
+            href="https://www.linkedin.com/company/statuspay247"
+            target="_blank"
+            style="color: #fff; margin: 0 0.5em; font-size: 1.3em"
+            aria-label="LinkedIn"
+          >
+            <i class="fab fa-linkedin-in"></i>
+          </a>
         </div>
-        <div class="task-main">
-          <div class="task-header">
-            <div class="task-title">${t.title ? t.title : "Video Task"} <span class="task-id">#${t.adId}</span></div>
-            <div class="task-type-badge video">Video</div>
-          </div>
-          <div class="task-caption">${t.caption}</div>
-          <div class="task-actions">
-            <button class="btn-primary task-download-btn" data-download-id="${t.adId}" type="button" onclick="downloadMedia('${t.mediaUrl}', '${t.adId}_video', '${t.adId}')"><i class="fas fa-download"></i> Download</button>
-            <button class="btn-secondary task-copy-btn" type="button" onclick="navigator.clipboard.writeText(\`${t.caption.replace(/`/g,"\\`")}\`);this.textContent='Copied!';setTimeout(()=>this.innerHTML='<i class=\\'fas fa-copy\\'></i> Copy Caption',1200);"><i class="fas fa-copy"></i> Copy Caption</button>
-          </div>
-        </div>
-        <div class="task-side">
-          <button class="task-action-btn" type="button" onclick="markTaskAsPosted('${t.adId}',${t.rowNumber},this)">Mark as Posted</button>
-        </div>
+        <p class="disclaimer" style="color: #9ca3af">
+          WhatsApp® is a registered trademark of Meta Platforms, Inc. We are not
+          affiliated with or endorsed by WhatsApp® or Meta Platforms, Inc. The
+          services we provide involve direct WhatsApp status marketing using our
+          network of users, and the use of the WhatsApp® logo or name is
+          strictly for illustrative purposes. All rights to WhatsApp® remain the
+          property of Meta Platforms, Inc.
+        </p>
       </div>
-    `;
-  } else if (t.mediaType === "Text" || (!t.mediaType && t.caption)) {
-    html = `
-      <div class="task-item redesigned-task-card">
-        <div class="task-media text">
-          <i class="fas fa-align-left"></i>
-        </div>
-        <div class="task-main">
-          <div class="task-header">
-            <div class="task-title">${t.title ? t.title : "Text Task"} <span class="task-id">#${t.adId}</span></div>
-            <div class="task-type-badge text">Text</div>
-          </div>
-          <div class="task-caption">${t.caption}</div>
-          <div class="task-actions">
-            <button class="btn-secondary task-copy-btn" type="button" onclick="navigator.clipboard.writeText(\`${t.caption.replace(/`/g,"\\`")}\`);this.textContent='Copied!';setTimeout(()=>this.innerHTML='<i class=\\'fas fa-copy\\'></i> Copy Text',1200);"><i class="fas fa-copy"></i> Copy Text</button>
-          </div>
-        </div>
-        <div class="task-side">
-          <button class="task-action-btn" type="button" onclick="markTaskAsPosted('${t.adId}',${t.rowNumber},this)">Mark as Posted</button>
-        </div>
-      </div>
-    `;
-  }
-  return html;
-}
-
-// Add redesigned task card CSS
-const style = document.createElement('style');
-style.innerHTML = `
-  .redesigned-task-card {
-    display: flex;
-    align-items: stretch;
-    gap: 1.5rem;
-    background: #f9fafb;
-    border-radius: 14px;
-    box-shadow: 0 2px 12px rgba(30,151,126,0.07);
-    padding: 1.2rem 1.5rem;
-    margin-bottom: 1.2rem;
-    border: 1.5px solid #e5e7eb;
-    transition: box-shadow 0.2s, border 0.2s;
-  }
-  .redesigned-task-card:hover {
-    box-shadow: 0 6px 24px rgba(30,151,126,0.13);
-    border-color: var(--primary-color);
-  }
-  .redesigned-task-card .task-media {
-    flex: 0 0 110px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 90px;
-    max-width: 120px;
-  }
-  .redesigned-task-card .task-media-img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 1.5px solid #e5e7eb;
-    box-shadow: 0 1px 6px rgba(30,151,126,0.08);
-  }
-  .redesigned-task-card .task-media-video {
-    width: 100px;
-    height: 100px;
-    border-radius: 10px;
-    background: #eee;
-    border: 1.5px solid #e5e7eb;
-  }
-  .redesigned-task-card .task-media.text {
-    font-size: 2.2rem;
-    color: var(--primary-color);
-    background: #e6f7f2;
-    border-radius: 10px;
-    width: 80px;
-    height: 80px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-  }
-  .redesigned-task-card .task-main {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 0;
-  }
-  .redesigned-task-card .task-header {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    margin-bottom: 0.5rem;
-  }
-  .redesigned-task-card .task-title {
-    font-size: 1.08rem;
-    font-weight: 700;
-    color: #17314b;
-    flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .redesigned-task-card .task-id {
-    font-size: 0.92rem;
-    color: #64748b;
-    font-weight: 500;
-    margin-left: 0.5em;
-  }
-  .redesigned-task-card .task-type-badge {
-    font-size: 0.85rem;
-    font-weight: 600;
-    border-radius: 8px;
-    padding: 0.18em 0.8em;
-    margin-left: 0.5em;
-    background: #e6f7f2;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-  }
-  .redesigned-task-card .task-type-badge.video {
-    background: #e0f2fe;
-    color: #2563eb;
-    border-color: #2563eb;
-  }
-  .redesigned-task-card .task-type-badge.text {
-    background: #f3e8ff;
-    color: #9333ea;
-    border-color: #9333ea;
-  }
-  .redesigned-task-card .task-caption {
-    font-size: 0.98rem;
-    color: #334155;
-    margin-bottom: 0.7rem;
-    margin-top: 0.2rem;
-    word-break: break-word;
-  }
-  .redesigned-task-card .task-actions {
-    display: flex;
-    gap: 0.7rem;
-    flex-wrap: wrap;
-    margin-bottom: 0.2rem;
-  }
-  .redesigned-task-card .task-download-btn {
-    background: var(--primary-color);
-    color: #fff;
-    border-radius: 7px;
-    padding: 0.45rem 1.1rem;
-    font-size: 0.97rem;
-    border: none;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.4em;
-    box-shadow: 0 1px 4px rgba(30,151,126,0.07);
-    transition: background 0.2s;
-  }
-  .redesigned-task-card .task-download-btn:hover {
-    background: var(--secondary-color);
-  }
-  .redesigned-task-card .task-copy-btn {
-    background: #fff;
-    color: var(--primary-color);
-    border: 1.5px solid var(--primary-color);
-    border-radius: 7px;
-    padding: 0.45rem 1.1rem;
-    font-size: 0.97rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.4em;
-    transition: background 0.2s, color 0.2s;
-  }
-  .redesigned-task-card .task-copy-btn:hover {
-    background: #e6f7f2;
-    color: #17314b;
-  }
-  .redesigned-task-card .task-side {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    min-width: 140px;
-    margin-left: 1.2rem;
-  }
-  .redesigned-task-card .task-action-btn {
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 0.7rem 1.5rem;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 1px 4px rgba(30,151,126,0.08);
-    transition: background 0.2s, transform 0.2s;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .redesigned-task-card .task-action-btn:hover:not(:disabled) {
-    background: var(--secondary-color);
-    transform: translateY(-2px);
-  }
-  .redesigned-task-card .task-action-btn.completed {
-    background: var(--accent-color);
-    cursor: not-allowed;
-  }
-  @media (max-width: 900px) {
-    .redesigned-task-card {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 1rem;
-      padding: 1rem;
-    }
-    .redesigned-task-card .task-side {
-      margin-left: 0;
-      justify-content: flex-start;
-      min-width: 0;
-      margin-top: 0.7rem;
-    }
-    .redesigned-task-card .task-media,
-    .redesigned-task-card .task-media-img,
-    .redesigned-task-card .task-media-video {
-      width: 80px;
-      height: 80px;
-      min-width: 60px;
-      max-width: 90px;
-    }
-  }
-`;
-document.head.appendChild(style);
-
-// Completed Task Upload Functionality
-const COMPLETED_TASK_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxykW-vc-C5e63OltZCeHv3TZWEnqar__WQvaNQHGYp2Xz4IOgCZbeI0p1YZjzc_DM_/exec";
-
-// Store available tasks data globally
-let availableTasksData = [];
-
-// Initialize completed task upload when page loads
-document.addEventListener("DOMContentLoaded", function() {
-  initializeCompletedTaskUpload();
-});
-
-async function initializeCompletedTaskUpload() {
-  try {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    const phone = user.phone;
-    
-    if (!phone) {
-      console.warn("No phone number found for completed task upload");
-      return;
-    }
-    
-    // Load available tasks and populate completed task dropdown
-    await loadAvailableTasksForUpload();
-    setupCompletedTaskEventListeners();
-  } catch (error) {
-    console.error("Error initializing completed task upload:", error);
-  }
-}
-
-async function loadAvailableTasksForUpload() {
-  const adSelect = document.getElementById("completedAdSelect");
-  const statusDiv = document.getElementById("adSelectionStatus");
-  
-  if (!adSelect) return;
-  
-  try {
-    // Show loading state
-    adSelect.innerHTML = '<option value="">Loading available tasks...</option>';
-    
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    const phone = user.phone;
-    
-    if (!phone) {
-      throw new Error("Please log in to view tasks");
-    }
-    
-    // Fetch available tasks from the same API used by main dashboard
-    const resp = await fetch('https://script.google.com/macros/s/AKfycbwbXM1XFhg0k1H2VAnbPScR3h5z6pa_Wx9eLCLfez1iIHvDqnmctVFFAqkGFnXzHFun/exec?action=getTasks&phone=' + encodeURIComponent(phone));
-    const result = await resp.json();
-    
-    if (result.success && result.tasks && result.tasks.length > 0) {
-      // Store the tasks data globally
-      availableTasksData = result.tasks;
-      
-      // Remove duplicates by adId (keep first occurrence)
-      const seen = new Set();
-      const uniqueTasks = result.tasks.filter(task => {
-        const t = parseTask(task);
-        if (seen.has(t.adId)) return false;
-        seen.add(t.adId);
-        return true;
-      });
-      
-      if (uniqueTasks.length === 0) {
-        adSelect.innerHTML = '<option value="">No completed tasks available</option>';
-        statusDiv.textContent = "No tasks available for screenshot upload.";
-        statusDiv.style.color = "#6b7280";
-      } else {
-        let optionsHTML = '<option value="">Select a completed task...</option>';
-        
-        uniqueTasks.forEach(task => {
-          const t = parseTask(task);
-          // For completed tasks, we assume all tasks in the API are available for screenshot upload
-          optionsHTML += `<option value="${t.adId}">${t.adId}${t.title ? ` - ${t.title}` : ''}</option>`;
-        });
-        
-        adSelect.innerHTML = optionsHTML;
-        statusDiv.textContent = `${uniqueTasks.length} task(s) available for screenshot upload.`;
-        statusDiv.style.color = "#1e977e";
-      }
-    } else {
-      adSelect.innerHTML = '<option value="">No completed tasks available</option>';
-      statusDiv.textContent = "No tasks available for screenshot upload.";
-      statusDiv.style.color = "#6b7280";
-    }
-  } catch (error) {
-    console.error("Error loading available tasks for upload:", error);
-    adSelect.innerHTML = '<option value="">Error loading tasks</option>';
-    statusDiv.textContent = "Failed to load available tasks. Please try again.";
-    statusDiv.style.color = "#ef4444";
-  }
-}
-
-function setupCompletedTaskEventListeners() {
-  const adSelect = document.getElementById("completedAdSelect");
-  const uploadStep = document.getElementById("screenshotUploadStep");
-  const uploadBtn = document.getElementById("completedTaskUploadBtn");
-  const cancelBtn = document.getElementById("completedTaskCancelBtn");
-  const fileInput = document.getElementById("completedTaskFile");
-  
-  // Handle Ad ID selection
-  if (adSelect) {
-    adSelect.addEventListener("change", function() {
-      if (this.value && !this.selectedOptions[0].disabled) {
-        uploadStep.style.display = "block";
-      } else {
-        uploadStep.style.display = "none";
-        fileInput.value = "";
-      }
-    });
-  }
-  
-  // Handle upload button
-  if (uploadBtn) {
-    uploadBtn.addEventListener("click", handleCompletedTaskUpload);
-  }
-  
-  // Handle cancel button
-  if (cancelBtn) {
-    cancelBtn.addEventListener("click", function() {
-      const adSelect = document.getElementById("completedAdSelect");
-      const uploadStep = document.getElementById("screenshotUploadStep");
-      const fileInput = document.getElementById("completedTaskFile");
-      
-      adSelect.value = "";
-      uploadStep.style.display = "none";
-      fileInput.value = "";
-      updateCompletedTaskStatus("", "");
-    });
-  }
-}
-
-async function handleCompletedTaskUpload() {
-  const adSelect = document.getElementById("completedAdSelect");
-  const fileInput = document.getElementById("completedTaskFile");
-  const uploadBtn = document.getElementById("completedTaskUploadBtn");
-  
-  const selectedAdId = adSelect.value;
-  const file = fileInput.files[0];
-  
-  if (!selectedAdId) {
-    updateCompletedTaskStatus("Please select a completed task.", "error");
-    return;
-  }
-  
-  if (!file) {
-    updateCompletedTaskStatus("Please select a screenshot file.", "error");
-    return;
-  }
-  
-  // Validate file type
-  if (!file.type.startsWith('image/')) {
-    updateCompletedTaskStatus("Please select a valid image file.", "error");
-    return;
-  }
-  
-  // Validate file size (5MB limit like the working onboarding upload)
-  if (file.size > 5 * 1024 * 1024) {
-    const fileSizeMB = (file.size / 1024 / 1024).toFixed(1);
-    updateCompletedTaskStatus(`File too large (${fileSizeMB}MB). Maximum size is 5MB. Please compress your image.`, "error");
-    return;
-  }
-  
-  try {
-    // Show uploading state
-    const originalText = uploadBtn.innerHTML;
-    uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
-    uploadBtn.disabled = true;
-    
-    updateCompletedTaskStatus("Uploading screenshot...", "info");
-    
-    // Get user phone
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    const phone = user.phone;
-    
-    if (!phone) {
-      throw new Error("Please log in to upload screenshots.");
-    }
-
-    // Use the same upload method as the working onboarding upload
-    await handleCompletedTaskScreenshotUpload(file, phone, selectedAdId, updateCompletedTaskStatus);
-    
-  } catch (error) {
-    console.error("Upload error:", error);
-    updateCompletedTaskStatus(`Upload failed: ${error.message}`, "error");
-  } finally {
-    // Reset button
-    uploadBtn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> <span data-translate="upload-btn">Upload</span>';
-    uploadBtn.disabled = false;
-  }
-}
-
-// New function based on the working handleScreenshotUpload but for completed tasks
-async function handleCompletedTaskScreenshotUpload(file, phone, adId, statusCallback) {
-  try {
-    if (!file) throw new Error("Please select a screenshot to upload.");
-    if (!["image/jpeg", "image/png", "image/gif"].includes(file.type)) {
-      throw new Error("Only JPG, PNG, or GIF images are allowed.");
-    }
-    if (file.size > 5 * 1024 * 1024) throw new Error("File size exceeds 5MB limit.");
-
-    statusCallback("Uploading screenshot...", "info");
-
-    const base64Data = await readFileAsBase64(file);
-    const base64Content = base64Data.split(',')[1];
-    const timestamp = getTimestampString();
-    const filename = `completed_task_${adId}_${phone.slice(-10)}_${timestamp}.${file.name.split('.').pop() || 'png'}`;
-
-    // Use the same approach as the working onboarding upload but with additional parameters
-    const response = await fetch(COMPLETED_TASK_SCRIPT_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: new URLSearchParams({
-        phone: phone,
-        adId: adId,
-        base64Data: base64Content,
-        contentType: file.type,
-        filename: filename
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const result = await response.json();
-
-    if (result.success) {
-      statusCallback("Screenshot uploaded successfully!", "success");
-      
-      // Reset form
-      const adSelect = document.getElementById("completedAdSelect");
-      const fileInput = document.getElementById("completedTaskFile");
-      
-      if (adSelect) adSelect.value = "";
-      const uploadStep = document.getElementById("screenshotUploadStep");
-      if (uploadStep) uploadStep.style.display = "none";
-      if (fileInput) fileInput.value = "";
-      
-      // Reload available Ad IDs to reflect the upload
-      setTimeout(() => {
-        loadAvailableTasksForUpload();
-      }, 1000);
-      
-    } else if (result.alreadyUploaded) {
-      statusCallback("You have already uploaded a screenshot for this task. Please wait for verification.", "warning");
-    } else {
-      throw new Error(result.message || "Upload failed");
-    }
-
-    return result;
-  } catch (err) {
-    statusCallback(err.message || "Upload failed", "error");
-    throw err;
-  }
-}
-
-function updateCompletedTaskStatus(message, type) {
-  const statusDiv = document.getElementById("completedTaskUploadStatus");
-  if (!statusDiv) return;
-  
-  statusDiv.textContent = message;
-  
-  // Set color based on type
-  switch (type) {
-    case "success":
-      statusDiv.style.color = "#1e977e";
-      break;
-    case "error":
-      statusDiv.style.color = "#ef4444";
-      break;
-    case "warning":
-      statusDiv.style.color = "#f59e0b";
-      break;
-    case "info":
-      statusDiv.style.color = "#3b82f6";
-      break;
-    default:
-      statusDiv.style.color = "#6b7280";
-  }
-  
-  // Clear message after 5 seconds for non-error messages
-  if (type !== "error") {
-    setTimeout(() => {
-      statusDiv.textContent = "";
-    }, 5000);
-  }
-}
-
-// Helper function to update completed task dropdown when main tasks are refreshed
-function updateCompletedTaskDropdown(tasks) {
-  const adSelect = document.getElementById("completedAdSelect");
-  const statusDiv = document.getElementById("adSelectionStatus");
-  
-  if (!adSelect) return;
-  
-  if (tasks && tasks.length > 0) {
-    let optionsHTML = '<option value="">Select a completed task...</option>';
-    
-    tasks.forEach(task => {
-      const t = parseTask(task);
-      optionsHTML += `<option value="${t.adId}">${t.adId}${t.title ? ` - ${t.title}` : ''}</option>`;
-    });
-    
-    adSelect.innerHTML = optionsHTML;
-    if (statusDiv) {
-      statusDiv.textContent = `${tasks.length} task(s) available for screenshot upload.`;
-      statusDiv.style.color = "#1e977e";
-    }
-  } else {
-    adSelect.innerHTML = '<option value="">No completed tasks available</option>';
-    if (statusDiv) {
-      statusDiv.textContent = "No tasks available for screenshot upload.";
-      statusDiv.style.color = "#6b7280";
-    }
-  }
-}
-
-// ...existing code...
-  </script>
-</body>
+    </footer>
+  </body>
 </html>
